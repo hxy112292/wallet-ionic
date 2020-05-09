@@ -17,4 +17,16 @@ export class ToolPage implements OnInit {
   toHotCoin() {
     this.router.navigate(['tabs/tool/hot-coin']);
   }
+
+  toConcept() {
+    this.router.navigate(['tabs/tool/concept']);
+  }
+
+  toGitDev() {
+    this.router.navigate(['tabs/tool/git-dev']);
+  }
+
+  toTurnOver() {
+    this.router.navigate(['tabs/tool/turnover']);
+  }
 }

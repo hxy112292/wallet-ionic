@@ -21,6 +21,18 @@ const routes: Routes = [
           {
             path: 'hot-coin',
             loadChildren: () => import('../hot-coin/hot-coin.module').then( m => m.HotCoinPageModule)
+          },
+          {
+            path: 'concept',
+            loadChildren: () => import('../concept/concept.module').then( m => m.ConceptPageModule)
+          },
+          {
+            path: 'git-dev',
+            loadChildren: () => import('../git-dev/git-dev.module').then( m => m.GitDevPageModule)
+          },
+          {
+            path: 'turnover',
+            loadChildren: () => import('../turnover/turnover.module').then( m => m.TurnoverPageModule)
           }
         ]
       },

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>热门搜索</ion-title>
+    <ion-title>换手率排行</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list>
-    <div *ngFor="let hotcoin of hotCoinList; let i = index">
+    <div *ngFor="let turnover of turnoverList; let i = index">
       <ion-item>
         <ion-grid>
           <ion-row>
@@ -17,16 +17,16 @@
               {{i+1}}
             </ion-col>
             <ion-col size="1">
-              <ion-img src="{{hotcoin.logo}}" style="max-width: 20px;max-height: 20px"></ion-img>
+              <ion-img src="{{turnover.logo}}" style="max-height: 20px; max-width: 20px"></ion-img>
+            </ion-col>
+            <ion-col size="4">
+              {{turnover.symbol}}
             </ion-col>
             <ion-col size="3">
-              {{hotcoin.name}}
-            </ion-col>
-            <ion-col>
-              {{hotcoin.fullname}}
+              ￥{{turnover.price_cny | number : '.3-3'}}
             </ion-col>
             <ion-col style="text-align: right">
-              <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotcoin.star_level}}"></ionic5-star-rating>
+              {{turnover.turnover_percent | number : '.2-2'}}%
             </ion-col>
           </ion-row>
         </ion-grid>
