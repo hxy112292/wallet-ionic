@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>热门搜索</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let hotcoin of hotCoinList; let i = index">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1">
+              {{i+1}}
+            </ion-col>
+            <ion-col size="3">
+              {{hotcoin.name}}
+            </ion-col>
+            <ion-col>
+              {{hotcoin.fullname}}
+            </ion-col>
+            <ion-col style="text-align: right">
+              <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotcoin.star_level}}"></ionic5-star-rating>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
