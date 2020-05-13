@@ -1,30 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from '../entity/user';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
-import {User} from '../entity/user';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-user-info',
+  templateUrl: './user-info.page.html',
+  styleUrls: ['./user-info.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class UserInfoPage implements OnInit {
 
   user: User;
-  repeatPassword: any;
   showUsernameRule: boolean;
   showPasswordRule: boolean;
-  privacyAgree: boolean;
   alertTitle: string;
   alertMessage: string;
   alertNameMessage: string;
   alertPassMessage: string;
   alertEmailMessage: string;
   alertPhoneMessage: string;
-  alertPrivacyMessage: string;
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
@@ -46,21 +43,19 @@ export class RegisterPage implements OnInit {
     this.alertNameMessage = '';
     this.alertPassMessage = '';
     this.alertPhoneMessage = '';
-    this.alertPrivacyMessage = '';
 
-    this.privacyAgree = false;
   }
 
   ngOnInit() {
+    this.user = this.constant.getUser();
   }
 
-  signup() {
+  update() {
 
     this.UsernameCheck();
     this.PasswordCheck();
     this.EmailCheck();
     this.PhoneCheck();
-    this.PrivacyCheck();
 
     if (this.alertNameMessage !== '' && this.alertNameMessage != null) {
       this.alertMessage += '<br>USERNAME ERROR:<br>';
@@ -78,45 +73,27 @@ export class RegisterPage implements OnInit {
       this.alertMessage += '<br>PHONE ERROR:<br>';
       this.alertMessage += this.alertPhoneMessage;
     }
-    if (this.alertPrivacyMessage !== '' && this.alertPrivacyMessage != null) {
-      this.alertMessage += '<br>PRIVACY ERROR<br>';
-      this.alertMessage += this.alertPrivacyMessage;
-    }
     if (this.alertMessage !== '' && this.alertMessage != null) {
       this.constant.alert(this.alertMessage);
       this.initAllAlert();
       return;
     }
 
-    if (this.constant.getUser() == null || this.constant.getUser().role == null || this.constant.getUser().role === '') {
-      this.http.post(this.constant.baseUrl + '/user/register', this.user).subscribe(res => {
-        if ((res as any).code !== 0) {
-          this.constant.alert((res as any).message);
-          return;
-        }
-        this.constant.setUser((res as any).result);
-        localStorage.setItem('uid', this.constant.getUser().id);
-        this.getToken();
-        this.router.navigate(['/tabs/me']);
-      });
-    } else if (this.constant.getUser().id != null && this.constant. getUser().id !== '' &&
-        this.constant.getUser() != null && this.constant.getUser().role === 'GUEST') {
-      this.constant.getUser().phone = this.user.phone;
-      this.constant.getUser().email = this.user.email;
-      this.constant.getUser().password = this.user.password;
-      this.constant.getUser().username = this.user.username;
-      this.constant.getUser().role = 'USER';
-      this.http.put(this.constant.baseUrl + '/user/update', this.constant.getUser()).subscribe(res => {
-        if ((res as any).code !== 0) {
-          this.constant.alert((res as any).message);
-          return;
-        }
-        this.constant.setUser((res as any).result);
-        localStorage.setItem('uid', this.constant.getUser().id);
-        this.getToken();
-        this.router.navigate(['/tabs/me']);
-      });
-    }
+    this.constant.getUser().phone = this.user.phone;
+    this.constant.getUser().email = this.user.email;
+    this.constant.getUser().password = this.user.password;
+    this.constant.getUser().username = this.user.username;
+    this.constant.getUser().role = 'USER';
+    this.http.put(this.constant.baseUrl + '/user/update', this.constant.getUser()).subscribe(res => {
+      if ((res as any).code !== 0) {
+        this.constant.alert((res as any).message);
+        return;
+      }
+      this.constant.setUser((res as any).result);
+      localStorage.setItem('uid', this.constant.getUser().id);
+      this.getToken();
+      this.router.navigate(['/tabs/me']);
+    });
   }
 
   getToken() {
@@ -139,7 +116,6 @@ export class RegisterPage implements OnInit {
     this.alertNameMessage = '';
     this.alertPassMessage = '';
     this.alertPhoneMessage = '';
-    this.alertPrivacyMessage = '';
   }
 
   UsernameCheck() {
@@ -161,9 +137,6 @@ export class RegisterPage implements OnInit {
     if (this.user.password.length < 6 || this.user.password.length > 20) {
       this.alertPassMessage += '● 密码长度不是6-20字符<br>';
     }
-    if (this.user.password !== this. repeatPassword) {
-      this.alertPassMessage += '● 密码和重复密码不匹配<br>';
-    }
   }
 
   EmailCheck() {
@@ -184,12 +157,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  PrivacyCheck() {
-    if (this.privacyAgree == null || this.privacyAgree === false) {
-      this.alertPrivacyMessage += '● 您未同意协议<br>';
-    }
-  }
-
   UsernameRuleShow() {
     this.showUsernameRule = true;
     this.showPasswordRule = false;
@@ -207,22 +174,15 @@ export class RegisterPage implements OnInit {
 
   showPasswordOrNot() {
     const passwordInput = document.getElementById('password');
-    const repeatPasswordInput = document.getElementById('repeatPassword');
     const passwordEye = document.getElementById('passwordEye');
 
     if (passwordEye.getAttribute('color') === 'medium') {
       passwordInput.setAttribute('type', 'text');
-      repeatPasswordInput.setAttribute('type', 'text');
       passwordEye.setAttribute('color', 'primary');
     } else {
       passwordInput.setAttribute('type', 'password');
-      repeatPasswordInput.setAttribute('type', 'password');
       passwordEye.setAttribute('color', 'medium');
     }
-  }
-
-  toPrivacy() {
-    this.router.navigate(['tabs/me/register-privacy']);
   }
 
 }

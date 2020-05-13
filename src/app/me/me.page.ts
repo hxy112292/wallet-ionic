@@ -26,8 +26,8 @@ export class MePage implements OnInit {
     this.router.navigate(['tabs/me/login']);
   }
 
-  personalInfo() {
-    this.router.navigate(['tabs/me/personal-info']);
+  userInfo() {
+    this.router.navigate(['tabs/me/user-info']);
   }
 
   logout() {

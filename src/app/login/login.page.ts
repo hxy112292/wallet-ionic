@@ -26,11 +26,11 @@ export class LoginPage implements OnInit {
 
   login() {
     if (this.username == null || this.username === '') {
-      this.constant.alert('you must set a username');
+      this.constant.alert('用户名为空');
       return;
     }
     if (this.password == null || this.password === '') {
-      this.constant.alert('you must set a password');
+      this.constant.alert('密码为空');
       return;
     }
     this.http.post(this.constant.baseUrl + '/user/login', {

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>注册</ion-title>
+    <ion-title>用户信息</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -48,11 +48,6 @@
       </ion-grid>
     </div>
     <ion-item (click)="ruleClose()">
-      <!-- <ion-label position="stacked">Repeat Password</ion-label> -->
-      <ion-icon name="key" color="danger" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="repeatPassword" type="password" placeholder="重复密码" id="repeatPassword"></ion-input>
-    </ion-item>
-    <ion-item (click)="ruleClose()">
       <!-- <ion-label position="stacked">Email</ion-label> -->
       <ion-icon name="mail" color="tertiary" slot="start"></ion-icon>
       <ion-input [(ngModel)]="user.email" placeholder="E-mail"></ion-input>
@@ -63,18 +58,7 @@
       <ion-input [(ngModel)]="user.phone" placeholder="电话"></ion-input>
     </ion-item>
   </ion-list>
-  <ion-grid>
-    <ion-row>
-      <ion-col [size]="2" style="text-align: center;align-self:center">
-        <ion-checkbox [(ngModel)]="privacyAgree"></ion-checkbox>
-      </ion-col>
-      <ion-col (click)="toPrivacy()">
-        我同意该用户协议.
-        <ion-text color="primary">协议</ion-text>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
   <div class="ion-text-center">
-    <ion-button (click)="signup()">提交</ion-button>
+    <ion-button (click)="update()">修改</ion-button>
   </div>
 </ion-content>

@@ -50,6 +50,14 @@ const routes: Routes = [
           {
             path: 'register',
             loadChildren: () => import('../register/register.module').then( m => m.RegisterPageModule)
+          },
+          {
+            path: 'register-privacy',
+            loadChildren: () => import('../register-privacy/register-privacy.module').then( m => m.RegisterPrivacyPageModule)
+          },
+          {
+            path: 'user-info',
+            loadChildren: () => import('../user-info/user-info.module').then( m => m.UserInfoPageModule)
           }
         ]
       },
