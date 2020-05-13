@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>个人中心</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <div *ngIf="constant.getUser() == null || constant.getUser().id==null ||
+      constant.getUser().id=='' || constant.getUser().role=='GUEST'">
+      <ion-item (click)="login()">
+        <ion-icon name="person" color="primary"></ion-icon>
+        <ion-label>　登录/注册</ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!='' && constant.getUser().role=='USER'">
+      <ion-item (click)="personalInfo()">
+        <ion-icon name="person" color="primary"></ion-icon>
+        <ion-label>　{{constant.getUser().username}}</ion-label>
+      </ion-item>
+    </div>
+    <ion-item (click)="checkVersion()">
+      <ion-icon name="paper-plane" color="danger"></ion-icon>
+      <ion-label>　版本: {{appVersionNumber}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <br/><br/>
+  <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!='' && constant.getUser().role=='USER'"
+       (click)="logout()" style="text-align: center">
+    <ion-button>登  出</ion-button>
+  </div>
+</ion-content>

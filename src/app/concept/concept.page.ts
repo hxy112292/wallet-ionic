@@ -20,7 +20,7 @@ export class ConceptPage implements OnInit {
   }
 
   getConceptList() {
-    this.http.get(this.constant.baseUrl + '/tool/concept').subscribe(res => {
+    this.http.get(this.constant.baseUrl + '/concept').subscribe(res => {
       this.conceptList = (res as any).data.list;
     });
   }

@@ -20,7 +20,7 @@ export class TurnoverPage implements OnInit {
   }
 
   getTurnOver() {
-    this.http.get(this.constant.baseUrl + '/tool/turnover').subscribe(res => {
+    this.http.get(this.constant.baseUrl + '/turnover').subscribe(res => {
       this.turnoverList = (res as any).data;
     });
   }
