@@ -33,7 +33,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.statusBar.overlaysWebView(false);
-      this.splashScreen.hide();
+      window.setTimeout( function() {
+        this.splashscreen.hide();
+      }, 3000);
       this.initFCM();
       this.getUserInfo();
     });
