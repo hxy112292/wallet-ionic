@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>热门网站</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngFor="let hotWeb of hotWebList; let i = index">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-row>
+            <ion-title style="font-size: large">{{hotWeb.title}}</ion-title>
+            <ion-text style="text-align: right;"(click)="displayIntroduction(hotWeb.id)" id="{{hotWeb.id + 'operation'}}">更多>></ion-text>
+          </ion-row>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" style="display: block;text-align: center">
+              <img src="{{hotWeb.imageUrl}}" style="max-height: 50px; max-width: 50px">
+              <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotWeb.star}}"></ionic5-star-rating>
+            </ion-col>
+            <ion-col>
+              <br>
+              <ion-text color="primary" (click)="openWeb(hotWeb.url)">　{{hotWeb.url}}</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row style="display: none" id="{{hotWeb.id + 'introduction'}}">
+            <ion-text>介绍：{{hotWeb.introduction}}</ion-text>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

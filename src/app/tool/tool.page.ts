@@ -33,4 +33,8 @@ export class ToolPage implements OnInit {
   toMonitor() {
     this.router.navigate(['tabs/tool/monitor-blockchain']);
   }
+
+  toHotWeb() {
+    this.router.navigate(['tabs/tool/hot-web']);
+  }
 }

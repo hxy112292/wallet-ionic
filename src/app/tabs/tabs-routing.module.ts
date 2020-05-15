@@ -41,6 +41,10 @@ const routes: Routes = [
           {
             path: 'tx-detail',
             loadChildren: () => import('../tx-detail/tx-detail.module').then( m => m.TxDetailPageModule)
+          },
+          {
+            path: 'hot-web',
+            loadChildren: () => import('../hot-web/hot-web.module').then( m => m.HotWebPageModule)
           }
         ]
       },
