@@ -49,10 +49,6 @@ const routes: Routes = [
           {
             path: 'blockchain-browser',
             loadChildren: () => import('../blockchain-browser/blockchain-browser.module').then( m => m.BlockchainBrowserPageModule)
-          },
-          {
-            path: 'live-news',
-            loadChildren: () => import('../live-news/live-news.module').then( m => m.LiveNewsPageModule)
           }
         ]
       },
@@ -78,6 +74,15 @@ const routes: Routes = [
           {
             path: 'user-info',
             loadChildren: () => import('../user-info/user-info.module').then( m => m.UserInfoPageModule)
+          }
+        ]
+      },
+      {
+        path: 'live-news',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../live-news/live-news.module').then( m => m.LiveNewsPageModule)
           }
         ]
       },

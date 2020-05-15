@@ -43,6 +43,6 @@ export class ToolPage implements OnInit {
   }
 
   toLiveNews() {
-    this.router.navigate(['tabs/tool/live-news']);
+    this.router.navigate(['tabs/live-news']);
   }
 }
