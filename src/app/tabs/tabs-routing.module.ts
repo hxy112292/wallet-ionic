@@ -49,6 +49,10 @@ const routes: Routes = [
           {
             path: 'blockchain-browser',
             loadChildren: () => import('../blockchain-browser/blockchain-browser.module').then( m => m.BlockchainBrowserPageModule)
+          },
+          {
+            path: 'live-news',
+            loadChildren: () => import('../live-news/live-news.module').then( m => m.LiveNewsPageModule)
           }
         ]
       },

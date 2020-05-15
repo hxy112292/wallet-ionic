@@ -1,0 +1,12 @@
+ion-row {
+  color: black;
+}
+
+.news {
+  display: block;
+  line-height: 1.5em;
+  height: 6em;
+  overflow: hidden;
+  white-space: inherit;
+  text-overflow: ellipsis;
+}

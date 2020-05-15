@@ -41,4 +41,8 @@ export class ToolPage implements OnInit {
   toBlockchainBrowser() {
     this.router.navigate(['tabs/tool/blockchain-browser']);
   }
+
+  toLiveNews() {
+    this.router.navigate(['tabs/tool/live-news']);
+  }
 }
