@@ -37,4 +37,8 @@ export class ToolPage implements OnInit {
   toHotWeb() {
     this.router.navigate(['tabs/tool/hot-web']);
   }
+
+  toBlockchainBrowser() {
+    this.router.navigate(['tabs/tool/blockchain-browser']);
+  }
 }

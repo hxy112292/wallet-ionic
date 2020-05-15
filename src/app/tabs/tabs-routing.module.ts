@@ -45,6 +45,10 @@ const routes: Routes = [
           {
             path: 'hot-web',
             loadChildren: () => import('../hot-web/hot-web.module').then( m => m.HotWebPageModule)
+          },
+          {
+            path: 'blockchain-browser',
+            loadChildren: () => import('../blockchain-browser/blockchain-browser.module').then( m => m.BlockchainBrowserPageModule)
           }
         ]
       },

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>区块链浏览器</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngFor="let browser of browserList; let i = index">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-row>
+            <ion-title style="font-size: large">{{browser.title}}</ion-title>
+          </ion-row>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" style="display: block;text-align: center">
+              <img src="{{browser.imageUrl}}" style="max-height: 70px; max-width: 70px">
+            </ion-col>
+            <ion-col>
+              <ion-text>介绍：{{browser.introduction}}</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-text color="primary" (click)="openWeb(browser.url)">　{{browser.url}}</ion-text>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
