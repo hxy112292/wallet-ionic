@@ -63,7 +63,7 @@ export class AppComponent {
         console.log('Received in foreground');
         console.log(data);
         this.localNotifications.schedule({
-          id: 1,
+          id: data.id,
           title: data.title,
           text: data.body,
           icon: 'res://ic_launcher.png'

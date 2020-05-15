@@ -33,6 +33,14 @@ const routes: Routes = [
           {
             path: 'turnover',
             loadChildren: () => import('../turnover/turnover.module').then( m => m.TurnoverPageModule)
+          },
+          {
+            path: 'monitor-blockchain',
+            loadChildren: () => import('../monitor-blockchain/monitor-blockchain.module').then( m => m.MonitorBlockchainPageModule)
+          },
+          {
+            path: 'tx-detail',
+            loadChildren: () => import('../tx-detail/tx-detail.module').then( m => m.TxDetailPageModule)
           }
         ]
       },

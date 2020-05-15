@@ -29,4 +29,8 @@ export class ToolPage implements OnInit {
   toTurnOver() {
     this.router.navigate(['tabs/tool/turnover']);
   }
+
+  toMonitor() {
+    this.router.navigate(['tabs/tool/monitor-blockchain']);
+  }
 }

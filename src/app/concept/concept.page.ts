@@ -24,4 +24,13 @@ export class ConceptPage implements OnInit {
       this.conceptList = (res as any).data.list;
     });
   }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getConceptList();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 }

@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>交易详情</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-icon name="document" color="danger"></ion-icon>
+        <ion-text>　交易时间：{{txHistory.createTime | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              币种：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              比特币
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>地址类型：</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              {{txHistory.addressTag}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="pricetag" color="tertiary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              金额：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <div *ngIf="txHistory.inOrOut == 'in'">
+              <ion-text>
+                +{{txHistory.amount}} BTC
+              </ion-text>
+            </div>
+            <div *ngIf="txHistory.inOrOut == 'out'">
+              <ion-text>
+                -{{txHistory.amount}} BTC
+              </ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            <div *ngIf="txHistory.inOrOut == 'in'">
+              <ion-text>
+                接收方（监控地址）：
+              </ion-text>
+            </div>
+            <div *ngIf="txHistory.inOrOut == 'out'">
+              <ion-text>
+                发送方（监控地址）：
+              </ion-text>
+            </div>
+          </ion-col>
+          <ion-col>
+            <ion-text color="primary" (click)="openAddress(txHistory.address)">
+              https://www.blockchain.com/btc/address/{{txHistory.address}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="code-working" color="success"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              Hash值：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="primary" (click)="openHash(txHistory.txHash)">
+              https://www.blockchain.com/btc/tx/{{txHistory.txHash}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="dark"></ion-icon>
+          </ion-col>
+          <ion-col size="5">
+            <div *ngIf="txHistory.inOrOut == 'in'">
+              <ion-text>
+                主要发送方：
+              </ion-text>
+            </div>
+            <div *ngIf="txHistory.inOrOut == 'out'">
+              <ion-text>
+                主要接收方：
+              </ion-text>
+            </div>
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <div *ngFor="let txDest of txDestList">
+                  <ion-text>
+                    地址：
+                  </ion-text>
+                  <ion-text color="primary" (click)="openAddress(txDest.address)">
+                    https://www.blockchain.com/btc/address/{{txDest.address}}
+                  </ion-text>
+                  <br>
+                  <ion-text>
+                    金额：{{txDest.amount}} BTC
+                  </ion-text>
+                  <br>
+                </div>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
