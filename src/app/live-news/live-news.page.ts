@@ -40,7 +40,7 @@ export class LiveNewsPage implements OnInit {
 
     if (hideText.style.display === 'none') {
       hideText.style.display = 'block';
-      content.style.maxHeight = '85px';
+      content.style.maxHeight = '100px';
       content.style.overflow = 'hidden';
     } else {
       hideText.style.display = 'none';

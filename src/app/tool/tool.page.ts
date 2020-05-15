@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ConstantService} from '../constant.service';
 
 @Component({
   selector: 'app-tool',
@@ -9,7 +10,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class ToolPage implements OnInit {
 
   constructor(private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private constant: ConstantService) { }
 
   ngOnInit() {
   }
@@ -31,6 +33,11 @@ export class ToolPage implements OnInit {
   }
 
   toMonitor() {
+    if (this.constant.getUser() == null || this.constant.getUser().id == null || this.constant.getUser().id === '') {
+      this.constant.alert('请先登录,才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
     this.router.navigate(['tabs/tool/monitor-blockchain']);
   }
 
