@@ -8,5 +8,74 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4" style="color: grey;font-size: 15px">
+            币种
+          </ion-col>
+          <ion-col size="2" style="color: grey;font-size: 15px">
+            人数
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            提交次数
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            价格($)
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let gitDev of gitDevList; let i = index">
+      <ion-item>
+        <ion-grid>
+          <ion-row style="font-size: small;color: grey">
+            #{{i+1}} {{gitDev.code}}
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-row>
+                <img src="{{gitDev.logo}}" style="max-height: 20px;max-height: 20px">
+                <ion-text>　{{gitDev.symbol}}</ion-text>
+              </ion-row>
+            </ion-col>
+            <ion-col size="2">
+              <div *ngIf="gitDev.people > 1000">
+                {{gitDev.people/10 + 800 | number: '1.0-0'}}
+              </div>
+              <div *ngIf="gitDev.people <= 1000">
+                {{gitDev.people | number}}
+              </div>
+            </ion-col>
+            <ion-col size="3">
+              {{gitDev.allsubmit | number}}
+            </ion-col>
+            <ion-col size="3">
+              ${{gitDev.price | number: '1.2-4'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="9" style="font-size: small;color: grey">
+              <ion-text>最近提交：{{gitDev.updatetime}}</ion-text>
+            </ion-col>
+            <ion-col size="3" style="font-size: small">
+              <div *ngIf="gitDev.changerate>=0">
+                <ion-text style="color: #2dd36f">+{{gitDev.changerate | number: '1.2-2'}}%</ion-text>
+              </div>
+              <div *ngIf="gitDev.changerate<0">
+                <ion-text style="color: red">{{gitDev.changerate | number: '1.2-2'}}%</ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>
