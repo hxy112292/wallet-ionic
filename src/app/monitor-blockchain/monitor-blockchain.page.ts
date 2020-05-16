@@ -15,7 +15,7 @@ export class MonitorBlockchainPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
-              private router: Router,) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.getTxHistory();

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>市值排名</ion-title>
+    <ion-title>板块详情</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -8,12 +8,18 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list lines="full">
     <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col size="6" style="color: grey;font-size: 15px">
-            TOP 100 币种
+            币种
           </ion-col>
           <ion-col size="3" style="color: grey;font-size: 15px">
             价格($)
@@ -24,28 +30,28 @@
         </ion-row>
       </ion-grid>
     </ion-item>
-    <div *ngFor="let listingLatest of listingLatestList">
+    <div *ngFor="let conceptDetail of conceptDetailList;let i = index">
       <ion-item>
         <ion-grid>
           <ion-row style="font-size: small;color: grey">
-            市值#{{listingLatest.rank}} ${{listingLatest.market_value_usd/100000000 | number: '1.2-2'}}亿，{{listingLatest.code}}
+            #{{i+1}} ${{conceptDetail.code}}
           </ion-row>
           <ion-row>
             <ion-col size="6">
               <ion-row>
-                <img src="{{listingLatest.logo}}" style="max-height: 20px;max-height: 20px">
-                <ion-text>　{{listingLatest.name}}</ion-text>
+                <img src="{{conceptDetail.logo}}" style="max-height: 20px;max-height: 20px">
+                <ion-text>　{{conceptDetail.symbol}}</ion-text>
               </ion-row>
             </ion-col>
             <ion-col size="3">
-              ${{listingLatest.current_price_usd | number: '1.2-2'}}
+              ${{conceptDetail.current_price | number: '1.3-4'}}
             </ion-col>
             <ion-col size="3" style="text-align: right">
-              <div *ngIf="listingLatest.change_percent>=0" style="background-color: #2dd36f;text-align: center">
-                <ion-text style="color: white">+{{listingLatest.change_percent | number: '1.2-2'}}%</ion-text>
+              <div *ngIf="conceptDetail.change_percent>=0" style="background-color: #2dd36f;text-align: center">
+                <ion-text style="color: white">+{{conceptDetail.change_percent | number: '1.2-2'}}%</ion-text>
               </div>
-              <div *ngIf="listingLatest.change_percent<0" style="background-color: red;text-align: center">
-                <ion-text style="color: white">{{listingLatest.change_percent | number: '1.2-2'}}%</ion-text>
+              <div *ngIf="conceptDetail.change_percent<0" style="background-color: red;text-align: center">
+                <ion-text style="color: white">{{conceptDetail.change_percent | number: '1.2-2'}}%</ion-text>
               </div>
             </ion-col>
           </ion-row>

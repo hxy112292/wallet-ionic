@@ -53,6 +53,10 @@ const routes: Routes = [
           {
             path: 'listing-latest',
             loadChildren: () => import('../listing-latest/listing-latest.module').then( m => m.ListingLatestPageModule)
+          },
+          {
+            path: 'concept-detail',
+            loadChildren: () => import('../concept-detail/concept-detail.module').then( m => m.ConceptDetailPageModule)
           }
         ]
       },

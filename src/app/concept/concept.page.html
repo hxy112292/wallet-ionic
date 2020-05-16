@@ -31,7 +31,7 @@
       </ion-grid>
     </ion-item>
     <div *ngFor="let concept of conceptList; let i = index">
-      <ion-item>
+      <ion-item (click)="toDetail(concept)">
         <ion-grid>
           <ion-row>
             <ion-col size="6">
@@ -52,11 +52,11 @@
               </ion-row>
             </ion-col>
             <ion-col size="3" style="text-align: center">
-              <div *ngIf="concept.change_week_percent > 0" style="background-color: #2dd36f">
-                <ion-text style="color: white">+{{concept.change_week_percent | number : '.2-2'}}%</ion-text>
+              <div *ngIf="concept.change_percent > 0" style="background-color: #2dd36f">
+                <ion-text style="color: white">+{{concept.change_percent | number : '.2-2'}}%</ion-text>
               </div>
-              <div *ngIf="concept.change_week_percent <= 0" style="background-color: red">
-                <ion-text style="color: white">{{concept.change_week_percent | number : '.2-2'}}%</ion-text>
+              <div *ngIf="concept.change_percent <= 0" style="background-color: red">
+                <ion-text style="color: white">{{concept.change_percent | number : '.2-2'}}%</ion-text>
               </div>
             </ion-col>
           </ion-row>

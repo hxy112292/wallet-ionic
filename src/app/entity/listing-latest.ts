@@ -2,18 +2,14 @@ import {ListingLatestQuote} from './listing-latest-quote';
 
 export class ListingLatest {
 
-    id: string;
     name: string;
-    symbol: string;
-    slug: string;
+    code: string;
+    logo: string;
+    rank: string;
     // tslint:disable-next-line:variable-name
-    max_supply: string;
+    change_percent: string;
     // tslint:disable-next-line:variable-name
-    circulating_supply: string;
+    market_value_usd: string;
     // tslint:disable-next-line:variable-name
-    total_supply: string;
-    platform: string;
-    // tslint:disable-next-line:variable-name
-    cmc_rank: string;
-    quote: ListingLatestQuote;
+    current_price_usd: string;
 }
