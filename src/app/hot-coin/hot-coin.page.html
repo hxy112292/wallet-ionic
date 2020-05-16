@@ -19,7 +19,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="3" style="color: grey;font-size: 15px">
-            TOP20 币种
+            币种
           </ion-col>
           <ion-col size="3" style="color: grey;font-size: 15px">
             价格
@@ -47,7 +47,7 @@
               {{hotcoin.name}}
             </ion-col>
             <ion-col size="3">
-              ${{hotcoin.current_price_usd | number: '1.2-2'}}
+              ${{hotcoin.current_price_usd | number: '1.2-6'}}
             </ion-col>
             <ion-col size="3">
               <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotcoin.star_level}}"></ionic5-star-rating>
