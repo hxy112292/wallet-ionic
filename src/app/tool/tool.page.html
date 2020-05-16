@@ -17,20 +17,20 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
+          <ion-col size="4" (click)="toListingLatest()">
+            <ion-icon name="logo-bitcoin" size="large" color="warning"></ion-icon>
+            <br>
+            <ion-text>市值排名</ion-text>
+          </ion-col>
           <ion-col size="4" (click)="toHotCoin()">
             <ion-icon name="flame" size="large" color="danger"></ion-icon>
             <br>
             <ion-text>热门搜索</ion-text>
           </ion-col>
           <ion-col size="4" (click)="toConcept()">
-            <ion-icon name="keypad" size="large" color="warning"></ion-icon>
+            <ion-icon name="keypad" size="large" color="success"></ion-icon>
             <br>
             <ion-text>板块涨幅</ion-text>
-          </ion-col>
-          <ion-col size="4" (click)="toGitDev()">
-            <ion-icon name="logo-github" size="large" color="black"></ion-icon>
-            <br>
-            <ion-text>开发活跃度</ion-text>
           </ion-col>
         </ion-row>
         <br>
@@ -47,7 +47,7 @@
             <ion-text>换手率</ion-text>
           </ion-col>
           <ion-col size="4" (click)="toHotWeb()">
-            <ion-icon name="globe" size="large" color="success"></ion-icon>
+            <ion-icon name="globe" size="large" color="danger"></ion-icon>
             <br>
             <ion-text>热门网站</ion-text>
           </ion-col>
@@ -69,6 +69,15 @@
             <ion-icon name="newspaper" size="large" color="dark"></ion-icon>
             <br>
             <ion-text>资讯浏览</ion-text>
+          </ion-col>
+        </ion-row>
+        <br>
+        <br>
+        <ion-row>
+          <ion-col size="4" (click)="toGitDev()">
+            <ion-icon name="logo-github" size="large" color="black"></ion-icon>
+            <br>
+            <ion-text>开发活跃度</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>

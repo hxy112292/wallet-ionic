@@ -52,4 +52,8 @@ export class ToolPage implements OnInit {
   toLiveNews() {
     this.router.navigate(['tabs/live-news']);
   }
+
+  toListingLatest() {
+    this.router.navigate(['tabs/tool/listing-latest']);
+  }
 }

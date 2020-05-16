@@ -8,4 +8,8 @@ export class Turnover {
     symbol: string;
     // tslint:disable-next-line:variable-name
     price_cny: string;
+    price: string;
+    // tslint:disable-next-line:variable-name
+    change_rate: string;
+    volume: string;
 }

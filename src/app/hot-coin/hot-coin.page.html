@@ -14,25 +14,51 @@
             refreshingSpinner="circles">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            TOP20 币种
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            价格
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            热度
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            24h涨跌幅
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
     <div *ngFor="let hotcoin of hotCoinList; let i = index">
       <ion-item>
         <ion-grid>
+          <ion-row style="font-size: small;color: grey">
+            #{{i+1}} {{hotcoin.code}}
+          </ion-row>
           <ion-row>
-            <ion-col size="1">
-              {{i+1}}
-            </ion-col>
             <ion-col size="1">
               <ion-img src="{{hotcoin.logo}}" style="max-width: 20px;max-height: 20px"></ion-img>
             </ion-col>
-            <ion-col size="3">
+            <ion-col size="2">
               {{hotcoin.name}}
             </ion-col>
-            <ion-col>
-              {{hotcoin.fullname}}
+            <ion-col size="3">
+              ${{hotcoin.current_price_usd | number: '1.2-2'}}
             </ion-col>
-            <ion-col style="text-align: right">
+            <ion-col size="3">
               <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotcoin.star_level}}"></ionic5-star-rating>
+            </ion-col>
+            <ion-col size="3">
+              <div *ngIf="hotcoin.change_percent>=0" style="background-color: #2dd36f;text-align: center">
+                <ion-text style="color: white">+{{hotcoin.change_percent | number: '1.2-2'}}%</ion-text>
+              </div>
+              <div *ngIf="hotcoin.change_percent<0" style="background-color: red;text-align: center">
+                <ion-text style="color: white">{{hotcoin.change_percent | number: '1.2-2'}}%</ion-text>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>

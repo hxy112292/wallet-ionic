@@ -49,6 +49,10 @@ const routes: Routes = [
           {
             path: 'blockchain-browser',
             loadChildren: () => import('../blockchain-browser/blockchain-browser.module').then( m => m.BlockchainBrowserPageModule)
+          },
+          {
+            path: 'listing-latest',
+            loadChildren: () => import('../listing-latest/listing-latest.module').then( m => m.ListingLatestPageModule)
           }
         ]
       },
