@@ -54,6 +54,6 @@ export class ToolPage implements OnInit {
   }
 
   toListingLatest() {
-    this.router.navigate(['tabs/tool/listing-latest']);
+    this.router.navigate(['tabs/listing-latest']);
   }
 }

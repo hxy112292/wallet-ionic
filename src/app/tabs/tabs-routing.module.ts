@@ -51,10 +51,6 @@ const routes: Routes = [
             loadChildren: () => import('../blockchain-browser/blockchain-browser.module').then( m => m.BlockchainBrowserPageModule)
           },
           {
-            path: 'listing-latest',
-            loadChildren: () => import('../listing-latest/listing-latest.module').then( m => m.ListingLatestPageModule)
-          },
-          {
             path: 'concept-detail',
             loadChildren: () => import('../concept-detail/concept-detail.module').then( m => m.ConceptDetailPageModule)
           }
@@ -91,6 +87,19 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../live-news/live-news.module').then( m => m.LiveNewsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'listing-latest',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../listing-latest/listing-latest.module').then( m => m.ListingLatestPageModule)
+          },
+          {
+            path: 'coin-search',
+            loadChildren: () => import('../coin-search/coin-search.module').then( m => m.CoinSearchPageModule)
           }
         ]
       },
