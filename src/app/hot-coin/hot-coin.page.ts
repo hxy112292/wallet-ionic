@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Hotcoin} from '../entity/hotcoin';
 import {ConstantService} from '../constant.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-hot-coin',
@@ -13,7 +14,8 @@ export class HotCoinPage implements OnInit {
   hotCoinList: Hotcoin[];
 
   constructor(private http: HttpClient,
-              private constant: ConstantService) { }
+              private constant: ConstantService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getHotCoinInfo();
@@ -32,5 +34,9 @@ export class HotCoinPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  toCoinDetail(code) {
+    this.router.navigate(['tabs/tool/coin-detail', {codeInfo: code}] );
   }
 }

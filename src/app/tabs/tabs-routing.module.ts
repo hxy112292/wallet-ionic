@@ -53,6 +53,10 @@ const routes: Routes = [
           {
             path: 'concept-detail',
             loadChildren: () => import('../concept-detail/concept-detail.module').then( m => m.ConceptDetailPageModule)
+          },
+          {
+            path: 'coin-detail',
+            loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
           }
         ]
       },
@@ -100,6 +104,14 @@ const routes: Routes = [
           {
             path: 'coin-search',
             loadChildren: () => import('../coin-search/coin-search.module').then( m => m.CoinSearchPageModule)
+          },
+          {
+            path: 'coin-detail',
+            loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
+          },
+          {
+            path: 'coin-desc',
+            loadChildren: () => import('../coin-desc/coin-desc.module').then( m => m.CoinDescPageModule)
           }
         ]
       },

@@ -31,7 +31,7 @@
       </ion-grid>
     </ion-item>
     <div *ngFor="let conceptDetail of conceptDetailList;let i = index">
-      <ion-item>
+      <ion-item (click)="toCoinDetail(conceptDetail.code)">
         <ion-grid>
           <ion-row style="font-size: small;color: grey">
             #{{i+1}} {{conceptDetail.code}}

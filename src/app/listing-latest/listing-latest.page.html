@@ -29,7 +29,7 @@
       </ion-grid>
     </ion-item>
     <div *ngFor="let listingLatest of listingLatestList">
-      <ion-item>
+      <ion-item (click)="toCoinDetail(listingLatest.code)">
         <ion-grid>
           <ion-row style="font-size: small;color: grey">
             市值#{{listingLatest.rank}} ${{listingLatest.market_value_usd/100000000 | number: '1.2-2'}}亿，{{listingLatest.code}}

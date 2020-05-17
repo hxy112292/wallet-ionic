@@ -40,4 +40,7 @@ export class ListingLatestPage implements OnInit {
     this.router.navigate(['tabs/listing-latest/coin-search']);
   }
 
+  toCoinDetail(code) {
+    this.router.navigate(['tabs/listing-latest/coin-detail', {codeInfo: code}] );
+  }
 }

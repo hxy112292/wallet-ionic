@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {GitDev} from '../entity/git-dev';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-git-dev',
@@ -13,7 +14,8 @@ export class GitDevPage implements OnInit {
   gitDevList: GitDev[];
 
   constructor(private http: HttpClient,
-              private constant: ConstantService) { }
+              private constant: ConstantService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getGitDevInfo();
@@ -34,4 +36,7 @@ export class GitDevPage implements OnInit {
     }, 2000);
   }
 
+  toCoinDetail(code) {
+    this.router.navigate(['tabs/tool/coin-detail', {codeInfo: code}] );
+  }
 }

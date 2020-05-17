@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {Concept} from '../entity/concept';
@@ -17,7 +17,8 @@ export class ConceptDetailPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
-              private constant: ConstantService) { }
+              private constant: ConstantService,
+              private router: Router) { }
 
   ngOnInit() {
     this.concept = JSON.parse(this.route.snapshot.paramMap.get('conceptInfo'));
@@ -41,5 +42,9 @@ export class ConceptDetailPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  toCoinDetail(code) {
+    this.router.navigate(['tabs/tool/coin-detail', {codeInfo: code}] );
   }
 }

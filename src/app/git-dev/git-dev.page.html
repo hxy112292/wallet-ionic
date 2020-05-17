@@ -34,7 +34,7 @@
       </ion-grid>
     </ion-item>
     <div *ngFor="let gitDev of gitDevList; let i = index">
-      <ion-item>
+      <ion-item (click)="toCoinDetail(gitDev.code)">
         <ion-grid>
           <ion-row style="font-size: small;color: grey">
             #{{i+1}} {{gitDev.code}}

@@ -31,7 +31,7 @@
       </ion-grid>
     </ion-item>
     <div *ngFor="let turnover of turnoverList; let i = index">
-      <ion-item>
+      <ion-item (click)="toCoinDetail(turnover.code)">
         <ion-grid>
           <ion-row style="font-size: small; color: grey">
             #{{i+1}} {{turnover.code}}

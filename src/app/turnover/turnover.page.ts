@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {Turnover} from '../entity/turnover';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-turnover',
@@ -13,7 +14,8 @@ export class TurnoverPage implements OnInit {
   turnoverList: Turnover[];
 
   constructor(private http: HttpClient,
-              private constant: ConstantService) { }
+              private constant: ConstantService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getTurnOver();
@@ -34,5 +36,7 @@ export class TurnoverPage implements OnInit {
     }, 2000);
   }
 
-
+  toCoinDetail(code) {
+    this.router.navigate(['tabs/tool/coin-detail', {codeInfo: code}] );
+  }
 }
