@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {CoinDetail} from '../entity/coin-detail';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
+import {ModalController} from '@ionic/angular';
+import {CoinDescPage} from './coin-desc/coin-desc.page';
 
 @Component({
   selector: 'app-coin-detail',
@@ -20,7 +22,8 @@ export class CoinDetailPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private inAppBrowser: InAppBrowser,
-              private constant: ConstantService) {
+              private constant: ConstantService,
+              private modalController: ModalController) {
 
     this.options = {
       location : 'yes',
@@ -88,7 +91,18 @@ export class CoinDetailPage implements OnInit {
     this.inAppBrowser.create(url, target, this.options);
   }
 
-  toCoinDesc() {
-    this.router.navigate(['tabs/listing-latest/coin-desc', {code: this.code, coindesc: this.coinDetail.coindesc}] );
+  async toCoinDesc() {
+    const modal = await this.modalController.create({
+      component: CoinDescPage,
+      componentProps: {
+        code: this.code,
+        coindesc: this.coinDetail.coindesc
+      }
+    });
+    await modal.present();
+    const data = ((await modal.onDidDismiss()) as any).data;
+    if (data != null) {
+
+    }
   }
 }

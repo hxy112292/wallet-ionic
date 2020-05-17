@@ -108,10 +108,6 @@ const routes: Routes = [
           {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
-          },
-          {
-            path: 'coin-desc',
-            loadChildren: () => import('../coin-desc/coin-desc.module').then( m => m.CoinDescPageModule)
           }
         ]
       },

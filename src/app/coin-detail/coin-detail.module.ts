@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CoinDetailPageRoutingModule } from './coin-detail-routing.module';
 
 import { CoinDetailPage } from './coin-detail.page';
+import {CoinDescPageModule} from './coin-desc/coin-desc.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CoinDetailPageRoutingModule
+    CoinDetailPageRoutingModule,
+    CoinDescPageModule
   ],
   declarations: [CoinDetailPage]
 })
