@@ -83,6 +83,7 @@ export class CoinDetailPage implements OnInit {
       this.coinDetail.siteurl = this.coinDetail.siteurl.split('\n')[0];
       this.coinDetail.explorer = this.coinDetail.explorer.split('\n')[0];
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace(/<[^>]*>/g, '');
+      this.coinDetail.coindesc = this.coinDetail.coindesc.replace('*以上内容由非小号官方整理，如若转载，请注明出处。', '');
     });
   }
 
