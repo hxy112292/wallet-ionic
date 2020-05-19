@@ -34,7 +34,7 @@ export class ToolPage implements OnInit {
 
   toMonitor() {
     if (this.constant.getUser() == null || this.constant.getUser().id == null || this.constant.getUser().id === '') {
-      this.constant.alert('请先登录,才能使用该功能');
+      this.constant.alert('请先登录，才能使用该功能');
       this.router.navigate(['tabs/me']);
       return;
     }
@@ -58,6 +58,11 @@ export class ToolPage implements OnInit {
   }
 
   toPriceNotification() {
+    if (this.constant.getUser() == null || this.constant.getUser().id == null || this.constant.getUser().id === '') {
+      this.constant.alert('请先登录，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
     this.router.navigate(['tabs/tool/price-notification']);
   }
 }
