@@ -56,4 +56,8 @@ export class ToolPage implements OnInit {
   toListingLatest() {
     this.router.navigate(['tabs/listing-latest']);
   }
+
+  toPriceNotification() {
+    this.router.navigate(['tabs/tool/price-notification']);
+  }
 }

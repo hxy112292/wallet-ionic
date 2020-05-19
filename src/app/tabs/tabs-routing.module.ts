@@ -57,6 +57,10 @@ const routes: Routes = [
           {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
+          },
+          {
+            path: 'price-notification',
+            loadChildren: () => import('../price-notification/price-notification.module').then( m => m.PriceNotificationPageModule)
           }
         ]
       },
