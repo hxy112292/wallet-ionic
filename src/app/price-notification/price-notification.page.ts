@@ -70,6 +70,7 @@ export class PriceNotificationPage implements OnInit {
     if (data != null) {
 
     }
+    this.doRefresh(null);
   }
 
   async toUpdateMonitorPrice(monitorPrice: MonitorPrice) {
@@ -84,6 +85,7 @@ export class PriceNotificationPage implements OnInit {
     if (data != null) {
 
     }
+    this.doRefresh(null);
   }
 
   deleteMonitorPrice(monitorPrice: MonitorPrice) {
