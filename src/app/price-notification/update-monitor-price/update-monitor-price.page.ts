@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
-import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../constant.service';
 import {MonitorCoin} from '../../entity/monitor-coin';
 import {MonitorPrice} from '../../entity/monitor-price';
+import {ActivatedRoute} from '@angular/router';
+import {ModalController, NavParams} from '@ionic/angular';
+import {HttpClient} from '@angular/common/http';
+import {ConstantService} from '../../constant.service';
 
 @Component({
-  selector: 'app-add-monitor-price',
-  templateUrl: './add-monitor-price.page.html',
-  styleUrls: ['./add-monitor-price.page.scss'],
+  selector: 'app-update-monitor-price',
+  templateUrl: './update-monitor-price.page.html',
+  styleUrls: ['./update-monitor-price.page.scss'],
 })
-export class AddMonitorPricePage implements OnInit {
+export class UpdateMonitorPricePage implements OnInit {
 
   monitorCoinList: MonitorCoin[];
   monitorCoinCode: string;
@@ -40,6 +40,8 @@ export class AddMonitorPricePage implements OnInit {
   }
 
   ngOnInit() {
+    this.monitorPrice = this.navParams.get('monitorPriceInfo');
+    this.monitorPrice.userId = this.constant.getUser().id;
     this.getMonitorCoin();
   }
 
@@ -49,8 +51,8 @@ export class AddMonitorPricePage implements OnInit {
     });
   }
 
-  insertMonitorPrice() {
-    this.http.post(this.constant.baseUrl + '/monitorPrice', this.monitorPrice).subscribe(res => {
+  updateMonitorPrice() {
+    this.http.put(this.constant.baseUrl + '/monitorPrice', this.monitorPrice).subscribe(res => {
       this.monitorCoinList = (res as any).result;
     });
     this.dismiss(null);
@@ -61,4 +63,5 @@ export class AddMonitorPricePage implements OnInit {
 
     });
   }
+
 }

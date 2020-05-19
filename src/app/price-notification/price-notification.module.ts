@@ -8,6 +8,7 @@ import { PriceNotificationPageRoutingModule } from './price-notification-routing
 
 import { PriceNotificationPage } from './price-notification.page';
 import {AddMonitorPricePageModule} from './add-monitor-price/add-monitor-price.module';
+import {UpdateMonitorPricePageModule} from './update-monitor-price/update-monitor-price.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {AddMonitorPricePageModule} from './add-monitor-price/add-monitor-price.m
     FormsModule,
     IonicModule,
     PriceNotificationPageRoutingModule,
-    AddMonitorPricePageModule
+    AddMonitorPricePageModule,
+    UpdateMonitorPricePageModule
   ],
   declarations: [PriceNotificationPage]
 })

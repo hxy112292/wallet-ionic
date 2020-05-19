@@ -7,6 +7,7 @@ export class MonitorPrice {
     downPrice: number;
     upChangePercent: number;
     downChangePercent: number;
+    notification: string;
     voice: string;
     sms: string;
     email: string;

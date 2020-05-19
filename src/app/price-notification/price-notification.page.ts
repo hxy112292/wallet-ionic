@@ -5,6 +5,7 @@ import {MonitorPrice} from '../entity/monitor-price';
 import {CoinDescPage} from '../coin-detail/coin-desc/coin-desc.page';
 import {ModalController} from '@ionic/angular';
 import {AddMonitorPricePage} from './add-monitor-price/add-monitor-price.page';
+import {UpdateMonitorPricePage} from './update-monitor-price/update-monitor-price.page';
 
 @Component({
   selector: 'app-price-notification',
@@ -69,5 +70,26 @@ export class PriceNotificationPage implements OnInit {
     if (data != null) {
 
     }
+  }
+
+  async toUpdateMonitorPrice(monitorPrice: MonitorPrice) {
+    const modal = await this.modalController.create({
+      component: UpdateMonitorPricePage,
+      componentProps: {
+        monitorPriceInfo: monitorPrice
+      }
+    });
+    await modal.present();
+    const data = ((await modal.onDidDismiss()) as any).data;
+    if (data != null) {
+
+    }
+  }
+
+  deleteMonitorPrice(monitorPrice: MonitorPrice) {
+    monitorPrice.notification = 'off';
+    this.http.put(this.constant.baseUrl + '/monitorPrice', monitorPrice).subscribe(res => {
+      this.doRefresh(null);
+    });
   }
 }
