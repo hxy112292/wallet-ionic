@@ -12,24 +12,84 @@ import {AlertController} from '@ionic/angular';
 export class WalletManagePage implements OnInit {
 
   privateKey: PrivateKey;
+  passwordInput: string;
   index: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
-              private alertController: AlertController) { }
+              private alertController: AlertController) {
+
+    this.passwordInput = '';
+  }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.index = Number(this.route.snapshot.paramMap.get('index'));
   }
 
-  exportKey() {
-    this.constant.alert('BTC Key:<br>' + this.privateKey.btcPrivateKey + '<br><br>ETH Key:<br>' + this.privateKey.ethPrivateKey);
+  async exportKey() {
+    const alert = await this.alertController.create({
+      header: '导出密钥',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '请输入密码'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: '确定',
+          handler: (alertData) => {
+            if (alertData.password !== this.privateKey.password) {
+              this.constant.alert('密码错误！');
+            } else {
+              this.constant.alert('BTC Key:<br>' + this.privateKey.btcPrivateKey + '<br><br>ETH Key:<br>' + this.privateKey.ethPrivateKey);
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
-  exportMnemonic() {
-    this.constant.alert('助记词：<br>' + this.privateKey.mnemonic);
+  async exportMnemonic() {
+    const alert = await this.alertController.create({
+      header: '导出助记词',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '请输入密码'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: '确定',
+          handler: (alertData) => {
+            if (alertData.password !== this.privateKey.password) {
+              this.constant.alert('密码错误！');
+            } else {
+              this.constant.alert('助记词：<br>' + this.privateKey.mnemonic);
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   async deleteWallet() {

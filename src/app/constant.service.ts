@@ -47,10 +47,10 @@ export class ConstantService {
 
   async alert(text: string) {
     const alert = await this.alertController.create({
-      header: 'Alert',
+      header: '提醒',
       // subHeader: subtitle,
       message: text,
-      buttons: ['OK']
+      buttons: ['确定']
     });
 
     await alert.present();

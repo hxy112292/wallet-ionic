@@ -17,6 +17,7 @@ import {ConstantService} from '../constant.service';
 export class WalletAddPage implements OnInit {
 
   privateKey: PrivateKey;
+  repeatPassword: string;
 
   constructor(private alertController: AlertController,
               private route: ActivatedRoute,
@@ -27,7 +28,8 @@ export class WalletAddPage implements OnInit {
       btcAddress: '',
       btcPrivateKey: '',
       ethAddress: '',
-      ethPrivateKey: ''
+      ethPrivateKey: '',
+      password: '',
     };
   }
 
@@ -35,10 +37,6 @@ export class WalletAddPage implements OnInit {
     this.privateKey.mnemonic = this.route.snapshot.paramMap.get('mnemonicInfo');
     this.generateBTCWallet();
     this.generateETHWallet();
-    this.constant.privateKeyList[this.constant.privateKeyListLength] = this.privateKey;
-    localStorage.setItem('privateKeyList', JSON.stringify(this.constant.privateKeyList));
-    this.constant.privateKeyListLength = this.constant.privateKeyListLength + 1;
-    localStorage.setItem('privateKeyListLength', this.constant.privateKeyListLength.toString());
   }
 
   generateBTCWallet() {
@@ -65,6 +63,26 @@ export class WalletAddPage implements OnInit {
   }
 
   toWallet() {
+    this.constant.privateKeyList[this.constant.privateKeyListLength] = this.privateKey;
+    localStorage.setItem('privateKeyList', JSON.stringify(this.constant.privateKeyList));
+    this.constant.privateKeyListLength = this.constant.privateKeyListLength + 1;
+    localStorage.setItem('privateKeyListLength', this.constant.privateKeyListLength.toString());
     this.router.navigate(['tabs/wallet']);
+  }
+
+  showPasswordOrNot() {
+    const passwordInput = document.getElementById('password');
+    const repeatPasswordInput = document.getElementById('repeatPassword');
+    const passwordEye = document.getElementById('passwordEye');
+
+    if (passwordEye.getAttribute('color') === 'medium') {
+      passwordInput.setAttribute('type', 'text');
+      repeatPasswordInput.setAttribute('type', 'text');
+      passwordEye.setAttribute('color', 'primary');
+    } else {
+      passwordInput.setAttribute('type', 'password');
+      repeatPasswordInput.setAttribute('type', 'password');
+      passwordEye.setAttribute('color', 'medium');
+    }
   }
 }

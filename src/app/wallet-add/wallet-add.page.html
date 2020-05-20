@@ -5,58 +5,69 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card style="background-color: #FF9E02">
     <ion-card-header>
       <ion-card-subtitle>
         <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
              style="max-width: 20px;max-height: 20px">
-        <ion-text style="font-size: medium">　比特币钱包</ion-text>
+        <ion-text style="font-size: medium;font-weight: bolder;color: white">　BTC-WALLET</ion-text>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-text style="color: grey">
+      <ion-text style="color: white">
         地址：
       </ion-text>
       <br>
-      <ion-text style="color: black">
+      <ion-text style="color: white">
         {{privateKey.btcAddress}}
       </ion-text>
       <br>
-      <ion-text style="color: grey">
+      <ion-text style="color: white">
         私钥：
       </ion-text>
       <br>
-      <ion-text style="color: black">
+      <ion-text style="color: white">
         {{privateKey.btcPrivateKey}}
       </ion-text>
     </ion-card-content>
   </ion-card>
-  <ion-card>
+  <ion-card style="background-color: #0892C1">
     <ion-card-header>
       <ion-card-subtitle>
         <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
              style="max-width: 20px;max-height: 20px">
-        <ion-text style="font-size: medium">　ETH钱包</ion-text>
+        <ion-text style="font-size: medium;font-weight: bolder;color: white">　ETH-WALLET</ion-text>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-text style="color: grey">
+      <ion-text style="color: white">
         地址：
       </ion-text>
       <br>
-      <ion-text style="color: black">
+      <ion-text style="color: white">
         {{privateKey.ethAddress}}
       </ion-text>
       <br>
-      <ion-text style="color: grey">
+      <ion-text style="color: white">
         私钥：
       </ion-text>
       <br>
-      <ion-text style="color: black">
+      <ion-text style="color: white">
         {{privateKey.ethPrivateKey}}
       </ion-text>
     </ion-card-content>
   </ion-card>
+  <ion-list>
+    <ion-item>
+      <ion-icon name="key" slot="start"></ion-icon>
+      <ion-input type="password" [(ngModel)]="privateKey.password" placeholder="请输入钱包密码" id="password"></ion-input>
+      <ion-icon name="eye" color="medium" (click)="showPasswordOrNot()" id="passwordEye"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="key" slot="start"></ion-icon>
+      <ion-input type="password" [(ngModel)]="repeatPassword" placeholder="重复密码" id="repeatPassword"></ion-input>
+    </ion-item>
+  </ion-list>
   <div style="text-align: center">
     <ion-button size="large" (click)="toWallet()">确定</ion-button>
   </div>
