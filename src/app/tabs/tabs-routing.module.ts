@@ -27,6 +27,10 @@ const routes: Routes = [
             path: 'wallet-mnemonic-confirm',
             loadChildren: () => import('../wallet-mnemonic-confirm/wallet-mnemonic-confirm.module').
             then( m => m.WalletMnemonicConfirmPageModule)
+          },
+          {
+            path: 'wallet-manage',
+            loadChildren: () => import('../wallet-manage/wallet-manage.module').then( m => m.WalletManagePageModule)
           }
         ]
       },

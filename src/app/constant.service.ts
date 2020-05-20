@@ -11,6 +11,7 @@ export class ConstantService {
   readonly baseUrl: string = 'https://www.hxyvip.club:7070';
   user: User;
   privateKeyList: PrivateKey[];
+  privateKeyListLength: number;
 
   constructor(public alertController: AlertController) {
     this.user = {
@@ -21,6 +22,8 @@ export class ConstantService {
       phone: '',
       role: ''
     };
+
+    this.privateKeyList = [];
   }
 
   getUser() {

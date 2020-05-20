@@ -38,6 +38,7 @@ export class AppComponent {
       }, 3000);
       this.initFCM();
       this.getUserInfo();
+      this.getPrivateKeyList();
     });
   }
 
@@ -53,6 +54,23 @@ export class AppComponent {
         this.getToken();
       });
     }
+  }
+
+  getPrivateKeyList() {
+    if (JSON.parse(localStorage.getItem('privateKeyList')) == null) {
+      this.constant.privateKeyList = [];
+    } else {
+      this.constant.privateKeyList = JSON.parse(localStorage.getItem('privateKeyList'));
+    }
+    if (localStorage.getItem('privateKeyListLength') == null || localStorage.getItem('privateKeyListLength') === '') {
+      this.constant.privateKeyListLength = 0;
+    } else {
+      this.constant.privateKeyListLength = Number(localStorage.getItem('privateKeyListLength'));
+    }
+
+    console.log(JSON.stringify(this.constant.privateKeyList));
+    console.log(this.constant.privateKeyListLength);
+
   }
 
   initFCM() {

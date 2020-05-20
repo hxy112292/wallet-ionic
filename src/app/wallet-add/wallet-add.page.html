@@ -5,30 +5,59 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="none">
-    <ion-item style="text-align: center">
-      <ion-title size="large" color="primary">
-        请抄下这12个助记词到一张纸上
-      </ion-title>
-    </ion-item>
-    <ion-item style="text-align: center">
-      <ion-card>
-        <ion-card-content>
-          <ion-text style="font-size: xx-large;color: black">
-            {{mnemonic}}
-          </ion-text>
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
-    <ion-item style="text-align: center">
-        <ion-text style="font-size: medium;color: red">
-          （警告：您的助记词只会保存于本地客户端和您记录助记词的纸质文件上，这些助记词不会存储在云端或者服务器上。
-          若APP卸载或者手机丢失，您可以通过这些 助记词恢复您的钱包，但是如果记录助记词的纸质文件也跟着丢失，
-          那么您的钱包将无法追回。）
-        </ion-text>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
+             style="max-width: 20px;max-height: 20px">
+        <ion-text style="font-size: medium">　比特币钱包</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text style="color: grey">
+        地址：
+      </ion-text>
+      <br>
+      <ion-text style="color: black">
+        {{privateKey.btcAddress}}
+      </ion-text>
+      <br>
+      <ion-text style="color: grey">
+        私钥：
+      </ion-text>
+      <br>
+      <ion-text style="color: black">
+        {{privateKey.btcPrivateKey}}
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+             style="max-width: 20px;max-height: 20px">
+        <ion-text style="font-size: medium">　ETH钱包</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text style="color: grey">
+        地址：
+      </ion-text>
+      <br>
+      <ion-text style="color: black">
+        {{privateKey.ethAddress}}
+      </ion-text>
+      <br>
+      <ion-text style="color: grey">
+        私钥：
+      </ion-text>
+      <br>
+      <ion-text style="color: black">
+        {{privateKey.ethPrivateKey}}
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
   <div style="text-align: center">
-    <ion-button size="large" (click)="toWalletMnemonicConfirm()">下一步</ion-button>
+    <ion-button size="large" (click)="toWallet()">确定</ion-button>
   </div>
 </ion-content>

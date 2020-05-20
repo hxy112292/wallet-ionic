@@ -25,6 +25,7 @@ export class WalletMnemonicGeneratePage implements OnInit {
 
   generateMnemonic() {
     this.mnemonic = ethers.Wallet.createRandom().mnemonic;
+    console.log(this.mnemonic);
   }
 
   async toWalletMnemonicConfirm() {

@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {ConstantService} from '../constant.service';
 import {ModalController} from '@ionic/angular';
+import {PrivateKey} from '../entity/private-key';
 
 @Component({
   selector: 'app-wallet',
@@ -13,15 +14,23 @@ import {ModalController} from '@ionic/angular';
 })
 export class WalletPage implements OnInit {
 
+  privateKeyList: PrivateKey[];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService) { }
 
   ngOnInit() {
+
+    this.privateKeyList = this.constant.privateKeyList;
   }
 
   toAddWallet() {
     this.router.navigate(['tabs/wallet/wallet-mnemonic-generate']);
+  }
+
+  toWalletManagement(privateKey: PrivateKey, i: number) {
+    this.router.navigate(['tabs/wallet/wallet-manage', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
   }
 }

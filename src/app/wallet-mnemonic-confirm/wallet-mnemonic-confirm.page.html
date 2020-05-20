@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>输入助记词</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list lines="none">
+    <ion-item>
+      <ion-textarea rows="8" [(ngModel)]="mnemonicInput" placeholder="请输入您的助记词，助记词之间请用用空格隔开:"></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <div style="text-align: center">
+    <ion-button size="large" (click)="checkMnemonic()">
+      提交
+    </ion-button>
+  </div>
 </ion-content>

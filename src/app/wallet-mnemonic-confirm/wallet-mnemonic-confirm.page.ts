@@ -15,7 +15,10 @@ export class WalletMnemonicConfirmPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private constant: ConstantService) { }
+              private constant: ConstantService) {
+
+    this.mnemonicInput = '';
+  }
 
   ngOnInit() {
     this.mnemonic = this.route.snapshot.paramMap.get('mnemonicInfo');
@@ -25,8 +28,7 @@ export class WalletMnemonicConfirmPage implements OnInit {
     if (this.mnemonicInput !== this.mnemonic) {
       this.constant.alert('助记词错误！');
     } else {
-
-      this.router.navigate(['tabs/wallet/wallet-add'])
+      this.router.navigate(['tabs/wallet/wallet-add', {mnemonicInfo: this.mnemonic}]);
     }
   }
 
