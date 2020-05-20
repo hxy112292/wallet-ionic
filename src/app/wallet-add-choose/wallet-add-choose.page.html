@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>选择钱包的添加方式</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div style="text-align: center">
+    <br>
+    <br>
+    <ion-button size="large" (click)="toImportWallet()">导入已有钱包</ion-button>
+    <br>
+    <br>
+    <ion-button size="large" color="tertiary" (click)="toGenerateWallet()">生成新的钱包</ion-button>
+  </div>
+</ion-content>

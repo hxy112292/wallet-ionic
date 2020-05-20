@@ -31,7 +31,17 @@ const routes: Routes = [
           {
             path: 'wallet-manage',
             loadChildren: () => import('../wallet-manage/wallet-manage.module').then( m => m.WalletManagePageModule)
+          },
+          {
+            path: 'wallet-add-choose',
+            loadChildren: () => import('../wallet-add-choose/wallet-add-choose.module').then( m => m.WalletAddChoosePageModule)
+          },
+          {
+            path: 'wallet-mnemonic-import',
+            loadChildren: () => import('../wallet-mnemonic-import/wallet-mnemonic-import.module').
+            then( m => m.WalletMnemonicImportPageModule)
           }
+
         ]
       },
       {

@@ -27,7 +27,7 @@ export class WalletPage implements OnInit {
   }
 
   toAddWallet() {
-    this.router.navigate(['tabs/wallet/wallet-mnemonic-generate']);
+    this.router.navigate(['tabs/wallet/wallet-add-choose']);
   }
 
   toWalletManagement(privateKey: PrivateKey, i: number) {
