@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from './entity/user';
 import {AlertController} from '@ionic/angular';
+import {PrivateKey} from './entity/private-key';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class ConstantService {
 
   readonly baseUrl: string = 'https://www.hxyvip.club:7070';
   user: User;
+  privateKeyList: PrivateKey[];
 
   constructor(public alertController: AlertController) {
     this.user = {

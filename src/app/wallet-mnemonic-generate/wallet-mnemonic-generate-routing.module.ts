@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AddWalletPage } from './add-wallet.page';
+import { WalletMnemonicGeneratePage } from './wallet-mnemonic-generate.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AddWalletPage
+    component: WalletMnemonicGeneratePage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AddWalletPageRoutingModule {}
+export class WalletMnemonicGeneratePageRoutingModule {}

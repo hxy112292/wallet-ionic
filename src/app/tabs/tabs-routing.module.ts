@@ -9,7 +9,26 @@ const routes: Routes = [
     children: [
       {
         path: 'wallet',
-        loadChildren: () => import('../wallet/wallet.module').then(m => m.WalletPageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../wallet/wallet.module').then(m => m.WalletPageModule)
+          },
+          {
+            path: 'wallet-add',
+            loadChildren: () => import('../wallet-add/wallet-add.module').then( m => m.WalletAddPageModule)
+          },
+          {
+            path: 'wallet-mnemonic-generate',
+            loadChildren: () => import('../wallet-mnemonic-generate/wallet-mnemonic-generate.module').
+            then( m => m.WalletMnemonicGeneratePageModule)
+          },
+          {
+            path: 'wallet-mnemonic-confirm',
+            loadChildren: () => import('../wallet-mnemonic-confirm/wallet-mnemonic-confirm.module').
+            then( m => m.WalletMnemonicConfirmPageModule)
+          }
+        ]
       },
       {
         path: 'tool',
