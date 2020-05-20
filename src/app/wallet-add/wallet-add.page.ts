@@ -63,6 +63,16 @@ export class WalletAddPage implements OnInit {
   }
 
   toWallet() {
+
+    if (this.privateKey.password == null || this.privateKey.password === '') {
+      this.constant.alert('钱包密码不能为空!');
+      return;
+    }
+    if (this.privateKey.password !== this.repeatPassword) {
+      this.constant.alert('两次输入的钱包密码不匹配!');
+      return;
+    }
+
     this.constant.privateKeyList[this.constant.privateKeyListLength] = this.privateKey;
     localStorage.setItem('privateKeyList', JSON.stringify(this.constant.privateKeyList));
     this.constant.privateKeyListLength = this.constant.privateKeyListLength + 1;
