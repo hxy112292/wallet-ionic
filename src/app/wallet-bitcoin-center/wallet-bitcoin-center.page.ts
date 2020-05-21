@@ -60,4 +60,13 @@ export class WalletBitcoinCenterPage implements OnInit {
       this.blockChairAddress.state = (res as any).context.state;
     });
   }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getAddressInfo();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 }
