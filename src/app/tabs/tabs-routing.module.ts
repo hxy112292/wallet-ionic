@@ -20,13 +20,13 @@ const routes: Routes = [
           },
           {
             path: 'wallet-mnemonic-generate',
-            loadChildren: () => import('../wallet-mnemonic-generate/wallet-mnemonic-generate.module').
-            then( m => m.WalletMnemonicGeneratePageModule)
+            loadChildren: () => import('../wallet-mnemonic-generate/wallet-mnemonic-generate.module')
+                .then( m => m.WalletMnemonicGeneratePageModule)
           },
           {
             path: 'wallet-mnemonic-confirm',
-            loadChildren: () => import('../wallet-mnemonic-confirm/wallet-mnemonic-confirm.module').
-            then( m => m.WalletMnemonicConfirmPageModule)
+            loadChildren: () => import('../wallet-mnemonic-confirm/wallet-mnemonic-confirm.module')
+                .then( m => m.WalletMnemonicConfirmPageModule)
           },
           {
             path: 'wallet-manage',
@@ -38,8 +38,17 @@ const routes: Routes = [
           },
           {
             path: 'wallet-mnemonic-import',
-            loadChildren: () => import('../wallet-mnemonic-import/wallet-mnemonic-import.module').
-            then( m => m.WalletMnemonicImportPageModule)
+            loadChildren: () => import('../wallet-mnemonic-import/wallet-mnemonic-import.module')
+                .then( m => m.WalletMnemonicImportPageModule)
+          },
+          {
+            path: 'wallet-bitcoin-center',
+            loadChildren: () => import('../wallet-bitcoin-center/wallet-bitcoin-center.module').then( m => m.WalletBitcoinCenterPageModule)
+          },
+          {
+            path: 'wallet-ethereum-center',
+            loadChildren: () => import('../wallet-ethereum-center/wallet-ethereum-center.module')
+                .then( m => m.WalletEthereumCenterPageModule)
           }
 
         ]

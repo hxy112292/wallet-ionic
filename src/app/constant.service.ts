@@ -9,9 +9,11 @@ import {PrivateKey} from './entity/private-key';
 export class ConstantService {
 
   readonly baseUrl: string = 'https://www.hxyvip.club:7070';
+  readonly blockChairUrl: string = 'https://api.blockchair.com';
   user: User;
   privateKeyList: PrivateKey[];
   privateKeyListLength: number;
+  testAddress: string;
 
   constructor(public alertController: AlertController) {
     this.user = {
@@ -24,6 +26,8 @@ export class ConstantService {
     };
 
     this.privateKeyList = [];
+
+    this.testAddress = '1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s';
   }
 
   getUser() {
