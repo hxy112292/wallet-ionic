@@ -54,6 +54,11 @@ const routes: Routes = [
             path: 'wallet-bitcoin-transaction',
             loadChildren: () => import('../wallet-bitcoin-transaction/wallet-bitcoin-transaction.module')
                 .then( m => m.WalletBitcoinTransactionPageModule)
+          },
+          {
+            path: 'wallet-ethereum-transaction',
+            loadChildren: () => import('../wallet-ethereum-transaction/wallet-ethereum-transaction.module')
+                .then( m => m.WalletEthereumTransactionPageModule)
           }
 
         ]

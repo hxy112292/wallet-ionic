@@ -37,4 +37,8 @@ export class WalletPage implements OnInit {
   toWalletBitcoinCenter(privateKey: PrivateKey) {
     this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
+
+  toWalletEthereumCenter(privateKey: PrivateKey) {
+    this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+  }
 }

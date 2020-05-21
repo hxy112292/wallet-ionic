@@ -1,9 +1,113 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>ETH-WALLET</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-card style="background-color: #0892C1">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　ETH-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            {{privateKey.ethAddress}}
+          </ion-text>
+          <br>
+          <br>
+          <ion-text style="color: white;font-size: large">
+            价值：${{blockChairAddress.balance_usd | number:'1.2-2'}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" style="text-align: center">
+            <ion-button size="default">充　币</ion-button>
+          </ion-col>
+          <ion-col size="6" style="text-align: center">
+            <ion-button size="default" color="tertiary">提　币</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <ion-title style="font-weight: bolder">资产</ion-title>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+          </ion-col>
+          <ion-col size="3">
+            <ion-text style="font-size: medium">ETH</ion-text>
+          </ion-col>
+          <ion-col size="8" style="text-align: right">
+            <ion-text style="font-size: medium">{{blockChairAddress.balance/1000000000000000000 | number: '1.2-5'}}</ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <br>
+  <ion-title style="font-weight: bolder">交易记录</ion-title>
+  <ion-list lines="full">
+    <div *ngFor="let transaction of blockChairAddress.transactions">
+      <ion-item (click)="toWalletEthereumTransaction(transaction.transaction_hash)">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1">
+              <ion-icon name="code-working" color="success"></ion-icon>
+            </ion-col>
+            <ion-col size="7">
+              hash: {{transaction.transaction_hash.slice(0,5)}}...{{transaction.transaction_hash.slice(transaction.transaction_hash.length-5,transaction.transaction_hash.length)}}
+            </ion-col>
+            <ion-col size="4" style="text-align: right">
+              <div *ngIf="transaction.sender.toLowerCase() == privateKey.ethAddress.toLowerCase()">
+                -{{transaction.value/1000000000000000000 | number: '1.2-5'}}
+              </div>
+              <div *ngIf="transaction.recipient.toLowerCase() == privateKey.ethAddress.toLowerCase()">
+                {{transaction.value/1000000000000000000 | number: '1.2-5'}}
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="font-size: small;color: grey">
+              {{transaction.time | date: 'yyyy/MM/dd HH:mm:ss'}}
+            </ion-col>
+            <ion-col style="text-align: right">
+              <div *ngIf="blockChairAddress.state - transaction.block_id  >= 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
+                <ion-text color="success">成功</ion-text>
+              </div>
+              <div *ngIf="blockChairAddress.state - transaction.block_id  < 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
+                <ion-text color="primary">确认数（{{blockChairAddress.state - transaction.block_id | number}}/6）</ion-text>
+              </div>
+              <div *ngIf="transaction.block_id  == '-1' || transaction.block_id == '1'">
+                <ion-text color="primary">打包中...</ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>

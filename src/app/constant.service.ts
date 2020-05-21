@@ -13,7 +13,8 @@ export class ConstantService {
   user: User;
   privateKeyList: PrivateKey[];
   privateKeyListLength: number;
-  testAddress: string;
+  testBTCAddress: string;
+  testETHAddress: string;
 
   constructor(public alertController: AlertController) {
     this.user = {
@@ -27,7 +28,8 @@ export class ConstantService {
 
     this.privateKeyList = [];
 
-    this.testAddress = '1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s';
+    this.testBTCAddress = '1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s';
+    this.testETHAddress = '0x58c2cb4a6BeE98C309215D0d2A38d7F8aa71211c';
   }
 
   getUser() {

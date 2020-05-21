@@ -22,7 +22,7 @@ export class WalletBitcoinCenterPage implements OnInit {
 
     this.privateKey = {
       mnemonic: '',
-      btcAddress: this.constant.testAddress,
+      btcAddress: this.constant.testBTCAddress,
       btcPrivateKey: '',
       ethPrivateKey: '',
       ethAddress: '',

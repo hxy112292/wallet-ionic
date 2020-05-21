@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>交易详情</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-icon name="document" color="danger"></ion-icon>
+        <ion-text>　交易时间：{{transaction.time | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              币种：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              以太坊
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="pricetag" color="tertiary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              金额：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              {{transaction.value/1000000000000000000 | number: '1.2-5'}} ETH
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="send" color="secondary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              状态：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <div *ngIf="transaction.state - transaction.block_id  >= 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
+              <ion-text color="success">成功</ion-text>
+            </div>
+            <div *ngIf="transaction.state - transaction.block_id  < 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
+              <ion-text color="primary">确认数（{{transaction.state - transaction.block_id | number}}/6）</ion-text>
+            </div>
+            <div *ngIf="transaction.block_id  == '-1' || transaction.block_id == '1'">
+              <ion-text color="primary">打包中...</ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="code-working" color="success"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              Hash值：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="primary" (click)="openHash(transaction.hash)">
+              https://etherscan.io/tx/{{transaction.hash}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            发送方：
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <ion-text>
+                  地址：
+                </ion-text>
+                <ion-text color="primary" (click)="openAddress(transaction.sender)">
+                  https://etherscan.io/address/{{transaction.sender}}
+                </ion-text>
+                <br>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            接收方：
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <ion-text>
+                  地址：
+                </ion-text>
+                <ion-text color="primary" (click)="openAddress(transaction.recipient)">
+                  https://etherscan.io/address/{{transaction.recipient}}
+                </ion-text>
+                <br>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
