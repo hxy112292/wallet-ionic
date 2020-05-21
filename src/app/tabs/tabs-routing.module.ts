@@ -59,8 +59,17 @@ const routes: Routes = [
             path: 'wallet-ethereum-transaction',
             loadChildren: () => import('../wallet-ethereum-transaction/wallet-ethereum-transaction.module')
                 .then( m => m.WalletEthereumTransactionPageModule)
+          },
+          {
+            path: 'wallet-bitcoin-receive',
+            loadChildren: () => import('../wallet-bitcoin-receive/wallet-bitcoin-receive.module')
+                .then( m => m.WalletBitcoinReceivePageModule)
+          },
+          {
+            path: 'wallet-ethereum-receive',
+            loadChildren: () => import('../wallet-ethereum-receive/wallet-ethereum-receive.module')
+                .then( m => m.WalletEthereumReceivePageModule)
           }
-
         ]
       },
       {
