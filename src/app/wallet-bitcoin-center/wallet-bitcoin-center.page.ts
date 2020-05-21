@@ -69,4 +69,8 @@ export class WalletBitcoinCenterPage implements OnInit {
       event.target.complete();
     }, 2000);
   }
+
+  toWalletBitcoinTransaction(hash: string) {
+    this.router.navigate(['tabs/wallet/wallet-bitcoin-transaction', {transaction: hash}]);
+  }
 }

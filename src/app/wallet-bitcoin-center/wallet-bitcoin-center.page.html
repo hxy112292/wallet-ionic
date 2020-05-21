@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>BTC-WALLET</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -69,13 +72,16 @@
   <ion-title style="font-weight: bolder">交易记录</ion-title>
   <ion-list lines="full">
     <div *ngFor="let transaction of blockChairAddress.transactions">
-      <ion-item>
+      <ion-item (click)="toWalletBitcoinTransaction(transaction.hash)">
         <ion-grid>
           <ion-row>
-            <ion-col size="7">
-              {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
+            <ion-col size="1">
+              <ion-icon name="code-working" color="success"></ion-icon>
             </ion-col>
-            <ion-col size="5" style="text-align: right">
+            <ion-col size="7">
+              hash: {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
+            </ion-col>
+            <ion-col size="4" style="text-align: right">
               {{transaction.balance_change/100000000 | number: '1.2-5'}}
             </ion-col>
           </ion-row>
@@ -84,13 +90,13 @@
               {{transaction.time | date: 'yyyy/MM/dd HH:mm:ss'}}
             </ion-col>
             <ion-col style="text-align: right">
-              <div *ngIf="blockChairAddress.state - transaction.block_id  >= 3 && transaction.block_id != '-1'">
+              <div *ngIf="blockChairAddress.state - transaction.block_id  >= 3 && transaction.block_id != '-1' && transaction.block_id != '1'">
                 <ion-text color="success">成功</ion-text>
               </div>
-              <div *ngIf="blockChairAddress.state - transaction.block_id  < 3 && transaction.block_id != '-1'">
+              <div *ngIf="blockChairAddress.state - transaction.block_id  < 3 && transaction.block_id != '-1' && transaction.block_id != '1'">
                 <ion-text color="primary">确认数（{{blockChairAddress.state - transaction.block_id | number}}/2）</ion-text>
               </div>
-              <div *ngIf="transaction.block_id  == '-1'">
+              <div *ngIf="transaction.block_id  == '-1' || transaction.block_id == '1'">
                 <ion-text color="primary">打包中...</ion-text>
               </div>
             </ion-col>
