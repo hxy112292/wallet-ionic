@@ -11,7 +11,8 @@
     </ion-item>
     <div *ngFor="let privateKey of privateKeyList; let i = index">
       <ion-item lines="none">
-        <ion-text>#{{i+1}} 钱包</ion-text>
+        <ion-icon name="wallet" color="warning"></ion-icon>
+        <ion-text>　#{{i+1}} 钱包</ion-text>
         <ion-icon slot="end" md="ellipsis-horizontal" (click)="toWalletManagement(privateKey, i)"></ion-icon>
       </ion-item>
       <ion-item lines="none">
