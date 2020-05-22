@@ -75,4 +75,7 @@ export class WalletEthereumCenterPage implements OnInit {
     this.router.navigate(['tabs/wallet/wallet-ethereum-transaction', {transaction: hash}]);
   }
 
+  toWalletEthereumReceive(privateKey: PrivateKey) {
+    this.router.navigate(['tabs/wallet/wallet-ethereum-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+  }
 }
