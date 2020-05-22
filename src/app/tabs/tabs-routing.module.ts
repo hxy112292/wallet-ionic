@@ -74,6 +74,11 @@ const routes: Routes = [
             path: 'wallet-bitcoin-send',
             loadChildren: () => import('../wallet-bitcoin-send/wallet-bitcoin-send.module')
                 .then( m => m.WalletBitcoinSendPageModule)
+          },
+          {
+            path: 'wallet-ethereum-send',
+            loadChildren: () => import('../wallet-ethereum-send/wallet-ethereum-send.module')
+                .then( m => m.WalletEthereumSendPageModule)
           }
         ]
       },
