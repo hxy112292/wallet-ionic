@@ -16,6 +16,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     InAppBrowser,
     NgxQRCodeModule,
     Clipboard,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

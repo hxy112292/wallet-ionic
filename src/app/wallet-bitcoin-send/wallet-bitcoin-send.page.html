@@ -8,5 +8,27 @@
 </ion-header>
 
 <ion-content>
-  {{privateKey.btcAddress}}
+  <div style="text-align: center">
+    <br>
+    <ion-title>BTC 提币</ion-title>
+  </div>
+  <ion-list lines="full">
+    <ion-item lines="none">
+      <ion-icon name="wallet" color="medium"></ion-icon>
+      <ion-text>　发送方：</ion-text>
+    </ion-item>
+    <ion-item>
+      {{privateKey.btcAddress}}
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="wallet" color="medium"></ion-icon>
+      <ion-text>　接收方：</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="recipientAddr" placeholder="输入地址"></ion-input>
+      <ion-text color="primary" (click)="paste()">　粘贴</ion-text>
+      <ion-text style="font-size: small">　|　</ion-text>
+      <ion-icon name="camera" color="primary" (click)="qrScan()"></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>
