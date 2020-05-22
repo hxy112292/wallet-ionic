@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>walletBitcoinReceive</ion-title>
+    <ion-title>BTC-充币</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <br>
+  <div style="text-align: center">
+    <ion-title>
+      <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
+           style="max-width: 20px;max-height: 20px">
+      BTC 地址：
+    </ion-title>
+    <ngx-qrcode [value]="privateKey.btcAddress"></ngx-qrcode>
+    <ion-text>
+      {{privateKey.btcAddress}}
+      <ion-button color="secondary" (click)="copyText()">
+        <ion-icon name="copy" slot="start"></ion-icon>
+        复制地址
+      </ion-button>
+    </ion-text>
+  </div>
 </ion-content>

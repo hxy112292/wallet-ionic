@@ -73,4 +73,8 @@ export class WalletBitcoinCenterPage implements OnInit {
   toWalletBitcoinTransaction(hash: string) {
     this.router.navigate(['tabs/wallet/wallet-bitcoin-transaction', {transaction: hash}]);
   }
+
+  toWalletBitcoinReceive(privateKey: PrivateKey) {
+    this.router.navigate(['tabs/wallet/wallet-bitcoin-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+  }
 }

@@ -14,6 +14,8 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +29,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     FCM,
     LocalNotifications,
     InAppBrowser,
+    NgxQRCodeModule,
+    Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
