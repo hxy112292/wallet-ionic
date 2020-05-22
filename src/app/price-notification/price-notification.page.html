@@ -7,130 +7,18 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-toolbar>
+  <ion-segment [(ngModel)]="priceNotificationPage" value="priceNotificationLatest">
+    <ion-segment-button value="priceNotificationLatest">未触发预警</ion-segment-button>
+    <ion-segment-button value="priceNotificationHistory">历史预警</ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-            pullingIcon="arrow-dropdown"
-            refreshingSpinner="circles">
-    </ion-refresher-content>
-  </ion-refresher>
-  <ion-list lines="full">
-    <ion-item style="text-align: center" (click)="toAddMonitorPrice()">
-      <ion-title color="primary">
-        + 添加一个价格提醒
-      </ion-title>
-    </ion-item>
-    <ion-item>
-      <ion-title size="large">
-        当前价格提醒
-      </ion-title>
-    </ion-item>
-    <div *ngFor="let priceOnNotification of priceOnNotificationList; let i = index">
-      <ion-item>
-        <ion-grid>
-          <ion-row style="font-size: small;color: grey">
-            #{{i+1}} 币种：{{priceOnNotification.code}}, {{priceOnNotification.createTime | date: 'yyyy/MM/dd HH:mm:ss'}}
-          </ion-row>
-          <ion-row>
-            <ion-col size="6">
-              <ion-text style="font-size: small">价格上涨至：</ion-text>
-              <div *ngIf="priceOnNotification.upPrice == null || priceOnNotification.upPrice == ''">
-                <ion-text style="color: #2dd36f">--</ion-text>
-              </div>
-              <div *ngIf="priceOnNotification.upPrice != null && priceOnNotification.upPrice != ''">
-                <ion-text style="color: #2dd36f">${{priceOnNotification.upPrice}}</ion-text>
-              </div>
-            </ion-col>
-            <ion-col size="6">
-              <ion-text style="font-size: small">价格下跌至：</ion-text>
-              <div *ngIf="priceOnNotification.downPrice == null || priceOnNotification.downPrice == ''">
-                <ion-text style="color: red">--</ion-text>
-              </div>
-              <div *ngIf="priceOnNotification.downPrice != null && priceOnNotification.downPrice != ''">
-                <ion-text style="color: red">${{priceOnNotification.downPrice}}</ion-text>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="6">
-              <ion-text style="font-size: small">上涨幅度：</ion-text>
-              <div *ngIf="priceOnNotification.upChangePercent == null || priceOnNotification.upChangePercent == ''">
-                <ion-text style="color: #2dd36f">--</ion-text>
-              </div>
-              <div *ngIf="priceOnNotification.upChangePercent != null && priceOnNotification.upChangePercent != ''">
-                <ion-text style="color: #2dd36f">+{{priceOnNotification.upChangePercent}}%</ion-text>
-              </div>
-            </ion-col>
-            <ion-col size="6">
-              <ion-text style="font-size: small">下跌幅度：</ion-text>
-              <div *ngIf="priceOnNotification.downChangePercent == null || priceOnNotification.downChangePercent == ''">
-                <ion-text style="color: red">--</ion-text>
-              </div>
-              <div *ngIf="priceOnNotification.downChangePercent != null && priceOnNotification.downChangePercent != ''">
-                <ion-text style="color: red">{{priceOnNotification.downChangePercent}}%</ion-text>
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-button color="primary" size="default" (click)="toUpdateMonitorPrice(priceOnNotification)">修改</ion-button>
-            <ion-button color="danger" size="default" (click)="deleteMonitorPrice(priceOnNotification)">取消</ion-button>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    </div>
-    <ion-item>
-      <ion-title size="large">
-        历史记录
-      </ion-title>
-    </ion-item>
-    <div *ngFor="let priceOffNotification of priceOffNotificationList; let i = index">
-      <ion-item>
-        <ion-grid style="color: grey">
-          <ion-row style="font-size: small">
-            #{{i+1}} 币种：{{priceOffNotification.code}}, {{priceOffNotification.createTime | date: 'yyyy/MM/dd HH:mm:ss'}}
-          </ion-row>
-          <ion-row>
-            <ion-col size="6">
-              <ion-text style="font-size: small">价格上涨至：</ion-text>
-              <div *ngIf="priceOffNotification.upPrice == null || priceOffNotification.upPrice == ''">
-                --
-              </div>
-              <div *ngIf="priceOffNotification.upPrice != null && priceOffNotification.upPrice != ''">
-                ${{priceOffNotification.upPrice}}
-              </div>
-            </ion-col>
-            <ion-col size="6">
-              <ion-text style="font-size: small">价格下跌至：</ion-text>
-              <div *ngIf="priceOffNotification.downPrice == null || priceOffNotification.downPrice == ''">
-                --
-              </div>
-              <div *ngIf="priceOffNotification.downPrice != null && priceOffNotification.downPrice != ''">
-                ${{priceOffNotification.downPrice}}
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="6">
-              <ion-text style="font-size: small">上涨幅度：</ion-text>
-              <div *ngIf="priceOffNotification.upChangePercent == null || priceOffNotification.upChangePercent == ''">
-                --
-              </div>
-              <div *ngIf="priceOffNotification.upChangePercent != null && priceOffNotification.upChangePercent != ''">
-                <ion-text>+{{priceOffNotification.upChangePercent}}%</ion-text>
-              </div>
-            </ion-col>
-            <ion-col size="6">
-              <ion-text style="font-size: small">下跌幅度：</ion-text>
-              <div *ngIf="priceOffNotification.downChangePercent == null || priceOffNotification.downChangePercent == ''">
-                --
-              </div>
-              <div *ngIf="priceOffNotification.downChangePercent != null && priceOffNotification.downChangePercent != ''">
-                <ion-text>{{priceOffNotification.downChangePercent}}%</ion-text>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    </div>
-  </ion-list>
+  <div *ngIf="priceNotificationPage == 'priceNotificationLatest'">
+    <app-price-notification-latest></app-price-notification-latest>
+  </div>
+  <div *ngIf="priceNotificationPage == 'priceNotificationHistory'">
+    <app-price-notification-history></app-price-notification-history>
+  </div>
 </ion-content>

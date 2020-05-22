@@ -7,18 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { PriceNotificationPageRoutingModule } from './price-notification-routing.module';
 
 import { PriceNotificationPage } from './price-notification.page';
-import {AddMonitorPricePageModule} from './add-monitor-price/add-monitor-price.module';
-import {UpdateMonitorPricePageModule} from './update-monitor-price/update-monitor-price.module';
+import {PriceNotificationLatestPageModule} from '../price-notification-latest/price-notification-latest.module';
+import {PriceNotificationHistoryPageModule} from '../price-notification-history/price-notification-history.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PriceNotificationPageRoutingModule,
-    AddMonitorPricePageModule,
-    UpdateMonitorPricePageModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PriceNotificationPageRoutingModule,
+        PriceNotificationLatestPageModule,
+        PriceNotificationHistoryPageModule
+    ],
   declarations: [PriceNotificationPage]
 })
 export class PriceNotificationPageModule {}

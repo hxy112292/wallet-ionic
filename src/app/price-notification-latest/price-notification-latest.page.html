@@ -1,0 +1,63 @@
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          refreshingSpinner="circles">
+  </ion-refresher-content>
+</ion-refresher>
+<br>
+<br>
+<div style="text-align: center" (click)="toAddMonitorPrice()">
+  <ion-button size="default" color="tertiary">
+    + 添加一个价格提醒
+  </ion-button>
+</div>
+<div *ngFor="let priceOnNotification of priceOnNotificationList; let i = index">
+  <ion-card style="font-size: medium">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-item lines="full">
+          #{{i+1}} 币种：{{priceOnNotification.code}}
+          <ion-text color="medium" slot="end" (click)="toUpdateMonitorPrice(priceOnNotification)">编辑</ion-text>
+          <ion-text color="medium" slot="end" (click)="deleteMonitorPrice(priceOnNotification)">取消</ion-text>
+        </ion-item>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="calendar" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col size="4">
+            设置时间：
+          </ion-col>
+          <ion-col size="7" style="text-align: right">
+            {{priceOnNotification.createTime | date: 'yyyy/MM/dd HH:mm:ss'}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="alarm" color="danger"></ion-icon>
+          </ion-col>
+          <ion-col size="4">
+            预警条件：
+          </ion-col>
+          <ion-col size="7" style="text-align: right">
+            <div *ngIf="priceOnNotification.upPrice != null">
+              <ion-text style="color: #2dd36f">价格上涨至：${{priceOnNotification.upPrice}}</ion-text>
+            </div>
+            <div *ngIf="priceOnNotification.downPrice != null">
+              <ion-text style="color: red">价格下跌至：${{priceOnNotification.downPrice}}</ion-text>
+            </div>
+            <div *ngIf="priceOnNotification.upChangePercent != null">
+              <ion-text style="color: #2dd36f">上涨幅度：+{{priceOnNotification.upChangePercent}}%</ion-text>
+            </div>
+            <div *ngIf="priceOnNotification.downChangePercent != null">
+              <ion-text style="color: red">下跌幅度：{{priceOnNotification.downChangePercent}}%</ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>

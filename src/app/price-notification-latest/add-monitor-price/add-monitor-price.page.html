@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>修改一个价格提醒</ion-title>
+    <ion-title>添加一个价格提醒</ion-title>
     <ion-icon name="close" (click)="dismiss(null)" slot="start" style="font-size: x-large;margin-left: 3%;"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -20,19 +20,19 @@
     </ion-item>
     <ion-item>
       <ion-label>价格上涨至：</ion-label>
-      <ion-input style="text-align: right" [(ngModel)]="monitorPrice.upPrice"></ion-input>
+      <ion-input style="text-align: right" [(ngModel)]="upPriceMonitor"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>价格下跌至：</ion-label>
-      <ion-input style="text-align: right" [(ngModel)]="monitorPrice.downPrice"></ion-input>
+      <ion-input style="text-align: right" [(ngModel)]="downPriceMonitor"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>上涨幅度：</ion-label>
-      <ion-input style="text-align: right" [(ngModel)]="monitorPrice.upChangePercent"></ion-input>
+      <ion-input style="text-align: right" [(ngModel)]="upChangeMonitor"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>下跌幅度：</ion-label>
-      <ion-input style="text-align: right" [(ngModel)]="monitorPrice.downChangePercent"></ion-input>
+      <ion-input style="text-align: right" [(ngModel)]="downChangeMonitor"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>电话提醒：</ion-label>
@@ -44,12 +44,12 @@
     </ion-item>
     <ion-item>
       <ion-label>邮件提醒：</ion-label>
-      <ion-toggle [(ngModel)]="monitorPrice.email" slot="end" color="primary" disabled="true"></ion-toggle>
+      <ion-toggle [(ngModel)]="monitorPrice.email" slot="end" color="primary"></ion-toggle>
     </ion-item>
   </ion-list>
 
   <div style="text-align: center">
-    <ion-button color="primary" (click)="updateMonitorPrice()">
+    <ion-button color="primary" (click)="insertMonitorPrice()">
       提交
     </ion-button>
   </div>
