@@ -29,7 +29,7 @@ export class WalletEthereumCenterPage implements OnInit {
       btcAddress: '',
       btcPrivateKey: '',
       ethPrivateKey: '',
-      ethAddress: this.constant.testETHAddress,
+      ethAddress: '',
       password: ''
     };
 
@@ -49,7 +49,7 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
+    this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
   }
 
