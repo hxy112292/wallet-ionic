@@ -63,11 +63,11 @@
             </ion-text>
           </ion-col>
           <ion-col>
-            <div *ngIf="transaction.confirmations  >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
+            <div *ngIf="transaction.confirmations + 1 >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
               <ion-text color="success">成功</ion-text>
             </div>
-            <div *ngIf="transaction.confirmations  <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
-              <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
+            <div *ngIf="transaction.confirmations + 1  <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
+              <ion-text color="primary">确认数（{{transaction.confirmations + 1}}/6）</ion-text>
             </div>
             <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1' || transaction.confirmations == '1'">
               <ion-text color="primary">打包中...</ion-text>

@@ -79,6 +79,6 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   toWalletBitcoinSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-send', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['tabs/wallet/wallet-bitcoin-send', {privateKeyInfo: JSON.stringify(privateKey), balance: this.blockChairAddress.balance}]);
   }
 }
