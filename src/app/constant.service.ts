@@ -10,6 +10,8 @@ export class ConstantService {
 
   readonly baseUrl: string = 'https://www.hxyvip.club:7070';
   readonly blockChairUrl: string = 'https://api.blockchair.com';
+  readonly ropstenEtherScanUrl: string = 'https://api-ropsten.etherscan.io';
+  readonly ropstenEtherScanKey: string = 'UHRM7JQNHCSNCI97CQCC5I7V2ZKJXFHF4I';
   user: User;
   privateKeyList: PrivateKey[];
   privateKeyListLength: number;

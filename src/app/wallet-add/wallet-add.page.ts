@@ -40,7 +40,7 @@ export class WalletAddPage implements OnInit {
   }
 
   generateBTCWallet() {
-    const network = bitcoin.networks.bitcoin;
+    const network = bitcoin.networks.testnet;
     const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
     // @ts-ignore
     const root = bip32.fromSeed(seed, network);

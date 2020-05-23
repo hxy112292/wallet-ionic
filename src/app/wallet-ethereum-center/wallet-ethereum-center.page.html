@@ -31,7 +31,7 @@
           <br>
           <br>
           <ion-text style="color: white;font-size: large">
-            价值：${{blockChairAddress.balance_usd | number:'1.2-2'}}
+            价值：$0.00
           </ion-text>
         </ion-card-content>
       </ion-card>
@@ -62,7 +62,7 @@
             <ion-text style="font-size: medium">ETH</ion-text>
           </ion-col>
           <ion-col size="8" style="text-align: right">
-            <ion-text style="font-size: medium">{{blockChairAddress.balance/1000000000000000000 | number: '1.2-5'}}</ion-text>
+            <ion-text style="font-size: medium">{{etherscanBalance.result/1000000000000000000 | number: '1.2-5'}}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -71,37 +71,37 @@
   <br>
   <ion-title style="font-weight: bolder">交易记录</ion-title>
   <ion-list lines="full">
-    <div *ngFor="let transaction of blockChairAddress.transactions">
-      <ion-item (click)="toWalletEthereumTransaction(transaction.transaction_hash)">
+    <div *ngFor="let transaction of etherscanBalance.txList">
+      <ion-item (click)="toWalletEthereumTransaction(transaction)">
         <ion-grid>
           <ion-row>
             <ion-col size="1">
               <ion-icon name="code-working" color="success"></ion-icon>
             </ion-col>
             <ion-col size="7">
-              hash: {{transaction.transaction_hash.slice(0,5)}}...{{transaction.transaction_hash.slice(transaction.transaction_hash.length-5,transaction.transaction_hash.length)}}
+              hash: {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
             </ion-col>
             <ion-col size="4" style="text-align: right">
-              <div *ngIf="transaction.sender.toLowerCase() == privateKey.ethAddress.toLowerCase()">
+              <div *ngIf="transaction.from.toLowerCase() == privateKey.ethAddress.toLowerCase()">
                 -{{transaction.value/1000000000000000000 | number: '1.2-5'}}
               </div>
-              <div *ngIf="transaction.recipient.toLowerCase() == privateKey.ethAddress.toLowerCase()">
+              <div *ngIf="transaction.to.toLowerCase() == privateKey.ethAddress.toLowerCase()">
                 {{transaction.value/1000000000000000000 | number: '1.2-5'}}
               </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="font-size: small;color: grey">
-              {{transaction.time | date: 'yyyy/MM/dd HH:mm:ss'}}
+              {{transaction.timeStamp*1000 | date: 'yyyy/MM/dd HH:mm:ss'}}
             </ion-col>
             <ion-col style="text-align: right">
-              <div *ngIf="blockChairAddress.state - transaction.block_id  >= 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
+              <div *ngIf="transaction.confirmations  >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
                 <ion-text color="success">成功</ion-text>
               </div>
-              <div *ngIf="blockChairAddress.state - transaction.block_id  < 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
-                <ion-text color="primary">确认数（{{blockChairAddress.state - transaction.block_id | number}}/6）</ion-text>
+              <div *ngIf="transaction.confirmations  <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
+                <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
               </div>
-              <div *ngIf="transaction.block_id  == '-1' || transaction.block_id == '1'">
+              <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1' || transaction.confirmations == '1'">
                 <ion-text color="primary">打包中...</ion-text>
               </div>
             </ion-col>

@@ -55,7 +55,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.http.get(this.constant.blockChairUrl + '/bitcoin/dashboards/transaction/' + this.hash).subscribe(res => {
+    this.http.get(this.constant.blockChairUrl + '/bitcoin/testnet/dashboards/transaction/' + this.hash).subscribe(res => {
       const data = (res as any).data;
       // tslint:disable-next-line:forin
       for (const key in data) {
@@ -79,13 +79,13 @@ export class WalletBitcoinTransactionPage implements OnInit {
   }
 
   openHash(url: string) {
-    url = 'https://www.blockchain.com/btc/tx/' + url;
+    url = 'https://www.blockchain.com/btctest/tx/' + url;
     const target = '_self';
     this.inAppBrowser.create(url, target, this.options);
   }
 
   openAddress(url: string) {
-    url = 'https://www.blockchain.com/btc/address/' + url;
+    url = 'https://www.blockchain.com/btctest/address/' + url;
     const target = '_self';
     this.inAppBrowser.create(url, target, this.options);
   }

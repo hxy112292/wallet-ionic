@@ -18,7 +18,7 @@
     <ion-card-header>
       <ion-card-subtitle>
         <ion-icon name="document" color="danger"></ion-icon>
-        <ion-text>　交易时间：{{transaction.time | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+        <ion-text>　交易时间：{{transaction.timeStamp*1000 | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
@@ -63,13 +63,13 @@
             </ion-text>
           </ion-col>
           <ion-col>
-            <div *ngIf="transaction.state - transaction.block_id  >= 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
+            <div *ngIf="transaction.confirmations  >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
               <ion-text color="success">成功</ion-text>
             </div>
-            <div *ngIf="transaction.state - transaction.block_id  < 7 && transaction.block_id != '-1' && transaction.block_id != '1'">
-              <ion-text color="primary">确认数（{{transaction.state - transaction.block_id | number}}/6）</ion-text>
+            <div *ngIf="transaction.confirmations  <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
+              <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
             </div>
-            <div *ngIf="transaction.block_id  == '-1' || transaction.block_id == '1'">
+            <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1' || transaction.confirmations == '1'">
               <ion-text color="primary">打包中...</ion-text>
             </div>
           </ion-col>
@@ -85,7 +85,7 @@
           </ion-col>
           <ion-col>
             <ion-text color="primary" (click)="openHash(transaction.hash)">
-              https://etherscan.io/tx/{{transaction.hash}}
+              https://ropsten.etherscan.io/tx/{{transaction.hash}}
             </ion-text>
           </ion-col>
         </ion-row>
@@ -102,8 +102,8 @@
                 <ion-text>
                   地址：
                 </ion-text>
-                <ion-text color="primary" (click)="openAddress(transaction.sender)">
-                  https://etherscan.io/address/{{transaction.sender}}
+                <ion-text color="primary" (click)="openAddress(transaction.from)">
+                  https://ropsten.etherscan.io/address/{{transaction.from}}
                 </ion-text>
                 <br>
               </ion-list>
@@ -123,8 +123,8 @@
                 <ion-text>
                   地址：
                 </ion-text>
-                <ion-text color="primary" (click)="openAddress(transaction.recipient)">
-                  https://etherscan.io/address/{{transaction.recipient}}
+                <ion-text color="primary" (click)="openAddress(transaction.to)">
+                  https://ropsten.etherscan.io/address/{{transaction.to}}
                 </ion-text>
                 <br>
               </ion-list>

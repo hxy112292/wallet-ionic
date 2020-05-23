@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {BlockchairEthAddress} from '../entity/blockchair-eth-address';
+import {EtherscanBalance} from '../entity/etherscan-balance';
+import {EtherscanTx} from '../entity/etherscan-tx';
 
 @Component({
   selector: 'app-wallet-ethereum-center',
@@ -15,6 +17,7 @@ export class WalletEthereumCenterPage implements OnInit {
 
   privateKey: PrivateKey;
   blockChairAddress: BlockchairEthAddress;
+  etherscanBalance: EtherscanBalance;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -36,6 +39,13 @@ export class WalletEthereumCenterPage implements OnInit {
       state: '',
       transactions: []
     };
+
+    this.etherscanBalance = {
+      status: '',
+      message: '',
+      result: '',
+      txList: []
+    };
   }
 
   ngOnInit() {
@@ -43,22 +53,46 @@ export class WalletEthereumCenterPage implements OnInit {
     this.getAddressInfo();
   }
 
+  // getAddressInfo() {
+  //   this.http.get(this.constant.blockChairUrl + '/ethereum/dashboards/address/' + this.privateKey.ethAddress, {
+  //     params: {
+  //       transaction_details: 'true',
+  //       limit: '30,30'
+  //     }
+  //   }).subscribe(res => {
+  //     const data = (res as any).data;
+  //     // tslint:disable-next-line:forin
+  //     for (const key in data) {
+  //       const value = data[key];
+  //       this.blockChairAddress = (value as any).address;
+  //       this.blockChairAddress.transactions = (value as any).calls;
+  //       break;
+  //     }
+  //     this.blockChairAddress.state = (res as any).context.state;
+  //   });
+  // }
   getAddressInfo() {
-    this.http.get(this.constant.blockChairUrl + '/ethereum/dashboards/address/' + this.privateKey.ethAddress, {
+    this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
       params: {
-        transaction_details: 'true',
-        limit: '30,30'
+        module: 'account',
+        action: 'balance',
+        address: this.privateKey.ethAddress,
+        apiKey: this.constant.ropstenEtherScanKey,
+        tag: 'latest'
       }
     }).subscribe(res => {
-      const data = (res as any).data;
-      // tslint:disable-next-line:forin
-      for (const key in data) {
-        const value = data[key];
-        this.blockChairAddress = (value as any).address;
-        this.blockChairAddress.transactions = (value as any).calls;
-        break;
+        this.etherscanBalance = res as any;
+    });
+    this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
+      params: {
+        module: 'account',
+        action: 'txlist',
+        address: this.privateKey.ethAddress,
+        apiKey: this.constant.ropstenEtherScanKey,
+        sort: 'asc'
       }
-      this.blockChairAddress.state = (res as any).context.state;
+    }).subscribe( res => {
+      return this.etherscanBalance.txList = (res as any).result;
     });
   }
 
@@ -71,8 +105,8 @@ export class WalletEthereumCenterPage implements OnInit {
     }, 2000);
   }
 
-  toWalletEthereumTransaction(hash: string) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-transaction', {transaction: hash}]);
+  toWalletEthereumTransaction(transaction: EtherscanTx) {
+    this.router.navigate(['tabs/wallet/wallet-ethereum-transaction', {transactionInfo: JSON.stringify(transaction)}]);
   }
 
   toWalletEthereumReceive(privateKey: PrivateKey) {

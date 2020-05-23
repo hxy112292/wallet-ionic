@@ -38,12 +38,12 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
+    this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
   }
 
   getAddressInfo() {
-    this.http.get(this.constant.blockChairUrl + '/bitcoin/dashboards/address/' + this.privateKey.btcAddress, {
+    this.http.get(this.constant.blockChairUrl + '/bitcoin/testnet/dashboards/address/' + this.privateKey.btcAddress, {
       params: {
         transaction_details: 'true',
         limit: '30,30'

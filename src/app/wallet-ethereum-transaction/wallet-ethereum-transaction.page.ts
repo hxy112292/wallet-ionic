@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {BlockchairEthAddressTransaction} from '../entity/blockchair-eth-address-transaction';
+import {EtherscanTx} from '../entity/etherscan-tx';
 
 @Component({
   selector: 'app-wallet-ethereum-transaction',
@@ -14,7 +15,7 @@ import {BlockchairEthAddressTransaction} from '../entity/blockchair-eth-address-
 export class WalletEthereumTransactionPage implements OnInit {
 
   hash: string;
-  transaction: BlockchairEthAddressTransaction;
+  transaction: EtherscanTx;
   options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
@@ -23,17 +24,37 @@ export class WalletEthereumTransactionPage implements OnInit {
               private constant: ConstantService,
               private inAppBrowser: InAppBrowser) {
 
+    // this.transaction = {
+    //   block_id: '',
+    //   transaction_hash: '',
+    //   time: '',
+    //   sender: '',
+    //   recipient: '',
+    //   value: '',
+    //   value_usd: '',
+    //   transferred: '',
+    //   state: '',
+    //   hash: ''
+    // };
     this.transaction = {
-      block_id: '',
-      transaction_hash: '',
-      time: '',
-      sender: '',
-      recipient: '',
+      blockNumber: '',
+      timeStamp: '',
+      hash: '',
+      nonce: '',
+      blockHash: '',
+      transactionIndex: '',
+      from: '',
+      to: '',
       value: '',
-      value_usd: '',
-      transferred: '',
-      state: '',
-      hash: ''
+      gas: '',
+      gasPrice: '',
+      isError: '',
+      txreceipt_status: '',
+      input: '',
+      contractAddress: '',
+      cumulativeGasUsed: '',
+      gasUsed: '',
+      confirmations: ''
     };
 
     this.options = {
@@ -50,26 +71,27 @@ export class WalletEthereumTransactionPage implements OnInit {
 
   ngOnInit() {
 
-    this.hash = this.route.snapshot.paramMap.get('transaction');
-    this.getTransactionInfo();
+    this.transaction = JSON.parse(this.route.snapshot.paramMap.get('transactionInfo'));
+    // this.hash = this.route.snapshot.paramMap.get('transaction');
+    // this.getTransactionInfo();
   }
 
-  getTransactionInfo() {
-    this.http.get(this.constant.blockChairUrl + '/ethereum/dashboards/transaction/' + this.hash).subscribe(res => {
-      const data = (res as any).data;
-      // tslint:disable-next-line:forin
-      for (const key in data) {
-        const value = data[key];
-        this.transaction = (value as any).transaction;
-        break;
-      }
-      this.transaction.state = (res as any).context.state;
-    });
-  }
+  // getTransactionInfo() {
+  //   this.http.get(this.constant.blockChairUrl + '/ethereum/dashboards/transaction/' + this.hash).subscribe(res => {
+  //     const data = (res as any).data;
+  //     // tslint:disable-next-line:forin
+  //     for (const key in data) {
+  //       const value = data[key];
+  //       this.transaction = (value as any).transaction;
+  //       break;
+  //     }
+  //     this.transaction.state = (res as any).context.state;
+  //   });
+  // }
 
   doRefresh(event) {
     console.log('Begin async operation');
-    this.getTransactionInfo();
+    // this.getTransactionInfo();
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
@@ -77,13 +99,13 @@ export class WalletEthereumTransactionPage implements OnInit {
   }
 
   openHash(url: string) {
-    url = 'https://etherscan.io/tx/' + url;
+    url = 'https://ropsten.etherscan.io/tx/' + url;
     const target = '_self';
     this.inAppBrowser.create(url, target, this.options);
   }
 
   openAddress(url: string) {
-    url = 'https://etherscan.io/address/' + url;
+    url = 'https://ropsten.etherscan.io/address/' + url;
     const target = '_self';
     this.inAppBrowser.create(url, target, this.options);
   }
