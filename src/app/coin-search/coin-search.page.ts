@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {ListingLatest} from '../entity/listing-latest';
@@ -16,6 +16,7 @@ export class CoinSearchPage implements OnInit {
   coinSearchList: CoinSearchResult[];
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private http: HttpClient,
               private constant: ConstantService) { }
 
@@ -32,6 +33,10 @@ export class CoinSearchPage implements OnInit {
     }).subscribe(res => {
       this.coinSearchList = (res as any).coinlist;
     });
+  }
+
+  toCoinDetail(code) {
+    this.router.navigate(['tabs/listing-latest/coin-detail', {codeInfo: code}] );
   }
 
 }

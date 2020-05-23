@@ -32,7 +32,7 @@
       </ion-grid>
     </ion-item>
     <div *ngFor="let coinSearchResult of coinSearchList">
-      <ion-item>
+      <ion-item (click)="toCoinDetail(coinSearchResult.coincode)">
         <ion-grid>
           <ion-row style="font-size: small;color: grey">
             市值#{{coinSearchResult.rank_no}} ${{coinSearchResult.market_value/100000000 | number: '1.2-2'}}亿，{{coinSearchResult.coincode}}
