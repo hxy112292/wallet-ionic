@@ -33,7 +33,8 @@ export class WalletBitcoinCenterPage implements OnInit {
       balance: '',
       balance_usd: '',
       state: '',
-      transactions: []
+      transactions: [],
+      utxoList: []
     };
   }
 
@@ -55,6 +56,7 @@ export class WalletBitcoinCenterPage implements OnInit {
         const value = data[key];
         this.blockChairAddress = (value as any).address;
         this.blockChairAddress.transactions = (value as any).transactions;
+        this.blockChairAddress.utxoList = (value as any).utxo;
         break;
       }
       this.blockChairAddress.state = (res as any).context.state;
@@ -79,6 +81,8 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   toWalletBitcoinSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-send', {privateKeyInfo: JSON.stringify(privateKey), balance: this.blockChairAddress.balance}]);
+    this.router.navigate(['tabs/wallet/wallet-bitcoin-send',
+      {privateKeyInfo: JSON.stringify(privateKey), balance: this.blockChairAddress.balance,
+        utxoList: JSON.stringify(this.blockChairAddress.utxoList)}]);
   }
 }

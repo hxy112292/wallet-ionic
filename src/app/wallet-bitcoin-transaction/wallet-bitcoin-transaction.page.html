@@ -55,6 +55,21 @@
         </ion-row>
         <ion-row>
           <ion-col size="1">
+            <ion-icon name="cafe" color="black"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              手续费：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              {{transaction.fee/100000000 | number: '1.2-5'}} BTC
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
             <ion-icon name="send" color="secondary"></ion-icon>
           </ion-col>
           <ion-col size="3">
