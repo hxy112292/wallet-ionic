@@ -55,6 +55,26 @@
         </ion-row>
         <ion-row>
           <ion-col size="1">
+            <ion-icon name="cafe" color="black"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              手续费：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              <div *ngIf="transaction.gasUsed == null || transaction.gasUsed == '' || transaction.gasPrice == null || transaction.gasUsed == ''">
+                -- ETH
+              </div>
+              <div *ngIf="transaction.gasUsed != null && transaction.gasUsed != '' && transaction.gasPrice != null && transaction.gasUsed != ''">
+                {{transaction.gasUsed * transaction.gasPrice/1000000000000000000 | number: '1.2-8'}} ETH
+              </div>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
             <ion-icon name="send" color="secondary"></ion-icon>
           </ion-col>
           <ion-col size="3">
@@ -63,13 +83,13 @@
             </ion-text>
           </ion-col>
           <ion-col>
-            <div *ngIf="transaction.confirmations + 1 >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
+            <div *ngIf="transaction.confirmations >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
               <ion-text color="success">成功</ion-text>
             </div>
-            <div *ngIf="transaction.confirmations + 1  <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
-              <ion-text color="primary">确认数（{{transaction.confirmations + 1}}/6）</ion-text>
+            <div *ngIf="transaction.confirmations <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
+              <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
             </div>
-            <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1' || transaction.confirmations == '1'">
+            <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1'">
               <ion-text color="primary">打包中...</ion-text>
             </div>
           </ion-col>

@@ -18,6 +18,7 @@ export class WalletEthereumCenterPage implements OnInit {
   privateKey: PrivateKey;
   blockChairAddress: BlockchairEthAddress;
   etherscanBalance: EtherscanBalance;
+  tmpHashList: EtherscanTx[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -53,24 +54,6 @@ export class WalletEthereumCenterPage implements OnInit {
     this.getAddressInfo();
   }
 
-  // getAddressInfo() {
-  //   this.http.get(this.constant.blockChairUrl + '/ethereum/dashboards/address/' + this.privateKey.ethAddress, {
-  //     params: {
-  //       transaction_details: 'true',
-  //       limit: '30,30'
-  //     }
-  //   }).subscribe(res => {
-  //     const data = (res as any).data;
-  //     // tslint:disable-next-line:forin
-  //     for (const key in data) {
-  //       const value = data[key];
-  //       this.blockChairAddress = (value as any).address;
-  //       this.blockChairAddress.transactions = (value as any).calls;
-  //       break;
-  //     }
-  //     this.blockChairAddress.state = (res as any).context.state;
-  //   });
-  // }
   getAddressInfo() {
     this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
       params: {
@@ -88,12 +71,33 @@ export class WalletEthereumCenterPage implements OnInit {
             action: 'txlist',
             address: this.privateKey.ethAddress,
             apiKey: this.constant.ropstenEtherScanKey,
-            sort: 'asc'
+            sort: 'desc'
           }
         }).subscribe( res2 => {
           this.etherscanBalance.txList = (res2 as any).result;
+          this.getTmpHash();
         });
     });
+  }
+
+  getTmpHash() {
+    this.tmpHashList = JSON.parse(localStorage.getItem(this.privateKey.ethAddress));
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.tmpHashList.length; i++) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let j = 0; j < this.etherscanBalance.txList.length; j++) {
+        if (this.tmpHashList[i].hash === this.etherscanBalance.txList[j].hash) {
+          this.tmpHashList.splice(i, 1);
+          if (this.tmpHashList.length === 0 ) {
+            break;
+          }
+        }
+      }
+    }
+    localStorage.removeItem(this.privateKey.ethAddress);
+    if (this.tmpHashList.length !== 0) {
+      localStorage.setItem(this.privateKey.ethAddress, JSON.stringify(this.tmpHashList));
+    }
   }
 
   doRefresh(event) {
@@ -114,6 +118,7 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   toWalletEthereumSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-send', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['tabs/wallet/wallet-ethereum-send', {privateKeyInfo: JSON.stringify(privateKey),
+      balance: this.etherscanBalance.result}]);
   }
 }

@@ -71,6 +71,44 @@
   <br>
   <ion-title style="font-weight: bolder">交易记录</ion-title>
   <ion-list lines="full">
+    <div *ngFor="let transaction of tmpHashList">
+      <ion-item (click)="toWalletEthereumTransaction(transaction)">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1">
+              <ion-icon name="code-working" color="success"></ion-icon>
+            </ion-col>
+            <ion-col size="7">
+              hash: {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
+            </ion-col>
+            <ion-col size="4" style="text-align: right">
+              <div *ngIf="transaction.from.toLowerCase() == privateKey.ethAddress.toLowerCase()">
+                -{{transaction.value/1000000000000000000 | number: '1.2-5'}}
+              </div>
+              <div *ngIf="transaction.to.toLowerCase() == privateKey.ethAddress.toLowerCase()">
+                {{transaction.value/1000000000000000000 | number: '1.2-5'}}
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="font-size: small;color: grey">
+              {{transaction.timeStamp*1000 | date: 'yyyy/MM/dd HH:mm:ss'}}
+            </ion-col>
+            <ion-col style="text-align: right">
+              <div *ngIf="transaction.confirmations >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
+                <ion-text color="success">成功</ion-text>
+              </div>
+              <div *ngIf="transaction.confirmations < 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
+                <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
+              </div>
+              <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1'">
+                <ion-text color="primary">打包中...</ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
     <div *ngFor="let transaction of etherscanBalance.txList">
       <ion-item (click)="toWalletEthereumTransaction(transaction)">
         <ion-grid>
@@ -95,13 +133,13 @@
               {{transaction.timeStamp*1000 | date: 'yyyy/MM/dd HH:mm:ss'}}
             </ion-col>
             <ion-col style="text-align: right">
-              <div *ngIf="transaction.confirmations + 1 >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
+              <div *ngIf="transaction.confirmations >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
                 <ion-text color="success">成功</ion-text>
               </div>
-              <div *ngIf="transaction.confirmations + 1 <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1' && transaction.confirmations != '1'">
-                <ion-text color="primary">确认数（{{transaction.confirmations + 1}}/6）</ion-text>
+              <div *ngIf="transaction.confirmations  <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
+                <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
               </div>
-              <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1' || transaction.confirmations == '1'">
+              <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1'">
                 <ion-text color="primary">打包中...</ion-text>
               </div>
             </ion-col>

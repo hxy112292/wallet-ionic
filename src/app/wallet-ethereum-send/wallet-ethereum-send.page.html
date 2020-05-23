@@ -30,5 +30,28 @@
       <ion-text style="font-size: small">　|　</ion-text>
       <ion-icon name="camera" color="primary" (click)="qrScan()"></ion-icon>
     </ion-item>
+    <ion-item>
+      <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+      <ion-label>　金额（ETH）：</ion-label>
+      <ion-input [(ngModel)]="amount" placeholder="{{balance/1000000000000000000}} 可用"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="cafe" color="tertiary"></ion-icon>
+      <ion-label>　手续费（ETH）：</ion-label>
+      <ion-text>≈ {{fee | number: '1.2-8'}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range [(ngModel)]="gwei" (ionChange)="getFee()" min="25" max="100" color="secondary" step="0.1" pin>
+        <ion-label slot="start">25 gwei</ion-label>
+        <ion-label slot="end">100 gwei</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-label>备注（可选）：</ion-label>
+      <ion-textarea rows="4" [(ngModel)]="note" placeholder="请输入16进制数"></ion-textarea>
+    </ion-item>
   </ion-list>
+  <div style="text-align: center">
+    <ion-button color="primary" (click)="sendConfirm()">发  送</ion-button>
+  </div>
 </ion-content>
