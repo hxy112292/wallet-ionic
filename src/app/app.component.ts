@@ -67,10 +67,6 @@ export class AppComponent {
     } else {
       this.constant.privateKeyListLength = Number(localStorage.getItem('privateKeyListLength'));
     }
-
-    console.log(JSON.stringify(this.constant.privateKeyList));
-    console.log(this.constant.privateKeyListLength);
-
   }
 
   initFCM() {

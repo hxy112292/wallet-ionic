@@ -135,7 +135,6 @@ export class WalletEthereumSendPage implements OnInit {
     signPromise.then((signedTransaction) => {
 
       provider.sendTransaction(signedTransaction).then((tx) => {
-        console.log(tx);
         this.tmpHash.hash = (tx as any).hash;
         this.tmpHash.from = this.privateKey.ethAddress;
         this.tmpHash.to = this.recipientAddr;
@@ -204,13 +203,10 @@ export class WalletEthereumSendPage implements OnInit {
 
   saveTmpEthTx() {
     const res = JSON.parse(localStorage.getItem(this.privateKey.ethAddress));
-    console.log(this.tmpHashList);
     if (res != null) {
       this.tmpHashList = (res as any);
       this.tmpHashList[this.tmpHashList.length] = this.tmpHash;
     } else {
-      console.log('222');
-      console.log(this.tmpHash);
       this.tmpHashList[0] = this.tmpHash;
     }
     localStorage.removeItem(this.privateKey.ethAddress);
