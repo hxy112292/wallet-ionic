@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PrivateKey} from '../entity/private-key';
-import {BarcodeScannerOptions, BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
+import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {AlertController, ModalController} from '@ionic/angular';
 import * as bitcoin from 'bitcoinjs-lib';
 import {BlockchairBtcUtxo} from '../entity/blockchair-btc-utxo';
-import {WalletContactAddPage} from '../wallet-contact-add/wallet-contact-add.page';
 import {WalletContactChoosePage} from '../wallet-contact-choose/wallet-contact-choose.page';
+import {Storage} from '@ionic/storage';
+import {BlockchairBtcAddressTransaction} from '../entity/blockchair-btc-address-transaction';
 
 @Component({
   selector: 'app-wallet-bitcoin-send',
@@ -26,6 +27,8 @@ export class WalletBitcoinSendPage implements OnInit {
   recommendFee: number;
   fee: number;
   utxoList: BlockchairBtcUtxo[];
+  tmpHash: BlockchairBtcAddressTransaction;
+  tmpHashList: BlockchairBtcAddressTransaction[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -34,11 +37,17 @@ export class WalletBitcoinSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
+              private storage: Storage,
               private modalController: ModalController) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
     };
+
+    this.tmpHash = {
+      balance_change: '', block_id: '', fee: '', hash: '', input_total: '', inputs: [], outputs: [], state: '', time: ''
+    };
+    this.tmpHashList = [];
   }
 
   ngOnInit() {
@@ -98,10 +107,14 @@ export class WalletBitcoinSendPage implements OnInit {
         txb.sign(i, alice);
       }
       const rawHex = txb.build().toHex();
+      // 将这笔交易的hash保存在临时缓存中
+      this.tmpHash.balance_change = String(Math.round(this.amount * 100000000 + this.fee * 100000000));
+      this.tmpHash.fee = String(this.fee);
+      this.tmpHash.block_id = '-1';
+      this.tmpHash.state = '-1';
+      this.tmpHash.time = new Date().toDateString();
       // 向区块链广播此次交易
       this.broadcast(rawHex);
-      // 跳转回btc钱包页
-      this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
     } catch (e) {
       this.constant.alert(e.toString());
     }
@@ -111,6 +124,10 @@ export class WalletBitcoinSendPage implements OnInit {
     this.http.post(this.constant.blockChairUrl + '/bitcoin/testnet/push/transaction', {
       data: rawHex
     }).subscribe( res => {
+      this.tmpHash.hash = (res as any).data.transaction_hash;
+      this.saveTmpBtcTx();
+      // 跳转回btc钱包页
+      this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
     });
   }
 
@@ -160,6 +177,18 @@ export class WalletBitcoinSendPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  saveTmpBtcTx() {
+    this.storage.get(this.privateKey.btcAddress).then(res => {
+      if (res != null) {
+        this.tmpHashList = (res as any);
+        this.tmpHashList[this.tmpHashList.length] = this.tmpHash;
+      } else {
+        this.tmpHashList[0] = this.tmpHash;
+      }
+      this.storage.set(this.privateKey.btcAddress, this.tmpHashList);
+    });
   }
 
   async chooseAddress() {
