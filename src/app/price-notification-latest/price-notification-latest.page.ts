@@ -55,7 +55,7 @@ export class PriceNotificationLatestPage implements OnInit {
     if (data != null) {
 
     }
-    this.doRefresh(null);
+    this.getPriceOnNotification();
   }
 
   async toUpdateMonitorPrice(monitorPrice: MonitorPrice) {

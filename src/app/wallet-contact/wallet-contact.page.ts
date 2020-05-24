@@ -51,6 +51,7 @@ export class WalletContactPage implements OnInit {
     if (data != null) {
 
     }
+    this.getWalletContactList();
   }
 
   async toEditWalletContact(i: number) {
@@ -66,6 +67,7 @@ export class WalletContactPage implements OnInit {
     if (data != null) {
 
     }
+    this.getWalletContactList();
   }
 
   async deleteWalletContact(index) {
