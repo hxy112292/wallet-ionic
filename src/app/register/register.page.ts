@@ -5,6 +5,7 @@ import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
 import {User} from '../entity/user';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterPage implements OnInit {
               private constant: ConstantService,
               private fcm: FCM,
               private localNotifications: LocalNotifications,
-              private router: Router) {
+              private router: Router,
+              private storage: Storage) {
     this.user = {
       id: '',
       username: '',
@@ -95,7 +97,7 @@ export class RegisterPage implements OnInit {
           return;
         }
         this.constant.setUser((res as any).result);
-        localStorage.setItem('uid', this.constant.getUser().id);
+        this.storage.set('uid', this.constant.getUser().id);
         this.getToken();
         this.router.navigate(['/tabs/me']);
       });
@@ -112,7 +114,7 @@ export class RegisterPage implements OnInit {
           return;
         }
         this.constant.setUser((res as any).result);
-        localStorage.setItem('uid', this.constant.getUser().id);
+        this.storage.set('uid', this.constant.getUser().id);
         this.getToken();
         this.router.navigate(['/tabs/me']);
       });

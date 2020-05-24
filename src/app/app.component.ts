@@ -7,6 +7,7 @@ import {FCM} from '@ionic-native/fcm/ngx';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from './constant.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,6 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 })
 export class AppComponent {
 
-  uid: any;
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -24,7 +23,8 @@ export class AppComponent {
     private http: HttpClient,
     private constant: ConstantService,
     private fcm: FCM,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
@@ -43,30 +43,40 @@ export class AppComponent {
   }
 
   getUserInfo() {
-    this.uid = localStorage.getItem('uid');
-    if (this.uid != null) {
-      this.http.get(this.constant.baseUrl + '/user/info', {
-        params: {
-          userId: this.uid
-        }
-      }).subscribe(res => {
-        this.constant.setUser((res as any).result);
-        this.getToken();
-      });
-    }
+    this.storage.get('uid').then( value => {
+      if ( value != null) {
+        this.http.get(this.constant.baseUrl + '/user/info', {
+          params: {
+            userId: value as any
+          }
+        }).subscribe(res => {
+          this.constant.setUser((res as any).result);
+          console.log(this.constant.getUser());
+          this.getToken();
+        });
+      }
+    });
   }
 
   getPrivateKeyList() {
-    if (JSON.parse(localStorage.getItem('privateKeyList')) == null) {
-      this.constant.privateKeyList = [];
-    } else {
-      this.constant.privateKeyList = JSON.parse(localStorage.getItem('privateKeyList'));
-    }
-    if (localStorage.getItem('privateKeyListLength') == null || localStorage.getItem('privateKeyListLength') === '') {
-      this.constant.privateKeyListLength = 0;
-    } else {
-      this.constant.privateKeyListLength = Number(localStorage.getItem('privateKeyListLength'));
-    }
+
+    this.storage.get('privateKeyList').then( res => {
+      if (res == null) {
+        this.constant.privateKeyList = [];
+      } else {
+        this.constant.privateKeyList = res as any;
+      }
+      console.log(JSON.stringify(this.constant.privateKeyList));
+    });
+
+    this.storage.get('privateKeyListLength').then( res => {
+      if (res == null) {
+        this.constant.privateKeyListLength = 0;
+      } else {
+        this.constant.privateKeyListLength = res as any;
+      }
+      console.log(this.constant.privateKeyListLength);
+    });
   }
 
   initFCM() {

@@ -8,6 +8,7 @@ import {AlertController} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {EtherscanTx} from '../entity/etherscan-tx';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-wallet-ethereum-send',
@@ -34,7 +35,8 @@ export class WalletEthereumSendPage implements OnInit {
               private http: HttpClient,
               private clipboard: Clipboard,
               private constant: ConstantService,
-              private alertController: AlertController) {
+              private alertController: AlertController,
+              private storage: Storage) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
@@ -152,18 +154,6 @@ export class WalletEthereumSendPage implements OnInit {
   }
 
   getRecommendFee() {
-    // this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
-    //   params: {
-    //     module: 'proxy',
-    //     action: 'eth_gasPrice',
-    //     apikey: this.constant.ropstenEtherScanKey
-    //   }
-    // }).subscribe( res => {
-    //   this.gas = (res as any).result / 100000000000000;
-    //   this.gwei = 25;
-    //   this.fee = this.gas * this.gwei;
-    //   this.fee = Number(this.fee.toFixed(8));
-    // });
     this.gas = 0.000021;
     this.gwei = 25;
     this.fee = this.gas * this.gwei;
@@ -202,14 +192,14 @@ export class WalletEthereumSendPage implements OnInit {
   }
 
   saveTmpEthTx() {
-    const res = JSON.parse(localStorage.getItem(this.privateKey.ethAddress));
-    if (res != null) {
-      this.tmpHashList = (res as any);
-      this.tmpHashList[this.tmpHashList.length] = this.tmpHash;
-    } else {
-      this.tmpHashList[0] = this.tmpHash;
-    }
-    localStorage.removeItem(this.privateKey.ethAddress);
-    localStorage.setItem(this.privateKey.ethAddress, JSON.stringify(this.tmpHashList));
+    this.storage.get(this.privateKey.ethAddress).then(res => {
+      if (res != null) {
+        this.tmpHashList = (res as any);
+        this.tmpHashList[this.tmpHashList.length] = this.tmpHash;
+      } else {
+        this.tmpHashList[0] = this.tmpHash;
+      }
+      this.storage.set(this.privateKey.ethAddress, this.tmpHashList);
+    });
   }
 }

@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {ConstantService} from '../constant.service';
 import {AppUpdate} from '@ionic-native/app-update/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-me',
@@ -16,7 +17,8 @@ export class MePage implements OnInit {
   constructor(private router: Router,
               public constant: ConstantService,
               private appUpdate: AppUpdate,
-              private appVersion: AppVersion) { }
+              private appVersion: AppVersion,
+              private storage: Storage) { }
 
   ngOnInit() {
     this.getVersion();
@@ -32,7 +34,7 @@ export class MePage implements OnInit {
 
   logout() {
     this.constant.setUser(null);
-    localStorage.removeItem('uid');
+    this.storage.remove('uid');
   }
 
   getVersion() {

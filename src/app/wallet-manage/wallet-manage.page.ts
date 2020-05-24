@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PrivateKey} from '../entity/private-key';
 import {ConstantService} from '../constant.service';
 import {AlertController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-wallet-manage',
@@ -18,7 +19,8 @@ export class WalletManagePage implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
-              private alertController: AlertController) {
+              private alertController: AlertController,
+              private storage: Storage) {
 
     this.passwordInput = '';
   }
@@ -108,10 +110,8 @@ export class WalletManagePage implements OnInit {
           handler: () => {
             this.constant.privateKeyList.splice(this.index, 1);
             this.constant.privateKeyListLength = this.constant.privateKeyListLength - 1;
-            localStorage.removeItem('privateKeyList');
-            localStorage.removeItem('privateKeyListLength');
-            localStorage.setItem('privateKeyList', JSON.stringify(this.constant.privateKeyList));
-            localStorage.setItem('privateKeyListLength', JSON.stringify(this.constant.privateKeyListLength));
+            this.storage.set('privateKeyList', this.constant.privateKeyList);
+            this.storage.set('privateKeyListLength', this.constant.privateKeyListLength);
             this.router.navigate(['tabs/wallet']);
           }
         }

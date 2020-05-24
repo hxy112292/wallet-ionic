@@ -7,6 +7,7 @@ import {ConstantService} from '../constant.service';
 import {BlockchairEthAddress} from '../entity/blockchair-eth-address';
 import {EtherscanBalance} from '../entity/etherscan-balance';
 import {EtherscanTx} from '../entity/etherscan-tx';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-wallet-ethereum-center',
@@ -23,7 +24,8 @@ export class WalletEthereumCenterPage implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
-              private constant: ConstantService) {
+              private constant: ConstantService,
+              private storage: Storage) {
 
     this.privateKey = {
       mnemonic: '',
@@ -81,23 +83,26 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   getTmpHash() {
-    this.tmpHashList = JSON.parse(localStorage.getItem(this.privateKey.ethAddress));
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.tmpHashList.length; i++) {
-      // tslint:disable-next-line:prefer-for-of
-      for (let j = 0; j < this.etherscanBalance.txList.length; j++) {
-        if (this.tmpHashList[i].hash === this.etherscanBalance.txList[j].hash) {
-          this.tmpHashList.splice(i, 1);
-          if (this.tmpHashList.length === 0 ) {
-            break;
+    this.storage.get(this.privateKey.ethAddress).then( res => {
+      if (res != null) {
+        this.tmpHashList = res as any;
+        for (let i = 0; i < this.tmpHashList.length; i++) {
+          // tslint:disable-next-line:prefer-for-of
+          for (let j = 0; j < this.etherscanBalance.txList.length; j++) {
+            if (this.tmpHashList[i].hash === this.etherscanBalance.txList[j].hash) {
+              this.tmpHashList.splice(i, 1);
+              if (this.tmpHashList.length === 0 ) {
+                break;
+              }
+            }
           }
         }
+        this.storage.remove(this.privateKey.ethAddress);
+        if (this.tmpHashList.length !== 0) {
+          this.storage.set(this.privateKey.ethAddress, this.tmpHashList);
+        }
       }
-    }
-    localStorage.removeItem(this.privateKey.ethAddress);
-    if (this.tmpHashList.length !== 0) {
-      localStorage.setItem(this.privateKey.ethAddress, JSON.stringify(this.tmpHashList));
-    }
+    });
   }
 
   doRefresh(event) {

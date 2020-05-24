@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ethers } from 'ethers';
+import {Component, OnInit} from '@angular/core';
+import {ethers} from 'ethers';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as bip39 from 'bip39';
 import * as bip32 from 'bip32';
 import {AlertController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PrivateKey} from '../entity/private-key';
-import {stringify} from 'querystring';
 import {ConstantService} from '../constant.service';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-wallet-add',
@@ -22,7 +22,8 @@ export class WalletAddPage implements OnInit {
   constructor(private alertController: AlertController,
               private route: ActivatedRoute,
               private router: Router,
-              private constant: ConstantService) {
+              private constant: ConstantService,
+              private storage: Storage) {
     this.privateKey = {
       mnemonic: '',
       btcAddress: '',
@@ -74,9 +75,9 @@ export class WalletAddPage implements OnInit {
     }
 
     this.constant.privateKeyList[this.constant.privateKeyListLength] = this.privateKey;
-    localStorage.setItem('privateKeyList', JSON.stringify(this.constant.privateKeyList));
+    this.storage.set('privateKeyList', this.constant.privateKeyList);
     this.constant.privateKeyListLength = this.constant.privateKeyListLength + 1;
-    localStorage.setItem('privateKeyListLength', this.constant.privateKeyListLength.toString());
+    this.storage.set('privateKeyListLength', this.constant.privateKeyListLength);
     this.router.navigate(['tabs/wallet']);
   }
 
