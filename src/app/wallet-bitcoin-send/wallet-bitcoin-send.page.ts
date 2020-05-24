@@ -63,40 +63,45 @@ export class WalletBitcoinSendPage implements OnInit {
   }
 
   sendByTypical() {
-    // 创建钱包
-    const alice = bitcoin.ECPair.fromWIF(this.privateKey.btcPrivateKey, bitcoin.networks.testnet);
-    // 构建交易 builder
-    const txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
-    // 此次发送的实际总金额
-    let inputValueTotal = 0;
-    // 使用的utxo的个数
-    let inputCount = 0;
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.utxoList.length; i++) {
-      inputValueTotal = Number(this.utxoList[i].value) + inputValueTotal;
-      inputCount = i + 1;
-      txb.addInput(this.utxoList[i].transaction_hash, Number(this.utxoList[i].index));
-      if (inputValueTotal > Math.round(this.amount * 100000000 + this.fee * 100000000)) {
-        break;
+
+    try {
+      // 创建钱包
+      const alice = bitcoin.ECPair.fromWIF(this.privateKey.btcPrivateKey, bitcoin.networks.testnet);
+      // 构建交易 builder
+      const txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
+      // 此次发送的实际总金额
+      let inputValueTotal = 0;
+      // 使用的utxo的个数
+      let inputCount = 0;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.utxoList.length; i++) {
+        inputValueTotal = Number(this.utxoList[i].value) + inputValueTotal;
+        inputCount = i + 1;
+        txb.addInput(this.utxoList[i].transaction_hash, Number(this.utxoList[i].index));
+        if (inputValueTotal > Math.round(this.amount * 100000000 + this.fee * 100000000)) {
+          break;
+        }
       }
+      if (inputValueTotal < this.amount * 100000000 + this.fee * 100000000) {
+        this.constant.alert('超出钱包可用余额');
+        return;
+      }
+      // 转给目的地址
+      txb.addOutput(this.recipientAddr, Math.round(this.amount * 100000000));
+      // 扣掉矿工费后，剩下的转回给自己
+      txb.addOutput(this.privateKey.btcAddress, inputValueTotal - Math.round(this.amount * 100000000 + this.fee * 100000000));
+      // 打印签名后的交易 hash
+      for (let i = 0; i < inputCount; i++) {
+        txb.sign(i, alice);
+      }
+      const rawHex = txb.build().toHex();
+      // 向区块链广播此次交易
+      this.broadcast(rawHex);
+      // 跳转回btc钱包页
+      this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
+    } catch (e) {
+      this.constant.alert(e.toString());
     }
-    if (inputValueTotal < this.amount * 100000000 + this.fee * 100000000) {
-      this.constant.alert('超出钱包可用余额');
-      return;
-    }
-    // 转给目的地址
-    txb.addOutput(this.recipientAddr, Math.round(this.amount * 100000000));
-    // 扣掉矿工费后，剩下的转回给自己
-    txb.addOutput(this.privateKey.btcAddress, inputValueTotal - Math.round(this.amount * 100000000 + this.fee * 100000000));
-    // 打印签名后的交易 hash
-    for (let i = 0; i < inputCount; i++) {
-      txb.sign(i, alice);
-    }
-    const rawHex = txb.build().toHex();
-    // 向区块链广播此次交易
-    this.broadcast(rawHex);
-    // 跳转回btc钱包页
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
   }
 
   broadcast(rawHex) {
@@ -114,6 +119,21 @@ export class WalletBitcoinSendPage implements OnInit {
   }
 
   async sendConfirm() {
+
+    if (this.recipientAddr == null || this.recipientAddr === '') {
+      this.constant.alert('接收方地址不能为空');
+      return;
+    }
+    if (this.amount == null) {
+      this.constant.alert('金额不能为空');
+      return;
+    }
+
+    if (this.fee == null) {
+      this.constant.alert('手续费不能为空');
+      return;
+    }
+
     const alert = await this.alertController.create({
       header: '请核对信息',
       message:

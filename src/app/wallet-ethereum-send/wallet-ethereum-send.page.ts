@@ -96,6 +96,69 @@ export class WalletEthereumSendPage implements OnInit {
 
   sendByTypical() {
 
+    try {
+      // 选择区块链网络
+      const provider = new ethers.providers.EtherscanProvider('ropsten');
+      // 生成钱包
+      const wallet = new ethers.Wallet(this.privateKey.ethPrivateKey, provider);
+
+      const transaction = {
+        nonce: provider.getTransactionCount(wallet.getAddress(), 'pending'),
+        gasLimit: 100000,
+        gasPrice: utils.parseUnits(String(this.gwei), 'gwei').toHexString(),
+
+        to: this.recipientAddr,
+        // ... or supports ENS names
+        // to: "ricmoo.firefly.eth",
+
+        value: utils.parseEther(this.amount),
+        data: this.note,
+
+        // This ensures the transaction cannot be replayed on different networks
+        chainId: ethers.utils.getNetwork('ropsten').chainId
+      };
+
+      const signPromise = wallet.sign(transaction);
+
+      signPromise.then((signedTransaction) => {
+
+        provider.sendTransaction(signedTransaction).then((tx) => {
+          this.tmpHash.hash = (tx as any).hash;
+          this.tmpHash.from = this.privateKey.ethAddress;
+          this.tmpHash.to = this.recipientAddr;
+          this.tmpHash.value = String(Number(this.amount) * 1000000000000000000);
+          this.tmpHash.confirmations = '-1';
+          this.tmpHash.timeStamp = String(new Date().getTime() / 1000);
+          this.saveTmpEthTx();
+          this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
+        }).catch( e => {
+          this.constant.alert(e.toString());
+        });
+      }).catch( e => {
+        this.constant.alert(e.toString());
+      });
+    } catch (e) {
+      this.constant.alert(e.toString());
+    }
+  }
+
+  getRecommendFee() {
+    this.gas = 0.000021;
+    this.gwei = 25;
+    this.fee = this.gas * this.gwei;
+    this.fee = Number(this.fee.toFixed(8));
+  }
+
+  async sendConfirm() {
+
+    if (this.recipientAddr == null || this.recipientAddr === '') {
+      this.constant.alert('接收方地址不能为空');
+      return;
+    }
+    if (this.amount == null || this.amount === '') {
+      this.constant.alert('金额不能为空');
+      return;
+    }
     if (this.note == null || this.note === '') {
       this.note = '0x';
     }
@@ -110,57 +173,6 @@ export class WalletEthereumSendPage implements OnInit {
       return;
     }
 
-
-    // 选择区块链网络
-    const provider = new ethers.providers.EtherscanProvider('ropsten');
-    // 生成钱包
-    const wallet = new ethers.Wallet(this.privateKey.ethPrivateKey, provider);
-
-    const transaction = {
-      nonce: provider.getTransactionCount(wallet.getAddress(), 'pending'),
-      gasLimit: 100000,
-      gasPrice: utils.parseUnits(String(this.gwei), 'gwei').toHexString(),
-
-      to: this.recipientAddr,
-      // ... or supports ENS names
-      // to: "ricmoo.firefly.eth",
-
-      value: utils.parseEther(this.amount),
-      data: this.note,
-
-      // This ensures the transaction cannot be replayed on different networks
-      chainId: ethers.utils.getNetwork('ropsten').chainId
-    };
-
-    const signPromise = wallet.sign(transaction);
-
-    signPromise.then((signedTransaction) => {
-
-      provider.sendTransaction(signedTransaction).then((tx) => {
-        this.tmpHash.hash = (tx as any).hash;
-        this.tmpHash.from = this.privateKey.ethAddress;
-        this.tmpHash.to = this.recipientAddr;
-        this.tmpHash.value = String(Number(this.amount) * 1000000000000000000);
-        this.tmpHash.confirmations = '-1';
-        this.tmpHash.timeStamp = String(new Date().getTime() / 1000);
-        this.saveTmpEthTx();
-        this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
-      }).catch( error => {
-        this.constant.alert('发送失败：' + error.toString());
-      });
-    }).catch( error => {
-      this.constant.alert('发送失败：' + error.toString());
-    });
-  }
-
-  getRecommendFee() {
-    this.gas = 0.000021;
-    this.gwei = 25;
-    this.fee = this.gas * this.gwei;
-    this.fee = Number(this.fee.toFixed(8));
-  }
-
-  async sendConfirm() {
     const alert = await this.alertController.create({
       header: '请核对信息',
       message:
