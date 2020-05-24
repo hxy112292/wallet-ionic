@@ -32,13 +32,13 @@
     </div>
     <div *ngIf="monitorPrice.upChangePercent != null">
       <ion-item>
-        <ion-label>上涨幅度：</ion-label>
+        <ion-label>上涨幅度（%）：</ion-label>
         <ion-input style="text-align: right" [(ngModel)]="monitorPrice.upChangePercent"></ion-input>
       </ion-item>
     </div>
     <div *ngIf="monitorPrice.downChangePercent != null">
       <ion-item>
-        <ion-label>下跌幅度：</ion-label>
+        <ion-label>下跌幅度（%）：</ion-label>
         <ion-input style="text-align: right" [(ngModel)]="monitorPrice.downChangePercent"></ion-input>
       </ion-item>
     </div>

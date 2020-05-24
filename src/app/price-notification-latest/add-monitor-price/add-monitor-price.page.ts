@@ -58,6 +58,41 @@ export class AddMonitorPricePage implements OnInit {
   }
 
   insertMonitorPrice() {
+
+    if (this.monitorPrice.code == null || this.monitorPrice.code === '') {
+      this.constant.alert('请选择一个币种');
+      return;
+    }
+    if (this.upPriceMonitor == null && this.downPriceMonitor == null && this.upChangeMonitor == null
+        && this.downChangeMonitor == null) {
+      this.constant.alert('请至少输入一个提醒参数');
+      return;
+    }
+
+    const re = /^-?[0-9]+.?[0-9]*/;
+
+    if (this.upPriceMonitor != null && !re.test(String(this.upPriceMonitor))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+    if (this.downPriceMonitor != null && !re.test(String(this.downPriceMonitor))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+    if (this.upChangeMonitor != null && !re.test(String(this.upChangeMonitor))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+    if (this.downChangeMonitor != null && !re.test(String(this.downChangeMonitor))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+
+    if (this.downChangeMonitor != null && this.downChangeMonitor > 0) {
+      this.downChangeMonitor = 0 - this.downChangeMonitor;
+    }
+
+
     if (this.upPriceMonitor != null) {
       this.monitorPrice.upPrice = this.upPriceMonitor;
       this.monitorPrice.downPrice = null;

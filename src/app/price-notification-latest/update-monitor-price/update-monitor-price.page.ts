@@ -52,6 +52,40 @@ export class UpdateMonitorPricePage implements OnInit {
   }
 
   updateMonitorPrice() {
+
+    if (this.monitorPrice.code == null || this.monitorPrice.code === '') {
+      this.constant.alert('请选择一个币种');
+      return;
+    }
+    if (this.monitorPrice.upPrice == null && this.monitorPrice.downPrice == null && this.monitorPrice.upChangePercent == null
+        && this.monitorPrice.downChangePercent == null) {
+      this.constant.alert('请至少输入一个提醒参数');
+      return;
+    }
+
+    const re = /^-?[0-9]+.?[0-9]*/;
+
+    if (this.monitorPrice.upPrice != null && !re.test(String(this.monitorPrice.upPrice))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+    if (this.monitorPrice.downPrice != null && !re.test(String(this.monitorPrice.downPrice))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+    if (this.monitorPrice.upChangePercent != null && !re.test(String(this.monitorPrice.upChangePercent))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+    if (this.monitorPrice.downChangePercent != null && !re.test(String(this.monitorPrice.downChangePercent))) {
+      this.constant.alert('请输入数字');
+      return;
+    }
+
+    if (this.monitorPrice.downChangePercent != null && this.monitorPrice.downChangePercent > 0) {
+      this.monitorPrice.downChangePercent = 0 - this.monitorPrice.downChangePercent;
+    }
+
     this.http.put(this.constant.baseUrl + '/monitorPrice', this.monitorPrice).subscribe(res => {
       this.monitorCoinList = (res as any).result;
     });
