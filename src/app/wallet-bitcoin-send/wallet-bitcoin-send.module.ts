@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { WalletBitcoinSendPageRoutingModule } from './wallet-bitcoin-send-routing.module';
 
 import { WalletBitcoinSendPage } from './wallet-bitcoin-send.page';
+import {WalletContactChoosePageModule} from '../wallet-contact-choose/wallet-contact-choose.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WalletBitcoinSendPageRoutingModule
+    WalletBitcoinSendPageRoutingModule,
+    WalletContactChoosePageModule
   ],
   declarations: [WalletBitcoinSendPage]
 })

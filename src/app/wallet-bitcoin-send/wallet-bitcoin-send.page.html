@@ -23,6 +23,7 @@
     <ion-item lines="none">
       <ion-icon name="wallet" color="medium"></ion-icon>
       <ion-text>　接收方：</ion-text>
+      <ion-text color="primary" slot="end" style="text-decoration: underline" (click)="chooseAddress()">地址簿</ion-text>
     </ion-item>
     <ion-item>
       <ion-input [(ngModel)]="recipientAddr" placeholder="输入地址"></ion-input>

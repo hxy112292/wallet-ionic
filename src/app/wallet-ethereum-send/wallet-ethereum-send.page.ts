@@ -4,11 +4,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import { ethers, utils } from 'ethers';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ModalController} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {EtherscanTx} from '../entity/etherscan-tx';
 import {Storage} from '@ionic/storage';
+import {WalletContactChoosePage} from '../wallet-contact-choose/wallet-contact-choose.page';
 
 @Component({
   selector: 'app-wallet-ethereum-send',
@@ -36,7 +37,8 @@ export class WalletEthereumSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
-              private storage: Storage) {
+              private storage: Storage,
+              private modalController: ModalController) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
@@ -213,5 +215,19 @@ export class WalletEthereumSendPage implements OnInit {
       }
       this.storage.set(this.privateKey.ethAddress, this.tmpHashList);
     });
+  }
+
+  async chooseAddress() {
+    const modal = await this.modalController.create({
+      component: WalletContactChoosePage,
+      componentProps: {
+        symbol: 'ETH'
+      }
+    });
+    await modal.present();
+    const data = ((await modal.onDidDismiss()) as any).data;
+    if (data != null) {
+      this.recipientAddr = data;
+    }
   }
 }

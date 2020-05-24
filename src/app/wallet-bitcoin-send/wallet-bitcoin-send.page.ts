@@ -5,9 +5,11 @@ import {BarcodeScannerOptions, BarcodeScanner} from '@ionic-native/barcode-scann
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ModalController} from '@ionic/angular';
 import * as bitcoin from 'bitcoinjs-lib';
 import {BlockchairBtcUtxo} from '../entity/blockchair-btc-utxo';
+import {WalletContactAddPage} from '../wallet-contact-add/wallet-contact-add.page';
+import {WalletContactChoosePage} from '../wallet-contact-choose/wallet-contact-choose.page';
 
 @Component({
   selector: 'app-wallet-bitcoin-send',
@@ -31,7 +33,8 @@ export class WalletBitcoinSendPage implements OnInit {
               private http: HttpClient,
               private clipboard: Clipboard,
               private constant: ConstantService,
-              private alertController: AlertController) {
+              private alertController: AlertController,
+              private modalController: ModalController) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
@@ -159,4 +162,17 @@ export class WalletBitcoinSendPage implements OnInit {
     await alert.present();
   }
 
+  async chooseAddress() {
+    const modal = await this.modalController.create({
+      component: WalletContactChoosePage,
+      componentProps: {
+        symbol: 'BTC'
+      }
+    });
+    await modal.present();
+    const data = ((await modal.onDidDismiss()) as any).data;
+    if (data != null) {
+      this.recipientAddr = data;
+    }
+  }
 }
