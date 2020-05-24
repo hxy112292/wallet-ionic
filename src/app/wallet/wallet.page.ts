@@ -6,6 +6,8 @@ import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {ConstantService} from '../constant.service';
 import {ModalController} from '@ionic/angular';
 import {PrivateKey} from '../entity/private-key';
+import {delay} from 'rxjs/operators';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-wallet',
@@ -19,11 +21,11 @@ export class WalletPage implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
-              private constant: ConstantService) { }
+              private constant: ConstantService,
+              private storage: Storage) { }
 
   ngOnInit() {
-
-    this.privateKeyList = this.constant.privateKeyList;
+    this.getPrivateKeyList();
   }
 
   toAddWallet() {
@@ -40,5 +42,24 @@ export class WalletPage implements OnInit {
 
   toWalletEthereumCenter(privateKey: PrivateKey) {
     this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getPrivateKeyList();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
+  getPrivateKeyList() {
+    this.storage.get('privateKeyList').then( res => {
+      if (res == null) {
+        this.privateKeyList = [];
+      } else {
+        this.privateKeyList = res as any;
+      }
+    });
   }
 }

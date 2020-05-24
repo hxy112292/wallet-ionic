@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list lines="full">
     <ion-item style="text-align: center" (click)="toAddWallet()">
       <ion-title color="primary">+添加一个钱包</ion-title>
