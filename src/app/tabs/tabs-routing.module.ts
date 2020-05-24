@@ -167,6 +167,10 @@ const routes: Routes = [
           {
             path: 'user-info',
             loadChildren: () => import('../user-info/user-info.module').then( m => m.UserInfoPageModule)
+          },
+          {
+            path: 'login-forget-password',
+            loadChildren: () => import('../login-forget-password/login-forget-password.module').then( m => m.LoginForgetPasswordPageModule)
           }
         ]
       },

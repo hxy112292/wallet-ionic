@@ -69,4 +69,8 @@ export class LoginPage implements OnInit {
     });
   }
 
+  toForgetPassword() {
+    this.router.navigate(['tabs/me/login-forget-password']);
+  }
+
 }
