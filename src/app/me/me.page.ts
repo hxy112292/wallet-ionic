@@ -60,4 +60,8 @@ export class MePage implements OnInit {
         }
     );
   }
+
+  walletContactManage() {
+    this.router.navigate(['tabs/me/wallet-contact']);
+  }
 }

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>编辑地址</ion-title>
+    <ion-icon name="close" (click)="dismiss(null)" slot="start" style="font-size: x-large;margin-left: 3%;"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>选择一个币种</ion-label>
+      <ion-select [(ngModel)]="walletContact.symbol">
+        <ion-select-option value="BTC">BTC</ion-select-option>
+        <ion-select-option value="ETH">ETH</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="wallet" color="medium"></ion-icon>
+      <ion-text>　地址：</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="walletContact.address" placeholder="输入地址"></ion-input>
+      <ion-text color="primary" (click)="paste()">　粘贴</ion-text>
+      <ion-text style="font-size: small">　|　</ion-text>
+      <ion-icon name="camera" color="primary" (click)="qrScan()"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="document" color="medium"></ion-icon>
+      <ion-text>　备注：</ion-text>
+      <ion-input [(ngModel)]="walletContact.note" placeholder="(不超过25字)"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div style="text-align: center">
+    <ion-button color="primary" (click)="addWalletContact()">提 交</ion-button>
+  </div>
+</ion-content>

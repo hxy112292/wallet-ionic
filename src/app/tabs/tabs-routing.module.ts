@@ -88,8 +88,11 @@ const routes: Routes = [
           {
             path: 'wallet-reset-password',
             loadChildren: () => import('../wallet-reset-password/wallet-reset-password.module').then( m => m.WalletResetPasswordPageModule)
+          },
+          {
+            path: 'wallet-contact-choose',
+            loadChildren: () => import('../wallet-contact-choose/wallet-contact-choose.module').then( m => m.WalletContactChoosePageModule)
           }
-
         ]
       },
       {
@@ -171,6 +174,10 @@ const routes: Routes = [
           {
             path: 'login-forget-password',
             loadChildren: () => import('../login-forget-password/login-forget-password.module').then( m => m.LoginForgetPasswordPageModule)
+          },
+          {
+            path: 'wallet-contact',
+            loadChildren: () => import('../wallet-contact/wallet-contact.module').then( m => m.WalletContactPageModule)
           }
         ]
       },

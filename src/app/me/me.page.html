@@ -23,6 +23,10 @@
       <ion-icon name="paper-plane" color="danger"></ion-icon>
       <ion-label>　版本: {{appVersionNumber}}</ion-label>
     </ion-item>
+    <ion-item (click)="walletContactManage()">
+      <ion-icon name="wallet" color="tertiary"></ion-icon>
+      <ion-label>　常用转账地址</ion-label>
+    </ion-item>
   </ion-list>
   <br/><br/>
   <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!='' && constant.getUser().role=='USER'"
