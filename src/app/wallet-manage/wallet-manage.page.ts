@@ -119,4 +119,8 @@ export class WalletManagePage implements OnInit {
     });
     await alert.present();
   }
+
+  forgetPassword() {
+    this.router.navigate(['tabs/wallet/wallet-mnemonic-password', {index: this.index, privateKeyInfo: JSON.stringify(this.privateKey)}]);
+  }
 }

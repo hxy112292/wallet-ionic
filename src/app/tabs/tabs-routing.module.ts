@@ -79,7 +79,17 @@ const routes: Routes = [
             path: 'wallet-ethereum-send',
             loadChildren: () => import('../wallet-ethereum-send/wallet-ethereum-send.module')
                 .then( m => m.WalletEthereumSendPageModule)
+          },
+          {
+            path: 'wallet-mnemonic-password',
+            loadChildren: () => import('../wallet-mnemonic-password/wallet-mnemonic-password.module')
+                .then( m => m.WalletMnemonicPasswordPageModule)
+          },
+          {
+            path: 'wallet-reset-password',
+            loadChildren: () => import('../wallet-reset-password/wallet-reset-password.module').then( m => m.WalletResetPasswordPageModule)
           }
+
         ]
       },
       {
