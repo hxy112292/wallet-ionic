@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantService} from '../constant.service';
+import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-tool',
@@ -9,9 +10,24 @@ import {ConstantService} from '../constant.service';
 })
 export class ToolPage implements OnInit {
 
+  options: InAppBrowserOptions;
+
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private constant: ConstantService) { }
+              private constant: ConstantService,
+              private inAppBrowser: InAppBrowser) {
+
+    this.options = {
+      location : 'yes',
+      hidden : 'no',
+      clearcache : 'yes',
+      clearsessioncache : 'yes',
+      zoom : 'yes',
+      hardwareback : 'yes',
+      mediaPlaybackRequiresUserAction : 'no',
+      shouldPauseOnSuspend : 'no',
+    };
+  }
 
   ngOnInit() {
   }
@@ -64,5 +80,11 @@ export class ToolPage implements OnInit {
       return;
     }
     this.router.navigate(['tabs/tool/price-notification']);
+  }
+
+  openAccelerator() {
+    const url = 'https://www.viabtc.com/tools/txaccelerator/';
+    const target = '_self';
+    this.inAppBrowser.create(url, target, this.options);
   }
 }
