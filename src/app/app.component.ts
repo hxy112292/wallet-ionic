@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from './constant.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Storage} from '@ionic/storage';
+import {AppUpdate} from '@ionic-native/app-update/ngx';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,8 @@ export class AppComponent {
     private constant: ConstantService,
     private fcm: FCM,
     private localNotifications: LocalNotifications,
-    private storage: Storage
+    private storage: Storage,
+    private appUpdate: AppUpdate
   ) {
     this.initializeApp();
   }
@@ -39,6 +41,7 @@ export class AppComponent {
       this.initFCM();
       this.getUserInfo();
       this.getPrivateKeyList();
+      this.checkVersion();
     });
   }
 
@@ -119,5 +122,19 @@ export class AppComponent {
   }
   unsubscribeFromTopic() {
     this.fcm.unsubscribeFromTopic('enappd');
+  }
+
+  checkVersion() {
+    const updateUrl = this.constant.baseUrl + '/update/xml';
+    this.appUpdate.checkAppUpdate(updateUrl).then(
+        res => {
+          console.log(res);
+          if (res.code === 202) {
+          }
+        }).catch(
+        err => {
+          console.log(err);
+        }
+    );
   }
 }
