@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Github</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <div style="text-align: center;margin-left: 3%;margin-right: 3%">
+    <ion-title>
+      <ion-icon name="logo-github" color="dark"></ion-icon>
+      Github 地址：
+    </ion-title>
+    <ngx-qrcode [value]="constant.githubUrl"></ngx-qrcode>
+    <ion-text>
+      {{constant.githubUrl}}
+    </ion-text>
+    <br>
+    <ion-button color="secondary" (click)="copyText()">
+      <ion-icon name="copy" slot="start"></ion-icon>
+      复制网址
+    </ion-button>
+  </div>
+</ion-content>

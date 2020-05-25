@@ -190,6 +190,10 @@ const routes: Routes = [
           {
             path: 'wallet-contact',
             loadChildren: () => import('../wallet-contact/wallet-contact.module').then( m => m.WalletContactPageModule)
+          },
+          {
+            path: 'github',
+            loadChildren: () => import('../github/github.module').then( m => m.GithubPageModule)
           }
         ]
       },

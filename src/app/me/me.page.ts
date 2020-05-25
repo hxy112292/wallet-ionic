@@ -15,7 +15,7 @@ export class MePage implements OnInit {
   appVersionNumber: string;
 
   constructor(private router: Router,
-              public constant: ConstantService,
+              private constant: ConstantService,
               private appUpdate: AppUpdate,
               private appVersion: AppVersion,
               private storage: Storage) { }
@@ -62,5 +62,9 @@ export class MePage implements OnInit {
 
   walletContactManage() {
     this.router.navigate(['tabs/me/wallet-contact']);
+  }
+
+  githubUrl() {
+    this.router.navigate(['tabs/me/github']);
   }
 }
