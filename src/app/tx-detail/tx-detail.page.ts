@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {TxHistory} from '../entity/tx-history';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
-import {TxDest} from '../entity/tx-dest';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
+import {BlockchairBtcAddressTransaction} from '../entity/blockchair-btc-address-transaction';
+import {Clipboard} from '@ionic-native/clipboard/ngx';
+import {ToastController} from '@ionic/angular';
+import {TxHistory} from '../entity/tx-history';
 
 @Component({
   selector: 'app-tx-detail',
@@ -13,15 +15,30 @@ import {ConstantService} from '../constant.service';
 })
 export class TxDetailPage implements OnInit {
 
-  txHistory: TxHistory;
-  txDestList: TxDest[];
-
+  hash: string;
+  transaction: BlockchairBtcAddressTransaction;
   options: InAppBrowserOptions;
+  txHistory: TxHistory;
 
   constructor(private route: ActivatedRoute,
-              private inAppBrowser: InAppBrowser,
+              private router: Router,
               private http: HttpClient,
-              private constant: ConstantService) {
+              private constant: ConstantService,
+              private inAppBrowser: InAppBrowser,
+              private clipboard: Clipboard,
+              private toastController: ToastController) {
+
+    this.transaction = {
+      block_id: '',
+      hash: '',
+      time: '',
+      balance_change: '',
+      input_total: '',
+      fee: '',
+      state: '',
+      inputs: [],
+      outputs: []
+    };
 
     this.options = {
       location : 'yes',
@@ -33,12 +50,37 @@ export class TxDetailPage implements OnInit {
       mediaPlaybackRequiresUserAction : 'no',
       shouldPauseOnSuspend : 'no',
     };
-
   }
 
   ngOnInit() {
+
     this.txHistory = JSON.parse(this.route.snapshot.paramMap.get('txHistoryInfo'));
-    this.getTxDest();
+    this.hash = this.txHistory.txHash;
+    this.getTransactionInfo();
+  }
+
+  getTransactionInfo() {
+    this.http.get(this.constant.blockChairUrl + '/bitcoin/dashboards/transaction/' + this.hash).subscribe(res => {
+      const data = (res as any).data;
+      // tslint:disable-next-line:forin
+      for (const key in data) {
+        const value = data[key];
+        this.transaction = (value as any).transaction;
+        this.transaction.inputs = (value as any).inputs;
+        this.transaction.outputs = (value as any).outputs;
+        break;
+      }
+      this.transaction.state = (res as any).context.state;
+    });
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getTransactionInfo();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
   openHash(url: string) {
@@ -53,14 +95,23 @@ export class TxDetailPage implements OnInit {
     this.inAppBrowser.create(url, target, this.options);
   }
 
-  getTxDest() {
-    this.http.get(this.constant.baseUrl + '/txDest', {
-      params: {
-        symbol: 'BTC',
-        hash: this.txHistory.txHash
-      }
-    }).subscribe(res => {
-      this.txDestList = (res as any).result;
+  async copyTxHash() {
+
+    const toast = await this.toastController.create({
+      message: 'Hash已复制',
+      duration: 2000
     });
+    await toast.present();
+    await this.clipboard.copy(this.transaction.hash);
+  }
+
+  async copyAddress(address) {
+
+    const toast = await this.toastController.create({
+      message: '地址已复制',
+      duration: 2000
+    });
+    await toast.present();
+    await this.clipboard.copy(address);
   }
 }

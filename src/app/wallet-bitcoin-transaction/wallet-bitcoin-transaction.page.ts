@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {BlockchairBtcAddressTransaction} from '../entity/blockchair-btc-address-transaction';
-import {BlockchairBtcTransactionInput} from '../entity/blockchair-btc-transaction-input';
-import {BlockchairBtcTransactionOutput} from '../entity/blockchair-btc-transaction-output';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
