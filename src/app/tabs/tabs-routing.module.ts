@@ -145,6 +145,14 @@ const routes: Routes = [
           {
             path: 'price-notification',
             loadChildren: () => import('../price-notification/price-notification.module').then( m => m.PriceNotificationPageModule)
+          },
+          {
+            path: 'exchange-detail',
+            loadChildren: () => import('../exchange-detail/exchange-detail.module').then( m => m.ExchangeDetailPageModule)
+          },
+          {
+            path: 'exchange',
+            loadChildren: () => import('../exchange/exchange.module').then( m => m.ExchangePageModule)
           }
         ]
       },

@@ -87,4 +87,8 @@ export class ToolPage implements OnInit {
     const target = '_self';
     this.inAppBrowser.create(url, target, this.options);
   }
+
+  toExchange() {
+    this.router.navigate(['tabs/tool/exchange']);
+  }
 }

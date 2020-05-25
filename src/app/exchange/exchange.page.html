@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>交易所榜单</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="5" style="color: grey;font-size: 15px">
+            TOP30 交易所
+          </ion-col>
+          <ion-col size="2.5" style="color: grey;font-size: 15px">
+            日成交($)
+          </ion-col>
+          <ion-col size="2" style="color: grey;font-size: 15px">
+            交易对
+          </ion-col>
+          <ion-col size="2.5" style="color: grey;font-size: 15px">
+            人气
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let exchange of exchangeList; let i = index">
+      <ion-item (click)="toExchangeDetail(exchange.id)">
+        <ion-grid>
+          <ion-row style="font-size: small;color: grey">
+            #{{i+1}} {{exchange.id}}
+          </ion-row>
+          <ion-row>
+            <ion-col size="1">
+              <img src="{{exchange.logo}}" style="max-width: 20px;max-height: 20px" referrerpolicy="no-referrer">
+            </ion-col>
+            <ion-col size="4">
+              {{exchange.name}}
+            </ion-col>
+            <ion-col size="2.5">
+              {{exchange.volumn / 100000000 | number: '1.1-1'}}亿
+            </ion-col>
+            <ion-col size="2">
+              {{exchange.pairnum}}
+            </ion-col>
+            <ion-col size="2.5">
+              <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{exchange.exrank/2 | number: '1.2-2'}}"></ionic5-star-rating>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

@@ -28,7 +28,7 @@
             <ion-text>板块涨幅</ion-text>
           </ion-col>
           <ion-col size="4" (click)="toGitDev()">
-            <ion-icon name="logo-github" size="large" color="black"></ion-icon>
+            <ion-icon name="logo-github" size="large" color="dark"></ion-icon>
             <br>
             <ion-text>开发活跃度</ion-text>
           </ion-col>
@@ -36,20 +36,20 @@
         <br>
         <br>
         <ion-row>
+          <ion-col size="4" (click)="toTurnOver()">
+            <ion-icon name="hand-right" size="large" color="primary"></ion-icon>
+            <br>
+            <ion-text>换手率</ion-text>
+          </ion-col>
+          <ion-col size="4"(click)="toExchange()">
+            <ion-icon name="business" size="large" color="tertiary"></ion-icon>
+            <br>
+            <ion-text>交易所</ion-text>
+          </ion-col>
           <ion-col size="4" (click)="toMonitor()">
             <ion-icon name="eye" size="large" color="medium"></ion-icon>
             <br>
             <ion-text>链上监控</ion-text>
-          </ion-col>
-          <ion-col size="4" (click)="toTurnOver()">
-            <ion-icon name="hand-right" size="large" color="tertiary"></ion-icon>
-            <br>
-            <ion-text>换手率</ion-text>
-          </ion-col>
-          <ion-col size="4" (click)="toHotWeb()">
-            <ion-icon name="globe" size="large" color="danger"></ion-icon>
-            <br>
-            <ion-text>区块链导航</ion-text>
           </ion-col>
         </ion-row>
         <br>
@@ -65,24 +65,29 @@
             <br>
             <ion-text>区块链浏览器</ion-text>
           </ion-col>
-          <ion-col size="4"(click)="toLiveNews()">
-            <ion-icon name="newspaper" size="large" color="dark"></ion-icon>
+          <ion-col size="4" (click)="openAccelerator()">
+            <ion-icon name="rocket" size="large" color="danger"></ion-icon>
             <br>
-            <ion-text>资讯浏览</ion-text>
+            <ion-text>交易加速</ion-text>
           </ion-col>
         </ion-row>
         <br>
         <br>
         <ion-row>
+          <ion-col size="4" (click)="toHotWeb()">
+            <ion-icon name="globe" size="large" color="danger"></ion-icon>
+            <br>
+            <ion-text>区块链导航</ion-text>
+          </ion-col>
+          <ion-col size="4"(click)="toLiveNews()">
+            <ion-icon name="newspaper" size="large" color="dark"></ion-icon>
+            <br>
+            <ion-text>资讯浏览</ion-text>
+          </ion-col>
           <ion-col size="4" (click)="toListingLatest()">
             <ion-icon name="logo-bitcoin" size="large" color="warning"></ion-icon>
             <br>
             <ion-text>市值排名</ion-text>
-          </ion-col>
-          <ion-col size="4" (click)="openAccelerator()">
-            <ion-icon name="rocket" size="large" color="danger"></ion-icon>
-            <br>
-            <ion-text>交易加速</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
