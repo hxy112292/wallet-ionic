@@ -126,4 +126,8 @@ export class WalletEthereumCenterPage implements OnInit {
     this.router.navigate(['tabs/wallet/wallet-ethereum-send', {privateKeyInfo: JSON.stringify(privateKey),
       balance: this.etherscanBalance.result}]);
   }
+
+  toCoinDetail() {
+    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'ethereum'}]);
+  }
 }

@@ -92,6 +92,10 @@ const routes: Routes = [
           {
             path: 'wallet-contact-choose',
             loadChildren: () => import('../wallet-contact-choose/wallet-contact-choose.module').then( m => m.WalletContactChoosePageModule)
+          },
+          {
+            path: 'coin-detail',
+            loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
           }
         ]
       },

@@ -113,4 +113,8 @@ export class WalletBitcoinCenterPage implements OnInit {
       {privateKeyInfo: JSON.stringify(privateKey), balance: this.blockChairAddress.balance,
         utxoList: JSON.stringify(this.blockChairAddress.utxoList)}]);
   }
+
+  toCoinDetail() {
+    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'bitcoin'}]);
+  }
 }
