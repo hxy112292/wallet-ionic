@@ -17,12 +17,7 @@ const routes: Routes = [
   {
     path: 'me',
     loadChildren: () => import('./me/me.module').then( m => m.MePageModule)
-  },
-  {
-    path: 'exchange-desc',
-    loadChildren: () => import('./exchange-detail/exchange-desc/exchange-desc.module').then(m => m.ExchangeDescPageModule)
   }
-
 ];
 @NgModule({
   imports: [
