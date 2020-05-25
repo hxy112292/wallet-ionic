@@ -4,8 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {CoinDetail} from '../entity/coin-detail';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
-import {ModalController} from '@ionic/angular';
+import {ModalController, ToastController} from '@ionic/angular';
 import {CoinDescPage} from './coin-desc/coin-desc.page';
+import {Clipboard} from '@ionic-native/clipboard/ngx';
 
 @Component({
   selector: 'app-coin-detail',
@@ -23,7 +24,9 @@ export class CoinDetailPage implements OnInit {
               private http: HttpClient,
               private inAppBrowser: InAppBrowser,
               private constant: ConstantService,
-              private modalController: ModalController) {
+              private modalController: ModalController,
+              private clipboard: Clipboard,
+              private toastController: ToastController) {
 
     this.options = {
       location : 'yes',
@@ -105,5 +108,15 @@ export class CoinDetailPage implements OnInit {
     if (data != null) {
 
     }
+  }
+
+  async copyText(url) {
+
+    const toast = await this.toastController.create({
+      message: '网址已复制',
+      duration: 2000
+    });
+    await toast.present();
+    await this.clipboard.copy(url);
   }
 }

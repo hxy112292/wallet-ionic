@@ -1,9 +1,98 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>exchangeDetail</ion-title>
+    <ion-title>交易所详情</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item>
+      <img src="{{exchangeDetail.logo}}" referrerpolicy="no-referrer" style="max-height: 30px;max-width: 30px">
+      <ion-text>　{{exchangeDetail.platform_name}}</ion-text>
+      <ion-text style="font-size: small;color: grey">　{{exchangeDetail.platform}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row style="max-height: 45px;overflow: hidden">
+          {{exchangeDetail.desc}}
+        </ion-row>
+        <ion-row>
+          ...<ion-text color="primary" (click)="toExchangeDesc()">　查看更多</ion-text>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">排名</ion-text>
+      <ion-text slot="end">{{exchangeDetail.rank}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">官网</ion-text>
+      <ion-text slot="end" color="primary" (click)="openUrl(exchangeDetail.official_url)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{exchangeDetail.official_url}}</ion-text>
+      <ion-icon name="copy-outline" slot="end" (click)="copyText(exchangeDetail.official_url)"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">手续费</ion-text>
+      <ion-text slot="end" color="primary" (click)="openUrl(exchangeDetail.fee_url)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{exchangeDetail.fee_url}}</ion-text>
+      <ion-icon name="copy-outline" slot="end" (click)="copyText(exchangeDetail.fee_url)"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">成立时间</ion-text>
+      <ion-text slot="end">{{exchangeDetail.launchedtime}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">人气</ion-text>
+      <ionic5-star-rating #rating slot="end" activeColor = "orange" readonly = "true" fontSize="small" rating="{{exchangeDetail.exrank/2 | number: '1.2-2'}}"></ionic5-star-rating>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">注册地区</ion-text>
+      <ion-text slot="end">{{exchangeDetail.country}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">币种数量</ion-text>
+      <ion-text slot="end">{{exchangeDetail.pairnum}}</ion-text>
+    </ion-item>
+    <div *ngIf="exchangeDetail.auth_kyc == '1'">
+      <ion-item>
+        <ion-text style="color: grey">KYC认证</ion-text>
+        <ion-text slot="end">是</ion-text>
+      </ion-item>
+    </div>
+    <div *ngIf="exchangeDetail.auth_kyc == '0'">
+      <ion-item>
+        <ion-text style="color: grey">KYC认证</ion-text>
+        <ion-text slot="end">未知</ion-text>
+      </ion-item>
+    </div>
+    <ion-item>
+      <ion-text style="color: grey">交易支持</ion-text>
+      <ion-text slot="end">{{exchangeDetail.labels}}</ion-text>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3" style="text-align: center;" (click)="openUrl(exchangeDetail.official_url)">
+        <ion-icon name="home" color="primary" size="large"></ion-icon>
+        <br>
+        <ion-text style="color: grey;font-size: small">官网</ion-text>
+      </ion-col>
+      <ion-col size="3" style="text-align: center" (click)="openUrl(exchangeDetail.facebook_url)">
+        <ion-icon name="logo-facebook" color="tertiary" size="large"></ion-icon>
+        <br>
+        <ion-text style="color: grey;font-size: small">Facebook</ion-text>
+      </ion-col>
+      <ion-col size="3" style="text-align: center" (click)="openUrl(exchangeDetail.twitter_url)">
+        <ion-icon name="logo-twitter" color="primary" size="large"></ion-icon>
+        <br>
+        <ion-text style="color: grey;font-size: small">Twitter</ion-text>
+      </ion-col>
+      <ion-col size="3" style="text-align: center" (click)="openUrl(exchangeDetail.redditlink)">
+        <ion-icon name="logo-reddit" color="danger" size="large"></ion-icon>
+        <br>
+        <ion-text style="color: grey;font-size: small">Reddit</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

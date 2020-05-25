@@ -46,6 +46,16 @@
       <ion-text slot="end">{{coinDetail.rank}}</ion-text>
     </ion-item>
     <ion-item>
+      <ion-text style="color: grey">官网</ion-text>
+      <ion-text slot="end" color="primary" (click)="openUrl(coinDetail.siteurl)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{coinDetail.siteurl}}</ion-text>
+      <ion-icon name="copy-outline" slot="end" (click)="copyText(coinDetail.siteurl)"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-text style="color: grey">白皮书</ion-text>
+      <ion-text slot="end" color="primary" (click)="openUrl(coinDetail.white_paper)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{coinDetail.white_paper}}</ion-text>
+      <ion-icon name="copy-outline" slot="end" (click)="copyText(coinDetail.white_paper)"></ion-icon>
+    </ion-item>
+    <ion-item>
       <ion-text style="color: grey">流通量</ion-text>
       <ion-text slot="end">{{coinDetail.supply}} {{coinDetail.symbol}}</ion-text>
     </ion-item>
