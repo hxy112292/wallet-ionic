@@ -19,25 +19,22 @@
       <ion-card-header>
         <ion-card-subtitle>
           <ion-row>
+            <img src="{{hotWeb.imageUrl}}" referrerpolicy="no-referrer" style="max-height: 30px; max-width: 30px">
             <ion-title style="font-size: large">{{hotWeb.title}}</ion-title>
-            <ion-text style="text-align: right;"(click)="displayIntroduction(hotWeb.id)" id="{{hotWeb.id + 'operation'}}">更多>></ion-text>
+            <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotWeb.star}}"></ionic5-star-rating>
           </ion-row>
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <ion-grid>
-          <ion-row>
-            <ion-col size="3" style="display: block;text-align: center">
-              <img src="{{hotWeb.imageUrl}}" referrerpolicy="no-referrer" style="max-height: 50px; max-width: 50px">
-              <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotWeb.star}}"></ionic5-star-rating>
-            </ion-col>
-            <ion-col>
-              <br>
-              <ion-text color="primary" (click)="openWeb(hotWeb.url)">　{{hotWeb.url}}</ion-text>
-            </ion-col>
+          <ion-row style="max-height: 46px;overflow: hidden" id="{{hotWeb.id  + 'content'}}" (click)="displayFullContent(hotWeb.id)">
+            {{hotWeb.introduction}}
           </ion-row>
-          <ion-row style="display: none" id="{{hotWeb.id + 'introduction'}}">
-            <ion-text>介绍：{{hotWeb.introduction}}</ion-text>
+          <ion-row id="{{hotWeb.id + 'hideText'}}" (click)="displayFullContent(hotWeb.id)">
+            ...
+          </ion-row>
+          <ion-row>
+            <ion-text color="primary" (click)="openWeb(hotWeb.url)">{{hotWeb.url}}</ion-text>
           </ion-row>
         </ion-grid>
       </ion-card-content>

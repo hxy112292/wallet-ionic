@@ -55,15 +55,18 @@ export class HotWebPage implements OnInit {
     this.inAppBrowser.create(url, target, this.options);
   }
 
-  displayIntroduction(id) {
-    const operation = document.getElementById(id + 'operation');
-    const introduction = document.getElementById(id + 'introduction');
-    if (operation.textContent === '更多>>') {
-      introduction.style.display = 'block';
-      operation.textContent = '收起<<';
+  displayFullContent(id) {
+    const hideText = document.getElementById(id + 'hideText');
+    const content = document.getElementById(id + 'content');
+
+    if (hideText.style.display === 'none') {
+      hideText.style.display = 'block';
+      content.style.maxHeight = '46px';
+      content.style.overflow = 'hidden';
     } else {
-      introduction.style.display = 'none';
-      operation.textContent = '更多>>';
+      hideText.style.display = 'none';
+      content.style.maxHeight = '10000px';
+      content.style.overflow = 'visible';
     }
   }
 }

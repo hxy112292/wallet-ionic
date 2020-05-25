@@ -19,6 +19,7 @@
       <ion-card-header>
         <ion-card-subtitle>
           <ion-row>
+            <img src="{{browser.imageUrl}}" style="max-height: 30px; max-width: 30px">
             <ion-title style="font-size: large">{{browser.title}}</ion-title>
           </ion-row>
         </ion-card-subtitle>
@@ -26,15 +27,10 @@
       <ion-card-content>
         <ion-grid>
           <ion-row>
-            <ion-col size="3" style="display: block;text-align: center">
-              <img src="{{browser.imageUrl}}" style="max-height: 70px; max-width: 70px">
-            </ion-col>
-            <ion-col>
-              <ion-text>介绍：{{browser.introduction}}</ion-text>
-            </ion-col>
+            <ion-text>{{browser.introduction}}</ion-text>
           </ion-row>
           <ion-row>
-            <ion-text color="primary" (click)="openWeb(browser.url)">　{{browser.url}}</ion-text>
+            <ion-text color="primary" (click)="openWeb(browser.url)">{{browser.url}}</ion-text>
           </ion-row>
         </ion-grid>
       </ion-card-content>
