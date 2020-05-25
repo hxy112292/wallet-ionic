@@ -61,7 +61,7 @@ export class HotWebPage implements OnInit {
 
     if (hideText.style.display === 'none') {
       hideText.style.display = 'block';
-      content.style.maxHeight = '46px';
+      content.style.maxHeight = '40px';
       content.style.overflow = 'hidden';
     } else {
       hideText.style.display = 'none';
