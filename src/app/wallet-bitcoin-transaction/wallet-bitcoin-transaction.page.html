@@ -98,10 +98,18 @@
               Hash值：
             </ion-text>
           </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col>
-            <ion-text color="primary" (click)="openHash(transaction.hash)">
-              https://www.blockchain.com/btctest/tx/{{transaction.hash}}
+            <ion-text color="dark">
+              {{transaction.hash}}
             </ion-text>
+            <ion-icon name="copy-outline" (click)="copyTxHash()"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: center">
+            <ion-text color="primary" (click)="openHash(transaction.hash)" style="text-decoration: underline">前往 blockchian.com 查看更多细节 >></ion-text>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -118,13 +126,15 @@
                   <ion-text>
                     地址：
                   </ion-text>
-                  <ion-text color="primary" (click)="openAddress(input.recipient)">
-                    https://www.blockchain.com/btctest/address/{{input.recipient}}
+                  <ion-text color="dark">
+                    {{input.recipient}}
                   </ion-text>
+                  <ion-icon name="copy-outline" (click)="copyAddress(input.recipient)"></ion-icon>
                   <br>
                   <ion-text>
                     金额：{{input.value/100000000 | number: '1.2-5'}} BTC
                   </ion-text>
+                  <br>
                   <br>
                 </div>
               </ion-list>
@@ -145,13 +155,15 @@
                   <ion-text>
                     地址：
                   </ion-text>
-                  <ion-text color="primary" (click)="openAddress(output.recipient)">
-                    https://www.blockchain.com/btctest/address/{{output.recipient}}
+                  <ion-text color="dark">
+                    {{output.recipient}}
                   </ion-text>
+                  <ion-icon name="copy-outline" (click)="copyAddress(output.recipient)"></ion-icon>
                   <br>
                   <ion-text>
                     金额：{{output.value/100000000 | number: '1.2-5'}} BTC
                   </ion-text>
+                  <br>
                   <br>
                 </div>
               </ion-list>

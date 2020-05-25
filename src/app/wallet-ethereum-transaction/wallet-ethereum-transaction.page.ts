@@ -6,6 +6,8 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {BlockchairEthAddressTransaction} from '../entity/blockchair-eth-address-transaction';
 import {EtherscanTx} from '../entity/etherscan-tx';
+import {Clipboard} from '@ionic-native/clipboard/ngx';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-wallet-ethereum-transaction',
@@ -22,7 +24,9 @@ export class WalletEthereumTransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private inAppBrowser: InAppBrowser) {
+              private inAppBrowser: InAppBrowser,
+              private clipboard: Clipboard,
+              private toastController: ToastController) {
 
     // this.transaction = {
     //   block_id: '',
@@ -108,6 +112,26 @@ export class WalletEthereumTransactionPage implements OnInit {
     url = 'https://ropsten.etherscan.io/address/' + url;
     const target = '_self';
     this.inAppBrowser.create(url, target, this.options);
+  }
+
+  async copyTxHash() {
+
+    const toast = await this.toastController.create({
+      message: 'Hash已复制',
+      duration: 2000
+    });
+    await toast.present();
+    await this.clipboard.copy(this.transaction.hash);
+  }
+
+  async copyAddress(address) {
+
+    const toast = await this.toastController.create({
+      message: '地址已复制',
+      duration: 2000
+    });
+    await toast.present();
+    await this.clipboard.copy(address);
   }
 
 }

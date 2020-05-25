@@ -104,9 +104,15 @@
             </ion-text>
           </ion-col>
           <ion-col>
-            <ion-text color="primary" (click)="openHash(transaction.hash)">
-              https://ropsten.etherscan.io/tx/{{transaction.hash}}
+            <ion-text color="dark">
+              {{transaction.hash}}
             </ion-text>
+            <ion-icon name="copy-outline" (click)="copyTxHash()"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: center">
+            <ion-text color="primary" (click)="openHash(transaction.hash)" style="text-decoration: underline">前往 etherscan.com 查看更多细节 >></ion-text>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -122,9 +128,10 @@
                 <ion-text>
                   地址：
                 </ion-text>
-                <ion-text color="primary" (click)="openAddress(transaction.from)">
-                  https://ropsten.etherscan.io/address/{{transaction.from}}
+                <ion-text color="dark">
+                  {{transaction.from}}
                 </ion-text>
+                <ion-icon name="copy-outline" (click)="copyAddress(transaction.from)"></ion-icon>
                 <br>
               </ion-list>
             </ion-text>
@@ -143,9 +150,10 @@
                 <ion-text>
                   地址：
                 </ion-text>
-                <ion-text color="primary" (click)="openAddress(transaction.to)">
-                  https://ropsten.etherscan.io/address/{{transaction.to}}
+                <ion-text color="dark">
+                  {{transaction.to}}
                 </ion-text>
+                <ion-icon name="copy-outline" (click)="copyAddress(transaction.to)"></ion-icon>
                 <br>
               </ion-list>
             </ion-text>

@@ -6,6 +6,8 @@ import {BlockchairBtcAddressTransaction} from '../entity/blockchair-btc-address-
 import {BlockchairBtcTransactionInput} from '../entity/blockchair-btc-transaction-input';
 import {BlockchairBtcTransactionOutput} from '../entity/blockchair-btc-transaction-output';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
+import {Clipboard} from '@ionic-native/clipboard/ngx';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-wallet-bitcoin-transaction',
@@ -22,7 +24,9 @@ export class WalletBitcoinTransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private inAppBrowser: InAppBrowser) {
+              private inAppBrowser: InAppBrowser,
+              private clipboard: Clipboard,
+              private toastController: ToastController) {
 
     this.transaction = {
       block_id: '',
@@ -90,4 +94,23 @@ export class WalletBitcoinTransactionPage implements OnInit {
     this.inAppBrowser.create(url, target, this.options);
   }
 
+  async copyTxHash() {
+
+    const toast = await this.toastController.create({
+      message: 'Hash已复制',
+      duration: 2000
+    });
+    await toast.present();
+    await this.clipboard.copy(this.transaction.hash);
+  }
+
+  async copyAddress(address) {
+
+    const toast = await this.toastController.create({
+      message: '地址已复制',
+      duration: 2000
+    });
+    await toast.present();
+    await this.clipboard.copy(address);
+  }
 }
