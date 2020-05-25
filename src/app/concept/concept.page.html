@@ -52,10 +52,10 @@
               </ion-row>
             </ion-col>
             <ion-col size="3" style="text-align: center">
-              <div *ngIf="concept.change_percent > 0" style="background-color: #2dd36f">
+              <div *ngIf="concept.change_percent > 0" style="background-color: #2dd36f;text-align: center;padding: 3px;border-radius: 5px">
                 <ion-text style="color: white">+{{concept.change_percent | number : '.2-2'}}%</ion-text>
               </div>
-              <div *ngIf="concept.change_percent <= 0" style="background-color: red">
+              <div *ngIf="concept.change_percent <= 0" style="background-color: red;text-align: center;padding: 3px;border-radius: 5px">
                 <ion-text style="color: white">{{concept.change_percent | number : '.2-2'}}%</ion-text>
               </div>
             </ion-col>

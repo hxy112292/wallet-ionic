@@ -53,10 +53,10 @@
               <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{hotcoin.star_level}}"></ionic5-star-rating>
             </ion-col>
             <ion-col size="3">
-              <div *ngIf="hotcoin.change_percent>=0" style="background-color: #2dd36f;text-align: center">
+              <div *ngIf="hotcoin.change_percent>=0" style="background-color: #2dd36f;text-align: center;padding: 3px;border-radius: 5px">
                 <ion-text style="color: white">+{{hotcoin.change_percent | number: '1.2-2'}}%</ion-text>
               </div>
-              <div *ngIf="hotcoin.change_percent<0" style="background-color: red;text-align: center">
+              <div *ngIf="hotcoin.change_percent<0" style="background-color: red;text-align: center;padding: 3px;border-radius: 5px">
                 <ion-text style="color: white">{{hotcoin.change_percent | number: '1.2-2'}}%</ion-text>
               </div>
             </ion-col>

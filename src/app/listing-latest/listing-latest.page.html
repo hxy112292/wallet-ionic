@@ -45,10 +45,10 @@
               ${{listingLatest.current_price_usd | number: '1.2-6'}}
             </ion-col>
             <ion-col size="3" style="text-align: right">
-              <div *ngIf="listingLatest.change_percent>=0" style="background-color: #2dd36f;text-align: center">
+              <div *ngIf="listingLatest.change_percent>=0" style="background-color: #2dd36f;text-align: center;padding: 3px;border-radius: 5px">
                 <ion-text style="color: white">+{{listingLatest.change_percent | number: '1.2-2'}}%</ion-text>
               </div>
-              <div *ngIf="listingLatest.change_percent<0" style="background-color: red;text-align: center">
+              <div *ngIf="listingLatest.change_percent<0" style="background-color: red;text-align: center;padding: 3px;border-radius: 5px">
                 <ion-text style="color: white">{{listingLatest.change_percent | number: '1.2-2'}}%</ion-text>
               </div>
             </ion-col>
