@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {SochainLtcTransaction} from '../../../entity/sochain-ltc-transaction';
+import {Component, OnInit} from '@angular/core';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';

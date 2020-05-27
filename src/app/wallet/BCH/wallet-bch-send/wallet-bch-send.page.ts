@@ -145,10 +145,10 @@ export class WalletBchSendPage implements OnInit {
     const alert = await this.alertController.create({
       header: '请核对信息',
       message:
-          '<strong>发送方：</strong><br><ion-text style="font-size:small">' + this.privateKey.ltcAddress + '</ion-text><br><br>' +
+          '<strong>发送方：</strong><br><ion-text style="font-size:small">' + this.privateKey.bchAddress + '</ion-text><br><br>' +
           '<strong>接收方：</strong><br>' + this.recipientAddr + '<br><br>' +
-          '<strong>金额：</strong>' + this.amount + ' LTC<br><br>' +
-          '<strong>手续费：</strong>' + this.fee + ' LTC<br><br>',
+          '<strong>金额：</strong>' + this.amount + ' BCH<br><br>' +
+          '<strong>手续费：</strong>' + this.fee + ' BCH<br><br>',
       buttons: [
         {
           text: '取消',
