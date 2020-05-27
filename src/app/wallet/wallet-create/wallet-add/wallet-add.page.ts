@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ethers} from 'ethers';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as litecore from 'litecore-lib';
+import * as bitcash from 'bitcore-lib-cash';
 import * as bip39 from 'bip39';
 import * as bip32 from 'bip32';
 import {AlertController} from '@ionic/angular';
@@ -26,6 +27,7 @@ export class WalletAddPage implements OnInit {
               private constant: ConstantService,
               private storage: Storage) {
     this.privateKey = {
+      bchAddress: '', bchPrivateKey: '',
       ltcAddress: '', ltcPrivateKey: '',
       mnemonic: '',
       btcAddress: '',
@@ -41,6 +43,7 @@ export class WalletAddPage implements OnInit {
     this.generateBTCWallet();
     this.generateETHWallet();
     this.generateLTCWallet();
+    this.generateBCHWallet();
   }
 
   generateBTCWallet() {
@@ -80,6 +83,21 @@ export class WalletAddPage implements OnInit {
     const address = privateKey.toAddress(network);
     this.privateKey.ltcAddress = address.toString();
     this.privateKey.ltcPrivateKey = privateKey.toString();
+  }
+
+  generateBCHWallet() {
+    const network = bitcash.Networks.testnet;
+    const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
+    // @ts-ignore
+    const root = bip32.fromSeed(seed, bitcoin.networks.testnet);
+    const path = 'm/44\'/145\'/0\'/0/0';
+    const keyPair = root.derivePath(path);
+    const wif = keyPair.toWIF();
+
+    const privateKey = new bitcash.PrivateKey(wif, network);
+    const address = privateKey.toAddress(network);
+    this.privateKey.bchAddress = address.toString();
+    this.privateKey.bchPrivateKey = privateKey.toString();
   }
 
   toWallet() {

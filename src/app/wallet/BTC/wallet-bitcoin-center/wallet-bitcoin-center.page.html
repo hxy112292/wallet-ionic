@@ -66,7 +66,7 @@
             <ion-text style="font-size: medium">BTC</ion-text>
           </ion-col>
           <ion-col size="8" style="text-align: right">
-            <ion-text style="font-size: medium">{{blockChairAddress.balance/100000000 | number: '1.2-5'}}</ion-text>
+            <ion-text style="font-size: medium">{{blockChairAddress.balance/100000000 | number: '1.2-8'}}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -86,7 +86,7 @@
               hash: {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
             </ion-col>
             <ion-col size="4" style="text-align: right">
-              {{transaction.balance_change/100000000 | number: '1.2-5'}}
+              {{transaction.balance_change/100000000 | number: '1.2-8'}}
             </ion-col>
           </ion-row>
           <ion-row>
@@ -119,7 +119,7 @@
               hash: {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
             </ion-col>
             <ion-col size="4" style="text-align: right">
-              {{transaction.balance_change/100000000 | number: '1.2-5'}}
+              {{transaction.balance_change/100000000 | number: '1.2-8'}}
             </ion-col>
           </ion-row>
           <ion-row>

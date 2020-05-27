@@ -7,5 +7,7 @@ export class PrivateKey {
     ethAddress: string;
     ltcPrivateKey: string;
     ltcAddress: string;
+    bchPrivateKey: string;
+    bchAddress: string;
     password: string;
 }

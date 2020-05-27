@@ -18,7 +18,7 @@
     <ion-card-header>
       <ion-card-subtitle>
         <ion-icon name="document" color="danger"></ion-icon>
-        <ion-text>　交易时间：{{transaction.time | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+        <ion-text>　交易时间：{{transaction.datetime | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
@@ -34,7 +34,7 @@
           </ion-col>
           <ion-col>
             <ion-text>
-              莱特币
+              比特现金
             </ion-text>
           </ion-col>
         </ion-row>
@@ -49,7 +49,7 @@
           </ion-col>
           <ion-col>
             <ion-text>
-              {{transaction.sent_value | number: '1.2-8'}} LTC
+              {{transaction.value | number: '1.2-8'}} BCH
             </ion-text>
           </ion-col>
         </ion-row>
@@ -64,7 +64,7 @@
           </ion-col>
           <ion-col>
             <ion-text>
-              {{transaction.fee | number: '1.2-8'}} LTC
+              {{transaction.fee | number: '1.2-8'}} BCH
             </ion-text>
           </ion-col>
         </ion-row>
@@ -81,10 +81,10 @@
             <div *ngIf="transaction.confirmations >= 3">
               <ion-text color="success">成功</ion-text>
             </div>
-            <div *ngIf="transaction.confirmations< 3 && transaction.block_no != null">
+            <div *ngIf="transaction.confirmations< 3 && transaction.blockheight != null">
               <ion-text color="primary">确认数（{{transaction.confirmations | number}}/2）</ion-text>
             </div>
-            <div *ngIf="transaction.block_no == null">
+            <div *ngIf="transaction.blockheight == null">
               <ion-text color="primary">打包中...</ion-text>
             </div>
           </ion-col>
@@ -109,7 +109,7 @@
         </ion-row>
         <ion-row>
           <ion-col style="text-align: center">
-            <ion-text color="primary" (click)="openHash(transaction.txid)" style="text-decoration: underline">前往 sochain.com 查看更多细节 >></ion-text>
+            <ion-text color="primary" (click)="openHash(transaction.txid)" style="text-decoration: underline">前往 blockexplorer.one 查看更多细节 >></ion-text>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -122,17 +122,17 @@
           <ion-col>
             <ion-text style="white-space: pre-line">
               <ion-list>
-                <div *ngFor="let input of transaction.inputs">
+                <div *ngFor="let input of transaction.txins">
                   <ion-text>
                     地址：
                   </ion-text>
                   <ion-text color="dark">
-                    {{input.address}}
+                    {{input.addresses[0]}}
                   </ion-text>
-                  <ion-icon name="copy-outline" (click)="copyAddress(input.address)"></ion-icon>
+                  <ion-icon name="copy-outline" (click)="copyAddress(input.addresses[0])"></ion-icon>
                   <br>
                   <ion-text>
-                    金额：{{input.value | number: '1.2-8'}} LTC
+                    金额：{{input.amount | number: '1.2-8'}} BCH
                   </ion-text>
                   <br>
                   <br>
@@ -151,17 +151,17 @@
           <ion-col>
             <ion-text style="white-space: pre-line">
               <ion-list>
-                <div *ngFor="let output of transaction.outputs">
+                <div *ngFor="let output of transaction.txouts">
                   <ion-text>
                     地址：
                   </ion-text>
                   <ion-text color="dark">
-                    {{output.address}}
+                    {{output.addresses[0]}}
                   </ion-text>
-                  <ion-icon name="copy-outline" (click)="copyAddress(output.address)"></ion-icon>
+                  <ion-icon name="copy-outline" (click)="copyAddress(output.addresses[0])"></ion-icon>
                   <br>
                   <ion-text>
-                    金额：{{output.value | number: '1.2-8'}} LTC
+                    金额：{{output.amount | number: '1.2-8'}} BCH
                   </ion-text>
                   <br>
                   <br>

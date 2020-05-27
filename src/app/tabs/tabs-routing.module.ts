@@ -118,6 +118,26 @@ const routes: Routes = [
                 .then(m => m.WalletContactChoosePageModule)
           },
           {
+            path: 'wallet-bch-center',
+            loadChildren: () => import('../wallet/BCH/wallet-bch-center/wallet-bch-center.module')
+                .then(m => m.WalletBchCenterPageModule)
+          },
+          {
+            path: 'wallet-bch-receive',
+            loadChildren: () => import('../wallet/BCH/wallet-bch-receive/wallet-bch-receive.module')
+                .then(m => m.WalletBchReceivePageModule)
+          },
+          {
+            path: 'wallet-bch-send',
+            loadChildren: () => import('../wallet/BCH/wallet-bch-send/wallet-bch-send.module')
+                .then(m => m.WalletBchSendPageModule)
+          },
+          {
+            path: 'wallet-bch-transaction',
+            loadChildren: () => import('../wallet/BCH/wallet-bch-transaction/wallet-bch-transaction.module')
+                .then(m => m.WalletBchTransactionPageModule)
+          },
+          {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           }

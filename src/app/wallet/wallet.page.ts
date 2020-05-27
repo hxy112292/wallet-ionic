@@ -66,4 +66,8 @@ export class WalletPage implements OnInit {
   toWalletLTCCenter(privateKey: PrivateKey) {
     this.router.navigate(['tabs/wallet/wallet-litecoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
+
+  toWalletBCHCenter(privateKey: PrivateKey) {
+    this.router.navigate(['tabs/wallet/wallet-bch-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+  }
 }

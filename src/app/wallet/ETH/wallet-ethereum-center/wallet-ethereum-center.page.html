@@ -66,7 +66,7 @@
             <ion-text style="font-size: medium">ETH</ion-text>
           </ion-col>
           <ion-col size="8" style="text-align: right">
-            <ion-text style="font-size: medium">{{etherscanBalance.result/1000000000000000000 | number: '1.2-5'}}</ion-text>
+            <ion-text style="font-size: medium">{{etherscanBalance.result/1000000000000000000 | number: '1.2-8'}}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -87,10 +87,10 @@
             </ion-col>
             <ion-col size="4" style="text-align: right">
               <div *ngIf="transaction.from.toLowerCase() == privateKey.ethAddress.toLowerCase()">
-                -{{transaction.value/1000000000000000000 | number: '1.2-5'}}
+                -{{transaction.value/1000000000000000000 | number: '1.2-8'}}
               </div>
               <div *ngIf="transaction.to.toLowerCase() == privateKey.ethAddress.toLowerCase()">
-                {{transaction.value/1000000000000000000 | number: '1.2-5'}}
+                {{transaction.value/1000000000000000000 | number: '1.2-8'}}
               </div>
             </ion-col>
           </ion-row>
@@ -125,10 +125,10 @@
             </ion-col>
             <ion-col size="4" style="text-align: right">
               <div *ngIf="transaction.from.toLowerCase() == privateKey.ethAddress.toLowerCase()">
-                -{{transaction.value/1000000000000000000 | number: '1.2-5'}}
+                -{{transaction.value/1000000000000000000 | number: '1.2-8'}}
               </div>
               <div *ngIf="transaction.to.toLowerCase() == privateKey.ethAddress.toLowerCase()">
-                {{transaction.value/1000000000000000000 | number: '1.2-5'}}
+                {{transaction.value/1000000000000000000 | number: '1.2-8'}}
               </div>
             </ion-col>
           </ion-row>

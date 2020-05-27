@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HttpClient} from '@angular/common/http';
@@ -7,24 +7,27 @@ import {ConstantService} from '../../../constant.service';
 import {AlertController, ModalController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {PrivateKey} from '../../../entity/private-key';
-import * as litecore from 'litecore-lib';
+import * as bitcash from 'bitcore-lib-cash';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
+import {CryptoBchTx} from '../../../entity/crypto-bch-tx';
+import {BitcoreBchUtxo} from '../../../entity/bitcore-bch-utxo';
 
 @Component({
-  selector: 'app-wallet-litecoin-send',
-  templateUrl: './wallet-litecoin-send.page.html',
-  styleUrls: ['./wallet-litecoin-send.page.scss'],
+  selector: 'app-wallet-bch-send',
+  templateUrl: './wallet-bch-send.page.html',
+  styleUrls: ['./wallet-bch-send.page.scss'],
 })
-export class WalletLitecoinSendPage implements OnInit {
+export class WalletBchSendPage implements OnInit {
 
   privateKey: PrivateKey;
   recipientAddr: string;
   barcodeScannerOptions: BarcodeScannerOptions;
+  txList: CryptoBchTx[];
   amount: number;
   balance: number;
   recommendFee: number;
   fee: number;
-  utxoList: [];
+  utxoList: BitcoreBchUtxo[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,13 +43,14 @@ export class WalletLitecoinSendPage implements OnInit {
       showTorchButton: true,
       showFlipCameraButton: true
     };
+
+    this.utxoList = [];
   }
 
   ngOnInit() {
-
-    this.balance = Number(this.route.snapshot.paramMap.get('balance'));
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
-    this.getUtxoList();
+    this.balance = Number(this.route.snapshot.paramMap.get('balance'));
+    this.txList = JSON.parse(this.route.snapshot.paramMap.get('txList'));
     this.getRecommendFee();
   }
 
@@ -68,7 +72,7 @@ export class WalletLitecoinSendPage implements OnInit {
   }
 
   getRecommendFee() {
-    this.http.get(this.constant.baseUrl + '/LTCTEST/tx/fee').subscribe( res => {
+    this.http.get(this.constant.baseUrl + '/BCHTEST/tx/fee').subscribe( res => {
       const fee1 = (res as any).payload.average;
       const fee2 = (res as any).payload.recommended;
       this.recommendFee = fee1 > fee2 ? fee1 : fee2;
@@ -78,30 +82,43 @@ export class WalletLitecoinSendPage implements OnInit {
 
   sendByTypical() {
 
-    try {
-      const transaction = new litecore.Transaction()
-          .from(this.utxoList)
-          .to(this.recipientAddr, Math.round(this.amount * 100000000))
-          .fee(Math.round(this.fee * 100000000))
-          .change(this.privateKey.ltcAddress)
-          .sign(this.privateKey.ltcPrivateKey);
+    this.getUtxoList();
 
-      this.broadcast(transaction.toString());
-      this.router.navigate(['tabs/wallet/wallet-litecoin-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
-    } catch (e) {
-      this.constant.alert(e.toString());
-    }
+    const transaction = new bitcash.Transaction()
+        .from(this.utxoList)
+        .to(this.recipientAddr, Math.round(this.amount * 100000000))
+        .fee(Math.round(this.fee * 100000000))
+        .change(this.privateKey.bchAddress)
+        .sign(this.privateKey.bchPrivateKey);
+
+    const rawHex = transaction.toString();
+
+    this.broadcast(rawHex);
+    this.router.navigate(['tabs/wallet/wallet-bch-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   getUtxoList() {
-    this.http.get(this.constant.litecoreTestnetUrl + '/api/addrs/' + this.privateKey.ltcAddress + '/utxo').subscribe( res => {
-      this.utxoList = (res as any);
-    });
+    let k = 0;
+    // tslint:disable-next-line:prefer-for-of
+    for ( let i = 0; i < this.txList.length; i++) {
+      const utxo = new BitcoreBchUtxo();
+      // tslint:disable-next-line:prefer-for-of
+      for ( let j = 0; j < this.txList[i].txouts.length; j++) {
+        if (this.txList[i].txouts[j].addresses[0] === this.privateKey.bchAddress && this.txList[i].txouts[j].spent === false) {
+          utxo.address = this.privateKey.bchAddress;
+          utxo.txid = this.txList[i].txid;
+          utxo.vout = j;
+          utxo.scriptPubKey = this.txList[i].txouts[j].script.hex;
+          utxo.satoshis = Math.round(Number(this.txList[i].txouts[j].amount) * 100000000);
+          this.utxoList[k++] = utxo;
+        }
+      }
+    }
   }
 
   broadcast(rawHex) {
-    this.http.post(this.constant.baseUrl + '/LTCTEST/send_tx', {
-      tx_hex: rawHex
+    this.http.post(this.constant.baseUrl + '/BCHTEST/send_tx', {
+      hex: rawHex
     }).subscribe( res => {
       if ((res as any).code === 1) {
         this.constant.alert('交易失败：请先等待上一笔交易打包完毕');
@@ -154,7 +171,7 @@ export class WalletLitecoinSendPage implements OnInit {
     const modal = await this.modalController.create({
       component: WalletContactChoosePage,
       componentProps: {
-        symbol: 'LTC'
+        symbol: 'BCH'
       }
     });
     await modal.present();

@@ -23,6 +23,7 @@ export class WalletLitecoinCenterPage implements OnInit {
               private storage: Storage) {
 
     this.privateKey = {
+      bchAddress: '', bchPrivateKey: '',
       ltcAddress: '', ltcPrivateKey: '',
       mnemonic: '',
       btcAddress: this.constant.testBTCAddress,

@@ -83,6 +83,32 @@
       </ion-text>
     </ion-card-content>
   </ion-card>
+  <ion-card style="background-color: limegreen">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <img src="https://menu.cdn.bitcoindotcom.net/uni/dist/assets/crypto/bch.png" referrerpolicy="no-referrer"
+             style="max-width: 20px;max-height: 20px">
+        <ion-text style="font-size: medium;font-weight: bolder;color: white">　BCH-WALLET</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text style="color: white">
+        地址：
+      </ion-text>
+      <br>
+      <ion-text style="color: white">
+        {{privateKey.bchAddress}}
+      </ion-text>
+      <br>
+      <ion-text style="color: white">
+        私钥：
+      </ion-text>
+      <br>
+      <ion-text style="color: white">
+        {{privateKey.bchPrivateKey}}
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
   <ion-list>
     <ion-item>
       <ion-icon name="key" slot="start"></ion-icon>

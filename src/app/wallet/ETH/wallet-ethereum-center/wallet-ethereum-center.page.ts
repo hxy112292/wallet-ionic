@@ -28,6 +28,7 @@ export class WalletEthereumCenterPage implements OnInit {
               private storage: Storage) {
 
     this.privateKey = {
+      bchAddress: '', bchPrivateKey: '',
       ltcAddress: '', ltcPrivateKey: '',
       mnemonic: '',
       btcAddress: '',

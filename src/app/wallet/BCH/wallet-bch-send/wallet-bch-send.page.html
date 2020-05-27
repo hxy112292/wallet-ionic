@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>LTC-提币</ion-title>
+    <ion-title>BCH-提币</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -10,7 +10,7 @@
 <ion-content>
   <div style="text-align: center">
     <br>
-    <ion-title>LTC 提币</ion-title>
+    <ion-title>BCH 提币</ion-title>
   </div>
   <ion-list lines="full">
     <ion-item lines="none">
@@ -18,7 +18,7 @@
       <ion-text>　发送方：</ion-text>
     </ion-item>
     <ion-item>
-      {{privateKey.ltcAddress}}
+      {{privateKey.bchAddress}}
     </ion-item>
     <ion-item lines="none">
       <ion-icon name="wallet" color="medium"></ion-icon>
@@ -33,12 +33,12 @@
     </ion-item>
     <ion-item>
       <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
-      <ion-label>　金额（LTC）：</ion-label>
+      <ion-label>　金额（BCH）：</ion-label>
       <ion-input [(ngModel)]="amount" placeholder="{{balance | number: '1.2-8'}} 可用"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon name="cafe" color="tertiary"></ion-icon>
-      <ion-label>　手续费（LTC）：</ion-label>
+      <ion-label>　手续费（BCH）：</ion-label>
       <ion-input [(ngModel)]="fee" placeholder="推荐 {{this.recommendFee}}"></ion-input>
     </ion-item>
   </ion-list>
