@@ -5,5 +5,7 @@ export class PrivateKey {
     btcAddress: string;
     ethPrivateKey: string;
     ethAddress: string;
+    ltcPrivateKey: string;
+    ltcAddress: string;
     password: string;
 }

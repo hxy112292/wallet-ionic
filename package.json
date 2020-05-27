@@ -51,6 +51,7 @@
     "core-js": "^2.5.4",
     "ethers": "^4.0.47",
     "ionic5-star-rating": "https://github.com/JeongJun-Lee/ionic5-star-rating/tarball/master",
+    "litecore-lib": "^0.13.22",
     "ngx-qrcode2": "^9.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "~6.5.1",

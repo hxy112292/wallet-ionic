@@ -37,7 +37,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item>
+      <ion-item lines="none">
         <ion-card style="background-color: #0892C1" (click)="toWalletEthereumCenter(privateKey)">
           <ion-card-header>
             <ion-card-subtitle>
@@ -49,6 +49,22 @@
           <ion-card-content>
             <ion-text style="color: white">
               {{privateKey.ethAddress}}
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item>
+        <ion-card style="background-color: grey" (click)="toWalletLTCCenter(privateKey)">
+          <ion-card-header>
+            <ion-card-subtitle>
+              <img src="https://s2.bqiapp.com/coin/20181030_72_webp/litecoin_200_200.webp?v=35" referrerpolicy="no-referrer"
+                   style="max-width: 20px;max-height: 20px">
+              <ion-text style="font-size: medium;color: white;font-weight: bolder">　LTC-WALLET</ion-text>
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text style="color: white">
+              {{privateKey.ltcAddress}}
             </ion-text>
           </ion-card-content>
         </ion-card>

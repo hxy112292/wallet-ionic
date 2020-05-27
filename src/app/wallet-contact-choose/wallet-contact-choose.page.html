@@ -17,6 +17,7 @@
         <ion-select-option value="">全部币种</ion-select-option>
         <ion-select-option value="BTC">BTC</ion-select-option>
         <ion-select-option value="ETH">ETH</ion-select-option>
+        <ion-select-option value="LTC">LTC</ion-select-option>
       </ion-select>
     </ion-item>
     <div *ngFor="let walletContact of walletContactList; let i = index">
@@ -46,6 +47,10 @@
                           </div>
                           <div *ngIf="walletContact.symbol == 'ETH'">
                             <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                                 style="max-width: 20px;max-height: 20px">
+                          </div>
+                          <div *ngIf="walletContact.symbol == 'LTC'">
+                            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/litecoin_200_200.webp?v=35" referrerpolicy="no-referrer"
                                  style="max-width: 20px;max-height: 20px">
                           </div>
                           <ion-text>　{{walletContact.symbol}} 地址：</ion-text>

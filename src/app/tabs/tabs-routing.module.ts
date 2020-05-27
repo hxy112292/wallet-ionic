@@ -96,6 +96,25 @@ const routes: Routes = [
           {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
+          },
+          {
+            path: 'wallet-litecoin-send',
+            loadChildren: () => import('../wallet-litecoin-send/wallet-litecoin-send.module').then( m => m.WalletLitecoinSendPageModule)
+          },
+          {
+            path: 'wallet-litecoin-center',
+            loadChildren: () => import('../wallet-litecoin-center/wallet-litecoin-center.module')
+                .then( m => m.WalletLitecoinCenterPageModule)
+          },
+          {
+            path: 'wallet-litecoin-receive',
+            loadChildren: () => import('../wallet-litecoin-receive/wallet-litecoin-receive.module')
+                .then( m => m.WalletLitecoinReceivePageModule)
+          },
+          {
+            path: 'wallet-litecoin-transaction',
+            loadChildren: () => import('../wallet-litecoin-transaction/wallet-litecoin-transaction.module')
+                .then( m => m.WalletLitecoinTransactionPageModule)
           }
         ]
       },

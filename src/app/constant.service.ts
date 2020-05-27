@@ -13,6 +13,7 @@ export class ConstantService {
   readonly blockChairUrl: string = 'https://api.blockchair.com';
   readonly ropstenEtherScanUrl: string = 'https://api-ropsten.etherscan.io';
   readonly ropstenEtherScanKey: string = 'UHRM7JQNHCSNCI97CQCC5I7V2ZKJXFHF4I';
+  readonly litecoreTestnetUrl: string = 'https://testnet.litecore.io';
   user: User;
   privateKeyList: PrivateKey[];
   privateKeyListLength: number;
