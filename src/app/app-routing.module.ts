@@ -11,8 +11,8 @@ const routes: Routes = [
     loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
   },
   {
-    path: 'tool',
-    loadChildren: () => import('./tool/tool.module').then( m => m.ToolPageModule)
+    path: 'invest-assistant',
+    loadChildren: () => import('./invest-assistant/invest-assistant.module').then( m => m.InvestAssistantPageModule)
   },
   {
     path: 'me',

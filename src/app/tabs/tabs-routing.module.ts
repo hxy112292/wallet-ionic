@@ -12,170 +12,181 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../wallet/wallet.module').then(m => m.WalletPageModule)
+            loadChildren: () => import('../wallet/wallet.module').then(m => m.WalletPageModule),
+          },
+          {
+            path: 'wallet-bitcoin-center',
+            loadChildren: () => import('../wallet/BTC/wallet-bitcoin-center/wallet-bitcoin-center.module')
+                .then(m => m.WalletBitcoinCenterPageModule)
+          },
+          {
+            path: 'wallet-bitcoin-transaction',
+            loadChildren: () => import('../wallet/BTC/wallet-bitcoin-transaction/wallet-bitcoin-transaction.module')
+                .then( m => m.WalletBitcoinTransactionPageModule)
+          },
+          {
+            path: 'wallet-bitcoin-receive',
+            loadChildren: () => import('../wallet/BTC/wallet-bitcoin-receive/wallet-bitcoin-receive.module')
+                .then( m => m.WalletBitcoinReceivePageModule)
+          },
+          {
+            path: 'wallet-bitcoin-send',
+            loadChildren: () => import('../wallet/BTC/wallet-bitcoin-send/wallet-bitcoin-send.module')
+                .then( m => m.WalletBitcoinSendPageModule)
+          },
+          {
+            path: 'wallet-ethereum-center',
+            loadChildren: () => import('../wallet/ETH/wallet-ethereum-center/wallet-ethereum-center.module')
+                .then( m => m.WalletEthereumCenterPageModule)
+          },
+          {
+            path: 'wallet-ethereum-transaction',
+            loadChildren: () => import('../wallet/ETH/wallet-ethereum-transaction/wallet-ethereum-transaction.module')
+                .then( m => m.WalletEthereumTransactionPageModule)
+          },
+          {
+            path: 'wallet-ethereum-receive',
+            loadChildren: () => import('../wallet/ETH/wallet-ethereum-receive/wallet-ethereum-receive.module')
+                .then( m => m.WalletEthereumReceivePageModule)
+          },
+          {
+            path: 'wallet-ethereum-send',
+            loadChildren: () => import('../wallet/ETH/wallet-ethereum-send/wallet-ethereum-send.module')
+                .then( m => m.WalletEthereumSendPageModule)
+          },
+          {
+            path: 'wallet-litecoin-center',
+            loadChildren: () => import('../wallet/LTC/wallet-litecoin-center/wallet-litecoin-center.module')
+                .then( m => m.WalletLitecoinCenterPageModule)
+          },
+          {
+            path: 'wallet-litecoin-transaction',
+            loadChildren: () => import('../wallet/LTC/wallet-litecoin-transaction/wallet-litecoin-transaction.module')
+                .then( m => m.WalletLitecoinTransactionPageModule)
+          },
+          {
+            path: 'wallet-litecoin-receive',
+            loadChildren: () => import('../wallet/LTC/wallet-litecoin-receive/wallet-litecoin-receive.module')
+                .then( m => m.WalletLitecoinReceivePageModule)
+          },
+          {
+            path: 'wallet-litecoin-send',
+            loadChildren: () => import('../wallet/LTC/wallet-litecoin-send/wallet-litecoin-send.module')
+                .then(m => m.WalletLitecoinSendPageModule)
           },
           {
             path: 'wallet-add',
-            loadChildren: () => import('../wallet-add/wallet-add.module').then( m => m.WalletAddPageModule)
+            loadChildren: () => import('../wallet/wallet-create/wallet-add/wallet-add.module').then(m => m.WalletAddPageModule)
+          },
+          {
+            path: 'wallet-add-choose',
+            loadChildren: () => import('../wallet/wallet-create/wallet-add-choose/wallet-add-choose.module')
+                .then(m => m.WalletAddChoosePageModule)
+          },
+          {
+            path: 'wallet-mnemonic-import',
+            loadChildren: () => import('../wallet/wallet-create/wallet-mnemonic-import/wallet-mnemonic-import.module')
+                .then( m => m.WalletMnemonicImportPageModule)
           },
           {
             path: 'wallet-mnemonic-generate',
-            loadChildren: () => import('../wallet-mnemonic-generate/wallet-mnemonic-generate.module')
+            loadChildren: () => import('../wallet/wallet-create/wallet-mnemonic-generate/wallet-mnemonic-generate.module')
                 .then( m => m.WalletMnemonicGeneratePageModule)
           },
           {
             path: 'wallet-mnemonic-confirm',
-            loadChildren: () => import('../wallet-mnemonic-confirm/wallet-mnemonic-confirm.module')
+            loadChildren: () => import('../wallet/wallet-create/wallet-mnemonic-confirm/wallet-mnemonic-confirm.module')
                 .then( m => m.WalletMnemonicConfirmPageModule)
           },
           {
             path: 'wallet-manage',
-            loadChildren: () => import('../wallet-manage/wallet-manage.module').then( m => m.WalletManagePageModule)
-          },
-          {
-            path: 'wallet-add-choose',
-            loadChildren: () => import('../wallet-add-choose/wallet-add-choose.module').then( m => m.WalletAddChoosePageModule)
-          },
-          {
-            path: 'wallet-mnemonic-import',
-            loadChildren: () => import('../wallet-mnemonic-import/wallet-mnemonic-import.module')
-                .then( m => m.WalletMnemonicImportPageModule)
-          },
-          {
-            path: 'wallet-bitcoin-center',
-            loadChildren: () => import('../wallet-bitcoin-center/wallet-bitcoin-center.module').then( m => m.WalletBitcoinCenterPageModule)
-          },
-          {
-            path: 'wallet-ethereum-center',
-            loadChildren: () => import('../wallet-ethereum-center/wallet-ethereum-center.module')
-                .then( m => m.WalletEthereumCenterPageModule)
-          },
-          {
-            path: 'wallet-bitcoin-transaction',
-            loadChildren: () => import('../wallet-bitcoin-transaction/wallet-bitcoin-transaction.module')
-                .then( m => m.WalletBitcoinTransactionPageModule)
-          },
-          {
-            path: 'wallet-ethereum-transaction',
-            loadChildren: () => import('../wallet-ethereum-transaction/wallet-ethereum-transaction.module')
-                .then( m => m.WalletEthereumTransactionPageModule)
-          },
-          {
-            path: 'wallet-bitcoin-receive',
-            loadChildren: () => import('../wallet-bitcoin-receive/wallet-bitcoin-receive.module')
-                .then( m => m.WalletBitcoinReceivePageModule)
-          },
-          {
-            path: 'wallet-ethereum-receive',
-            loadChildren: () => import('../wallet-ethereum-receive/wallet-ethereum-receive.module')
-                .then( m => m.WalletEthereumReceivePageModule)
-          },
-          {
-            path: 'wallet-bitcoin-send',
-            loadChildren: () => import('../wallet-bitcoin-send/wallet-bitcoin-send.module')
-                .then( m => m.WalletBitcoinSendPageModule)
-          },
-          {
-            path: 'wallet-ethereum-send',
-            loadChildren: () => import('../wallet-ethereum-send/wallet-ethereum-send.module')
-                .then( m => m.WalletEthereumSendPageModule)
-          },
-          {
-            path: 'wallet-mnemonic-password',
-            loadChildren: () => import('../wallet-mnemonic-password/wallet-mnemonic-password.module')
-                .then( m => m.WalletMnemonicPasswordPageModule)
+            loadChildren: () => import('../wallet/wallet-manage/wallet-manage.module').then(m => m.WalletManagePageModule)
           },
           {
             path: 'wallet-reset-password',
-            loadChildren: () => import('../wallet-reset-password/wallet-reset-password.module').then( m => m.WalletResetPasswordPageModule)
+            loadChildren: () => import('../wallet/wallet-manage/wallet-reset-password/wallet-reset-password.module')
+                .then(m => m.WalletResetPasswordPageModule)
+          },
+          {
+            path: 'wallet-mnemonic-password',
+            loadChildren: () => import('../wallet/wallet-manage/wallet-mnemonic-password/wallet-mnemonic-password.module')
+                .then( m => m.WalletMnemonicPasswordPageModule)
           },
           {
             path: 'wallet-contact-choose',
-            loadChildren: () => import('../wallet-contact-choose/wallet-contact-choose.module').then( m => m.WalletContactChoosePageModule)
+            loadChildren: () => import('../wallet/wallet-contact/wallet-contact-choose/wallet-contact-choose.module')
+                .then(m => m.WalletContactChoosePageModule)
           },
           {
             path: 'coin-detail',
-            loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
-          },
-          {
-            path: 'wallet-litecoin-send',
-            loadChildren: () => import('../wallet-litecoin-send/wallet-litecoin-send.module').then( m => m.WalletLitecoinSendPageModule)
-          },
-          {
-            path: 'wallet-litecoin-center',
-            loadChildren: () => import('../wallet-litecoin-center/wallet-litecoin-center.module')
-                .then( m => m.WalletLitecoinCenterPageModule)
-          },
-          {
-            path: 'wallet-litecoin-receive',
-            loadChildren: () => import('../wallet-litecoin-receive/wallet-litecoin-receive.module')
-                .then( m => m.WalletLitecoinReceivePageModule)
-          },
-          {
-            path: 'wallet-litecoin-transaction',
-            loadChildren: () => import('../wallet-litecoin-transaction/wallet-litecoin-transaction.module')
-                .then( m => m.WalletLitecoinTransactionPageModule)
+            loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           }
         ]
       },
       {
-        path: 'tool',
+        path: 'invest-assistant',
         children: [
           {
             path: '',
-            loadChildren: () => import('../tool/tool.module').then(m => m.ToolPageModule)
+            loadChildren: () => import('../invest-assistant/invest-assistant.module').then(m => m.InvestAssistantPageModule)
           },
           {
             path: 'hot-coin',
-            loadChildren: () => import('../hot-coin/hot-coin.module').then( m => m.HotCoinPageModule)
+            loadChildren: () => import('../invest-assistant/listing/hot-coin/hot-coin.module').then(m => m.HotCoinPageModule)
           },
           {
             path: 'concept',
-            loadChildren: () => import('../concept/concept.module').then( m => m.ConceptPageModule)
-          },
-          {
-            path: 'git-dev',
-            loadChildren: () => import('../git-dev/git-dev.module').then( m => m.GitDevPageModule)
-          },
-          {
-            path: 'turnover',
-            loadChildren: () => import('../turnover/turnover.module').then( m => m.TurnoverPageModule)
-          },
-          {
-            path: 'monitor-blockchain',
-            loadChildren: () => import('../monitor-blockchain/monitor-blockchain.module').then( m => m.MonitorBlockchainPageModule)
-          },
-          {
-            path: 'tx-detail',
-            loadChildren: () => import('../tx-detail/tx-detail.module').then( m => m.TxDetailPageModule)
-          },
-          {
-            path: 'hot-web',
-            loadChildren: () => import('../hot-web/hot-web.module').then( m => m.HotWebPageModule)
-          },
-          {
-            path: 'blockchain-browser',
-            loadChildren: () => import('../blockchain-browser/blockchain-browser.module').then( m => m.BlockchainBrowserPageModule)
+            loadChildren: () => import('../invest-assistant/listing/concept/concept.module').then(m => m.ConceptPageModule)
           },
           {
             path: 'concept-detail',
-            loadChildren: () => import('../concept-detail/concept-detail.module').then( m => m.ConceptDetailPageModule)
+            loadChildren: () => import('../invest-assistant/listing/concept/concept-detail/concept-detail.module')
+                .then(m => m.ConceptDetailPageModule)
+          },
+          {
+            path: 'git-dev',
+            loadChildren: () => import('../invest-assistant/listing/git-dev/git-dev.module').then(m => m.GitDevPageModule)
+          },
+          {
+            path: 'turnover',
+            loadChildren: () => import('../invest-assistant/listing/turnover/turnover.module').then(m => m.TurnoverPageModule)
+          },
+          {
+            path: 'monitor-blockchain',
+            loadChildren: () => import('../invest-assistant/tool/monitor-blockchain/monitor-blockchain.module')
+                .then(m => m.MonitorBlockchainPageModule)
+          },
+          {
+            path: 'tx-detail',
+            loadChildren: () => import('../invest-assistant/tool/monitor-blockchain/tx-detail/tx-detail.module')
+                .then(m => m.TxDetailPageModule)
+          },
+          {
+            path: 'hot-web',
+            loadChildren: () => import('../invest-assistant/beginer-guide/hot-web/hot-web.module').then(m => m.HotWebPageModule)
+          },
+          {
+            path: 'blockchain-browser',
+            loadChildren: () => import('../invest-assistant/tool/blockchain-browser/blockchain-browser.module')
+                .then(m => m.BlockchainBrowserPageModule)
           },
           {
             path: 'coin-detail',
-            loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
+            loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           },
           {
             path: 'price-notification',
-            loadChildren: () => import('../price-notification/price-notification.module').then( m => m.PriceNotificationPageModule)
-          },
-          {
-            path: 'exchange-detail',
-            loadChildren: () => import('../exchange-detail/exchange-detail.module').then( m => m.ExchangeDetailPageModule)
+            loadChildren: () => import('../invest-assistant/tool/price-notification/price-notification.module')
+                .then(m => m.PriceNotificationPageModule)
           },
           {
             path: 'exchange',
-            loadChildren: () => import('../exchange/exchange.module').then( m => m.ExchangePageModule)
+            loadChildren: () => import('../invest-assistant/listing/exchange/exchange.module').then(m => m.ExchangePageModule),
+          },
+          {
+            path: 'exchange-detail',
+            loadChildren: () => import('../invest-assistant/listing/exchange/exchange-detail/exchange-detail.module')
+                .then(m => m.ExchangeDetailPageModule)
           }
         ]
       },
@@ -188,31 +199,32 @@ const routes: Routes = [
           },
           {
             path: 'login',
-            loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
-          },
-          {
-            path: 'register',
-            loadChildren: () => import('../register/register.module').then( m => m.RegisterPageModule)
-          },
-          {
-            path: 'register-privacy',
-            loadChildren: () => import('../register-privacy/register-privacy.module').then( m => m.RegisterPrivacyPageModule)
-          },
-          {
-            path: 'user-info',
-            loadChildren: () => import('../user-info/user-info.module').then( m => m.UserInfoPageModule)
+            loadChildren: () => import('../me/login/login.module').then(m => m.LoginPageModule)
           },
           {
             path: 'login-forget-password',
-            loadChildren: () => import('../login-forget-password/login-forget-password.module').then( m => m.LoginForgetPasswordPageModule)
+            loadChildren: () => import('../me/login-forget-password/login-forget-password.module')
+                .then(m => m.LoginForgetPasswordPageModule)
+          },
+          {
+            path: 'register',
+            loadChildren: () => import('../me/register/register.module').then(m => m.RegisterPageModule),
+          },
+          {
+            path: 'register-privacy',
+            loadChildren: () => import('../me/register-privacy/register-privacy.module').then(m => m.RegisterPrivacyPageModule)
+          },
+          {
+            path: 'user-info',
+            loadChildren: () => import('../me/user-info/user-info.module').then(m => m.UserInfoPageModule)
           },
           {
             path: 'wallet-contact',
-            loadChildren: () => import('../wallet-contact/wallet-contact.module').then( m => m.WalletContactPageModule)
+            loadChildren: () => import('../wallet/wallet-contact/wallet-contact.module').then(m => m.WalletContactPageModule)
           },
           {
             path: 'github',
-            loadChildren: () => import('../github/github.module').then( m => m.GithubPageModule)
+            loadChildren: () => import('../me/github/github.module').then(m => m.GithubPageModule)
           }
         ]
       },
@@ -221,7 +233,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../live-news/live-news.module').then( m => m.LiveNewsPageModule)
+            loadChildren: () => import('../live-news/live-news.module').then(m => m.LiveNewsPageModule)
           }
         ]
       },
@@ -230,15 +242,18 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../listing-latest/listing-latest.module').then( m => m.ListingLatestPageModule)
+            loadChildren: () => import('../listing-latest/listing-latest.module')
+                .then(m => m.ListingLatestPageModule)
           },
           {
             path: 'coin-search',
-            loadChildren: () => import('../coin-search/coin-search.module').then( m => m.CoinSearchPageModule)
+            loadChildren: () => import('../listing-latest/coin-search/coin-search.module')
+                .then(m => m.CoinSearchPageModule)
           },
           {
             path: 'coin-detail',
-            loadChildren: () => import('../coin-detail/coin-detail.module').then( m => m.CoinDetailPageModule)
+            loadChildren: () => import('../coin-detail/coin-detail.module')
+                .then(m => m.CoinDetailPageModule)
           }
         ]
       },

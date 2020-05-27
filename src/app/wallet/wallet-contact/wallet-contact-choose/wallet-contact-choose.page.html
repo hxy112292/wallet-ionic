@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>选择地址</ion-title>
+    <ion-icon name="close" (click)="dismiss(null)" slot="start" style="font-size: x-large;margin-left: 3%;"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item style="text-align: center">
+      <ion-title color="primary" size="large" (click)="toAddWalletContact()">+添加一个地址</ion-title>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+      <ion-label>　筛选币种</ion-label>
+      <ion-select [(ngModel)]="symbol" disabled="true">
+        <ion-select-option value="">全部币种</ion-select-option>
+        <ion-select-option value="BTC">BTC</ion-select-option>
+        <ion-select-option value="ETH">ETH</ion-select-option>
+        <ion-select-option value="LTC">LTC</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let walletContact of walletContactList; let i = index">
+      <div *ngIf="symbol == null || symbol == '' || symbol == walletContact.symbol">
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="1">
+                <ion-checkbox (click)="dismiss(walletContact.address)"></ion-checkbox>
+              </ion-col>
+              <ion-col size="11">
+                <ion-card>
+                  <ion-card-header>
+                    <ion-card-subtitle>
+                      <ion-item lines="full">
+                        {{walletContact.note}}
+                        <ion-text color="medium" slot="end" (click)="toEditWalletContact(i)">编辑</ion-text>
+                        <ion-text color="medium" slot="end" (click)="deleteWalletContact(i)">删除</ion-text>
+                      </ion-item>
+                    </ion-card-subtitle>
+                    <ion-card-content>
+                      <ion-grid>
+                        <ion-row>
+                          <div *ngIf="walletContact.symbol == 'BTC'">
+                            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
+                                 style="max-width: 20px;max-height: 20px">
+                          </div>
+                          <div *ngIf="walletContact.symbol == 'ETH'">
+                            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                                 style="max-width: 20px;max-height: 20px">
+                          </div>
+                          <div *ngIf="walletContact.symbol == 'LTC'">
+                            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/litecoin_200_200.webp?v=35" referrerpolicy="no-referrer"
+                                 style="max-width: 20px;max-height: 20px">
+                          </div>
+                          <ion-text>　{{walletContact.symbol}} 地址：</ion-text>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col size="11">
+                            <ion-text>{{walletContact.address}}</ion-text>
+                          </ion-col>
+                          <ion-col size="1">
+                            <ion-icon name="copy" color="medium" (click)="copyText(walletContact.address)"></ion-icon>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </ion-card-content>
+                  </ion-card-header>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
