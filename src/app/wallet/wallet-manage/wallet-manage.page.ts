@@ -121,6 +121,6 @@ export class WalletManagePage implements OnInit {
   }
 
   forgetPassword() {
-    this.router.navigate(['tabs/wallet/wallet-wallet-create-password', {index: this.index, privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    this.router.navigate(['tabs/wallet/wallet-mnemonic-password', {index: this.index, privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 }

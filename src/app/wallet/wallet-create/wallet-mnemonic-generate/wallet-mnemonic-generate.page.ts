@@ -42,7 +42,7 @@ export class WalletMnemonicGeneratePage implements OnInit {
         }, {
           text: '确定',
           handler: () => {
-            this.router.navigate(['tabs/wallet/wallet-wallet-create-confirm', {mnemonicInfo : this.mnemonic}]);
+            this.router.navigate(['tabs/wallet/wallet-mnemonic-confirm', {mnemonicInfo : this.mnemonic}]);
           }
         }
       ]
