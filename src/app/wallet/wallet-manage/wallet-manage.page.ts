@@ -53,7 +53,8 @@ export class WalletManagePage implements OnInit {
             if (alertData.password !== this.privateKey.password) {
               this.constant.alert('密码错误！');
             } else {
-              this.constant.alert('BTC Key:<br>' + this.privateKey.btcPrivateKey + '<br><br>ETH Key:<br>' + this.privateKey.ethPrivateKey);
+              this.constant.alert('BTC Key:<br>' + this.privateKey.btcPrivateKey + '<br><br>ETH Key:<br>' + this.privateKey.ethPrivateKey
+                  + '<br><br>LTC Key:<br>' + this.privateKey.ltcPrivateKey + '<br><br>BCH Key:<br>' + this.privateKey.bchPrivateKey);
             }
           }
         }
