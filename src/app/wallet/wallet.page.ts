@@ -29,7 +29,7 @@ export class WalletPage implements OnInit {
   }
 
   toAddWallet() {
-    this.router.navigate(['tabs/wallet/wallet-create-choose']);
+    this.router.navigate(['tabs/wallet/wallet-add-choose']);
   }
 
   toWalletManagement(privateKey: PrivateKey, i: number) {
