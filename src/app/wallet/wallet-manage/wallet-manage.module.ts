@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { WalletManagePageRoutingModule } from './wallet-manage-routing.module';
 
 import { WalletManagePage } from './wallet-manage.page';
+import {WalletExportKeyPageModule} from './wallet-export-key/wallet-export-key.module';
+import {WalletExportMnemonicPageModule} from './wallet-export-mnemonic/wallet-export-mnemonic.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WalletManagePageRoutingModule
+    WalletManagePageRoutingModule,
+    WalletExportKeyPageModule,
+    WalletExportMnemonicPageModule
   ],
   declarations: [WalletManagePage]
 })

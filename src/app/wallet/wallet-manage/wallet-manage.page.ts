@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PrivateKey} from '../../entity/private-key';
 import {ConstantService} from '../../constant.service';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ModalController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
+import {WalletExportKeyPage} from './wallet-export-key/wallet-export-key.page';
+import {WalletExportMnemonicPage} from './wallet-export-mnemonic/wallet-export-mnemonic.page';
 
 @Component({
   selector: 'app-wallet-manage',
@@ -20,7 +22,8 @@ export class WalletManagePage implements OnInit {
               private router: Router,
               private constant: ConstantService,
               private alertController: AlertController,
-              private storage: Storage) {
+              private storage: Storage,
+              private modalController: ModalController) {
 
     this.passwordInput = '';
   }
@@ -53,8 +56,7 @@ export class WalletManagePage implements OnInit {
             if (alertData.password !== this.privateKey.password) {
               this.constant.alert('密码错误！');
             } else {
-              this.constant.alert('BTC Key:<br>' + this.privateKey.btcPrivateKey + '<br><br>ETH Key:<br>' + this.privateKey.ethPrivateKey
-                  + '<br><br>LTC Key:<br>' + this.privateKey.ltcPrivateKey + '<br><br>BCH Key:<br>' + this.privateKey.bchPrivateKey);
+              this.toExportTextKey();
             }
           }
         }
@@ -86,7 +88,7 @@ export class WalletManagePage implements OnInit {
             if (alertData.password !== this.privateKey.password) {
               this.constant.alert('密码错误！');
             } else {
-              this.constant.alert('助记词：<br>' + this.privateKey.mnemonic);
+              this.toExportTextMnemonic();
             }
           }
         }
@@ -119,6 +121,34 @@ export class WalletManagePage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  async toExportTextKey() {
+    const modal = await this.modalController.create({
+      component: WalletExportKeyPage,
+      componentProps: {
+        privateKey: this.privateKey
+      }
+    });
+    await modal.present();
+    const data = ((await modal.onDidDismiss()) as any).data;
+    if (data != null) {
+
+    }
+  }
+
+  async toExportTextMnemonic() {
+    const modal = await this.modalController.create({
+      component: WalletExportMnemonicPage,
+      componentProps: {
+        privateKey: this.privateKey
+      }
+    });
+    await modal.present();
+    const data = ((await modal.onDidDismiss()) as any).data;
+    if (data != null) {
+
+    }
   }
 
   forgetPassword() {

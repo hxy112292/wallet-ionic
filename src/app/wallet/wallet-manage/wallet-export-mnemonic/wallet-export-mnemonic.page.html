@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>助记词生成</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ion-title>导出助记词</ion-title>
+    <ion-icon name="close" (click)="dismiss(null)" slot="start" style="font-size: x-large;margin-left: 3%;"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +16,7 @@
       <ion-card>
         <ion-card-content>
           <ion-text style="font-size: xx-large;color: black">
-            {{mnemonic}}
+            {{privateKey.mnemonic}}
           </ion-text>
         </ion-card-content>
       </ion-card>
@@ -31,7 +29,4 @@
       </ion-text>
     </ion-item>
   </ion-list>
-  <div style="text-align: center">
-    <ion-button size="default" (click)="toWalletMnemonicConfirm()">下一步</ion-button>
-  </div>
 </ion-content>

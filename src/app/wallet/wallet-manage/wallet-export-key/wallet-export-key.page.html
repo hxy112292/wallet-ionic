@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>导出私钥</ion-title>
+    <ion-icon name="close" (click)="dismiss(null)" slot="start" style="font-size: x-large;margin-left: 3%;"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-item style="text-align: center">
+      <ion-text color="danger">（请务必妥善保存您的私钥！建议将私钥手抄到纸质文件上，并小心保管。）</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: #FF9E02">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;font-weight: bolder;color: white">　BTC-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            地址：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.btcAddress}}
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            私钥：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.btcPrivateKey}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: #0892C1">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;font-weight: bolder;color: white">　ETH-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            地址：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.ethAddress}}
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            私钥：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.ethPrivateKey}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: grey">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/litecoin_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;font-weight: bolder;color: white">　LTC-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            地址：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.ltcAddress}}
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            私钥：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.ltcPrivateKey}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: limegreen">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://menu.cdn.bitcoindotcom.net/uni/dist/assets/crypto/bch.png" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;font-weight: bolder;color: white">　BCH-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            地址：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.bchAddress}}
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            私钥：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.bchPrivateKey}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>
