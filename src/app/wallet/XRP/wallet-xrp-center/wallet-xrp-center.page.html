@@ -103,7 +103,7 @@
             </ion-col>
             <ion-col style="text-align: right">
               <div *ngIf="transaction.outcome.result != 'tesSUCCESS'">
-                <ion-text style="color: red">{{transaction.outcome.result}}</ion-text>
+                <ion-text style="color: red">失败</ion-text>
               </div>
               <div *ngIf="transaction.outcome.result == 'tesSUCCESS'">
                 <ion-text style="color: #2dd36f">成功</ion-text>
