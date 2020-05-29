@@ -17,6 +17,7 @@ export class WalletBitcoinCenterPage implements OnInit {
   privateKey: PrivateKey;
   blockChairAddress: BlockchairBtcAddress;
   tmpHashList: BlockchairBtcAddressTransaction[];
+  price: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -44,11 +45,24 @@ export class WalletBitcoinCenterPage implements OnInit {
       transactions: [],
       utxoList: []
     };
+
+    this.price = 0;
   }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
+    this.getPrice();
+  }
+
+  getPrice() {
+    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+      params: {
+        symbol: 'btcusdt'
+      }
+    }).subscribe( res => {
+      this.price = (res as any).result.close;
+    });
   }
 
   getAddressInfo() {

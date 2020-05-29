@@ -20,6 +20,7 @@ export class WalletEthereumCenterPage implements OnInit {
   blockChairAddress: BlockchairEthAddress;
   etherscanBalance: EtherscanBalance;
   tmpHashList: EtherscanTx[];
+  price: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -53,11 +54,24 @@ export class WalletEthereumCenterPage implements OnInit {
       result: '',
       txList: []
     };
+
+    this.price = 0;
   }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
+    this.getPrice();
+  }
+
+  getPrice() {
+    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+      params: {
+        symbol: 'ethusdt'
+      }
+    }).subscribe( res => {
+      this.price = (res as any).result.close;
+    });
   }
 
   getAddressInfo() {

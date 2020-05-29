@@ -17,6 +17,7 @@ export class WalletBchCenterPage implements OnInit {
   privateKey: PrivateKey;
   cryptoBchAddress: CryptoBchAddress;
   cryptoBchTxList: CryptoBchTx[];
+  price: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -42,11 +43,23 @@ export class WalletBchCenterPage implements OnInit {
     };
 
     this.cryptoBchTxList = [];
+    this.price = 0;
   }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
+    this.getPrice();
+  }
+
+  getPrice() {
+    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+      params: {
+        symbol: 'bchusdt'
+      }
+    }).subscribe( res => {
+      this.price = (res as any).result.close;
+    });
   }
 
   getAddressInfo() {

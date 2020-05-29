@@ -18,6 +18,7 @@ export class WalletXrpCenterPage implements OnInit {
   privateKey: PrivateKey;
   xrpAddress: RippleAddress;
   xrpTransactionList: RippleTransaction[];
+  price: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -44,11 +45,23 @@ export class WalletXrpCenterPage implements OnInit {
 
     this.xrpTransactionList = [];
 
+    this.price = 0;
   }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
+    this.getPrice();
+  }
+
+  getPrice() {
+    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+      params: {
+        symbol: 'xrpusdt'
+      }
+    }).subscribe( res => {
+      this.price = (res as any).result.close;
+    });
   }
 
   getAddressInfo() {

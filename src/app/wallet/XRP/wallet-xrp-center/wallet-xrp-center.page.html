@@ -28,6 +28,11 @@
           <ion-text style="color: white">
             {{privateKey.xrpAddress}}
           </ion-text>
+          <br>
+          <br>
+          <ion-text style="color: white;font-size: large">
+            价值：${{xrpAddress.xrpBalance * price | number:'1.2-2'}}
+          </ion-text>
         </ion-card-content>
       </ion-card>
     </ion-item>

@@ -15,6 +15,7 @@ export class WalletLitecoinCenterPage implements OnInit {
 
   privateKey: PrivateKey;
   sochainLtcAddress: SochainLtcAddress;
+  price: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -39,11 +40,24 @@ export class WalletLitecoinCenterPage implements OnInit {
       value_usd: 0,
       address: '', balance: '', txs: []
     };
+
+    this.price = 0;
   }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.getAddressInfo();
+    this.getPrice();
+  }
+
+  getPrice() {
+    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+      params: {
+        symbol: 'ltcusdt'
+      }
+    }).subscribe( res => {
+      this.price = (res as any).result.close;
+    });
   }
 
   getAddressInfo() {
