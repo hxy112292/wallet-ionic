@@ -103,10 +103,13 @@ export class WalletXrpSendPage implements OnInit {
             console.log('Tentative result message:', result.resultMessage);
             const earliestLedgerVersion = latestLedgerVersion + 1;
             api.disconnect();
+            this.router.navigate(['tabs/wallet/wallet-xrp-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
           });
         });
       });
-    }).catch(console.error);
+    }).catch( error => {
+      this.constant.alert(error);
+    });
   }
 
   async sendConfirm() {
