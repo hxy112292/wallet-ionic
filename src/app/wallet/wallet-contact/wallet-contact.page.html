@@ -51,6 +51,14 @@
                   <img src="https://s2.bqiapp.com/coin/20181030_72_webp/litecoin_200_200.webp?v=35" referrerpolicy="no-referrer"
                        style="max-width: 20px;max-height: 20px">
                 </div>
+                <div *ngIf="walletContact.symbol == 'BCH'">
+                  <img src="https://menu.cdn.bitcoindotcom.net/uni/dist/assets/crypto/bch.png" referrerpolicy="no-referrer"
+                       style="max-width: 20px;max-height: 20px">
+                </div>
+                <div *ngIf="walletContact.symbol == 'XRP'">
+                  <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
+                       style="max-width: 20px;max-height: 20px">
+                </div>
                 <ion-text>　{{walletContact.symbol}} 地址：</ion-text>
               </ion-row>
               <ion-row>
