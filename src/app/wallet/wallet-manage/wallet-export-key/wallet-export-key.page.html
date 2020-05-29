@@ -122,5 +122,33 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
+    <ion-item>
+      <ion-card style="background-color: blueviolet">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;font-weight: bolder;color: white">　XRP-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            地址：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.xrpAddress}}
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            私钥：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.xrpPrivateKey}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
   </ion-list>
 </ion-content>

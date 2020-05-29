@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>XRP-充币</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <div style="text-align: center;margin-left: 3%;margin-right: 3%">
+    <ion-title>
+      <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=20" referrerpolicy="no-referrer"
+           style="max-width: 20px;max-height: 20px">
+      XRP 地址：
+    </ion-title>
+    <ngx-qrcode [value]="privateKey.xrpAddress"></ngx-qrcode>
+    <ion-text>
+      {{privateKey.xrpAddress}}
+    </ion-text>
+    <br>
+    <ion-button color="secondary" (click)="copyText()">
+      <ion-icon name="copy" slot="start"></ion-icon>
+      复制地址
+    </ion-button>
+  </div>
+</ion-content>

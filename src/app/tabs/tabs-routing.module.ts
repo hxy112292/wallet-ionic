@@ -138,6 +138,23 @@ const routes: Routes = [
                 .then(m => m.WalletBchTransactionPageModule)
           },
           {
+            path: 'wallet-xrp-center',
+            loadChildren: () => import('../wallet/XRP/wallet-xrp-center/wallet-xrp-center.module').then(m => m.WalletXrpCenterPageModule)
+          },
+          {
+            path: 'wallet-xrp-receive',
+            loadChildren: () => import('../wallet/XRP/wallet-xrp-receive/wallet-xrp-receive.module').then(m => m.WalletXrpReceivePageModule)
+          },
+          {
+            path: 'wallet-xrp-send',
+            loadChildren: () => import('../wallet/XRP/wallet-xrp-send/wallet-xrp-send.module').then(m => m.WalletXrpSendPageModule)
+          },
+          {
+            path: 'wallet-xrp-transaction',
+            loadChildren: () => import('../wallet/XRP/wallet-xrp-transaction/wallet-xrp-transaction.module')
+                .then(m => m.WalletXrpTransactionPageModule)
+          },
+          {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           }

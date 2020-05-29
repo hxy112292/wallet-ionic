@@ -70,4 +70,8 @@ export class WalletPage implements OnInit {
   toWalletBCHCenter(privateKey: PrivateKey) {
     this.router.navigate(['tabs/wallet/wallet-bch-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
+
+  toWalletXRPCenter(privateKey: PrivateKey) {
+    this.router.navigate(['tabs/wallet/wallet-xrp-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+  }
 }

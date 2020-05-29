@@ -3,6 +3,9 @@ import {ethers} from 'ethers';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as litecore from 'litecore-lib';
 import * as bitcash from 'bitcore-lib-cash';
+import * as rip32 from 'ripple-bip32';
+import * as ripkey from 'ripple-keypairs';
+import * as ripple from 'ripplelib';
 import * as bip39 from 'bip39';
 import * as bip32 from 'bip32';
 import {AlertController} from '@ionic/angular';
@@ -27,6 +30,8 @@ export class WalletAddPage implements OnInit {
               private constant: ConstantService,
               private storage: Storage) {
     this.privateKey = {
+      xrpKeyPair: '',
+      xrpAddress: '', xrpPrivateKey: '',
       bchAddress: '', bchPrivateKey: '',
       ltcAddress: '', ltcPrivateKey: '',
       mnemonic: '',
@@ -44,6 +49,7 @@ export class WalletAddPage implements OnInit {
     this.generateETHWallet();
     this.generateLTCWallet();
     this.generateBCHWallet();
+    this.generateXRPWallet();
   }
 
   generateBTCWallet() {
@@ -98,6 +104,19 @@ export class WalletAddPage implements OnInit {
     const address = privateKey.toAddress(network);
     this.privateKey.bchAddress = address.toString();
     this.privateKey.bchPrivateKey = privateKey.toString();
+  }
+
+  generateXRPWallet() {
+    const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
+    const root = rip32.fromSeedBuffer(seed);
+    const keyPair = root.derivePath('m/44\'/144\'/0\'/0/0').keyPair.getKeyPairs();
+    const address = ripkey.deriveAddress(keyPair.publicKey);
+    const privateKey = keyPair.privateKey;
+    const key = ripple.KeyPair.from_json(keyPair.privateKey.substring(2));
+
+    this.privateKey.xrpKeyPair = keyPair;
+    this.privateKey.xrpAddress = address;
+    this.privateKey.xrpPrivateKey = privateKey;
   }
 
   toWallet() {

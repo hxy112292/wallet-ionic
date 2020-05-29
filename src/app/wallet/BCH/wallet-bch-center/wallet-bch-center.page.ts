@@ -25,6 +25,8 @@ export class WalletBchCenterPage implements OnInit {
               private storage: Storage) {
 
     this.privateKey = {
+      xrpKeyPair: '',
+      xrpAddress: '', xrpPrivateKey: '',
       bchAddress: '', bchPrivateKey: '',
       ltcAddress: '', ltcPrivateKey: '',
       mnemonic: '',

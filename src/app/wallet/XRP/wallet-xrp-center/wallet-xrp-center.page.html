@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>XRP-WALLET</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-card style="background-color: blueviolet">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　XRP-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            {{privateKey.xrpAddress}}
+          </ion-text>
+          <br>
+          <br>
+          <ion-text style="color: white;font-size: large">
+            价值：$0.00
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" style="text-align: center">
+            <ion-button size="default" (click)="toWalletXRPReceive(privateKey)">充　币</ion-button>
+          </ion-col>
+          <ion-col size="6" style="text-align: center">
+            <ion-button size="default" color="tertiary" (click)="toWalletXRPSend(privateKey)">提　币</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <br>
+  <ion-title style="font-weight: bolder">
+    资产
+    <ion-text style="font-size: small;color: royalblue;font-weight: normal;" (click)="toCoinDetail()">（币种介绍）</ion-text>
+  </ion-title>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+          </ion-col>
+          <ion-col size="3">
+            <ion-text style="font-size: medium">XRP</ion-text>
+          </ion-col>
+          <ion-col size="8" style="text-align: right">
+            <ion-text style="font-size: medium">{{xrpAddress.xrpBalance | number: '1.2-8'}}</ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <br>
+  <ion-title style="font-weight: bolder">交易记录</ion-title>
+  <ion-list lines="full">
+    <div *ngFor="let transaction of xrpTransactionList">
+      <ion-item (click)="toWalletXRPTransaction(transaction.id)">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1">
+              <ion-icon name="code-working" color="success"></ion-icon>
+            </ion-col>
+            <ion-col size="7">
+              hash: {{transaction.id.slice(0,5)}}...{{transaction.id.slice(transaction.id.length-5,transaction.id.length)}}
+            </ion-col>
+            <ion-col size="4" style="text-align: right">
+              <div *ngIf="transaction.specification.source.address == privateKey.xrpAddress && transaction.outcome.result == 'tesSUCCESS'">
+                -{{transaction.outcome.deliveredAmount.value | number: '1.2-8'}}
+              </div>
+              <div *ngIf="transaction.specification.destination.address == privateKey.xrpAddress && transaction.outcome.result == 'tesSUCCESS'">
+                {{transaction.outcome.deliveredAmount.value | number: '1.2-8'}}
+              </div>
+              <div *ngIf="transaction.outcome.result != 'tesSUCCESS'">
+                --
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="font-size: small;color: grey">
+              {{transaction.outcome.timestamp | date: 'yyyy/MM/dd HH:mm:ss'}}
+            </ion-col>
+            <ion-col style="text-align: right">
+              <div *ngIf="transaction.outcome.result != 'tesSUCCESS'">
+                <ion-text style="color: red">{{transaction.outcome.result}}</ion-text>
+              </div>
+              <div *ngIf="transaction.outcome.result == 'tesSUCCESS'">
+                <ion-text style="color: #2dd36f">成功</ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

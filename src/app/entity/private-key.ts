@@ -9,5 +9,8 @@ export class PrivateKey {
     ltcAddress: string;
     bchPrivateKey: string;
     bchAddress: string;
+    xrpPrivateKey: string;
+    xrpAddress: string;
+    xrpKeyPair: string;
     password: string;
 }
