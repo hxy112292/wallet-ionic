@@ -73,7 +73,6 @@ export class WalletXrpCenterPage implements OnInit {
       const myAddress = this.privateKey.xrpAddress;
       api.getAccountInfo(myAddress).then( res => {
         this.xrpAddress = res as any;
-        console.log(this.xrpAddress);
         api.getTransactions(myAddress, {
           limit: 30,
           includeRawTransactions: true,
@@ -81,7 +80,6 @@ export class WalletXrpCenterPage implements OnInit {
           maxLedgerVersion: Number(this.xrpAddress.previousAffectingTransactionLedgerVersion)
         }).then( transactions => {
           this.xrpTransactionList = transactions as any;
-          console.log(this.xrpTransactionList);
           api.disconnect();
         });
       });
