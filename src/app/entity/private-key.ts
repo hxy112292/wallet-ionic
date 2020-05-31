@@ -1,3 +1,5 @@
+import {Erc20Token} from './erc20-token';
+
 export class PrivateKey {
 
     mnemonic: string;
@@ -12,5 +14,6 @@ export class PrivateKey {
     xrpPrivateKey: string;
     xrpAddress: string;
     xrpKeyPair: string;
+    erc20TokenList: Erc20Token[];
     password: string;
 }

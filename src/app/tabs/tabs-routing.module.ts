@@ -155,6 +155,20 @@ const routes: Routes = [
                 .then(m => m.WalletXrpTransactionPageModule)
           },
           {
+            path: 'wallet-ethereum-erc20-center',
+            loadChildren: () => import('../wallet/ETH/wallet-ethereum-erc20-center/wallet-ethereum-erc20-center.module')
+                .then(m => m.WalletEthereumErc20CenterPageModule)
+          },
+          {
+            path: 'wallet-erc20-add',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-add/wallet-erc20-add.module').then(m => m.WalletErc20AddPageModule)
+          },
+          {
+            path: 'wallet-erc20-search',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-search/wallet-erc20-search.module')
+                .then(m => m.WalletErc20SearchPageModule)
+          },
+          {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           }

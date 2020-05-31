@@ -40,8 +40,8 @@ export class WalletPage implements OnInit {
     this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
 
-  toWalletEthereumCenter(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+  toWalletEthereumCenter(privateKey: PrivateKey, i: number) {
+    this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
   }
 
   doRefresh(event) {

@@ -29,6 +29,7 @@ export class WalletEthereumCenterPage implements OnInit {
               private storage: Storage) {
 
     this.privateKey = {
+      erc20TokenList: [],
       xrpKeyPair: '',
       xrpAddress: '', xrpPrivateKey: '',
       bchAddress: '', bchPrivateKey: '',

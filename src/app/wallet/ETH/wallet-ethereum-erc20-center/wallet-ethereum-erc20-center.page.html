@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ETH-WALLET</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-card style="background-color: #0892C1">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　ETH-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text style="color: white">
+            {{privateKey.ethAddress}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <br>
+  <ion-title style="font-weight: bolder">
+    资产
+  </ion-title>
+  <ion-list lines="full">
+    <ion-item style="text-align: center" (click)="toERC20Add()">
+      <ion-title color="primary">+添加一个ERC20代币</ion-title>
+    </ion-item>
+    <ion-item (click)="toEthCenter()">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+          </ion-col>
+          <ion-col size="3">
+            <ion-text style="font-size: medium">ETH</ion-text>
+          </ion-col>
+          <ion-col size="5" style="text-align: right">
+            <ion-text style="font-size: medium">{{etherscanBalance.result/1000000000000000000 | number: '1.2-8'}}</ion-text>
+          </ion-col>
+          <ion-col size="3" style="text-align: right">
+            <ion-text color="primary">查看 >></ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let erc20Token of privateKey.erc20TokenList; let i = index">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1">
+              <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                   style="max-width: 20px;max-height: 20px">
+            </ion-col>
+            <ion-col size="3">
+              <ion-text style="font-size: medium">{{erc20Token.symbol}}</ion-text>
+            </ion-col>
+            <ion-col size="5" style="text-align: right">
+              <ion-text style="font-size: medium">{{erc20BalanceList[i] | number: '1.2-8'}}</ion-text>
+            </ion-col>
+            <ion-col size="3" style="text-align: right">
+              <ion-text color="primary">查看 >></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

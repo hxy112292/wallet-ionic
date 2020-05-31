@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>添加ERC20代币</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item style="text-align: center" lines="none">
+      <ion-title>添加ERC20代币</ion-title>
+    </ion-item>
+    <ion-item>
+      币种代码：{{erc20Token.symbol}}
+    </ion-item>
+    <ion-item>
+      币种全称：{{erc20Token.name}}
+    </ion-item>
+    <ion-item>
+      币种合约地址：{{erc20Token.address}}
+    </ion-item>
+  </ion-list>
+  <div style="text-align: center">
+    <ion-button (click)="addToken()" size="default">提　交</ion-button>
+  </div>
+</ion-content>

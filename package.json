@@ -50,6 +50,7 @@
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-sqlite-storage": "^5.0.0",
     "core-js": "^2.5.4",
+    "erc20-token-list": "0.0.2",
     "ethers": "^4.0.47",
     "ionic5-star-rating": "https://github.com/JeongJun-Lee/ionic5-star-rating/tarball/master",
     "litecore-lib": "^0.13.22",

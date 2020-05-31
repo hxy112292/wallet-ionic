@@ -30,6 +30,7 @@ export class WalletAddPage implements OnInit {
               private constant: ConstantService,
               private storage: Storage) {
     this.privateKey = {
+      erc20TokenList: [],
       xrpKeyPair: '',
       xrpAddress: '', xrpPrivateKey: '',
       bchAddress: '', bchPrivateKey: '',

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>查找ERC20代币</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item style="text-align: center" lines="none">
+      <ion-title>查找ERC20代币</ion-title>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="contractAddress" placeholder="请输入合约（Contract）地址"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div style="text-align: center">
+    <ion-button (click)="findToken()" size="default">提　交</ion-button>
+  </div>
+</ion-content>
