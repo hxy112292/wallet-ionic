@@ -3,6 +3,7 @@ import {Erc20Token} from '../../../entity/erc20-token';
 import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Contract, ethers} from 'ethers';
+import {ConstantService} from '../../../constant.service';
 
 @Component({
   selector: 'app-wallet-erc20-search',
@@ -17,7 +18,8 @@ export class WalletErc20SearchPage implements OnInit {
   index: number;
 
   constructor(private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private constant: ConstantService) {
     this.contractAddress = '';
     this.erc20Token = {
       address: '', name: '', symbol: ''
@@ -72,7 +74,13 @@ export class WalletErc20SearchPage implements OnInit {
         this.erc20Token.name = name as any;
         this.router.navigate(['tabs/wallet/wallet-erc20-add', {privateKeyInfo: JSON.stringify(this.privateKey)
           , erc20Token: JSON.stringify(this.erc20Token), index: this.index}]);
+      }).catch( error => {
+        this.constant.alert(error);
+        return;
       });
+    }).catch( error => {
+      this.constant.alert(error);
+      return;
     });
   }
 

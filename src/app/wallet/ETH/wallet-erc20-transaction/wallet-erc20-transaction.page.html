@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>交易详情</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-icon name="document" color="danger"></ion-icon>
+        <ion-text>　交易时间：{{transaction.timeStamp*1000 | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              币种：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              {{erc20Token.symbol}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="pricetag" color="tertiary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              金额：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              {{transaction.value/1000000000000000000 | number: '1.2-8'}} {{erc20Token.symbol}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="cafe" color="black"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              手续费：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              <div *ngIf="transaction.gasUsed == null || transaction.gasUsed == '' || transaction.gasPrice == null || transaction.gasUsed == ''">
+                -- {{erc20Token.symbol}}
+              </div>
+              <div *ngIf="transaction.gasUsed != null && transaction.gasUsed != '' && transaction.gasPrice != null && transaction.gasUsed != ''">
+                {{transaction.gasUsed * transaction.gasPrice/1000000000000000000 | number: '1.2-8'}} ETH
+              </div>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="send" color="secondary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              状态：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <div *ngIf="transaction.confirmations >= 7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
+              <ion-text color="success">成功</ion-text>
+            </div>
+            <div *ngIf="transaction.confirmations <7 && transaction.confirmations != '' && transaction.confirmations != null &&  transaction.confirmations != '-1'">
+              <ion-text color="primary">确认数（{{transaction.confirmations}}/6）</ion-text>
+            </div>
+            <div *ngIf="transaction.confirmations == '' || transaction.confirmations == null || transaction.confirmations  == '-1'">
+              <ion-text color="primary">打包中...</ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="code-working" color="success"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              Hash值：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">
+              {{transaction.hash}}
+            </ion-text>
+            <ion-icon name="copy-outline" (click)="copyTxHash()"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: center">
+            <ion-text color="primary" (click)="openHash(transaction.hash)" style="text-decoration: underline">前往 etherscan.com 查看更多细节 >></ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            发送方：
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <ion-text>
+                  地址：
+                </ion-text>
+                <ion-text color="dark">
+                  {{transaction.from}}
+                </ion-text>
+                <ion-icon name="copy-outline" (click)="copyAddress(transaction.from)"></ion-icon>
+                <br>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            接收方：
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <ion-text>
+                  地址：
+                </ion-text>
+                <ion-text color="dark">
+                  {{transaction.to}}
+                </ion-text>
+                <ion-icon name="copy-outline" (click)="copyAddress(transaction.to)"></ion-icon>
+                <br>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

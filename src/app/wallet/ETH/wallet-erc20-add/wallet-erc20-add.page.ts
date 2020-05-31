@@ -41,7 +41,7 @@ export class WalletErc20AddPage implements OnInit {
       this.constant.privateKeyList[this.index].erc20TokenList[0] = this.erc20Token;
     }
     this.storage.set('privateKeyList', this.constant.privateKeyList);
-    this.router.navigate(['tabs/wallet/wallet-ethereum-center'
+    this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center'
       , {privateKeyInfo: JSON.stringify(this.constant.privateKeyList[this.index])}]);
   }
 }

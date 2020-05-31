@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
 import {Storage} from '@ionic/storage';
 import {Contract, ethers} from 'ethers';
+import {Erc20Token} from '../../../entity/erc20-token';
 
 @Component({
   selector: 'app-wallet-ethereum-erc20-center',
@@ -95,12 +96,14 @@ export class WalletEthereumErc20CenterPage implements OnInit {
 
     const provider = new ethers.providers.EtherscanProvider('ropsten');
 
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.privateKey.erc20TokenList.length; i++) {
-      const contract = new Contract(this.privateKey.erc20TokenList[i].address, contractAbiFragment, provider);
-      contract.balanceOf(this.privateKey.ethAddress).then( balance => {
-        this.erc20BalanceList[i] = (balance as any) / 1000000000000000000;
-      });
+    if (this.privateKey.erc20TokenList != null) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.privateKey.erc20TokenList.length; i++) {
+        const contract = new Contract(this.privateKey.erc20TokenList[i].address, contractAbiFragment, provider);
+        contract.balanceOf(this.privateKey.ethAddress).then( balance => {
+          this.erc20BalanceList[i] = (balance as any) / 1000000000000000000;
+        });
+      }
     }
   }
 
@@ -120,5 +123,10 @@ export class WalletEthereumErc20CenterPage implements OnInit {
 
   toEthCenter() {
     this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
+  }
+
+  toErc20Center(erc20Token: Erc20Token) {
+    this.router.navigate(['tabs/wallet/wallet-erc20-center', {privateKeyInfo : JSON.stringify(this.privateKey)
+      , erc20TokenInfo: JSON.stringify(erc20Token)}]);
   }
 }

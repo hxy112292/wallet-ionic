@@ -169,6 +169,25 @@ const routes: Routes = [
                 .then(m => m.WalletErc20SearchPageModule)
           },
           {
+            path: 'wallet-erc20-center',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-center/wallet-erc20-center.module')
+                .then(m => m.WalletErc20CenterPageModule)
+          },
+          {
+            path: 'wallet-erc20-receive',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-receive/wallet-erc20-receive.module')
+                .then(m => m.WalletErc20ReceivePageModule)
+          },
+          {
+            path: 'wallet-erc20-transaction',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-transaction/wallet-erc20-transaction.module')
+                .then(m => m.WalletErc20TransactionPageModule)
+          },
+          {
+            path: 'wallet-erc20-send',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-send/wallet-erc20-send.module').then(m => m.WalletErc20SendPageModule)
+          },
+          {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           }
