@@ -105,6 +105,7 @@ export class WalletBitcoinCenterPage implements OnInit {
         this.storage.remove(this.privateKey.btcAddress);
         if (this.tmpHashList.length !== 0) {
           this.storage.set(this.privateKey.btcAddress, this.tmpHashList);
+          this.blockChairAddress.transactions = this.tmpHashList.concat(this.blockChairAddress.transactions);
         }
       }
     });

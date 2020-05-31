@@ -119,6 +119,7 @@ export class WalletEthereumCenterPage implements OnInit {
         this.storage.remove(this.privateKey.ethAddress);
         if (this.tmpHashList.length !== 0) {
           this.storage.set(this.privateKey.ethAddress, this.tmpHashList);
+          this.etherscanBalance.txList = this.tmpHashList.concat(this.etherscanBalance.txList);
         }
       }
     });

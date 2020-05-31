@@ -65,7 +65,7 @@
           <ion-col>
             <ion-text>
               <div *ngIf="transaction.gasUsed == null || transaction.gasUsed == '' || transaction.gasPrice == null || transaction.gasUsed == ''">
-                -- {{erc20Token.symbol}}
+                -- ETH
               </div>
               <div *ngIf="transaction.gasUsed != null && transaction.gasUsed != '' && transaction.gasPrice != null && transaction.gasUsed != ''">
                 {{transaction.gasUsed * transaction.gasPrice/1000000000000000000 | number: '1.2-8'}} ETH

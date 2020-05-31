@@ -10,6 +10,7 @@ import {Storage} from '@ionic/storage';
 import {Contract, ethers, utils} from 'ethers';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 import {Erc20Token} from '../../../entity/erc20-token';
+import {EtherscanTx} from '../../../entity/etherscan-tx';
 
 @Component({
   selector: 'app-wallet-erc20-send',
@@ -28,6 +29,8 @@ export class WalletErc20SendPage implements OnInit {
   gwei: number;
   gas: number;
   erc20Token: Erc20Token;
+  tmpHash: EtherscanTx;
+  tmpHashList: EtherscanTx[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -45,6 +48,28 @@ export class WalletErc20SendPage implements OnInit {
     this.amount = '';
     this.fee = 0;
     this.erc20Balance = 0;
+    this.tmpHashList = [];
+    this.tmpHash = {
+      blockNumber: '',
+      timeStamp: '',
+      hash: '',
+      nonce: '',
+      blockHash: '',
+      transactionIndex: '',
+      from: '',
+      to: '',
+      value: '',
+      gas: '',
+      gasPrice: '',
+      isError: '',
+      // tslint:disable-next-line:variable-name
+      txreceipt_status: '',
+      input: '',
+      contractAddress: '',
+      cumulativeGasUsed: '',
+      gasUsed: '',
+      confirmations: ''
+    };
   }
 
   ngOnInit() {
@@ -72,7 +97,7 @@ export class WalletErc20SendPage implements OnInit {
     });
   }
 
-  sendByTypical() {
+  async sendByTypical() {
     const contractAbiFragment = [
       {
         name: 'transfer',
@@ -106,17 +131,35 @@ export class WalletErc20SendPage implements OnInit {
     const wallet = new ethers.Wallet(this.privateKey.ethPrivateKey, provider);
 
     const contract = new Contract(this.erc20Token.address, contractAbiFragment, wallet);
-    contract.transfer(this.recipientAddr, numberOfTokens).then( res => {
-      if ((res as any) === 'false') {
-        this.constant.alert('发送失败');
-        return;
-      } else {
-        this.router.navigate(['tabs/wallet/wallet-erc20-center', {privateKeyInfo : JSON.stringify(this.privateKey)
-          , erc20TokenInfo: JSON.stringify(this.erc20Token)}]);
-      }
-    }).catch( error => {
+    const result = await contract.transfer(this.recipientAddr, numberOfTokens).catch( error => {
       this.constant.alert('发送失败：' + error);
       return;
+    });
+    this.tmpHash.hash = (result as any).hash;
+    this.tmpHash.from = this.privateKey.ethAddress;
+    this.tmpHash.to = this.recipientAddr;
+    this.tmpHash.value = String(Number(this.amount) * 1000000000000000000);
+    this.tmpHash.confirmations = '-1';
+    this.tmpHash.timeStamp = String(new Date().getTime() / 1000);
+    this.saveTmpEthTx();
+    this.router.navigate(['tabs/wallet/wallet-erc20-center', {privateKeyInfo : JSON.stringify(this.privateKey)
+      , erc20TokenInfo: JSON.stringify(this.erc20Token)}]);
+  }
+
+  getFee() {
+    this.fee = this.gas * this.gwei;
+    this.fee = Number(this.fee.toFixed(8));
+  }
+
+  saveTmpEthTx() {
+    this.storage.get(this.privateKey.ethAddress + this.erc20Token.name).then(res => {
+      if (res != null) {
+        this.tmpHashList = (res as any);
+        this.tmpHashList[this.tmpHashList.length] = this.tmpHash;
+      } else {
+        this.tmpHashList[0] = this.tmpHash;
+      }
+      this.storage.set(this.privateKey.ethAddress + this.erc20Token.name, this.tmpHashList);
     });
   }
 
@@ -153,7 +196,7 @@ export class WalletErc20SendPage implements OnInit {
       message:
           '<strong>发送方：</strong><br><ion-text style="font-size:small">' + this.privateKey.ethAddress + '</ion-text><br><br>' +
           '<strong>接收方：</strong><br>' + this.recipientAddr + '<br><br>' +
-          '<strong>金额：</strong>' + this.amount + ' ETH<br><br>' +
+          '<strong>金额：</strong>' + this.amount + ' ' + this.erc20Token.symbol + '<br><br>' +
           '<strong>手续费：</strong>' + this.fee + ' ETH<br><br>',
       buttons: [
         {

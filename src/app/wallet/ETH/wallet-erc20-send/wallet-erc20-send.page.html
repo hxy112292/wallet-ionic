@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ETH-提币</ion-title>
+    <ion-title>{{erc20Token.symbol}}-提币</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -10,7 +10,7 @@
 <ion-content>
   <div style="text-align: center">
     <br>
-    <ion-title>ETH 提币</ion-title>
+    <ion-title>{{erc20Token.symbol}} 提币</ion-title>
   </div>
   <ion-list lines="full">
     <ion-item lines="none">
@@ -40,6 +40,12 @@
       <ion-icon name="cafe" color="tertiary"></ion-icon>
       <ion-label>　手续费（ETH）：</ion-label>
       <ion-text>≈ {{fee | number: '1.2-8'}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range [(ngModel)]="gwei" (ionChange)="getFee()" min="25" max="100" color="secondary" step="0.1" pin>
+        <ion-label slot="start">25 gwei</ion-label>
+        <ion-label slot="end">100 gwei</ion-label>
+      </ion-range>
     </ion-item>
   </ion-list>
   <div style="text-align: center">

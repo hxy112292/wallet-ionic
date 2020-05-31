@@ -21,6 +21,7 @@ export class WalletErc20CenterPage implements OnInit {
   blockChairAddress: BlockchairEthAddress;
   erc20Token: Erc20Token;
   erc20TxList: EtherscanTx[];
+  tmpHashList: EtherscanTx[];
   price: number;
   erc20Balance: number;
   ethBalance: number;
@@ -120,6 +121,31 @@ export class WalletErc20CenterPage implements OnInit {
       }
     }).subscribe( res => {
       this.erc20TxList = (res as any).result;
+      this.getTmpHash();
+    });
+  }
+
+  getTmpHash() {
+    this.storage.get(this.privateKey.ethAddress + this.erc20Token.name).then( res => {
+      if (res != null) {
+        this.tmpHashList = res as any;
+        for (let i = 0; i < this.tmpHashList.length; i++) {
+          // tslint:disable-next-line:prefer-for-of
+          for (let j = 0; j < this.erc20TxList.length; j++) {
+            if (this.tmpHashList[i].hash === this.erc20TxList[j].hash) {
+              this.tmpHashList.splice(i, 1);
+              if (this.tmpHashList.length === 0 ) {
+                break;
+              }
+            }
+          }
+        }
+        this.storage.remove(this.privateKey.ethAddress + this.erc20Token.name);
+        if (this.tmpHashList.length !== 0) {
+          this.storage.set(this.privateKey.ethAddress + this.erc20Token.name, this.tmpHashList);
+          this.erc20TxList = this.tmpHashList.concat(this.erc20TxList);
+        }
+      }
     });
   }
 
