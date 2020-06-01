@@ -2,7 +2,10 @@
   <ion-toolbar>
     <ion-title>{{erc20Token.symbol}}-WALLET</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="toWalletEthErc20Center()"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon md="ellipsis-horizontal" size="large" (click)="toWalletManagement()"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

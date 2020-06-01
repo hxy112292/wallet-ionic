@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{constant.privateKeyList[indexEth].erc20TokenList[indexErc20].symbol}} 币种管理</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item style="color: red" (click)="deleteErc20()">
+      <ion-icon name="trash" color="danger"></ion-icon>
+      <ion-text>　删除币种</ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

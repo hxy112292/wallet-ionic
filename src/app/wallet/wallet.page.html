@@ -5,15 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content>
-    </ion-refresher-content>
-  </ion-refresher>
   <ion-list lines="full">
     <ion-item style="text-align: center" (click)="toAddWallet()">
       <ion-title color="primary">+添加一个钱包</ion-title>
     </ion-item>
-    <div *ngFor="let privateKey of privateKeyList; let i = index">
+    <div *ngFor="let privateKey of constant.privateKeyList; let i = index">
       <ion-item lines="none">
         <ion-icon name="wallet" color="warning"></ion-icon>
         <ion-text>　#{{i+1}} 钱包</ion-text>

@@ -16,8 +16,6 @@ import {Storage} from '@ionic/storage';
 })
 export class WalletPage implements OnInit {
 
-  privateKeyList: PrivateKey[];
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
@@ -25,7 +23,6 @@ export class WalletPage implements OnInit {
               private storage: Storage) { }
 
   ngOnInit() {
-    this.getPrivateKeyList();
   }
 
   toAddWallet() {
@@ -42,25 +39,6 @@ export class WalletPage implements OnInit {
 
   toWalletEthereumCenter(privateKey: PrivateKey, i: number) {
     this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
-  }
-
-  doRefresh(event) {
-    console.log('Begin async operation');
-    this.getPrivateKeyList();
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
-  }
-
-  getPrivateKeyList() {
-    this.storage.get('privateKeyList').then( res => {
-      if (res == null) {
-        this.privateKeyList = [];
-      } else {
-        this.privateKeyList = res as any;
-      }
-    });
   }
 
   toWalletLTCCenter(privateKey: PrivateKey) {

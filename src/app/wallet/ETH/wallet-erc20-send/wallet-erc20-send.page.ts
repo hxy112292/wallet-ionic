@@ -142,8 +142,10 @@ export class WalletErc20SendPage implements OnInit {
     this.tmpHash.confirmations = '-1';
     this.tmpHash.timeStamp = String(new Date().getTime() / 1000);
     this.saveTmpEthTx();
-    this.router.navigate(['tabs/wallet/wallet-erc20-center', {privateKeyInfo : JSON.stringify(this.privateKey)
-      , erc20TokenInfo: JSON.stringify(this.erc20Token)}]);
+    await this.router.navigate(['tabs/wallet/wallet-erc20-center', {
+      privateKeyInfo: JSON.stringify(this.privateKey)
+      , erc20TokenInfo: JSON.stringify(this.erc20Token)
+    }]);
   }
 
   getFee() {

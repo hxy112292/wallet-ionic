@@ -125,8 +125,12 @@ export class WalletEthereumErc20CenterPage implements OnInit {
     this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
   }
 
-  toErc20Center(erc20Token: Erc20Token) {
+  toErc20Center(erc20Token: Erc20Token, i) {
     this.router.navigate(['tabs/wallet/wallet-erc20-center', {privateKeyInfo : JSON.stringify(this.privateKey)
-      , erc20TokenInfo: JSON.stringify(erc20Token)}]);
+      , erc20TokenInfo: JSON.stringify(erc20Token), indexErc20: i, indexEth: this.index}]);
+  }
+
+  toWallet() {
+    this.router.navigate(['tabs/wallet']);
   }
 }

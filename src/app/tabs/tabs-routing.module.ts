@@ -188,6 +188,11 @@ const routes: Routes = [
             loadChildren: () => import('../wallet/ETH/wallet-erc20-send/wallet-erc20-send.module').then(m => m.WalletErc20SendPageModule)
           },
           {
+            path: 'wallet-erc20-manage',
+            loadChildren: () => import('../wallet/ETH/wallet-erc20-manage/wallet-erc20-manage.module')
+                .then(m => m.WalletErc20ManagePageModule)
+          },
+          {
             path: 'coin-detail',
             loadChildren: () => import('../coin-detail/coin-detail.module').then(m => m.CoinDetailPageModule)
           }

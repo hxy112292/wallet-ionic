@@ -25,6 +25,8 @@ export class WalletErc20CenterPage implements OnInit {
   price: number;
   erc20Balance: number;
   ethBalance: number;
+  indexErc20: number;
+  indexEth: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -63,6 +65,8 @@ export class WalletErc20CenterPage implements OnInit {
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.erc20Token = JSON.parse(this.route.snapshot.paramMap.get('erc20TokenInfo'));
+    this.indexErc20 = Number(this.route.snapshot.paramMap.get('indexErc20'));
+    this.indexEth = Number(this.route.snapshot.paramMap.get('indexEth'));
     this.getETHAddressInfo();
     this.getErc20AddressInfo();
   }
@@ -174,4 +178,11 @@ export class WalletErc20CenterPage implements OnInit {
       erc20Balance: this.erc20Balance, ethBalance: this.ethBalance, erc20TokenInfo: JSON.stringify(this.erc20Token)}]);
   }
 
+  toWalletManagement() {
+    this.router.navigate(['tabs/wallet/wallet-erc20-manage', {indexErc20: this.indexErc20, indexEth: this.indexEth}]);
+  }
+
+  toWalletEthErc20Center() {
+    this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
+  }
 }
