@@ -22,19 +22,25 @@
         <ion-select-option value="XRP">XRP</ion-select-option>
       </ion-select>
     </ion-item>
-    <div *ngFor="let walletContact of walletContactList; let i = index">
-      <div *ngIf="symbol == null || symbol == '' || symbol == walletContact.symbol">
-        <ion-item>
-          <ion-checkbox (click)="dismiss(walletContact.address)" slot="start"></ion-checkbox>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-subtitle>
-                <ion-item lines="full">
-                  {{walletContact.note}}
-                  <ion-text color="medium" slot="end" (click)="toEditWalletContact(i)">编辑</ion-text>
-                  <ion-text color="medium" slot="end" (click)="deleteWalletContact(i)">删除</ion-text>
-                </ion-item>
-              </ion-card-subtitle>
+  </ion-list>
+  <div *ngFor="let walletContact of walletContactList; let i = index">
+    <div *ngIf="symbol == null || symbol == '' || symbol == walletContact.symbol">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1" style="text-align:center;align-self: center">
+            <ion-checkbox (click)="dismiss(walletContact.address)"></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-subtitle>
+                  <ion-item lines="full">
+                    {{walletContact.note}}
+                    <ion-text color="medium" slot="end" (click)="toEditWalletContact(i)">编辑</ion-text>
+                    <ion-text color="medium" slot="end" (click)="deleteWalletContact(i)">删除</ion-text>
+                  </ion-item>
+                </ion-card-subtitle>
+              </ion-card-header>
               <ion-card-content>
                 <ion-grid>
                   <ion-row>
@@ -70,10 +76,10 @@
                   </ion-row>
                 </ion-grid>
               </ion-card-content>
-            </ion-card-header>
-          </ion-card>
-        </ion-item>
-      </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
-  </ion-list>
+  </div>
 </ion-content>
