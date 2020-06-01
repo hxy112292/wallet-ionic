@@ -159,7 +159,39 @@ export class WalletBchSendPage implements OnInit {
         }, {
           text: '确定',
           handler: () => {
-            this.sendByTypical();
+            this.matchPassword();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async matchPassword() {
+    const alert = await this.alertController.create({
+      header: '输入钱包密码',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '请输入密码'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: '确定',
+          handler: (alertData) => {
+            if (alertData.password !== this.privateKey.password) {
+              this.constant.alert('密码错误！');
+            } else {
+              this.sendByTypical();
+            }
           }
         }
       ]
