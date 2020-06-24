@@ -34,6 +34,10 @@
       <ion-icon name="copy-outline" slot="end" (click)="copyText(exchangeDetail.official_url)"></ion-icon>
     </ion-item>
     <ion-item>
+      <ion-text style="color: grey">资产金额</ion-text>
+      <ion-text slot="end">$ {{exchangeDetail.assets/100000000 | number:'1.2-2'}} 亿</ion-text>
+    </ion-item>
+    <ion-item>
       <ion-text style="color: grey">手续费</ion-text>
       <ion-text slot="end" color="primary" (click)="openUrl(exchangeDetail.fee_url)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{exchangeDetail.fee_url}}</ion-text>
       <ion-icon name="copy-outline" slot="end" (click)="copyText(exchangeDetail.fee_url)"></ion-icon>

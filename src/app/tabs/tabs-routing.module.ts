@@ -262,6 +262,11 @@ const routes: Routes = [
             path: 'exchange-detail',
             loadChildren: () => import('../invest-assistant/listing/exchange/exchange-detail/exchange-detail.module')
                 .then(m => m.ExchangeDetailPageModule)
+          },
+          {
+            path: 'market-statistics',
+            loadChildren: () => import('../invest-assistant/tool/market-statistics/market-statistics.module')
+                .then(m => m.MarketStatisticsPageModule)
           }
         ]
       },

@@ -40,6 +40,8 @@ export class CoinDetailPage implements OnInit {
     };
 
     this.coinDetail = {
+      marketcap: '',
+      price_cny: '',
       code: '',
       name: '',
       symbol: '',

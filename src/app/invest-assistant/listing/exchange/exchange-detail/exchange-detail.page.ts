@@ -27,6 +27,7 @@ export class ExchangeDetailPage implements OnInit {
               private toastController: ToastController,
               private modalController: ModalController) {
     this.exchangeDetail = {
+      assets: '',
       redditlink: '',
       launchedtime: '',
       auth_kyc: '',

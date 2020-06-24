@@ -6,4 +6,6 @@ export class Exchange {
     volumn: string;
     pairnum: string;
     exrank: string;
+    // tslint:disable-next-line:variable-name
+    assets_usd: string;
 }

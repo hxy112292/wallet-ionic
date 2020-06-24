@@ -11,6 +11,7 @@ export class CoinDetail {
     supply: string;
     // tslint:disable-next-line:variable-name
     marketcap_total_usd: string;
+    marketcap: string;
     rank: string;
     siteurl: string;
     // tslint:disable-next-line:variable-name
@@ -28,4 +29,6 @@ export class CoinDetail {
     codelink: string;
     circulationRate: string;
     coindesc: string;
+    // tslint:disable-next-line:variable-name
+    price_cny: string;
 }

@@ -24,4 +24,6 @@ export class ExchangeDetail {
     fee_url: string;
     launchedtime: string;
     redditlink: string;
+    // tslint:disable-next-line:variable-name
+    assets: string;
 }

@@ -92,4 +92,7 @@ export class InvestAssistantPage implements OnInit {
     this.router.navigate(['tabs/invest-assistant/exchange']);
   }
 
+  openMarketStatistics() {
+    this.router.navigate(['tabs/invest-assistant/market-statistics']);
+  }
 }
