@@ -8,7 +8,7 @@ import {PrivateKey} from './entity/private-key';
 })
 export class ConstantService {
 
-  readonly baseUrl: string = 'https://www.hxyvip.club:7070';
+  readonly baseUrl: string = 'https://www.jyfen.club:7070';
   readonly githubUrl: string = 'https://github.com/hxy112292/wallet-ionic';
   readonly blockChairUrl: string = 'https://api.blockchair.com';
   readonly ropstenEtherScanUrl: string = 'https://api-ropsten.etherscan.io';
