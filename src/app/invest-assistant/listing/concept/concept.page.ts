@@ -38,6 +38,6 @@ export class ConceptPage implements OnInit {
   }
 
   toDetail(concept: Concept) {
-    this.router.navigate(['tabs/invest-assistant/concept-detail', {conceptInfo: JSON.stringify(concept)}]);
+    this.router.navigate(['concept-detail', {conceptInfo: JSON.stringify(concept)}]);
   }
 }

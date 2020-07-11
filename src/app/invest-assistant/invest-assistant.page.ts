@@ -33,19 +33,19 @@ export class InvestAssistantPage implements OnInit {
   }
 
   toHotCoin() {
-    this.router.navigate(['tabs/invest-assistant/hot-coin']);
+    this.router.navigate(['hot-coin']);
   }
 
   toConcept() {
-    this.router.navigate(['tabs/invest-assistant/concept']);
+    this.router.navigate(['concept']);
   }
 
   toGitDev() {
-    this.router.navigate(['tabs/invest-assistant/git-dev']);
+    this.router.navigate(['git-dev']);
   }
 
   toTurnOver() {
-    this.router.navigate(['tabs/invest-assistant/turnover']);
+    this.router.navigate(['turnover']);
   }
 
   toMonitor() {
@@ -54,15 +54,15 @@ export class InvestAssistantPage implements OnInit {
       this.router.navigate(['tabs/me']);
       return;
     }
-    this.router.navigate(['tabs/invest-assistant/monitor-blockchain']);
+    this.router.navigate(['monitor-blockchain']);
   }
 
   toHotWeb() {
-    this.router.navigate(['tabs/invest-assistant/hot-web']);
+    this.router.navigate(['hot-web']);
   }
 
   toBlockchainBrowser() {
-    this.router.navigate(['tabs/invest-assistant/blockchain-browser']);
+    this.router.navigate(['blockchain-browser']);
   }
 
   toLiveNews() {
@@ -79,7 +79,7 @@ export class InvestAssistantPage implements OnInit {
       this.router.navigate(['tabs/me']);
       return;
     }
-    this.router.navigate(['tabs/invest-assistant/price-notification']);
+    this.router.navigate(['price-notification']);
   }
 
   openAccelerator() {
@@ -89,10 +89,10 @@ export class InvestAssistantPage implements OnInit {
   }
 
   toExchange() {
-    this.router.navigate(['tabs/invest-assistant/exchange']);
+    this.router.navigate(['exchange']);
   }
 
   openMarketStatistics() {
-    this.router.navigate(['tabs/invest-assistant/market-statistics']);
+    this.router.navigate(['market-statistics']);
   }
 }

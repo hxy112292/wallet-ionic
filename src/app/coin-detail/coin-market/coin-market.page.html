@@ -4,7 +4,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="1" style="color: grey;font-size: 15px">#</ion-col>
-        <ion-col size="5" style="color: grey;font-size: 15px">交易对</ion-col>
+        <ion-col size="5" style="color: grey;font-size: 15px">交易所</ion-col>
         <ion-col size="3" style="color: grey;font-size: 15px">价格</ion-col>
         <ion-col size="3" style="color: grey;font-size: 15px">成交量</ion-col>
       </ion-row>
@@ -13,7 +13,7 @@
   <div *ngFor="let coinMarket of coinMarketList; let i=index">
     <ion-item>
       <ion-grid>
-        <ion-row>
+        <ion-row (click)="toExchangeDetail(coinMarket.exchange_code)">
           <ion-col size="1" style="color: grey">
             {{i+1}}
           </ion-col>

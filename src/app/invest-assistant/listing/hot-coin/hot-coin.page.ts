@@ -37,6 +37,6 @@ export class HotCoinPage implements OnInit {
   }
 
   toCoinDetail(code) {
-    this.router.navigate(['tabs/invest-assistant/coin-detail', {codeInfo: code}] );
+    this.router.navigate(['coin-detail', {codeInfo: code}] );
   }
 }

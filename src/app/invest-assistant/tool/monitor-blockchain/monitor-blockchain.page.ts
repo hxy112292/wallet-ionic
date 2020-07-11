@@ -41,6 +41,6 @@ export class MonitorBlockchainPage implements OnInit {
   }
 
   toTxDetail(txHistory: TxHistory) {
-    this.router.navigate(['tabs/invest-assistant/tx-detail', {txHistoryInfo: JSON.stringify(txHistory)}]);
+    this.router.navigate(['tx-detail', {txHistoryInfo: JSON.stringify(txHistory)}]);
   }
 }

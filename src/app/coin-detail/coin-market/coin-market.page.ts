@@ -44,4 +44,8 @@ export class CoinMarketPage implements OnInit {
     });
   }
 
+  toExchangeDetail(code) {
+    this.router.navigate(['exchange-detail', {codeInfo: code}] );
+  }
+
 }

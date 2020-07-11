@@ -104,6 +104,6 @@ export class ExchangePage implements OnInit {
   }
 
   toExchangeDetail(code) {
-    this.router.navigate(['tabs/invest-assistant/exchange-detail', {codeInfo: code}] );
+    this.router.navigate(['exchange-detail', {codeInfo: code}] );
   }
 }

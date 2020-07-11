@@ -10,7 +10,6 @@ export class ConstantService {
 
   readonly baseUrl: string = 'https://www.jyfen.club:7070';
   readonly githubUrl: string = 'https://github.com/hxy112292/wallet-ionic';
-  readonly blockChairUrl: string = 'https://api.blockchair.com';
   readonly ropstenEtherScanUrl: string = 'https://api-ropsten.etherscan.io';
   readonly ropstenEtherScanKey: string = 'UHRM7JQNHCSNCI97CQCC5I7V2ZKJXFHF4I';
   readonly litecoreTestnetUrl: string = 'https://testnet.litecore.io';
