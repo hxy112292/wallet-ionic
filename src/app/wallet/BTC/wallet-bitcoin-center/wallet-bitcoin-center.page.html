@@ -31,7 +31,7 @@
           <br>
           <br>
           <ion-text style="color: white;font-size: large">
-            价值：${{blockChairAddress.balance/100000000 * price | number:'1.2-2'}}
+            价值：${{sochainBtcAddress.balance * price | number:'1.2-2'}}
           </ion-text>
         </ion-card-content>
       </ion-card>
@@ -66,7 +66,7 @@
             <ion-text style="font-size: medium">BTC</ion-text>
           </ion-col>
           <ion-col size="8" style="text-align: right">
-            <ion-text style="font-size: medium">{{blockChairAddress.balance/100000000 | number: '1.2-8'}}</ion-text>
+            <ion-text style="font-size: medium">{{sochainBtcAddress.balance | number: '1.2-8'}}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -75,32 +75,40 @@
   <br>
   <ion-title style="font-weight: bolder">交易记录</ion-title>
   <ion-list lines="full">
-    <div *ngFor="let transaction of blockChairAddress.transactions">
-      <ion-item (click)="toWalletBitcoinTransaction(transaction.hash)">
+    <div *ngFor="let transaction of sochainBtcAddress.txs">
+      <ion-item (click)="toWalletBitcoinTransaction(transaction.txid)">
         <ion-grid>
           <ion-row>
             <ion-col size="1">
               <ion-icon name="code-working" color="success"></ion-icon>
             </ion-col>
             <ion-col size="7">
-              hash: {{transaction.hash.slice(0,5)}}...{{transaction.hash.slice(transaction.hash.length-5,transaction.hash.length)}}
+              hash: {{transaction.txid.slice(0,5)}}...{{transaction.txid.slice(transaction.txid.length-5,transaction.txid.length)}}
             </ion-col>
             <ion-col size="4" style="text-align: right">
-              {{transaction.balance_change/100000000 | number: '1.2-8'}}
+              <div *ngIf="transaction.incoming != null && transaction.outgoing == null">
+                {{transaction.incoming.value | number: '1.2-8'}}
+              </div>
+              <div *ngIf="transaction.outgoing != null && transaction.incoming == null">
+                -{{transaction.outgoing.value | number: '1.2-8'}}
+              </div>
+              <div *ngIf="transaction.outgoing != null && transaction.incoming != null">
+                {{transaction.incoming.value - transaction.outgoing.value | number: '1.2-8'}}
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="font-size: small;color: grey">
-              {{transaction.time | date: 'yyyy/MM/dd HH:mm:ss'}}
+              {{transaction.time * 1000 | date: 'yyyy/MM/dd HH:mm:ss'}}
             </ion-col>
             <ion-col style="text-align: right">
-              <div *ngIf="blockChairAddress.state - transaction.block_id + 1 >= 3 && transaction.block_id != '-1' && transaction.block_id != '1'">
+              <div *ngIf="transaction.confirmations >= 3">
                 <ion-text color="success">成功</ion-text>
               </div>
-              <div *ngIf="blockChairAddress.state - transaction.block_id + 1  < 3 && transaction.block_id != '-1' && transaction.block_id != '1'">
-                <ion-text color="primary">确认数（{{blockChairAddress.state - transaction.block_id + 1 | number}}/2）</ion-text>
+              <div *ngIf="transaction.confirmations< 3 && transaction.block_no != null">
+                <ion-text color="primary">确认数（{{transaction.confirmations | number}}/2）</ion-text>
               </div>
-              <div *ngIf="transaction.block_id  == '-1' || transaction.block_id == '1'">
+              <div *ngIf="transaction.block_no == null">
                 <ion-text color="primary">打包中...</ion-text>
               </div>
             </ion-col>

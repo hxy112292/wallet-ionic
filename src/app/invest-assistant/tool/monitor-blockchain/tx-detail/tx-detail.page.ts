@@ -3,10 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../../constant.service';
-import {BlockchairBtcAddressTransaction} from '../../../../entity/blockchair-btc-address-transaction';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {TxHistory} from '../../../../entity/tx-history';
+import {SochainBtcTransaction} from '../../../../entity/sochain-btc-transaction';
 
 @Component({
   selector: 'app-tx-detail',
@@ -16,7 +16,7 @@ import {TxHistory} from '../../../../entity/tx-history';
 export class TxDetailPage implements OnInit {
 
   hash: string;
-  transaction: BlockchairBtcAddressTransaction;
+  transaction: SochainBtcTransaction;
   options: InAppBrowserOptions;
   txHistory: TxHistory;
 
@@ -29,15 +29,16 @@ export class TxDetailPage implements OnInit {
               private toastController: ToastController) {
 
     this.transaction = {
-      block_id: '',
-      hash: '',
-      time: '',
-      balance_change: '',
-      input_total: '',
+      block_no: 0,
+      confirmations: 0,
       fee: '',
-      state: '',
+      incoming: undefined,
       inputs: [],
-      outputs: []
+      outgoing: undefined,
+      outputs: [],
+      sent_value: '',
+      time: '',
+      txid: ''
     };
 
     this.options = {
@@ -60,17 +61,8 @@ export class TxDetailPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.http.get(this.constant.blockChairUrl + '/bitcoin/dashboards/transaction/' + this.hash).subscribe(res => {
-      const data = (res as any).data;
-      // tslint:disable-next-line:forin
-      for (const key in data) {
-        const value = data[key];
-        this.transaction = (value as any).transaction;
-        this.transaction.inputs = (value as any).inputs;
-        this.transaction.outputs = (value as any).outputs;
-        break;
-      }
-      this.transaction.state = (res as any).context.state;
+    this.http.get(this.constant.baseUrl + '/BTC/tx/' + this.hash).subscribe(res => {
+      this.transaction = (res as any).data;
     });
   }
 
@@ -102,7 +94,7 @@ export class TxDetailPage implements OnInit {
       duration: 2000
     });
     await toast.present();
-    await this.clipboard.copy(this.transaction.hash);
+    await this.clipboard.copy(this.transaction.txid);
   }
 
   async copyAddress(address) {

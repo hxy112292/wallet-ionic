@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {BlockchairBtcAddressTransaction} from '../../../entity/blockchair-btc-address-transaction';
+import {Component, OnInit} from '@angular/core';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
-import {BlockchairEthAddressTransaction} from '../../../entity/blockchair-eth-address-transaction';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';

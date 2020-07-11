@@ -3,9 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
 import {PrivateKey} from '../../../entity/private-key';
-import {BlockchairBtcAddress} from '../../../entity/blockchair-btc-address';
 import {Storage} from '@ionic/storage';
-import {BlockchairBtcAddressTransaction} from '../../../entity/blockchair-btc-address-transaction';
+import {SochainBtcAddress} from '../../../entity/sochain-btc-address';
+import {SochainBtcTransaction} from '../../../entity/sochain-btc-transaction';
 
 @Component({
   selector: 'app-wallet-bitcoin-center',
@@ -15,8 +15,7 @@ import {BlockchairBtcAddressTransaction} from '../../../entity/blockchair-btc-ad
 export class WalletBitcoinCenterPage implements OnInit {
 
   privateKey: PrivateKey;
-  blockChairAddress: BlockchairBtcAddress;
-  tmpHashList: BlockchairBtcAddressTransaction[];
+  sochainBtcAddress: SochainBtcAddress;
   price: number;
 
   constructor(private route: ActivatedRoute,
@@ -39,12 +38,8 @@ export class WalletBitcoinCenterPage implements OnInit {
       password: ''
     };
 
-    this.blockChairAddress = {
-      balance: '',
-      balance_usd: '',
-      state: '',
-      transactions: [],
-      utxoList: []
+    this.sochainBtcAddress = {
+      address: '', balance: '', txs: [], value_usd: 0
     };
 
     this.price = 0;
@@ -67,47 +62,8 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   getAddressInfo() {
-    this.http.get(this.constant.blockChairUrl + '/bitcoin/testnet/dashboards/address/' + this.privateKey.btcAddress, {
-      params: {
-        transaction_details: 'true',
-        limit: '30,30'
-      }
-    }).subscribe(res => {
-      const data = (res as any).data;
-      // tslint:disable-next-line:forin
-      for (const key in data) {
-        const value = data[key];
-        this.blockChairAddress = (value as any).address;
-        this.blockChairAddress.transactions = (value as any).transactions;
-        this.blockChairAddress.utxoList = (value as any).utxo;
-        break;
-      }
-      this.blockChairAddress.state = (res as any).context.state;
-      this.getTmpHash();
-    });
-  }
-
-  getTmpHash() {
-    this.storage.get(this.privateKey.btcAddress).then( res => {
-      if (res != null) {
-        this.tmpHashList = res as any;
-        for (let i = 0; i < this.tmpHashList.length; i++) {
-          // tslint:disable-next-line:prefer-for-of
-          for (let j = 0; j < this.blockChairAddress.transactions.length; j++) {
-            if (this.tmpHashList[i].hash === this.blockChairAddress.transactions[j].hash) {
-              this.tmpHashList.splice(i, 1);
-              if (this.tmpHashList.length === 0 ) {
-                break;
-              }
-            }
-          }
-        }
-        this.storage.remove(this.privateKey.btcAddress);
-        if (this.tmpHashList.length !== 0) {
-          this.storage.set(this.privateKey.btcAddress, this.tmpHashList);
-          this.blockChairAddress.transactions = this.tmpHashList.concat(this.blockChairAddress.transactions);
-        }
-      }
+    this.http.get(this.constant.baseUrl + '/BTCTEST/address/' + this.privateKey.btcAddress).subscribe(res => {
+      this.sochainBtcAddress = (res as any).data;
     });
   }
 
@@ -130,8 +86,7 @@ export class WalletBitcoinCenterPage implements OnInit {
 
   toWalletBitcoinSend(privateKey: PrivateKey) {
     this.router.navigate(['tabs/wallet/wallet-bitcoin-send',
-      {privateKeyInfo: JSON.stringify(privateKey), balance: this.blockChairAddress.balance,
-        utxoList: JSON.stringify(this.blockChairAddress.utxoList)}]);
+      {privateKeyInfo: JSON.stringify(privateKey), balance: this.sochainBtcAddress.balance}]);
   }
 
   toCoinDetail() {

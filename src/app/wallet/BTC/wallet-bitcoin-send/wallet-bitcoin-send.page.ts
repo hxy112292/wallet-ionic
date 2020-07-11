@@ -7,10 +7,9 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
 import {AlertController, ModalController} from '@ionic/angular';
 import * as bitcoin from 'bitcoinjs-lib';
-import {BlockchairBtcUtxo} from '../../../entity/blockchair-btc-utxo';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 import {Storage} from '@ionic/storage';
-import {BlockchairBtcAddressTransaction} from '../../../entity/blockchair-btc-address-transaction';
+import {SochainBtcUtxo} from '../../../entity/sochain-btc-utxo';
 
 @Component({
   selector: 'app-wallet-bitcoin-send',
@@ -26,9 +25,7 @@ export class WalletBitcoinSendPage implements OnInit {
   balance: number;
   recommendFee: number;
   fee: number;
-  utxoList: BlockchairBtcUtxo[];
-  tmpHash: BlockchairBtcAddressTransaction;
-  tmpHashList: BlockchairBtcAddressTransaction[];
+  utxoList: SochainBtcUtxo[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -44,16 +41,12 @@ export class WalletBitcoinSendPage implements OnInit {
       showFlipCameraButton: true
     };
 
-    this.tmpHash = {
-      balance_change: '', block_id: '', fee: '', hash: '', input_total: '', inputs: [], outputs: [], state: '', time: ''
-    };
-    this.tmpHashList = [];
+    this.utxoList = [];
   }
 
   ngOnInit() {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.balance = Number(this.route.snapshot.paramMap.get('balance'));
-    this.utxoList = JSON.parse(this.route.snapshot.paramMap.get('utxoList'));
     this.getRecommendFee();
   }
 
@@ -75,65 +68,64 @@ export class WalletBitcoinSendPage implements OnInit {
   }
 
   sendByTypical() {
-
-    try {
-      // 创建钱包
-      const alice = bitcoin.ECPair.fromWIF(this.privateKey.btcPrivateKey, bitcoin.networks.testnet);
-      // 构建交易 builder
-      const txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
-      // 此次发送的实际总金额
-      let inputValueTotal = 0;
-      // 使用的utxo的个数
-      let inputCount = 0;
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.utxoList.length; i++) {
-        inputValueTotal = Number(this.utxoList[i].value) + inputValueTotal;
-        inputCount = i + 1;
-        txb.addInput(this.utxoList[i].transaction_hash, Number(this.utxoList[i].index));
-        if (inputValueTotal > Math.round(this.amount * 100000000 + this.fee * 100000000)) {
-          break;
+    this.http.get(this.constant.baseUrl + '/BTCTEST/unspent/' + this.privateKey.btcAddress).subscribe( res => {
+      this.utxoList = (res as any).data.txs;
+      try {
+        // 创建钱包
+        const alice = bitcoin.ECPair.fromWIF(this.privateKey.btcPrivateKey, bitcoin.networks.testnet);
+        // 构建交易 builder
+        const txb = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
+        // 此次发送的实际总金额
+        let inputValueTotal = 0;
+        // 将数据转为Satoshi
+        const amount = Math.round(this.amount * 100000000);
+        const fee = Math.round(this.fee * 100000000);
+        // 使用的utxo的个数
+        let inputCount = 0;
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.utxoList.length; i++) {
+          inputValueTotal = Math.round(Number(this.utxoList[i].value) * 100000000) + inputValueTotal;
+          inputCount = i + 1;
+          txb.addInput(this.utxoList[i].txid, Number(this.utxoList[i].output_no));
+          if (inputValueTotal >= amount + fee) {
+            break;
+          }
         }
+        if (inputValueTotal < amount + fee ) {
+          this.constant.alert('超出钱包可用余额');
+          return;
+        }
+        // 转给目的地址
+        txb.addOutput(this.recipientAddr, amount);
+        // 扣掉矿工费后，剩下的转回给自己
+        txb.addOutput(this.privateKey.btcAddress, inputValueTotal - amount - fee);
+        // 打印签名后的交易 hash
+        for (let i = 0; i < inputCount; i++) {
+          txb.sign(i, alice);
+        }
+        const rawHex = txb.build().toHex();
+        // 向区块链广播此次交易
+        this.broadcast(rawHex);
+      } catch (e) {
+        this.constant.alert(e.toString());
       }
-      if (inputValueTotal < this.amount * 100000000 + this.fee * 100000000) {
-        this.constant.alert('超出钱包可用余额');
-        return;
-      }
-      // 转给目的地址
-      txb.addOutput(this.recipientAddr, Math.round(this.amount * 100000000));
-      // 扣掉矿工费后，剩下的转回给自己
-      txb.addOutput(this.privateKey.btcAddress, inputValueTotal - Math.round(this.amount * 100000000 + this.fee * 100000000));
-      // 打印签名后的交易 hash
-      for (let i = 0; i < inputCount; i++) {
-        txb.sign(i, alice);
-      }
-      const rawHex = txb.build().toHex();
-      // 将这笔交易的hash保存在临时缓存中
-      this.tmpHash.balance_change = String(Math.round(this.amount * 100000000 + this.fee * 100000000));
-      this.tmpHash.fee = String(this.fee);
-      this.tmpHash.block_id = '-1';
-      this.tmpHash.state = '-1';
-      this.tmpHash.time = new Date().toDateString();
-      // 向区块链广播此次交易
-      this.broadcast(rawHex);
-    } catch (e) {
-      this.constant.alert(e.toString());
-    }
+    });
   }
 
   broadcast(rawHex) {
-    this.http.post(this.constant.blockChairUrl + '/bitcoin/testnet/push/transaction', {
-      data: rawHex
+    this.http.post(this.constant.baseUrl + '/BTCTEST/send_tx', {
+      tx_hex: rawHex
     }).subscribe( res => {
-      this.tmpHash.hash = (res as any).data.transaction_hash;
-      this.saveTmpBtcTx();
       // 跳转回btc钱包页
       this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
     });
   }
 
   getRecommendFee() {
-    this.http.get(this.constant.blockChairUrl + '/bitcoin/testnet/stats').subscribe( res => {
-      this.recommendFee = (res as any).data.average_transaction_fee_24h / 100000000;
+    this.http.get(this.constant.baseUrl + '/BTCTEST/tx/fee').subscribe( res => {
+      const fee1 = (res as any).payload.average;
+      const fee2 = (res as any).payload.recommended;
+      this.recommendFee = fee1 > fee2 ? fee1 : fee2;
       this.fee = this.recommendFee;
     });
   }
@@ -209,18 +201,6 @@ export class WalletBitcoinSendPage implements OnInit {
       ]
     });
     await alert.present();
-  }
-
-  saveTmpBtcTx() {
-    this.storage.get(this.privateKey.btcAddress).then(res => {
-      if (res != null) {
-        this.tmpHashList = (res as any);
-        this.tmpHashList[this.tmpHashList.length] = this.tmpHash;
-      } else {
-        this.tmpHashList[0] = this.tmpHash;
-      }
-      this.storage.set(this.privateKey.btcAddress, this.tmpHashList);
-    });
   }
 
   async chooseAddress() {

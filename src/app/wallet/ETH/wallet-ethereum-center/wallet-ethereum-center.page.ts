@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PrivateKey} from '../../../entity/private-key';
-import {BlockchairBtcAddress} from '../../../entity/blockchair-btc-address';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
-import {BlockchairEthAddress} from '../../../entity/blockchair-eth-address';
 import {EtherscanBalance} from '../../../entity/etherscan-balance';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {Storage} from '@ionic/storage';
@@ -17,7 +15,6 @@ import {Storage} from '@ionic/storage';
 export class WalletEthereumCenterPage implements OnInit {
 
   privateKey: PrivateKey;
-  blockChairAddress: BlockchairEthAddress;
   etherscanBalance: EtherscanBalance;
   tmpHashList: EtherscanTx[];
   price: number;
@@ -40,13 +37,6 @@ export class WalletEthereumCenterPage implements OnInit {
       ethPrivateKey: '',
       ethAddress: '',
       password: ''
-    };
-
-    this.blockChairAddress = {
-      balance: '',
-      balance_usd: '',
-      state: '',
-      transactions: []
     };
 
     this.etherscanBalance = {

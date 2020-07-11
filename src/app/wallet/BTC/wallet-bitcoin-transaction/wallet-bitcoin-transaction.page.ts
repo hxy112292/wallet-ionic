@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
-import {BlockchairBtcAddressTransaction} from '../../../entity/blockchair-btc-address-transaction';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
+import {SochainBtcTransaction} from '../../../entity/sochain-btc-transaction';
 
 @Component({
   selector: 'app-wallet-bitcoin-transaction',
@@ -15,7 +15,7 @@ import {ToastController} from '@ionic/angular';
 export class WalletBitcoinTransactionPage implements OnInit {
 
   hash: string;
-  transaction: BlockchairBtcAddressTransaction;
+  transaction: SochainBtcTransaction;
   options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
@@ -27,15 +27,16 @@ export class WalletBitcoinTransactionPage implements OnInit {
               private toastController: ToastController) {
 
     this.transaction = {
-      block_id: '',
-      hash: '',
-      time: '',
-      balance_change: '',
-      input_total: '',
+      block_no: 0,
+      confirmations: 0,
       fee: '',
-      state: '',
+      incoming: undefined,
       inputs: [],
-      outputs: []
+      outgoing: undefined,
+      outputs: [],
+      sent_value: '',
+      time: '',
+      txid: ''
     };
 
     this.options = {
@@ -57,17 +58,8 @@ export class WalletBitcoinTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.http.get(this.constant.blockChairUrl + '/bitcoin/testnet/dashboards/transaction/' + this.hash).subscribe(res => {
-      const data = (res as any).data;
-      // tslint:disable-next-line:forin
-      for (const key in data) {
-        const value = data[key];
-        this.transaction = (value as any).transaction;
-        this.transaction.inputs = (value as any).inputs;
-        this.transaction.outputs = (value as any).outputs;
-        break;
-      }
-      this.transaction.state = (res as any).context.state;
+    this.http.get(this.constant.baseUrl + '/BTCTEST/tx/' + this.hash).subscribe(res => {
+      this.transaction = (res as any).data;
     });
   }
 
@@ -99,7 +91,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
       duration: 2000
     });
     await toast.present();
-    await this.clipboard.copy(this.transaction.hash);
+    await this.clipboard.copy(this.transaction.txid);
   }
 
   async copyAddress(address) {

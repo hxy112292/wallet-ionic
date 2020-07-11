@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PrivateKey} from '../../../entity/private-key';
-import {BlockchairEthAddress} from '../../../entity/blockchair-eth-address';
-import {EtherscanBalance} from '../../../entity/etherscan-balance';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -18,7 +16,6 @@ import {Contract, ethers} from 'ethers';
 export class WalletErc20CenterPage implements OnInit {
 
   privateKey: PrivateKey;
-  blockChairAddress: BlockchairEthAddress;
   erc20Token: Erc20Token;
   erc20TxList: EtherscanTx[];
   tmpHashList: EtherscanTx[];
@@ -46,13 +43,6 @@ export class WalletErc20CenterPage implements OnInit {
       ethPrivateKey: '',
       ethAddress: '',
       password: ''
-    };
-
-    this.blockChairAddress = {
-      balance: '',
-      balance_usd: '',
-      state: '',
-      transactions: []
     };
 
     this.erc20Token = {

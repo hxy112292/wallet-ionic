@@ -99,7 +99,7 @@
           </ion-row>
           <ion-row>
             <ion-col style="font-size: small;color: grey">
-              {{transaction.time | date: 'yyyy/MM/dd HH:mm:ss'}}
+              {{transaction.time*1000 | date: 'yyyy/MM/dd HH:mm:ss'}}
             </ion-col>
             <ion-col style="text-align: right">
               <div *ngIf="transaction.confirmations >= 3">
