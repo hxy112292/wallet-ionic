@@ -1,0 +1,119 @@
+
+
+<ion-list lines="full">
+  <ion-item>
+    <img src="{{coinDetail.logo}}" referrerpolicy="no-referrer" style="max-height: 30px;max-width: 30px">
+    <ion-text>　{{coinDetail.symbol}}</ion-text>
+    <ion-text style="font-size: small;color: grey">　{{coinDetail.code}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-grid>
+      <ion-row style="max-height: 45px;overflow: hidden">
+        {{coinDetail.coindesc}}
+      </ion-row>
+      <ion-row>
+        ...<ion-text color="primary" (click)="toCoinDesc()">　查看更多</ion-text>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">价格</ion-text>
+    <div *ngIf="coinDetail.change_percent >= 0" slot="end">
+      <ion-text>${{coinDetail.price}}</ion-text>
+      <ion-text style="color: #2dd36f;font-size: small">（+{{coinDetail.change_percent}}%）</ion-text>
+      <ion-text style="color: grey;font-size: small">今日涨幅</ion-text>
+    </div>
+    <div *ngIf="coinDetail.change_percent < 0" slot="end">
+      <ion-text>${{coinDetail.price}}</ion-text>
+      <ion-text style="color: red;font-size: small">（{{coinDetail.change_percent}}%）</ion-text>
+      <ion-text style="color: grey;font-size: small">今日涨幅</ion-text>
+    </div>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">市值</ion-text>
+    <ion-text slot="end">${{coinDetail.marketcap_total_usd/100000000 | number: '.2-2'}} 亿</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">排名</ion-text>
+    <ion-text slot="end">{{coinDetail.rank}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">官网</ion-text>
+    <ion-text slot="end" color="primary" (click)="openUrl(coinDetail.siteurl)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{coinDetail.siteurl}}</ion-text>
+    <ion-icon name="copy-outline" slot="end" (click)="copyText(coinDetail.siteurl)"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">白皮书</ion-text>
+    <ion-text slot="end" color="primary" (click)="openUrl(coinDetail.white_paper)" style="text-overflow: ellipsis;white-space: nowrap;max-width: 230px;overflow: hidden;">{{coinDetail.white_paper}}</ion-text>
+    <ion-icon name="copy-outline" slot="end" (click)="copyText(coinDetail.white_paper)"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">流通量</ion-text>
+    <ion-text slot="end">{{coinDetail.supply}} {{coinDetail.symbol}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">总流通量</ion-text>
+    <ion-text slot="end">{{coinDetail.maxsupply}} {{coinDetail.symbol}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">流通率</ion-text>
+    <ion-text slot="end">{{coinDetail.circulationRate}}%</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">换手率</ion-text>
+    <ion-text slot="end">{{coinDetail.rank}}%</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">核心算法</ion-text>
+    <ion-text slot="end">{{coinDetail.algorithm}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">共识机制</ion-text>
+    <ion-text slot="end">{{coinDetail.prooftype}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">项目启动日期</ion-text>
+    <ion-text slot="end">{{coinDetail.online_time}}</ion-text>
+  </ion-item>
+</ion-list>
+<ion-grid>
+  <ion-row>
+    <ion-col size="3" style="text-align: center;" (click)="openUrl(coinDetail.siteurl)">
+      <ion-icon name="home" color="primary" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">官网</ion-text>
+    </ion-col>
+    <ion-col size="3" style="text-align: center;" (click)="openUrl(coinDetail.explorer)">
+      <ion-icon name="search" color="success" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">浏览器</ion-text>
+    </ion-col>
+    <ion-col size="3" style="text-align: center;" (click)="openUrl(coinDetail.white_paper)">
+      <ion-icon name="book" color="tertiary" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">白皮书</ion-text>
+    </ion-col>
+    <ion-col size="3" style="text-align: center;" (click)="openUrl(coinDetail.codelink)">
+      <ion-icon name="logo-github" color="black" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">Github</ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="3" style="text-align: center" (click)="openUrl(coinDetail.facebook)">
+      <ion-icon name="logo-facebook" color="tertiary" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">Facebook</ion-text>
+    </ion-col>
+    <ion-col size="3" style="text-align: center" (click)="openUrl(coinDetail.twitter)">
+      <ion-icon name="logo-twitter" color="primary" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">Twitter</ion-text>
+    </ion-col>
+    <ion-col size="3" style="text-align: center" (click)="openUrl(coinDetail.redditlink)">
+      <ion-icon name="logo-reddit" color="danger" size="large"></ion-icon>
+      <br>
+      <ion-text style="color: grey;font-size: small">Reddit</ion-text>
+    </ion-col>
+  </ion-row>
+</ion-grid>

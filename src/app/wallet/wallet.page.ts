@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CoinDescPage} from '../coin-detail/coin-desc/coin-desc.page';
+import {CoinDescPage} from '../coin-detail/coin-introduction/coin-desc/coin-desc.page';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
