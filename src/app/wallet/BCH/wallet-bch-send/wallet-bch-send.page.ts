@@ -94,7 +94,7 @@ export class WalletBchSendPage implements OnInit {
     const rawHex = transaction.toString();
 
     this.broadcast(rawHex);
-    this.router.navigate(['tabs/wallet/wallet-bch-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    this.router.navigate(['wallet-bch-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   getUtxoList() {

@@ -42,7 +42,7 @@ export class WalletErc20ManagePage implements OnInit {
           handler: () => {
             this.constant.privateKeyList[this.indexEth].erc20TokenList.splice(this.indexErc20, 1);
             this.storage.set('privateKeyList', this.constant.privateKeyList);
-            this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center'
+            this.router.navigate(['wallet-ethereum-erc20-center'
               , {privateKeyInfo : JSON.stringify(this.constant.privateKeyList[this.indexEth]), index: this.indexEth}]);
           }
         }

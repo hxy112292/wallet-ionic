@@ -31,7 +31,7 @@ export class WalletMnemonicPasswordPage implements OnInit {
     if (this.mnemonicInput !== this.privateKey.mnemonic) {
       this.constant.alert('助记词错误！');
     } else {
-      this.router.navigate(['tabs/wallet/wallet-reset-password', {index: this.index}]);
+      this.router.navigate(['wallet-reset-password', {index: this.index}]);
     }
   }
 }

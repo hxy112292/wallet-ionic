@@ -125,19 +125,19 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   toWalletEthereumTransaction(transaction: EtherscanTx) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-transaction', {transactionInfo: JSON.stringify(transaction)}]);
+    this.router.navigate(['wallet-ethereum-transaction', {transactionInfo: JSON.stringify(transaction)}]);
   }
 
   toWalletEthereumReceive(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-ethereum-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
   }
 
   toWalletEthereumSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-send', {privateKeyInfo: JSON.stringify(privateKey),
+    this.router.navigate(['wallet-ethereum-send', {privateKeyInfo: JSON.stringify(privateKey),
       balance: this.etherscanBalance.result}]);
   }
 
   toCoinDetail() {
-    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'ethereum'}]);
+    this.router.navigate(['coin-detail', {codeInfo: 'ethereum'}]);
   }
 }

@@ -97,20 +97,20 @@ export class WalletXrpCenterPage implements OnInit {
   }
 
   toWalletXRPTransaction(hash: string) {
-    this.router.navigate(['tabs/wallet/wallet-xrp-transaction', {transaction: hash}]);
+    this.router.navigate(['wallet-xrp-transaction', {transaction: hash}]);
   }
 
   toWalletXRPReceive(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-xrp-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-xrp-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
   }
 
   toWalletXRPSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-xrp-send',
+    this.router.navigate(['wallet-xrp-send',
       {privateKeyInfo: JSON.stringify(privateKey), balance: this.xrpAddress.xrpBalance}]);
   }
 
   toCoinDetail() {
-    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'ripple'}]);
+    this.router.navigate(['coin-detail', {codeInfo: 'ripple'}]);
   }
 
 }

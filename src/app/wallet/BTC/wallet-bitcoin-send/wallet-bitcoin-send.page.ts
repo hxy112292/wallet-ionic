@@ -117,7 +117,7 @@ export class WalletBitcoinSendPage implements OnInit {
       tx_hex: rawHex
     }).subscribe( res => {
       // 跳转回btc钱包页
-      this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
+      this.router.navigate(['wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(this.privateKey)}]);
     });
   }
 

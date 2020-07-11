@@ -87,7 +87,7 @@ export class WalletLitecoinSendPage implements OnInit {
           .sign(this.privateKey.ltcPrivateKey);
 
       this.broadcast(transaction.toString());
-      this.router.navigate(['tabs/wallet/wallet-litecoin-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
+      this.router.navigate(['wallet-litecoin-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
     } catch (e) {
       this.constant.alert(e.toString());
     }

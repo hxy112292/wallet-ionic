@@ -28,7 +28,7 @@ export class WalletMnemonicConfirmPage implements OnInit {
     if (this.mnemonicInput !== this.mnemonic) {
       this.constant.alert('助记词错误！');
     } else {
-      this.router.navigate(['tabs/wallet/wallet-add', {mnemonicInfo: this.mnemonic}]);
+      this.router.navigate(['wallet-add', {mnemonicInfo: this.mnemonic}]);
     }
   }
 

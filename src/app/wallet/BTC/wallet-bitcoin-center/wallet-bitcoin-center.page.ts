@@ -77,19 +77,19 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   toWalletBitcoinTransaction(hash: string) {
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-transaction', {transaction: hash}]);
+    this.router.navigate(['wallet-bitcoin-transaction', {transaction: hash}]);
   }
 
   toWalletBitcoinReceive(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-bitcoin-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
   }
 
   toWalletBitcoinSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-send',
+    this.router.navigate(['wallet-bitcoin-send',
       {privateKeyInfo: JSON.stringify(privateKey), balance: this.sochainBtcAddress.balance}]);
   }
 
   toCoinDetail() {
-    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'bitcoin'}]);
+    this.router.navigate(['coin-detail', {codeInfo: 'bitcoin'}]);
   }
 }

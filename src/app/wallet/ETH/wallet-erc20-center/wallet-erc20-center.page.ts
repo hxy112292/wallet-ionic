@@ -154,25 +154,25 @@ export class WalletErc20CenterPage implements OnInit {
   }
 
   toWalletErc20Transaction(transaction: EtherscanTx, erc20Token: Erc20Token) {
-    this.router.navigate(['tabs/wallet/wallet-erc20-transaction', {transactionInfo: JSON.stringify(transaction)
+    this.router.navigate(['wallet-erc20-transaction', {transactionInfo: JSON.stringify(transaction)
       , erc20TokenInfo: JSON.stringify(erc20Token)}]);
   }
 
   toWalletErc20Receive(privateKey: PrivateKey, erc20Token: Erc20Token) {
-    this.router.navigate(['tabs/wallet/wallet-erc20-receive', {privateKeyInfo: JSON.stringify(privateKey)
+    this.router.navigate(['wallet-erc20-receive', {privateKeyInfo: JSON.stringify(privateKey)
       , erc20TokenInfo: JSON.stringify(erc20Token)}]);
   }
 
   toWalletErc20Send(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-erc20-send', {privateKeyInfo: JSON.stringify(privateKey),
+    this.router.navigate(['wallet-erc20-send', {privateKeyInfo: JSON.stringify(privateKey),
       erc20Balance: this.erc20Balance, ethBalance: this.ethBalance, erc20TokenInfo: JSON.stringify(this.erc20Token)}]);
   }
 
   toWalletManagement() {
-    this.router.navigate(['tabs/wallet/wallet-erc20-manage', {indexErc20: this.indexErc20, indexEth: this.indexEth}]);
+    this.router.navigate(['wallet-erc20-manage', {indexErc20: this.indexErc20, indexEth: this.indexEth}]);
   }
 
   toWalletEthErc20Center() {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    this.router.navigate(['wallet-ethereum-erc20-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 }

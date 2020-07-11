@@ -22,7 +22,7 @@ export class WalletMnemonicImportPage implements OnInit {
   }
 
   checkMnemonic() {
-    this.router.navigate(['tabs/wallet/wallet-add', {mnemonicInfo: this.mnemonic}]);
+    this.router.navigate(['wallet-add', {mnemonicInfo: this.mnemonic}]);
   }
 
 }

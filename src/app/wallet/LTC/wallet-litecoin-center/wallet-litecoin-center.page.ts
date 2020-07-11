@@ -77,20 +77,20 @@ export class WalletLitecoinCenterPage implements OnInit {
   }
 
   toWalletLitecoinTransaction(hash: string) {
-    this.router.navigate(['tabs/wallet/wallet-litecoin-transaction', {transaction: hash}]);
+    this.router.navigate(['wallet-litecoin-transaction', {transaction: hash}]);
   }
 
   toWalletLitecoinReceive(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-litecoin-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-litecoin-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
   }
 
   toWalletLitecoinSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-litecoin-send',
+    this.router.navigate(['wallet-litecoin-send',
       {privateKeyInfo: JSON.stringify(privateKey), balance: this.sochainLtcAddress.balance}]);
   }
 
   toCoinDetail() {
-    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'litecoin'}]);
+    this.router.navigate(['coin-detail', {codeInfo: 'litecoin'}]);
   }
 
 }

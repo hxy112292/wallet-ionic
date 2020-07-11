@@ -100,20 +100,20 @@ export class WalletBchCenterPage implements OnInit {
   }
 
   toWalletBchTransaction(hash: string) {
-    this.router.navigate(['tabs/wallet/wallet-bch-transaction', {transaction: hash, privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    this.router.navigate(['wallet-bch-transaction', {transaction: hash, privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   toWalletBchReceive(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bch-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-bch-receive', {privateKeyInfo: JSON.stringify(privateKey)}]);
   }
 
   toWalletBchSend(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bch-send',
+    this.router.navigate(['wallet-bch-send',
       {privateKeyInfo: JSON.stringify(privateKey), balance: this.cryptoBchAddress.balance, txList: JSON.stringify(this.cryptoBchTxList)}]);
   }
 
   toCoinDetail() {
-    this.router.navigate(['tabs/wallet/coin-detail', {codeInfo: 'bitcoin-cash'}]);
+    this.router.navigate(['coin-detail', {codeInfo: 'bitcoin-cash'}]);
   }
 
 }

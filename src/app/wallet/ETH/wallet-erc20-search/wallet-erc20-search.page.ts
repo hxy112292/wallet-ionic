@@ -72,7 +72,7 @@ export class WalletErc20SearchPage implements OnInit {
       this.erc20Token.address = this.contractAddress;
       contract.name().then( name => {
         this.erc20Token.name = name as any;
-        this.router.navigate(['tabs/wallet/wallet-erc20-add', {privateKeyInfo: JSON.stringify(this.privateKey)
+        this.router.navigate(['wallet-erc20-add', {privateKeyInfo: JSON.stringify(this.privateKey)
           , erc20Token: JSON.stringify(this.erc20Token), index: this.index}]);
       }).catch( error => {
         this.constant.alert(error);

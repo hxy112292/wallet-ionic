@@ -14,11 +14,11 @@ export class WalletAddChoosePage implements OnInit {
   }
 
   toImportWallet() {
-    this.router.navigate(['/tabs/wallet/wallet-mnemonic-import']);
+    this.router.navigate(['wallet-mnemonic-import']);
   }
 
   toGenerateWallet() {
-    this.router.navigate(['/tabs/wallet/wallet-mnemonic-generate']);
+    this.router.navigate(['wallet-mnemonic-generate']);
   }
 
 }

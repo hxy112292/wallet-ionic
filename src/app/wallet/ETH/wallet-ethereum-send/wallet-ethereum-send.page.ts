@@ -132,7 +132,7 @@ export class WalletEthereumSendPage implements OnInit {
           this.tmpHash.confirmations = '-1';
           this.tmpHash.timeStamp = String(new Date().getTime() / 1000);
           this.saveTmpEthTx();
-          this.router.navigate(['tabs/wallet/wallet-ethereum-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
+          this.router.navigate(['wallet-ethereum-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
         }).catch( e => {
           this.constant.alert(e.toString());
         });

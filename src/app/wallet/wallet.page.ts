@@ -26,30 +26,30 @@ export class WalletPage implements OnInit {
   }
 
   toAddWallet() {
-    this.router.navigate(['tabs/wallet/wallet-add-choose']);
+    this.router.navigate(['wallet-add-choose']);
   }
 
   toWalletManagement(privateKey: PrivateKey, i: number) {
-    this.router.navigate(['tabs/wallet/wallet-manage', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
+    this.router.navigate(['wallet-manage', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
   }
 
   toWalletBitcoinCenter(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-bitcoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
 
   toWalletEthereumCenter(privateKey: PrivateKey, i: number) {
-    this.router.navigate(['tabs/wallet/wallet-ethereum-erc20-center', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
+    this.router.navigate(['wallet-ethereum-erc20-center', {privateKeyInfo : JSON.stringify(privateKey), index: i}]);
   }
 
   toWalletLTCCenter(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-litecoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-litecoin-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
 
   toWalletBCHCenter(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-bch-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-bch-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
 
   toWalletXRPCenter(privateKey: PrivateKey) {
-    this.router.navigate(['tabs/wallet/wallet-xrp-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+    this.router.navigate(['wallet-xrp-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
   }
 }
