@@ -29,7 +29,7 @@ export class LoginForgetPasswordPage implements OnInit {
         this.constant.alert((res as any).message);
       } else {
         this.constant.alert('密码已重置，新密码已发送到您的邮箱');
-        this.router.navigate(['tabs/me/login']);
+        this.router.navigate(['login']);
       }
     });
   }

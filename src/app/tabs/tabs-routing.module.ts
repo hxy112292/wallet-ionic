@@ -213,35 +213,6 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../me/me.module').then( m => m.MePageModule)
-          },
-          {
-            path: 'login',
-            loadChildren: () => import('../me/login/login.module').then(m => m.LoginPageModule)
-          },
-          {
-            path: 'login-forget-password',
-            loadChildren: () => import('../me/login-forget-password/login-forget-password.module')
-                .then(m => m.LoginForgetPasswordPageModule)
-          },
-          {
-            path: 'register',
-            loadChildren: () => import('../me/register/register.module').then(m => m.RegisterPageModule),
-          },
-          {
-            path: 'register-privacy',
-            loadChildren: () => import('../me/register-privacy/register-privacy.module').then(m => m.RegisterPrivacyPageModule)
-          },
-          {
-            path: 'user-info',
-            loadChildren: () => import('../me/user-info/user-info.module').then(m => m.UserInfoPageModule)
-          },
-          {
-            path: 'wallet-contact',
-            loadChildren: () => import('../wallet/wallet-contact/wallet-contact.module').then(m => m.WalletContactPageModule)
-          },
-          {
-            path: 'github',
-            loadChildren: () => import('../me/github/github.module').then(m => m.GithubPageModule)
           }
         ]
       },

@@ -224,7 +224,7 @@ export class RegisterPage implements OnInit {
   }
 
   toPrivacy() {
-    this.router.navigate(['tabs/me/register-privacy']);
+    this.router.navigate(['register-privacy']);
   }
 
 }

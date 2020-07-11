@@ -25,11 +25,11 @@ export class MePage implements OnInit {
   }
 
   login() {
-    this.router.navigate(['tabs/me/login']);
+    this.router.navigate(['login']);
   }
 
   userInfo() {
-    this.router.navigate(['tabs/me/user-info']);
+    this.router.navigate(['user-info']);
   }
 
   logout() {
@@ -61,10 +61,10 @@ export class MePage implements OnInit {
   }
 
   walletContactManage() {
-    this.router.navigate(['tabs/me/wallet-contact']);
+    this.router.navigate(['wallet-contact']);
   }
 
   githubUrl() {
-    this.router.navigate(['tabs/me/github']);
+    this.router.navigate(['github']);
   }
 }

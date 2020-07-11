@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
   }
 
   jumpToRegister() {
-    this.router.navigate(['tabs/me/register']);
+    this.router.navigate(['register']);
   }
 
   getToken() {
@@ -70,7 +70,7 @@ export class LoginPage implements OnInit {
   }
 
   toForgetPassword() {
-    this.router.navigate(['tabs/me/login-forget-password']);
+    this.router.navigate(['login-forget-password']);
   }
 
 }
