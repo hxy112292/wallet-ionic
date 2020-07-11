@@ -261,16 +261,6 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('../listing-latest/listing-latest.module')
                 .then(m => m.ListingLatestPageModule)
-          },
-          {
-            path: 'coin-search',
-            loadChildren: () => import('../listing-latest/coin-search/coin-search.module')
-                .then(m => m.CoinSearchPageModule)
-          },
-          {
-            path: 'coin-detail',
-            loadChildren: () => import('../coin-detail/coin-detail.module')
-                .then(m => m.CoinDetailPageModule)
           }
         ]
       },

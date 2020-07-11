@@ -36,7 +36,7 @@ export class CoinSearchPage implements OnInit {
   }
 
   toCoinDetail(code) {
-    this.router.navigate(['tabs/listing-latest/coin-detail', {codeInfo: code}] );
+    this.router.navigate(['coin-detail', {codeInfo: code}] );
   }
 
 }

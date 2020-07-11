@@ -80,6 +80,11 @@ const routes: Routes = [
     path: 'market-statistics',
     loadChildren: () => import('./invest-assistant/tool/market-statistics/market-statistics.module')
         .then(m => m.MarketStatisticsPageModule)
+  },
+  {
+    path: 'coin-search',
+    loadChildren: () => import('./listing-latest/coin-search/coin-search.module')
+        .then(m => m.CoinSearchPageModule)
   }
 ];
 @NgModule({
