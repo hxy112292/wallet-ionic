@@ -10,7 +10,7 @@
     <ion-card (click)="toDeepNewsDetail(deepNews)">
         <ion-card-header>
             <ion-card-subtitle>
-                <ion-text style="color: black">#{{i+1}} {{deepNews.extra.author}}， {{deepNews.extra.published_at*1000 | date: 'yyyy-MM-dd'}}</ion-text>
+                <ion-text>#{{i+1}} {{deepNews.extra.author}}， {{deepNews.extra.published_at*1000 | date: 'yyyy-MM-dd'}}</ion-text>
             </ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
@@ -19,3 +19,9 @@
         </ion-card-content>
     </ion-card>
 </div>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>

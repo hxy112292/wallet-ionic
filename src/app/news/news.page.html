@@ -2,14 +2,13 @@
   <ion-toolbar>
     <ion-title>资讯</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="newsPage" value="liveNews">
+      <ion-segment-button value="liveNews">快讯</ion-segment-button>
+      <ion-segment-button value="deepNews">投研</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
-
-<ion-toolbar>
-  <ion-segment [(ngModel)]="newsPage" value="liveNews">
-    <ion-segment-button value="liveNews">快讯</ion-segment-button>
-    <ion-segment-button value="deepNews">投研</ion-segment-button>
-  </ion-segment>
-</ion-toolbar>
 
 <ion-content>
   <div *ngIf="newsPage == 'liveNews'">

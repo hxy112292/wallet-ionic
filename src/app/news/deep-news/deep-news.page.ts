@@ -41,4 +41,25 @@ export class DeepNewsPage implements OnInit {
   toDeepNewsDetail(deepNews) {
     this.router.navigate(['deep-news-detail', {deepNewsInfo: JSON.stringify(deepNews)}]);
   }
+
+  getMoreDeepNews(bottomId) {
+    this.http.get(this.constant.baseUrl + '/liveNews/deep', {
+      params: {
+        id: bottomId
+      }
+    }).subscribe(res => {
+      this.deepNewsList = this.deepNewsList.concat((res as any).list);
+    });
+  }
+
+  loadMore(event) {
+    console.log('Begin async operation');
+    if (this.deepNewsList != null && this.deepNewsList.length !== 0) {
+      this.getMoreDeepNews(this.deepNewsList[this.deepNewsList.length - 1].id);
+    }
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
+  }
 }

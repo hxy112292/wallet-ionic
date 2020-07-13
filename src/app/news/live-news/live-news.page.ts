@@ -48,4 +48,25 @@ export class LiveNewsPage implements OnInit {
       content.style.overflow = 'visible';
     }
   }
+
+  getMoreLiveNews(bottomId) {
+    this.http.get(this.constant.baseUrl + '/liveNews', {
+      params: {
+        id: bottomId
+      }
+    }).subscribe(res => {
+      this.liveNewsList = this.liveNewsList.concat((res as any).list[0].lives);
+    });
+  }
+
+  loadMore(event) {
+    console.log('Begin async operation');
+    if (this.liveNewsList != null && this.liveNewsList.length !== 0) {
+      this.getMoreLiveNews(this.liveNewsList[this.liveNewsList.length - 1].id);
+    }
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
+  }
 }
