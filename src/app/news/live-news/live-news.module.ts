@@ -17,6 +17,9 @@ import {StarRatingModule} from 'ionic5-star-rating';
         LiveNewsPageRoutingModule,
         StarRatingModule
     ],
-  declarations: [LiveNewsPage]
+    exports: [
+        LiveNewsPage
+    ],
+    declarations: [LiveNewsPage]
 })
 export class LiveNewsPageModule {}

@@ -66,7 +66,7 @@ export class InvestAssistantPage implements OnInit {
   }
 
   toLiveNews() {
-    this.router.navigate(['tabs/live-news']);
+    this.router.navigate(['tabs/news']);
   }
 
   toListingLatest() {

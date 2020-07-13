@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="margin: 5%; text-align: center">
+    <h2>{{deepNews.title}}</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <img src="{{deepNews.extra.author_avatar}}" referrerpolicy="no-referrer" style="max-width: 60px; max-height: 60px">
+        </ion-col>
+        <ion-col size="8">
+          <ion-row>
+            {{deepNews.extra.author}}
+          </ion-row>
+          <ion-row>
+            <br>
+          </ion-row>
+          <ion-row style="color: grey">
+            {{deepNews.extra.published_at*1000 | date:'yyyy-MM-dd'}}
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div [innerHTML]="deepNewsDetail" style="text-align: left;font-size: larger"></div>
+  </div>
+</ion-content>

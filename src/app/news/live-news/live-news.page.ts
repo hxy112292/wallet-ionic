@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../constant.service';
-import {LiveNews} from '../entity/live-news';
+import {ConstantService} from '../../constant.service';
+import {LiveNews} from '../../entity/live-news';
 
 @Component({
   selector: 'app-live-news',

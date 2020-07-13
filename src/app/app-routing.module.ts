@@ -292,7 +292,16 @@ const routes: Routes = [
     path: 'wallet-erc20-manage',
     loadChildren: () => import('./wallet/ETH/wallet-erc20-manage/wallet-erc20-manage.module')
         .then(m => m.WalletErc20ManagePageModule)
+  },
+  {
+    path: 'news',
+    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
+  },
+  {
+    path: 'deep-news-detail',
+    loadChildren: () => import('./news/deep-news/deep-news-detail/deep-news-detail.module').then(m => m.DeepNewsDetailPageModule)
   }
+
 ];
 @NgModule({
   imports: [

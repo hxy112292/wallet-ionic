@@ -1,0 +1,44 @@
+import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ConstantService} from '../../constant.service';
+import {DeepNews} from '../../entity/deep-news';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-deep-news',
+  templateUrl: './deep-news.page.html',
+  styleUrls: ['./deep-news.page.scss'],
+})
+export class DeepNewsPage implements OnInit {
+
+  deepNewsList: DeepNews[];
+
+  constructor(private http: HttpClient,
+              private constant: ConstantService,
+              private router: Router) {
+    this.deepNewsList = [];
+  }
+
+  ngOnInit() {
+    this.getDeepNews();
+  }
+
+  getDeepNews() {
+    this.http.get(this.constant.baseUrl + '/liveNews/deep').subscribe(res => {
+      this.deepNewsList = (res as any).list;
+    });
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getDeepNews();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
+  toDeepNewsDetail(deepNews) {
+    this.router.navigate(['deep-news-detail', {deepNewsInfo: JSON.stringify(deepNews)}]);
+  }
+}

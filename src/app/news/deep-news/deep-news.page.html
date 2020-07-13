@@ -1,0 +1,21 @@
+<br>
+<br>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles">
+    </ion-refresher-content>
+</ion-refresher>
+<div *ngFor="let deepNews of deepNewsList; let i = index">
+    <ion-card (click)="toDeepNewsDetail(deepNews)">
+        <ion-card-header>
+            <ion-card-subtitle>
+                <ion-text style="color: black">#{{i+1}} {{deepNews.extra.author}}， {{deepNews.extra.published_at*1000 | date: 'yyyy-MM-dd'}}</ion-text>
+            </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <img src="{{deepNews.extra.thumbnail_pic}}" referrerpolicy="no-referrer">
+            <ion-card-title style="color: black">{{deepNews.title}}</ion-card-title>
+        </ion-card-content>
+    </ion-card>
+</div>

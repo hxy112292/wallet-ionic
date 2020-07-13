@@ -1,0 +1,47 @@
+
+<br>
+<br>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          refreshingSpinner="circles">
+  </ion-refresher-content>
+</ion-refresher>
+<div *ngFor="let liveNews of liveNewsList">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-row>
+          <ion-text>{{liveNews.created_at*1000 | date: 'yyyy/MM/dd HH:mm:ss'}}　</ion-text>
+          <ionic5-star-rating #rating activeColor = "orange" readonly = "true" fontSize="small" rating="{{liveNews.grade}}"></ionic5-star-rating>
+        </ion-row>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content (click)="displayFullContent(liveNews.id)">
+      <ion-grid>
+        <ion-row style="max-height: 100px;overflow: hidden" id="{{liveNews.id  + 'content'}}">
+          {{liveNews.content}}
+        </ion-row>
+        <ion-row id="{{liveNews.id + 'hideText'}}">
+          ...
+        </ion-row>
+        <br>
+        <ion-row>
+          <ion-col>
+            <ion-text>
+              看涨：{{liveNews.up_counts}}
+            </ion-text>
+            <ion-icon name="arrow-up" color="danger"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              看跌：{{liveNews.down_counts}}
+            </ion-text>
+            <ion-icon name="arrow-down" color="success"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+
+  </ion-card>
+</div>

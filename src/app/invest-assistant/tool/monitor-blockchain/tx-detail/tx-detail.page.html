@@ -18,7 +18,7 @@
     <ion-card-header>
       <ion-card-subtitle>
         <ion-icon name="document" color="danger"></ion-icon>
-        <ion-text>　交易时间：{{transaction.time | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+        <ion-text>　交易时间：{{transaction.time * 1000 | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>

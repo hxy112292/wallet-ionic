@@ -35,11 +35,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'live-news',
+        path: 'news',
         children: [
           {
             path: '',
-            loadChildren: () => import('../live-news/live-news.module').then(m => m.LiveNewsPageModule)
+            loadChildren: () => import('../news/news.module').then(m => m.NewsPageModule)
           }
         ]
       },
