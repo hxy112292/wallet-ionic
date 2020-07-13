@@ -67,6 +67,6 @@ export class LiveNewsPage implements OnInit {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
-    }, 1000);
+    }, 2000);
   }
 }
