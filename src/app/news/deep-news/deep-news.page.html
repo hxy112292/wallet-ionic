@@ -1,9 +1,5 @@
-<br>
-<br>
 <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-            pullingIcon="arrow-dropdown"
-            refreshingSpinner="circles">
+    <ion-refresher-content>
     </ion-refresher-content>
 </ion-refresher>
 <div *ngFor="let deepNews of deepNewsList; let i = index">
@@ -15,7 +11,7 @@
         </ion-card-header>
         <ion-card-content>
             <img src="{{deepNews.extra.thumbnail_pic}}" referrerpolicy="no-referrer">
-            <ion-card-title style="color: black">{{deepNews.title}}</ion-card-title>
+            <ion-text style="color: black;font-size: large">{{deepNews.title}}</ion-text>
         </ion-card-content>
     </ion-card>
 </div>

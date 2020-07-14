@@ -1,11 +1,6 @@
-
-<br>
-<br>
 <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          refreshingSpinner="circles">
-  </ion-refresher-content>
+    <ion-refresher-content>
+    </ion-refresher-content>
 </ion-refresher>
 <div *ngFor="let liveNews of liveNewsList">
   <ion-card>
@@ -19,12 +14,14 @@
     </ion-card-header>
     <ion-card-content (click)="displayFullContent(liveNews.id)">
       <ion-grid>
-        <ion-row style="max-height: 100px;overflow: hidden" id="{{liveNews.id  + 'content'}}">
+        <ion-row style="max-height: 95px;overflow: hidden" id="{{liveNews.id  + 'content'}}">
           {{liveNews.content}}
         </ion-row>
-        <ion-row id="{{liveNews.id + 'hideText'}}">
-          ...
-        </ion-row>
+        <div *ngIf="liveNews.content.length >=110">
+          <ion-row id="{{liveNews.id + 'hideText'}}">
+            ...
+          </ion-row>
+        </div>
         <br>
         <ion-row>
           <ion-col>

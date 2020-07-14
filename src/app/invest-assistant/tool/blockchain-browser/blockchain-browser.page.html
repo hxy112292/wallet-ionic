@@ -9,9 +9,7 @@
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-            pullingIcon="arrow-dropdown"
-            refreshingSpinner="circles">
+    <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
   <div *ngFor="let browser of browserList; let i = index">

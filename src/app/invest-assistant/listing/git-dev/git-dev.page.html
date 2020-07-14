@@ -9,9 +9,7 @@
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-            pullingIcon="arrow-dropdown"
-            refreshingSpinner="circles">
+    <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
   <ion-list lines="full">
@@ -47,12 +45,7 @@
               </ion-row>
             </ion-col>
             <ion-col size="2">
-              <div *ngIf="gitDev.people > 1000">
-                {{gitDev.people/10 + 800 | number: '1.0-0'}}
-              </div>
-              <div *ngIf="gitDev.people <= 1000">
-                {{gitDev.people | number}}
-              </div>
+              {{gitDev.people | number}}
             </ion-col>
             <ion-col size="3">
               {{gitDev.allsubmit | number}}

@@ -9,56 +9,10 @@
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-            pullingIcon="arrow-dropdown"
-            refreshingSpinner="circles">
+    <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
   <ion-list lines="full">
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="5">
-            <ion-text style="color: grey">TOP30 场内资产</ion-text>
-          </ion-col>
-          <ion-col size="7" style="text-align: right">
-            $ {{assetsOnSite/100000000 | number:'1.2-2'}} 亿
-            <ion-text style="font-size: small; color: grey">(￥ {{assetsOnSite/100000000*exchangeRate.price_cny | number:'1.2-2'}} 亿)</ion-text>
-          </ion-col>
-        </ion-row>
-        <ion-row style="font-size: small">
-          <ion-col size="5">
-            <ion-text style="color: grey">- 法币资产</ion-text>
-          </ion-col>
-          <ion-col size="7" style="text-align: right">
-            $ {{exchangeRate.marketcap_total_usd/100000000 | number:'1.2-2'}} 亿
-            <ion-text style="font-size: small; color: grey">(￥ {{exchangeRate.marketcap/100000000 | number:'1.2-2'}} 亿)</ion-text>
-          </ion-col>
-        </ion-row>
-        <ion-row style="font-size: small">
-          <ion-col size="5">
-            <ion-text style="color: grey">- 数字资产</ion-text>
-          </ion-col>
-          <ion-col size="7" style="text-align: right">
-            $ {{(assetsOnSite - exchangeRate.marketcap_total_usd)/100000000 | number:'1.2-2'}} 亿
-            <ion-text style="font-size: small; color: grey">(￥ {{(assetsOnSite*exchangeRate.price_cny - exchangeRate.marketcap)/100000000 | number:'1.2-2'}} 亿)</ion-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-    <ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="5">
-            <ion-text style="color: grey">全球市值</ion-text>
-          </ion-col>
-          <ion-col size="7" style="text-align: right">
-            $ {{globalInfo.marketcapvol/100000000 | number:'1.2-2'}} 亿
-            <ion-text style="font-size: small; color: grey">(￥ {{globalInfo.marketcapvol*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
     <ion-item>
       <ion-grid>
         <ion-row>

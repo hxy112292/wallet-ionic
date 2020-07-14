@@ -1,16 +1,14 @@
 <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          refreshingSpinner="circles">
-  </ion-refresher-content>
+    <ion-refresher-content>
+    </ion-refresher-content>
 </ion-refresher>
-<br>
 <br>
 <div style="text-align: center" (click)="toAddMonitorPrice()">
   <ion-button size="default" color="tertiary">
     + 添加一个价格提醒
   </ion-button>
 </div>
+<br>
 <div *ngFor="let priceOnNotification of priceOnNotificationList; let i = index">
   <ion-card style="font-size: medium">
     <ion-card-header>
