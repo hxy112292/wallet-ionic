@@ -67,29 +67,13 @@ export class WalletEthereumCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
-      params: {
-        module: 'account',
-        action: 'balance',
-        address: this.privateKey.ethAddress,
-        apiKey: this.constant.ropstenEtherScanKey,
-        tag: 'latest'
-      }
-    }).subscribe(res => {
+    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
         this.etherscanBalance = res as any;
-        this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
-          params: {
-            module: 'account',
-            action: 'txlist',
-            address: this.privateKey.ethAddress,
-            apiKey: this.constant.ropstenEtherScanKey,
-            sort: 'desc'
-          }
-        }).subscribe( res2 => {
-          this.etherscanBalance.txList = (res2 as any).result;
-          this.getTmpHash();
-          this.constant.hideLoader();
-        });
+    });
+    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/transaction').subscribe( res2 => {
+      this.etherscanBalance.txList = (res2 as any).result;
+      this.getTmpHash();
+      this.constant.hideLoader();
     });
   }
 

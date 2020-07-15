@@ -63,7 +63,7 @@ export class WalletErc20SearchPage implements OnInit {
       }
     ];
 
-    const provider = new ethers.providers.EtherscanProvider('ropsten');
+    const provider = ethers.getDefaultProvider('ropsten');
 
     const contract = new Contract(this.contractAddress, contractAbiFragment, provider);
 

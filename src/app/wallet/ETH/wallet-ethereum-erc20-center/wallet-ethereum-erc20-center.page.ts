@@ -55,21 +55,13 @@ export class WalletEthereumErc20CenterPage implements OnInit {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.index = Number(this.route.snapshot.paramMap.get('index'));
     this.getETHAddressInfo();
+    this.getERCAddressInfo();
   }
 
   getETHAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
-      params: {
-        module: 'account',
-        action: 'balance',
-        address: this.privateKey.ethAddress,
-        apiKey: this.constant.ropstenEtherScanKey,
-        tag: 'latest'
-      }
-    }).subscribe(res => {
+    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
       this.etherscanBalance = res as any;
-      this.getERCAddressInfo();
       this.constant.hideLoader();
     });
   }
@@ -96,7 +88,7 @@ export class WalletEthereumErc20CenterPage implements OnInit {
       }
     ];
 
-    const provider = new ethers.providers.EtherscanProvider('ropsten');
+    const provider = ethers.getDefaultProvider('ropsten');
 
     if (this.privateKey.erc20TokenList != null) {
       // tslint:disable-next-line:prefer-for-of

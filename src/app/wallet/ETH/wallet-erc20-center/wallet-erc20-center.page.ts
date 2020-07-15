@@ -62,15 +62,7 @@ export class WalletErc20CenterPage implements OnInit {
   }
 
   getETHAddressInfo() {
-    this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
-      params: {
-        module: 'account',
-        action: 'balance',
-        address: this.privateKey.ethAddress,
-        apiKey: this.constant.ropstenEtherScanKey,
-        tag: 'latest'
-      }
-    }).subscribe(res => {
+    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
       this.ethBalance = Number((res as any).result) / 1000000000000000000;
     });
   }
@@ -98,21 +90,16 @@ export class WalletErc20CenterPage implements OnInit {
       }
     ];
 
-    const provider = new ethers.providers.EtherscanProvider('ropsten');
+    const provider = ethers.getDefaultProvider('ropsten');
 
     const contract = new Contract(this.erc20Token.address, contractAbiFragment, provider);
     contract.balanceOf(this.privateKey.ethAddress).then( balance => {
       this.erc20Balance = (balance as any) / 1000000000000000000;
     });
 
-    this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
+    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/tokentx', {
       params: {
-        module: 'account',
-        action: 'tokentx',
-        contractaddress: this.erc20Token.address,
-        address: this.privateKey.ethAddress,
-        sort: 'desc',
-        apikey: this.constant.ropstenEtherScanKey
+        contractAddress: this.erc20Token.address
       }
     }).subscribe( res => {
       this.erc20TxList = (res as any).result;
