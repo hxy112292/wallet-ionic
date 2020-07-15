@@ -7,7 +7,7 @@
   </ion-toolbar>
   <ion-list lines="none">
     <ion-item>
-      <ion-searchbar [(ngModel)]="searchValue" showCancelButton="focus" placeholder="搜索" (search)="getSearchResult()"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchValue" showCancelButton="focus" placeholder="搜索" (search)="getSearchResult()" autofocus></ion-searchbar>
       <ion-button (click)="getSearchResult()" color="primary" size="default">搜索</ion-button>
     </ion-item>
   </ion-list>

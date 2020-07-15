@@ -62,8 +62,10 @@ export class WalletLitecoinCenterPage implements OnInit {
   }
 
   getAddressInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/LTCTEST/address/' + this.privateKey.ltcAddress).subscribe(res => {
       this.sochainLtcAddress = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

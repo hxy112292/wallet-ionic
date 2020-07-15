@@ -65,6 +65,7 @@ export class ExchangeDetailPage implements OnInit {
   }
 
   getExchangeDetail() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/exchange/detail/', {
       params: {
         code: this.exchangeCode
@@ -72,6 +73,7 @@ export class ExchangeDetailPage implements OnInit {
     }).subscribe(res => {
       this.exchangeDetail = (res as any).data;
       this.exchangeDetail.desc = this.exchangeDetail.desc.replace(/<[^>]*>/g, '');
+      this.constant.hideLoader();
     });
   }
 

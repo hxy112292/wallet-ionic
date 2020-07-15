@@ -23,8 +23,10 @@ export class ConceptPage implements OnInit {
   }
 
   getConceptList() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/concept').subscribe(res => {
       this.conceptList = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

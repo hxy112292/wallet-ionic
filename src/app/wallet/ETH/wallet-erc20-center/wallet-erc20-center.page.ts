@@ -76,6 +76,7 @@ export class WalletErc20CenterPage implements OnInit {
   }
 
   getErc20AddressInfo() {
+    this.constant.showLoader();
     const contractAbiFragment = [
       {
         name: 'balanceOf',
@@ -116,6 +117,7 @@ export class WalletErc20CenterPage implements OnInit {
     }).subscribe( res => {
       this.erc20TxList = (res as any).result;
       this.getTmpHash();
+      this.constant.hideLoader();
     });
   }
 

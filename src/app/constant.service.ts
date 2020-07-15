@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from './entity/user';
 import {AlertController} from '@ionic/angular';
 import {PrivateKey} from './entity/private-key';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class ConstantService {
   testBTCAddress: string;
   testETHAddress: string;
 
-  constructor(public alertController: AlertController) {
+  constructor(public alertController: AlertController,
+              public loadingController: LoadingController) {
     this.user = {
       id: '',
       username: '',
@@ -63,5 +65,22 @@ export class ConstantService {
     });
 
     await alert.present();
+  }
+
+  showLoader() {
+    this.loadingController.create({
+      message: 'Loading...',
+      backdropDismiss: true
+    }).then((res) => {
+      res.present();
+    });
+  }
+
+  hideLoader() {
+    this.loadingController.dismiss().then((res) => {
+      console.log('Loading dismissed!', res);
+    }).catch((error) => {
+      console.log('error', error);
+    });
   }
 }

@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item>
       <img src="{{exchangeDetail.logo}}" referrerpolicy="no-referrer" style="max-height: 30px;max-width: 30px">

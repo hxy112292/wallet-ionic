@@ -66,6 +66,7 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   getAddressInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
       params: {
         module: 'account',
@@ -87,6 +88,7 @@ export class WalletEthereumCenterPage implements OnInit {
         }).subscribe( res2 => {
           this.etherscanBalance.txList = (res2 as any).result;
           this.getTmpHash();
+          this.constant.hideLoader();
         });
     });
   }

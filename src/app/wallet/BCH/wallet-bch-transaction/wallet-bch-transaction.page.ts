@@ -53,6 +53,7 @@ export class WalletBchTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/BCHTEST/txid/' + this.hash).subscribe(res => {
       this.transaction = (res as any).payload;
       let inValue = 0;
@@ -75,6 +76,7 @@ export class WalletBchTransactionPage implements OnInit {
       }
       this.transaction.fee = allInValue - allOutValue;
       this.transaction.value = Math.abs(outValue - inValue) - this.transaction.fee;
+      this.constant.hideLoader();
     });
   }
 

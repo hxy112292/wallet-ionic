@@ -118,6 +118,7 @@ export class MarketStatisticsPage implements OnInit {
   }
 
   getExchangeInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/exchange').subscribe(res => {
       this.exchangeList = (res as any).data;
       // tslint:disable-next-line:prefer-for-of
@@ -134,9 +135,19 @@ export class MarketStatisticsPage implements OnInit {
           this.assetsOnOut = Number(this.globalInfo.marketcapvol) - this.assetsOnSite;
           this.createAssetPie();
           this.createExchangePie();
+          this.constant.hideLoader();
         });
       });
     });
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getExchangeInfo();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
 }

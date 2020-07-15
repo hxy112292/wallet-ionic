@@ -79,6 +79,7 @@ export class CoinIntroductionPage implements OnInit {
   }
 
   getCoinDetail() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/listingLatest/coinInfo', {
       params: {
         code: this.code
@@ -89,6 +90,7 @@ export class CoinIntroductionPage implements OnInit {
       this.coinDetail.explorer = this.coinDetail.explorer.split('\n')[0];
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace(/<[^>]*>/g, '');
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace('*以上内容由非小号官方整理，如若转载，请注明出处。', '');
+      this.constant.hideLoader();
     });
   }
 
@@ -120,6 +122,15 @@ export class CoinIntroductionPage implements OnInit {
     });
     await toast.present();
     await this.clipboard.copy(url);
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getCoinDetail();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
 }

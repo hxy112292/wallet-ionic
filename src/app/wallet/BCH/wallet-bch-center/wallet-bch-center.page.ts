@@ -64,6 +64,7 @@ export class WalletBchCenterPage implements OnInit {
   }
 
   getAddressInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/BCHTEST/address/' + this.privateKey.bchAddress).subscribe(res => {
       this.cryptoBchAddress = (res as any).payload;
     });
@@ -87,6 +88,7 @@ export class WalletBchCenterPage implements OnInit {
             }
             this.cryptoBchTxList[i].value = outValue - inValue;
           }
+          this.constant.hideLoader();
     });
   }
 

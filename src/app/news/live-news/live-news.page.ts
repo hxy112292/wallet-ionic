@@ -20,8 +20,10 @@ export class LiveNewsPage implements OnInit {
   }
 
   getLiveNews() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/liveNews').subscribe(res => {
       this.liveNewsList = (res as any).list[0].lives;
+      this.constant.hideLoader();
     });
   }
 

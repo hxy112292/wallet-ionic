@@ -29,13 +29,24 @@ export class DeepNewsDetailPage implements OnInit {
   }
 
   getDeepNewsDetail() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/liveNews/deep/detail', {
       params: {
         url: this.deepNews.extra.topic_url
       }
     }).subscribe(res => {
       this.deepNewsDetail = (res as any).result;
+      this.constant.hideLoader();
     });
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getDeepNewsDetail();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
 }

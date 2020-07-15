@@ -22,8 +22,10 @@ export class ListingLatestPage implements OnInit {
   }
 
   getListing() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/listingLatest').subscribe(res => {
       this.listingLatestList = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

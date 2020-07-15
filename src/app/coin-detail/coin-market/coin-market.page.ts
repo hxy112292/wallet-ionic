@@ -35,12 +35,14 @@ export class CoinMarketPage implements OnInit {
   }
 
   getCoinMarket() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/listingLatest/coinMarket', {
       params: {
         code: this.code
       }
     }).subscribe( res => {
         this.coinMarketList = (res as any).data;
+        this.constant.hideLoader();
     });
   }
 

@@ -55,10 +55,10 @@ export class WalletEthereumErc20CenterPage implements OnInit {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.index = Number(this.route.snapshot.paramMap.get('index'));
     this.getETHAddressInfo();
-    this.getERCAddressInfo();
   }
 
   getETHAddressInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.ropstenEtherScanUrl + '/api', {
       params: {
         module: 'account',
@@ -69,6 +69,8 @@ export class WalletEthereumErc20CenterPage implements OnInit {
       }
     }).subscribe(res => {
       this.etherscanBalance = res as any;
+      this.getERCAddressInfo();
+      this.constant.hideLoader();
     });
   }
 

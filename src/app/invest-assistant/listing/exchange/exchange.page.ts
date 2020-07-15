@@ -26,8 +26,10 @@ export class ExchangePage implements OnInit {
   }
 
   getExchangeInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/exchange').subscribe(res => {
       this.exchangeList = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

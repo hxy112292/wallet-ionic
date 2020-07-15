@@ -61,6 +61,7 @@ export class WalletXrpTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
+    this.constant.showLoader();
     const api = new RippleAPI({
       server: 'wss://s.altnet.rippletest.net:51233'
     });
@@ -69,6 +70,7 @@ export class WalletXrpTransactionPage implements OnInit {
         this.transaction = transaction as any;
         console.log(this.transaction);
         api.disconnect();
+        this.constant.hideLoader();
       });
     }).catch(console.error);
   }

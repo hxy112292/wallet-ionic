@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../constant.service';
-import {ListingLatest} from '../../entity/listing-latest';
 import {CoinSearchResult} from '../../entity/coin-search-result';
 
 @Component({
@@ -22,16 +21,17 @@ export class CoinSearchPage implements OnInit {
 
 
   ngOnInit() {
-    this.getSearchResult();
   }
 
   getSearchResult() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/listingLatest/search/', {
       params: {
         coin: this.searchValue
       }
     }).subscribe(res => {
       this.coinSearchList = (res as any).coinlist;
+      this.constant.hideLoader();
     });
   }
 

@@ -61,8 +61,10 @@ export class TxDetailPage implements OnInit {
   }
 
   getTransactionInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/BTC/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

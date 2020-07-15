@@ -24,8 +24,10 @@ export class DeepNewsPage implements OnInit {
   }
 
   getDeepNews() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/liveNews/deep').subscribe(res => {
       this.deepNewsList = (res as any).list;
+      this.constant.hideLoader();
     });
   }
 

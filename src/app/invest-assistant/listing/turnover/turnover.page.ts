@@ -22,8 +22,10 @@ export class TurnoverPage implements OnInit {
   }
 
   getTurnOver() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/turnover').subscribe(res => {
       this.turnoverList = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

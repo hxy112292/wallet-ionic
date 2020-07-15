@@ -22,8 +22,10 @@ export class GitDevPage implements OnInit {
   }
 
   getGitDevInfo() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/github').subscribe(res => {
       this.gitDevList = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 

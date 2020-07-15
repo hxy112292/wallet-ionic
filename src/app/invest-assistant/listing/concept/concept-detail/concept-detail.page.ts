@@ -26,12 +26,14 @@ export class ConceptDetailPage implements OnInit {
   }
 
   getConceptDetailList() {
+    this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/concept/detail/', {
       params: {
         id: this.concept.id
       }
     }).subscribe(res => {
       this.conceptDetailList = (res as any).data;
+      this.constant.hideLoader();
     });
   }
 
