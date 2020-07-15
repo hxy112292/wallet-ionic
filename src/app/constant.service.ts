@@ -9,7 +9,7 @@ import { LoadingController } from '@ionic/angular';
 })
 export class ConstantService {
 
-  readonly baseUrl: string = 'https://www.jyfen.club:7070';
+  readonly baseUrl: string = 'https://www.hd-wallet.com:7070';
   readonly githubUrl: string = 'https://github.com/hxy112292/wallet-ionic';
   readonly litecoreTestnetUrl: string = 'https://testnet.litecore.io';
   user: User;
