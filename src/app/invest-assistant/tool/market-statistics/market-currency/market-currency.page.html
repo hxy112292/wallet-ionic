@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>市场资产分布</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    <ion-item style="color: grey;font-size: 15px">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            #
+          </ion-col>
+          <ion-col size="3.5">
+            交易所资产
+          </ion-col>
+          <ion-col size="2.5">
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            BTC
+          </ion-col>
+          <ion-col size="2.5">
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            ETH
+          </ion-col>
+          <ion-col size="2.5">
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/tether_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            USDT
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let marketCurrency of marketCurrencyList; let i = index">
+      <div *ngIf="marketCurrency.total_reserves_USD > 1000000">
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="1" style="color: grey">
+                {{i+1}}
+              </ion-col>
+              <ion-col size="3.5">
+                <ion-row>
+                  <div style="overflow: hidden; text-overflow:ellipsis; white-space:nowrap;">
+                    {{marketCurrency.full_name}}
+                  </div>
+                </ion-row>
+                <ion-row style="font-size: small; color: grey">
+                  <div *ngIf="marketCurrency.total_reserves_USD >= 10000000">
+                    ${{marketCurrency.total_reserves_USD/100000000 | number:'1.0-2'}}亿
+                  </div>
+                  <div *ngIf="marketCurrency.total_reserves_USD < 10000000 && marketCurrency.total_reserves_USD >= 1000000">
+                    ${{marketCurrency.total_reserves_USD/10000 | number:'1.0-0'}}万
+                  </div>
+                  <div *ngIf="marketCurrency.total_reserves_USD < 1000000 && marketCurrency.total_reserves_USD >= 10000">
+                    ${{marketCurrency.total_reserves_USD/10000 | number:'1.0-1'}}万
+                  </div>
+                  <div *ngIf="marketCurrency.total_reserves_USD < 10000">
+                    ${{marketCurrency.total_reserves_USD | number:'1.0-0'}}
+                  </div>
+                </ion-row>
+              </ion-col>
+              <ion-col size="2.5">
+                <div *ngIf="marketCurrency.BTC_reserves >= 10000000">
+                  {{marketCurrency.BTC_reserves/100000000 | number:'1.0-2'}}亿
+                </div>
+                <div *ngIf="marketCurrency.BTC_reserves < 10000000 && marketCurrency.BTC_reserves >= 1000000">
+                  {{marketCurrency.BTC_reserves/10000 | number:'1.0-0'}}万
+                </div>
+                <div *ngIf="marketCurrency.BTC_reserves < 1000000 && marketCurrency.BTC_reserves >= 10000">
+                  {{marketCurrency.BTC_reserves/10000 | number:'1.0-1'}}万
+                </div>
+                <div *ngIf="marketCurrency.BTC_reserves < 10000">
+                  {{marketCurrency.BTC_reserves | number:'1.0-0'}}
+                </div>
+              </ion-col>
+              <ion-col size="2.5">
+                <div *ngIf="marketCurrency.ETH_reserves >= 10000000">
+                  {{marketCurrency.ETH_reserves/100000000 | number:'1.0-2'}}亿
+                </div>
+                <div *ngIf="marketCurrency.ETH_reserves < 10000000 && marketCurrency.ETH_reserves >= 1000000">
+                  {{marketCurrency.ETH_reserves/10000 | number:'1.0-0'}}万
+                </div>
+                <div *ngIf="marketCurrency.ETH_reserves < 1000000 && marketCurrency.ETH_reserves >= 10000">
+                  {{marketCurrency.ETH_reserves/10000 | number:'1.0-1'}}万
+                </div>
+                <div *ngIf="marketCurrency.ETH_reserves < 10000">
+                  {{marketCurrency.ETH_reserves | number:'1.0-0'}}
+                </div>
+              </ion-col>
+              <ion-col size="2.5">
+                <div *ngIf="marketCurrency.USDT_reserves >= 10000000">
+                  {{marketCurrency.USDT_reserves/100000000 | number:'1.0-2'}}亿
+                </div>
+                <div *ngIf="marketCurrency.USDT_reserves < 10000000 && marketCurrency.USDT_reserves >= 1000000">
+                  {{marketCurrency.USDT_reserves/10000 | number:'1.0-0'}}万
+                </div>
+                <div *ngIf="marketCurrency.USDT_reserves < 1000000 && marketCurrency.USDT_reserves >= 10000">
+                  {{marketCurrency.USDT_reserves/10000 | number:'1.0-1'}}万
+                </div>
+                <div *ngIf="marketCurrency.USDT_reserves < 10000">
+                  {{marketCurrency.USDT_reserves | number:'1.0-0'}}
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

@@ -37,17 +37,16 @@ export class LiveNewsPage implements OnInit {
   }
 
   displayFullContent(id) {
-    const hideText = document.getElementById(id + 'hideText');
     const content = document.getElementById(id + 'content');
 
-    if (hideText.style.display === 'none') {
-      hideText.style.display = 'block';
+    if (content.style.maxHeight === '10000px') {
       content.style.maxHeight = '95px';
       content.style.overflow = 'hidden';
+      content.style.display = '-webkit-box';
     } else {
-      hideText.style.display = 'none';
       content.style.maxHeight = '10000px';
       content.style.overflow = 'visible';
+      content.style.display = 'block';
     }
   }
 

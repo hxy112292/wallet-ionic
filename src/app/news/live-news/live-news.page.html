@@ -14,14 +14,9 @@
     </ion-card-header>
     <ion-card-content (click)="displayFullContent(liveNews.id)">
       <ion-grid>
-        <ion-row style="max-height: 95px;overflow: hidden" id="{{liveNews.id  + 'content'}}">
+        <ion-row style="max-height: 95px;overflow: hidden;text-overflow: ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;" id="{{liveNews.id  + 'content'}}">
           {{liveNews.content}}
         </ion-row>
-        <div *ngIf="liveNews.content.length >=110">
-          <ion-row id="{{liveNews.id + 'hideText'}}">
-            ...
-          </ion-row>
-        </div>
         <br>
         <ion-row>
           <ion-col>

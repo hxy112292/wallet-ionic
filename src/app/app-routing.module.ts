@@ -300,7 +300,13 @@ const routes: Routes = [
   {
     path: 'deep-news-detail',
     loadChildren: () => import('./news/deep-news/deep-news-detail/deep-news-detail.module').then(m => m.DeepNewsDetailPageModule)
+  },
+  {
+    path: 'market-currency',
+    loadChildren: () => import('./invest-assistant/tool/market-statistics/market-currency/market-currency.module')
+        .then(m => m.MarketCurrencyPageModule)
   }
+
 
 ];
 @NgModule({

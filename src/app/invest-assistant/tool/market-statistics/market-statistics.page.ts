@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
 import {Router} from '@angular/router';
 import { Chart } from 'chart.js';
+import {ExchangeCurrency} from '../../../entity/exchange-currency';
 
 @Component({
   selector: 'app-market-statistics',
@@ -20,17 +21,22 @@ export class MarketStatisticsPage implements OnInit {
   // @ts-ignore
   @ViewChild('exchangeChart') exchangeChart;
 
-  exchangeList: Exchange[];
+  exchangeList: ExchangeCurrency[];
   assetsOnSite: number;
   assetsOnOut: number;
   exchangeRate: CoinDetail;
   globalInfo: GlobalInfo;
   private assetPies: Chart;
   private exchangePies: Chart;
+  btcPrice: number;
+  ethPrice: number;
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
               private router: Router) {
+
+    this.btcPrice = 0;
+    this.ethPrice = 0;
 
     this.assetsOnSite = 0;
     this.exchangeRate = {
@@ -119,11 +125,13 @@ export class MarketStatisticsPage implements OnInit {
 
   getExchangeInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/exchange').subscribe(res => {
-      this.exchangeList = (res as any).data;
+    this.http.get(this.constant.baseUrl + '/exchange/currency/rank').subscribe(res => {
+      this.exchangeList = (res as any).data.reserves_list;
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.exchangeList.length; i++) {
-        this.assetsOnSite += Number(this.exchangeList[i].assets_usd);
+        if (this.exchangeList[i].total_reserves_USD != null && this.exchangeList[i].total_reserves_USD !== '') {
+          this.assetsOnSite += Number(this.exchangeList[i].total_reserves_USD);
+        }
       }
       this.http.get(this.constant.baseUrl + '/listingLatest/coinInfo', {
         params: {
@@ -148,6 +156,10 @@ export class MarketStatisticsPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  toMarketCurrency() {
+    this.router.navigate(['market-currency']);
   }
 
 }
