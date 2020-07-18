@@ -22,6 +22,7 @@ export class MarketStatisticsPage implements OnInit {
   @ViewChild('exchangeChart') exchangeChart;
 
   exchangeList: ExchangeCurrency[];
+  usdOnSite: number;
   assetsOnSite: number;
   assetsOnOut: number;
   exchangeRate: CoinDetail;
@@ -35,9 +36,7 @@ export class MarketStatisticsPage implements OnInit {
               private constant: ConstantService,
               private router: Router) {
 
-    this.btcPrice = 0;
-    this.ethPrice = 0;
-
+    this.usdOnSite = 0;
     this.assetsOnSite = 0;
     this.exchangeRate = {
       marketcap: '',
@@ -131,6 +130,9 @@ export class MarketStatisticsPage implements OnInit {
       for (let i = 0; i < this.exchangeList.length; i++) {
         if (this.exchangeList[i].total_reserves_USD != null && this.exchangeList[i].total_reserves_USD !== '') {
           this.assetsOnSite += Number(this.exchangeList[i].total_reserves_USD);
+          if (this.exchangeList[i].USDT_reserves != null && this.exchangeList[i].USDT_reserves !== '') {
+            this.usdOnSite += Number(this.exchangeList[i].USDT_reserves);
+          }
         }
       }
       this.http.get(this.constant.baseUrl + '/listingLatest/coinInfo', {
