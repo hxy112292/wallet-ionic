@@ -305,7 +305,12 @@ const routes: Routes = [
     path: 'market-currency',
     loadChildren: () => import('./invest-assistant/tool/market-statistics/market-currency/market-currency.module')
         .then(m => m.MarketCurrencyPageModule)
+  },
+  {
+    path: 'website',
+    loadChildren: () => import('./me/website/website.module').then(m => m.WebsitePageModule)
   }
+
 
 
 ];

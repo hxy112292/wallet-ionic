@@ -67,4 +67,8 @@ export class MePage implements OnInit {
   githubUrl() {
     this.router.navigate(['github']);
   }
+
+  webUrl() {
+    this.router.navigate(['website']);
+  }
 }

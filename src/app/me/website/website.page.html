@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>官网地址</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <div style="text-align: center;margin-left: 3%;margin-right: 3%">
+    <ion-title>
+      <h1 style="font-size: 25px">
+        <strong style="color: #448AFF">H </strong>
+        <strong style="color: #FF3366">D </strong>
+        <strong style="color: #43C391">- </strong>
+        <strong style="color: #FFCC33">W </strong>
+        <strong style="color: #448AFF">a </strong>
+        <strong style="color: #43C391">l </strong>
+        <strong style="color: #FF3366">l </strong>
+        <strong style="color: #FFCC33">e </strong>
+        <strong style="color: #448AFF">t </strong>
+      </h1>
+      <ion-icon name="Home" color="dark"></ion-icon>
+      官网地址：
+    </ion-title>
+    <ngx-qrcode [value]="constant.webUrl"></ngx-qrcode>
+    <ion-text>
+      {{constant.webUrl}}
+    </ion-text>
+    <br>
+    <ion-button color="secondary" (click)="copyText()">
+      <ion-icon name="copy" slot="start"></ion-icon>
+      复制网址
+    </ion-button>
+  </div>
+</ion-content>
