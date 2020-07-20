@@ -88,7 +88,9 @@ export class WalletXrpCenterPage implements OnInit {
           this.constant.hideLoader();
         });
       });
-    }).catch(console.error);
+    }).catch( e => {
+      this.constant.alert(e.toString());
+    });
   }
 
   doRefresh(event) {

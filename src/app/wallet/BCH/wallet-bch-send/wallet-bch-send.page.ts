@@ -121,7 +121,8 @@ export class WalletBchSendPage implements OnInit {
       hex: rawHex
     }).subscribe( res => {
       if ((res as any).code === 1) {
-        this.constant.alert('交易失败：请先等待上一笔交易打包完毕');
+        console.log(res);
+        this.constant.alert('交易失败：' + (res as any).message);
       }
     });
   }
