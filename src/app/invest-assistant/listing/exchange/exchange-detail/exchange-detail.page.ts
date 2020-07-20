@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../../constant.service';
 import {ExchangeDetail} from '../../../../entity/exchange-detail';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ModalController, ToastController} from '@ionic/angular';
 import {ExchangeDescPage} from './exchange-desc/exchange-desc.page';
@@ -17,11 +16,9 @@ export class ExchangeDetailPage implements OnInit {
 
   exchangeDetail: ExchangeDetail;
   exchangeCode: string;
-  options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
-              private inAppBrowser: InAppBrowser,
               private clipboard: Clipboard,
               private constant: ConstantService,
               private toastController: ToastController,
@@ -45,17 +42,6 @@ export class ExchangeDetailPage implements OnInit {
       rank: '',
       twitter_url: '',
       volume_day_usd: ''
-    };
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
     };
   }
 
@@ -87,8 +73,7 @@ export class ExchangeDetailPage implements OnInit {
   }
 
   openUrl(url: string) {
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   async copyText(url) {

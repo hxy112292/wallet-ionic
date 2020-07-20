@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
@@ -16,28 +15,13 @@ export class WalletEthereumTransactionPage implements OnInit {
 
   hash: string;
   transaction: EtherscanTx;
-  options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private inAppBrowser: InAppBrowser,
               private clipboard: Clipboard,
               private toastController: ToastController) {
-
-    // this.transaction = {
-    //   block_id: '',
-    //   transaction_hash: '',
-    //   time: '',
-    //   sender: '',
-    //   recipient: '',
-    //   value: '',
-    //   value_usd: '',
-    //   transferred: '',
-    //   state: '',
-    //   hash: ''
-    // };
     this.transaction = {
       blockNumber: '',
       timeStamp: '',
@@ -57,17 +41,6 @@ export class WalletEthereumTransactionPage implements OnInit {
       cumulativeGasUsed: '',
       gasUsed: '',
       confirmations: ''
-    };
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
     };
   }
 
@@ -102,14 +75,12 @@ export class WalletEthereumTransactionPage implements OnInit {
 
   openHash(url: string) {
     url = 'https://ropsten.etherscan.io/tx/' + url;
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   openAddress(url: string) {
     url = 'https://ropsten.etherscan.io/address/' + url;
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   async copyTxHash() {

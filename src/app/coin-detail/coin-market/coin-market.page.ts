@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {ConstantService} from '../../constant.service';
-import {ModalController, ToastController} from '@ionic/angular';
-import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {CoinMarket} from '../../entity/coin-market';
 
 @Component({
@@ -20,11 +17,7 @@ export class CoinMarketPage implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
-              private inAppBrowser: InAppBrowser,
-              private constant: ConstantService,
-              private modalController: ModalController,
-              private clipboard: Clipboard,
-              private toastController: ToastController) {
+              private constant: ConstantService) {
 
     this.coinMarketList = [];
   }

@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {SochainLtcTransaction} from '../../../entity/sochain-ltc-transaction';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
@@ -18,13 +16,11 @@ export class WalletXrpTransactionPage implements OnInit {
 
   hash: string;
   transaction: RippleTransaction;
-  options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private inAppBrowser: InAppBrowser,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -40,17 +36,6 @@ export class WalletXrpTransactionPage implements OnInit {
         destination: {address: ''},
         source: {address: ''}
       }
-    };
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
     };
   }
 
@@ -86,14 +71,12 @@ export class WalletXrpTransactionPage implements OnInit {
 
   openHash(url: string) {
     url = 'https://test.bithomp.com/explorer/' + url;
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   openAddress(url: string) {
     url = 'https://sochain.com/address/LTCTEST/' + url;
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   async copyTxHash() {

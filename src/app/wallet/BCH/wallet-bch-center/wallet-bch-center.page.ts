@@ -32,7 +32,7 @@ export class WalletBchCenterPage implements OnInit {
       bchAddress: '', bchPrivateKey: '',
       ltcAddress: '', ltcPrivateKey: '',
       mnemonic: '',
-      btcAddress: this.constant.testBTCAddress,
+      btcAddress: '',
       btcPrivateKey: '',
       ethPrivateKey: '',
       ethAddress: '',

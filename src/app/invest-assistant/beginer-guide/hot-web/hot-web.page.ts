@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
 import {HotWeb} from '../../../entity/hot-web';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-hot-web',
@@ -12,22 +11,9 @@ import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ng
 export class HotWebPage implements OnInit {
 
   hotWebList: HotWeb[];
-  options: InAppBrowserOptions;
 
   constructor(private http: HttpClient,
-              private constant: ConstantService,
-              private inAppBrowser: InAppBrowser) {
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
-    };
+              private constant: ConstantService) {
   }
 
   ngOnInit() {
@@ -51,8 +37,7 @@ export class HotWebPage implements OnInit {
   }
 
   openWeb(url: string) {
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   displayFullContent(id) {

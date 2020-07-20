@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CoinDetail} from '../../entity/coin-detail';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../constant.service';
@@ -17,27 +16,14 @@ export class CoinIntroductionPage implements OnInit {
 
   code: string;
   coinDetail: CoinDetail;
-  options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
-              private inAppBrowser: InAppBrowser,
               private constant: ConstantService,
               private modalController: ModalController,
               private clipboard: Clipboard,
               private toastController: ToastController) {
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
-    };
 
     this.coinDetail = {
       marketcap: '',
@@ -95,8 +81,7 @@ export class CoinIntroductionPage implements OnInit {
   }
 
   openUrl(url: string) {
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   async toCoinDesc() {

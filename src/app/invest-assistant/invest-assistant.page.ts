@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantService} from '../constant.service';
 
@@ -10,23 +9,9 @@ import {ConstantService} from '../constant.service';
 })
 export class InvestAssistantPage implements OnInit {
 
-  options: InAppBrowserOptions;
-
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private constant: ConstantService,
-              private inAppBrowser: InAppBrowser) {
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
-    };
+              private constant: ConstantService) {
   }
 
   ngOnInit() {
@@ -84,8 +69,7 @@ export class InvestAssistantPage implements OnInit {
 
   openAccelerator() {
     const url = 'https://www.viabtc.com/tools/txaccelerator/';
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
   toExchange() {

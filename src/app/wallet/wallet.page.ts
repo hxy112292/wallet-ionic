@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {CoinDescPage} from '../coin-detail/coin-introduction/coin-desc/coin-desc.page';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import {ConstantService} from '../constant.service';
-import {ModalController} from '@ionic/angular';
 import {PrivateKey} from '../entity/private-key';
-import {delay} from 'rxjs/operators';
 import {Storage} from '@ionic/storage';
 
 @Component({

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {BlockchainBrowser} from '../../../entity/blockchain-browser';
 
 @Component({
@@ -12,22 +11,9 @@ import {BlockchainBrowser} from '../../../entity/blockchain-browser';
 export class BlockchainBrowserPage implements OnInit {
 
   browserList: BlockchainBrowser[];
-  options: InAppBrowserOptions;
 
   constructor(private http: HttpClient,
-              private constant: ConstantService,
-              private inAppBrowser: InAppBrowser) {
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
-    };
+              private constant: ConstantService) {
   }
 
   ngOnInit() {
@@ -51,7 +37,7 @@ export class BlockchainBrowserPage implements OnInit {
 
   openWeb(url: string) {
     const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    this.constant.openBrowser(url);
   }
 
 }

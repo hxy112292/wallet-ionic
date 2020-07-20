@@ -3,6 +3,7 @@ import {User} from './entity/user';
 import {AlertController} from '@ionic/angular';
 import {PrivateKey} from './entity/private-key';
 import { LoadingController } from '@ionic/angular';
+import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class ConstantService {
   user: User;
   privateKeyList: PrivateKey[];
   privateKeyListLength: number;
-  testBTCAddress: string;
-  testETHAddress: string;
+  options: InAppBrowserOptions;
 
   constructor(public alertController: AlertController,
-              public loadingController: LoadingController) {
+              public loadingController: LoadingController,
+              public inAppBrowser: InAppBrowser) {
     this.user = {
       id: '',
       username: '',
@@ -30,10 +31,19 @@ export class ConstantService {
       role: ''
     };
 
-    this.privateKeyList = [];
+    this.options = {
+      location : 'yes',
+      hideurlbar: 'yes',
+      hidden : 'no',
+      clearcache : 'yes',
+      clearsessioncache : 'yes',
+      zoom : 'yes',
+      hardwareback : 'yes',
+      mediaPlaybackRequiresUserAction : 'no',
+      shouldPauseOnSuspend : 'no',
+    };
 
-    this.testBTCAddress = '1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s';
-    this.testETHAddress = '0x58c2cb4a6BeE98C309215D0d2A38d7F8aa71211c';
+    this.privateKeyList = [];
   }
 
   getUser() {
@@ -81,5 +91,11 @@ export class ConstantService {
     }).catch((error) => {
       console.log('error', error);
     });
+  }
+
+  openBrowser(webUrl) {
+    const url = webUrl;
+    const target = '_self';
+    this.inAppBrowser.create(url, target, this.options);
   }
 }

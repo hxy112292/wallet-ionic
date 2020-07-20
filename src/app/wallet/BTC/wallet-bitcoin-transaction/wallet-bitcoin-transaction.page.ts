@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../constant.service';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {SochainBtcTransaction} from '../../../entity/sochain-btc-transaction';
@@ -16,13 +15,11 @@ export class WalletBitcoinTransactionPage implements OnInit {
 
   hash: string;
   transaction: SochainBtcTransaction;
-  options: InAppBrowserOptions;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private inAppBrowser: InAppBrowser,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -37,17 +34,6 @@ export class WalletBitcoinTransactionPage implements OnInit {
       sent_value: '',
       time: '',
       txid: ''
-    };
-
-    this.options = {
-      location : 'yes',
-      hidden : 'no',
-      clearcache : 'yes',
-      clearsessioncache : 'yes',
-      zoom : 'yes',
-      hardwareback : 'yes',
-      mediaPlaybackRequiresUserAction : 'no',
-      shouldPauseOnSuspend : 'no',
     };
   }
 
@@ -75,15 +61,13 @@ export class WalletBitcoinTransactionPage implements OnInit {
   }
 
   openHash(url: string) {
-    url = 'https://www.blockchain.com/btctest/tx/' + url;
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    url = 'https://www.blockchain.com/btc-testnet/tx/' + url;
+    this.constant.openBrowser(url);
   }
 
   openAddress(url: string) {
-    url = 'https://www.blockchain.com/btctest/address/' + url;
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.options);
+    url = 'https://www.blockchain.com/btc-testnet/address/' + url;
+    this.constant.openBrowser(url);
   }
 
   async copyTxHash() {
