@@ -5,7 +5,6 @@ import * as litecore from 'litecore-lib';
 import * as bitcash from 'bitcore-lib-cash';
 import * as rip32 from 'ripple-bip32';
 import * as ripkey from 'ripple-keypairs';
-import * as ripple from 'ripplelib';
 import * as bip39 from 'bip39';
 import * as bip32 from 'bip32';
 import {AlertController} from '@ionic/angular';
@@ -113,7 +112,6 @@ export class WalletAddPage implements OnInit {
     const keyPair = root.derivePath('m/44\'/144\'/0\'/0/0').keyPair.getKeyPairs();
     const address = ripkey.deriveAddress(keyPair.publicKey);
     const privateKey = keyPair.privateKey;
-    const key = ripple.KeyPair.from_json(keyPair.privateKey.substring(2));
 
     this.privateKey.xrpKeyPair = keyPair;
     this.privateKey.xrpAddress = address;
