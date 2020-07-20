@@ -74,36 +74,36 @@
   <ion-title style="font-weight: bolder">交易记录</ion-title>
   <ion-list lines="full">
     <div *ngFor="let transaction of xrpTransactionList">
-      <ion-item (click)="toWalletXRPTransaction(transaction.id)">
+      <ion-item (click)="toWalletXRPTransaction(transaction.tx.hash)">
         <ion-grid>
           <ion-row>
             <ion-col size="1">
               <ion-icon name="code-working" color="success"></ion-icon>
             </ion-col>
             <ion-col size="7">
-              hash: {{transaction.id.slice(0,5)}}...{{transaction.id.slice(transaction.id.length-5,transaction.id.length)}}
+              hash: {{transaction.tx.hash.slice(0,5)}}...{{transaction.tx.hash.slice(transaction.tx.hash.length-5,transaction.tx.hash.length)}}
             </ion-col>
             <ion-col size="4" style="text-align: right">
-              <div *ngIf="transaction.specification.source.address == privateKey.xrpAddress && transaction.outcome.result == 'tesSUCCESS'">
-                -{{transaction.outcome.deliveredAmount.value | number: '1.2-8'}}
+              <div *ngIf="transaction.tx.Account == privateKey.xrpAddress && transaction.meta.TransactionResult == 'tesSUCCESS'">
+                -{{transaction.tx.Amount/1000000 | number: '1.2-8'}}
               </div>
-              <div *ngIf="transaction.specification.destination.address == privateKey.xrpAddress && transaction.outcome.result == 'tesSUCCESS'">
-                {{transaction.outcome.deliveredAmount.value | number: '1.2-8'}}
+              <div *ngIf="transaction.tx.Destination == privateKey.xrpAddress && transaction.meta.TransactionResult == 'tesSUCCESS'">
+                {{transaction.tx.Amount/1000000 | number: '1.2-8'}}
               </div>
-              <div *ngIf="transaction.outcome.result != 'tesSUCCESS'">
+              <div *ngIf="transaction.meta.TransactionResult != 'tesSUCCESS'">
                 --
               </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="font-size: small;color: grey">
-              {{transaction.outcome.timestamp | date: 'yyyy/MM/dd HH:mm:ss'}}
+              {{(transaction.tx.date + 946684800)*1000 | date: 'yyyy/MM/dd HH:mm:ss'}}
             </ion-col>
             <ion-col style="text-align: right">
-              <div *ngIf="transaction.outcome.result != 'tesSUCCESS'">
+              <div *ngIf="transaction.meta.TransactionResult != 'tesSUCCESS'">
                 <ion-text style="color: red">失败</ion-text>
               </div>
-              <div *ngIf="transaction.outcome.result == 'tesSUCCESS'">
+              <div *ngIf="transaction.meta.TransactionResult == 'tesSUCCESS'">
                 <ion-text style="color: #2dd36f">成功</ion-text>
               </div>
             </ion-col>

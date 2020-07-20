@@ -59,7 +59,7 @@
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "ripple-bip32": "0.0.3",
     "ripple-keypairs": "^1.0.1",
-    "ripple-lib": "^1.7.1",
+    "ripple-lib": "^1.8.0",
     "ripplelib": "^1.2.5",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",

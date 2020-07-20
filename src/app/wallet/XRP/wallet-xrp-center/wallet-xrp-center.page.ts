@@ -6,7 +6,7 @@ import {Storage} from '@ionic/storage';
 import {PrivateKey} from '../../../entity/private-key';
 import {RippleAPI} from 'ripple-lib';
 import {RippleAddress} from '../../../entity/ripple-address';
-import {RippleTransaction} from '../../../entity/ripple-transaction';
+import {RippleTxAccount} from '../../../entity/ripple-tx-account';
 
 @Component({
   selector: 'app-wallet-xrp-center',
@@ -17,7 +17,7 @@ export class WalletXrpCenterPage implements OnInit {
 
   privateKey: PrivateKey;
   xrpAddress: RippleAddress;
-  xrpTransactionList: RippleTransaction[];
+  xrpTransactionList: RippleTxAccount[];
   price: number;
 
   constructor(private route: ActivatedRoute,
@@ -75,13 +75,15 @@ export class WalletXrpCenterPage implements OnInit {
       const myAddress = this.privateKey.xrpAddress;
       api.getAccountInfo(myAddress).then( res => {
         this.xrpAddress = res as any;
-        api.getTransactions(myAddress, {
-          limit: 30,
-          includeRawTransactions: true,
-          minLedgerVersion: Number(this.xrpAddress.sequence),
-          maxLedgerVersion: Number(this.xrpAddress.previousAffectingTransactionLedgerVersion)
+        api.request('account_tx', {
+          account: myAddress,
+          binary: false,
+          forward: false,
+          ledger_index_max: -1,
+          ledger_index_min: -1,
+          limit: 30
         }).then( transactions => {
-          this.xrpTransactionList = transactions as any;
+          this.xrpTransactionList = (transactions as any).transactions;
           api.disconnect();
           this.constant.hideLoader();
         });

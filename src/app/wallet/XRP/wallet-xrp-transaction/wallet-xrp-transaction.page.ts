@@ -53,7 +53,6 @@ export class WalletXrpTransactionPage implements OnInit {
     api.connect().then(() => {
       api.getTransaction(this.hash).then( transaction => {
         this.transaction = transaction as any;
-        console.log(this.transaction);
         api.disconnect();
         this.constant.hideLoader();
       });
