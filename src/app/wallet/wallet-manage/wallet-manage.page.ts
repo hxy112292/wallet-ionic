@@ -97,6 +97,43 @@ export class WalletManagePage implements OnInit {
     await alert.present();
   }
 
+  async deleteWalletByPassword() {
+    const alert = await this.alertController.create({
+      header: '请输入密码',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: '请输入密码'
+        }
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: '确定',
+          handler: (alertData) => {
+            if (alertData.password !== this.privateKey.password) {
+              this.constant.alert('密码错误！');
+            } else {
+              this.constant.privateKeyList.splice(this.index, 1);
+              this.constant.privateKeyListLength = this.constant.privateKeyListLength - 1;
+              this.storage.set('privateKeyList', this.constant.privateKeyList);
+              this.storage.set('privateKeyListLength', this.constant.privateKeyListLength);
+              this.router.navigate(['tabs/wallet']);
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
   async deleteWallet() {
     const alert = await this.alertController.create({
       header: '警告',
@@ -111,11 +148,7 @@ export class WalletManagePage implements OnInit {
         }, {
           text: '确定',
           handler: () => {
-            this.constant.privateKeyList.splice(this.index, 1);
-            this.constant.privateKeyListLength = this.constant.privateKeyListLength - 1;
-            this.storage.set('privateKeyList', this.constant.privateKeyList);
-            this.storage.set('privateKeyListLength', this.constant.privateKeyListLength);
-            this.router.navigate(['tabs/wallet']);
+            this.deleteWalletByPassword();
           }
         }
       ]
