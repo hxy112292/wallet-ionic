@@ -14,7 +14,7 @@
   </ion-refresher>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>资产分布</ion-card-subtitle>
+      <ion-card-subtitle>资产分布（BTC, ETH, USDT）</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-list lines="full">
@@ -31,8 +31,8 @@
                 <ion-text style="color: grey">场内资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{assetsOnSite/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{assetsOnSite/100000000*globalInfo.usdt_price_cny | number:'1.2-2'}} 亿)</ion-text>
+                $ {{exchangeTotal.exchangeUsdTotal/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{exchangeTotal.exchangeUsdTotal/100000000*globalInfo.usdt_price_cny | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
             <ion-row style="font-size: small">
@@ -40,8 +40,8 @@
                 <ion-text style="color: grey">- 法币资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{usdOnSite/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{usdOnSite*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{exchangeTotal.exchangeUsdt/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{exchangeTotal.exchangeUsdt*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
             <ion-row style="font-size: small">
@@ -49,8 +49,8 @@
                 <ion-text style="color: grey">- 数字资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{(assetsOnSite - usdOnSite)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{((assetsOnSite - usdOnSite)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{(exchangeTotal.exchangeUsdTotal - exchangeTotal.exchangeUsdt)/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{((exchangeTotal.exchangeUsdTotal - exchangeTotal.exchangeUsdt)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -62,8 +62,8 @@
                 <ion-text style="color: grey">场外资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{assetsOnOut/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{assetsOnOut*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{(exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal)/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{(exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal)*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
             <ion-row style="font-size: small">
@@ -71,8 +71,8 @@
                 <ion-text style="color: grey">- 法币资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{(exchangeRate.marketcap_total_usd - usdOnSite)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{(exchangeRate.marketcap_total_usd - usdOnSite)*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{(exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt)/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{(exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt)*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
             <ion-row style="font-size: small">
@@ -80,8 +80,8 @@
                 <ion-text style="color: grey">- 数字资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{(assetsOnOut - (exchangeRate.marketcap_total_usd - usdOnSite))/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{((assetsOnOut - (exchangeRate.marketcap_total_usd - usdOnSite))*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{((exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal) - (exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt))/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{(((exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal) - (exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt))*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -93,8 +93,8 @@
                 <ion-text style="color: grey">全球资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{globalInfo.marketcapvol/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{globalInfo.marketcapvol*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{exchangeTotal.marketUsdTotal/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{exchangeTotal.marketUsdTotal*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>

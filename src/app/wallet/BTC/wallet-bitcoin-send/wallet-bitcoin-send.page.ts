@@ -99,7 +99,7 @@ export class WalletBitcoinSendPage implements OnInit {
         txb.addOutput(this.recipientAddr, amount);
         // 扣掉矿工费后，剩下的转回给自己
         txb.addOutput(this.privateKey.btcAddress, inputValueTotal - amount - fee);
-        // 打印签名后的交易 hash
+        // 打印签名后的交易 hash，签名用的是私钥
         for (let i = 0; i < inputCount; i++) {
           txb.sign(i, alice);
         }
