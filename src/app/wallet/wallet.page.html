@@ -9,13 +9,17 @@
     <ion-item style="text-align: center" (click)="toAddWallet()">
       <ion-title color="primary">+添加一个钱包</ion-title>
     </ion-item>
-    <div *ngFor="let privateKey of constant.privateKeyList; let i = index">
+  </ion-list>
+  <div *ngFor="let privateKey of constant.privateKeyList; let i = index">
+    <ion-list lines="full">
       <ion-item lines="none">
-        <ion-icon name="wallet" color="warning"></ion-icon>
-        <ion-text>　#{{i+1}} 钱包</ion-text>
+        <ion-icon name="caret-down" size="small" (click)="showGroup(i)" id="{{i}}caret-down"></ion-icon>
+        <ion-icon name="caret-forward" size="small" (click)="showGroup(i)" id="{{i}}caret-forward" style="display: none"></ion-icon>
+        <ion-icon name="wallet" color="warning" (click)="showGroup(i)" style="margin-left: 3%"></ion-icon>
+        <ion-text (click)="showGroup(i)">　#{{i+1}} 钱包（测试网络）</ion-text>
         <ion-icon slot="end" md="ellipsis-horizontal" (click)="toWalletManagement(privateKey, i)"></ion-icon>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none" id="{{i}}BTC">
         <ion-card style="background-color: #FF9E02" (click)="toWalletBitcoinCenter(privateKey)">
           <ion-card-header>
             <ion-card-subtitle>
@@ -31,7 +35,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none" id="{{i}}ETH">
         <ion-card style="background-color: #0892C1" (click)="toWalletEthereumCenter(privateKey, i)">
           <ion-card-header>
             <ion-card-subtitle>
@@ -47,7 +51,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none" id="{{i}}LTC">
         <ion-card style="background-color: grey" (click)="toWalletLTCCenter(privateKey)">
           <ion-card-header>
             <ion-card-subtitle>
@@ -63,7 +67,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none" id="{{i}}BCH">
         <ion-card style="background-color: limegreen" (click)="toWalletBCHCenter(privateKey)">
           <ion-card-header>
             <ion-card-subtitle>
@@ -79,7 +83,7 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-      <ion-item>
+      <ion-item id="{{i}}XRP">
         <ion-card style="background-color: blueviolet" (click)="toWalletXRPCenter(privateKey)">
           <ion-card-header>
             <ion-card-subtitle>
@@ -95,6 +99,6 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-    </div>
-  </ion-list>
+    </ion-list>
+  </div>
 </ion-content>

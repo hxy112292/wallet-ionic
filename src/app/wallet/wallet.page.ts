@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../constant.service';
 import {PrivateKey} from '../entity/private-key';
 import {Storage} from '@ionic/storage';
+import {number} from 'bitcoinjs-lib/types/script';
 
 @Component({
   selector: 'app-wallet',
@@ -47,5 +48,34 @@ export class WalletPage implements OnInit {
 
   toWalletXRPCenter(privateKey: PrivateKey) {
     this.router.navigate(['wallet-xrp-center', {privateKeyInfo : JSON.stringify(privateKey)}]);
+  }
+
+  showGroup(id) {
+
+    const btcWallet = document.getElementById(id + 'BTC');
+    const ethWallet = document.getElementById(id + 'ETH');
+    const bchWallet = document.getElementById(id + 'BCH');
+    const ltcWallet = document.getElementById(id + 'LTC');
+    const xrpWallet = document.getElementById(id + 'XRP');
+    const caretDown = document.getElementById(id + 'caret-down');
+    const caretForward = document.getElementById(id + 'caret-forward');
+
+    if (btcWallet.style.display !== 'none') {
+      btcWallet.style.display = 'none';
+      ethWallet.style.display = 'none';
+      bchWallet.style.display = 'none';
+      ltcWallet.style.display = 'none';
+      xrpWallet.style.display = 'none';
+      caretDown.style.display = 'none';
+      caretForward.style.display = 'inline';
+    } else {
+      btcWallet.style.display = 'inline';
+      ethWallet.style.display = 'inline';
+      bchWallet.style.display = 'inline';
+      ltcWallet.style.display = 'inline';
+      xrpWallet.style.display = 'inline';
+      caretDown.style.display = 'inline';
+      caretForward.style.display = 'none';
+    }
   }
 }
