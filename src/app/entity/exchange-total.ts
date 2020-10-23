@@ -9,4 +9,8 @@ export class ExchangeTotal {
     marketEth: number;
     marketUsdt: number;
     percentage: number;
+
+    exchangeCoinUsdTotal: number;
+    marketCoinUsdTotal: number;
+    percentageForCoin: number;
 }

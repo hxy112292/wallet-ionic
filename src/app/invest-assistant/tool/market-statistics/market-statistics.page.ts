@@ -29,6 +29,7 @@ export class MarketStatisticsPage implements OnInit {
               private router: Router) {
 
     this.exchangeTotal = {
+      exchangeCoinUsdTotal: 0, marketCoinUsdTotal: 0, percentageForCoin: 0,
       exchangeBtc: 0,
       exchangeEth: 0,
       exchangeUsdTotal: 0,
@@ -100,6 +101,9 @@ export class MarketStatisticsPage implements OnInit {
     this.constant.showLoader();
     this.http.get(this.constant.baseUrl + '/exchange/currency/total').subscribe( res => {
       this.exchangeTotal = (res as any).result;
+      this.exchangeTotal.exchangeCoinUsdTotal = this.exchangeTotal.exchangeUsdTotal - this.exchangeTotal.exchangeUsdt;
+      this.exchangeTotal.marketCoinUsdTotal = this.exchangeTotal.marketUsdTotal - this.exchangeTotal.marketUsdt;
+      this.exchangeTotal.percentageForCoin = this.exchangeTotal.exchangeCoinUsdTotal / this.exchangeTotal.marketUsdTotal;
       this.http.get(this.constant.baseUrl + '/listingLatest/globalInfo').subscribe( res2 => {
         this.globalInfo = (res2 as any).data;
         this.createAssetPie();

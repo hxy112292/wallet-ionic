@@ -22,6 +22,7 @@
           <canvas #assetChart></canvas>
         </ion-item>
         <ion-item (click)="toMarketCurrency()">
+          <ion-text slot="start" size="medium" color="black">场内资产占比：{{exchangeTotal.percentageForCoin * 100 | number:'1.2-2'}}%</ion-text>
           <ion-text slot="end" size="medium" color="primary">查看详情>></ion-text>
         </ion-item>
         <ion-item>
@@ -49,8 +50,8 @@
                 <ion-text style="color: grey">- 数字资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{(exchangeTotal.exchangeUsdTotal - exchangeTotal.exchangeUsdt)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{((exchangeTotal.exchangeUsdTotal - exchangeTotal.exchangeUsdt)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{(exchangeTotal.exchangeCoinUsdTotal)/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{((exchangeTotal.exchangeCoinUsdTotal)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -80,8 +81,8 @@
                 <ion-text style="color: grey">- 数字资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{((exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal) - (exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt))/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{(((exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal) - (exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt))*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                $ {{(exchangeTotal.marketCoinUsdTotal-exchangeTotal.exchangeCoinUsdTotal)/100000000 | number:'1.2-2'}} 亿
+                <ion-text style="font-size: small; color: grey">(￥ {{((exchangeTotal.marketCoinUsdTotal-exchangeTotal.exchangeCoinUsdTotal)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
