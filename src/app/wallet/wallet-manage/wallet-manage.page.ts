@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PrivateKey} from '../../entity/private-key';
-import {ConstantService} from '../../constant.service';
+import {ConstantService} from '../../service/constant.service';
 import {AlertController, ModalController} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../service/storage.service';
 import {WalletExportKeyPage} from './wallet-export-key/wallet-export-key.page';
 import {WalletExportMnemonicPage} from './wallet-export-mnemonic/wallet-export-mnemonic.page';
 
@@ -22,7 +22,7 @@ export class WalletManagePage implements OnInit {
               private router: Router,
               private constant: ConstantService,
               private alertController: AlertController,
-              private storage: Storage,
+              private storage: StorageService,
               private modalController: ModalController) {
 
     this.passwordInput = '';

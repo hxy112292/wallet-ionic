@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {Turnover} from '../../../entity/turnover';
 import {Router} from '@angular/router';
 

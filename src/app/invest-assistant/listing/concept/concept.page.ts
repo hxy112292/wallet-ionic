@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {Concept} from '../../../entity/concept';
 import {TxHistory} from '../../../entity/tx-history';
 import {Router} from '@angular/router';

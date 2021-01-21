@@ -3,9 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {HttpClient} from '@angular/common/http';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {AlertController, ModalController} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../../service/storage.service';
 import {PrivateKey} from '../../../entity/private-key';
 import * as litecore from 'litecore-lib';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
@@ -33,7 +33,7 @@ export class WalletLitecoinSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
-              private storage: Storage,
+              private storage: StorageService,
               private modalController: ModalController) {
 
     this.barcodeScannerOptions = {

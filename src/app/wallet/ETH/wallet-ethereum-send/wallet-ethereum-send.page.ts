@@ -6,9 +6,9 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import { ethers, utils } from 'ethers';
 import {AlertController, ModalController} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../../service/storage.service';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 
 @Component({
@@ -37,7 +37,7 @@ export class WalletEthereumSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
-              private storage: Storage,
+              private storage: StorageService,
               private modalController: ModalController) {
     this.barcodeScannerOptions = {
       showTorchButton: true,

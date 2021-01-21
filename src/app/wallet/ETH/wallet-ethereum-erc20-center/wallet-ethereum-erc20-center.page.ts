@@ -3,8 +3,8 @@ import {PrivateKey} from '../../../entity/private-key';
 import {EtherscanBalance} from '../../../entity/etherscan-balance';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
-import {Storage} from '@ionic/storage';
+import {ConstantService} from '../../../service/constant.service';
+import {StorageService} from '../../../service/storage.service';
 import {Contract, ethers} from 'ethers';
 import {Erc20Token} from '../../../entity/erc20-token';
 
@@ -24,7 +24,7 @@ export class WalletEthereumErc20CenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private storage: Storage) {
+              private storage: StorageService) {
 
     this.privateKey = {
       erc20TokenList: [],

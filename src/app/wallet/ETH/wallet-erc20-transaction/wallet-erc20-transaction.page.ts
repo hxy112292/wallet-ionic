@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {Erc20Token} from '../../../entity/erc20-token';

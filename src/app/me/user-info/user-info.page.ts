@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../entity/user';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../constant.service';
+import {ConstantService} from '../../service/constant.service';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';

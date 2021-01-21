@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CoinDetail} from '../../entity/coin-detail';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../constant.service';
+import {ConstantService} from '../../service/constant.service';
 import {ModalController, ToastController} from '@ionic/angular';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {CoinDescPage} from './coin-desc/coin-desc.page';

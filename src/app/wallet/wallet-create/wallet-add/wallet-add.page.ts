@@ -10,8 +10,8 @@ import * as bip32 from 'bip32';
 import {AlertController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PrivateKey} from '../../../entity/private-key';
-import {ConstantService} from '../../../constant.service';
-import {Storage} from '@ionic/storage';
+import {ConstantService} from '../../../service/constant.service';
+import {StorageService} from '../../../service/storage.service';
 
 @Component({
   selector: 'app-wallet-add',
@@ -27,7 +27,7 @@ export class WalletAddPage implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
-              private storage: Storage) {
+              private storage: StorageService) {
     this.privateKey = {
       erc20TokenList: [],
       xrpKeyPair: '',

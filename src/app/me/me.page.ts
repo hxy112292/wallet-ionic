@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {ConstantService} from '../constant.service';
+import {ConstantService} from '../service/constant.service';
 import {AppUpdate} from '@ionic-native/app-update/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../service/storage.service';
 
 @Component({
   selector: 'app-me',
@@ -18,7 +18,7 @@ export class MePage implements OnInit {
               private constant: ConstantService,
               private appUpdate: AppUpdate,
               private appVersion: AppVersion,
-              private storage: Storage) { }
+              private storage: StorageService) { }
 
   ngOnInit() {
     this.getVersion();

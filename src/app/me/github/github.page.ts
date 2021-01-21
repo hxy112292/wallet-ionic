@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ConstantService} from '../../constant.service';
+import {ConstantService} from '../../service/constant.service';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 

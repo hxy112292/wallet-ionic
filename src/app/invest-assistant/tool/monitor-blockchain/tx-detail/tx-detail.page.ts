@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../../constant.service';
+import {ConstantService} from '../../../../service/constant.service';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {TxHistory} from '../../../../entity/tx-history';

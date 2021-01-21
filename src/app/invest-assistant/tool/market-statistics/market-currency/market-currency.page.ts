@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
 import {ExchangeCurrency} from '../../../../entity/exchange-currency';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../../constant.service';
+import {ConstantService} from '../../../../service/constant.service';
 
 @Component({
   selector: 'app-market-currency',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Storage} from '@ionic/storage';
-import {ConstantService} from '../../../constant.service';
+import {StorageService} from '../../../service/storage.service';
+import {ConstantService} from '../../../service/constant.service';
 import {AlertController} from '@ionic/angular';
 
 @Component({
@@ -16,7 +16,7 @@ export class WalletErc20ManagePage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private storage: Storage,
+              private storage: StorageService,
               private constant: ConstantService,
               private alertController: AlertController) {
   }

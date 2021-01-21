@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Erc20Token} from '../../../entity/erc20-token';
 import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Storage} from '@ionic/storage';
-import {ConstantService} from '../../../constant.service';
+import {StorageService} from '../../../service/storage.service';
+import {ConstantService} from '../../../service/constant.service';
 
 @Component({
   selector: 'app-wallet-erc20-add',
@@ -20,7 +20,7 @@ export class WalletErc20AddPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private storage: Storage,
+              private storage: StorageService,
               private constant: ConstantService) {
     this.contractAddress = '';
     this.privateKeyList = [];

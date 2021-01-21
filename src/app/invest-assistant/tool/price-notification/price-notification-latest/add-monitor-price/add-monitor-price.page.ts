@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../../../constant.service';
+import {ConstantService} from '../../../../../service/constant.service';
 import {MonitorCoin} from '../../../../../entity/monitor-coin';
 import {MonitorPrice} from '../../../../../entity/monitor-price';
 

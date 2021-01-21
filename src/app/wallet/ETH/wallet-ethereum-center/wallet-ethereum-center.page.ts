@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {EtherscanBalance} from '../../../entity/etherscan-balance';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../../service/storage.service';
 
 @Component({
   selector: 'app-wallet-ethereum-center',
@@ -23,7 +23,7 @@ export class WalletEthereumCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private storage: Storage) {
+              private storage: StorageService) {
 
     this.privateKey = {
       erc20TokenList: [],

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {PrivateKey} from '../../../entity/private-key';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../../service/storage.service';
 import {SochainBtcAddress} from '../../../entity/sochain-btc-address';
 import {SochainBtcTransaction} from '../../../entity/sochain-btc-transaction';
 
@@ -22,7 +22,7 @@ export class WalletBitcoinCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private storage: Storage) {
+              private storage: StorageService) {
 
     this.privateKey = {
       erc20TokenList: [],

@@ -4,11 +4,11 @@ import {PrivateKey} from '../../../entity/private-key';
 import {BarcodeScanner, BarcodeScannerOptions} from '@ionic-native/barcode-scanner/ngx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {AlertController, ModalController} from '@ionic/angular';
 import * as bitcoin from 'bitcoinjs-lib';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../../service/storage.service';
 import {SochainBtcUtxo} from '../../../entity/sochain-btc-utxo';
 
 @Component({
@@ -34,7 +34,7 @@ export class WalletBitcoinSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
-              private storage: Storage,
+              private storage: StorageService,
               private modalController: ModalController) {
     this.barcodeScannerOptions = {
       showTorchButton: true,

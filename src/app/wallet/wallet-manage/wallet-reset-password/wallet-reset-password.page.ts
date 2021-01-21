@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {PrivateKey} from '../../../entity/private-key';
 import {AlertController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ConstantService} from '../../../constant.service';
-import {Storage} from '@ionic/storage';
+import {ConstantService} from '../../../service/constant.service';
+import {StorageService} from '../../../service/storage.service';
 
 @Component({
   selector: 'app-wallet-reset-password',
@@ -20,7 +20,7 @@ export class WalletResetPasswordPage implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
-              private storage: Storage) {
+              private storage: StorageService) {
   }
 
   ngOnInit() {

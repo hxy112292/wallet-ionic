@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
-import {Storage} from '@ionic/storage';
+import {ConstantService} from '../../../service/constant.service';
+import {StorageService} from '../../../service/storage.service';
 import {SochainLtcAddress} from '../../../entity/sochain-ltc-address';
 
 @Component({
@@ -21,7 +21,7 @@ export class WalletLitecoinCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private storage: Storage) {
+              private storage: StorageService) {
 
     this.privateKey = {
       erc20TokenList: [],

@@ -3,7 +3,7 @@ import {Erc20Token} from '../../../entity/erc20-token';
 import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Contract, ethers} from 'ethers';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 
 @Component({
   selector: 'app-wallet-erc20-search',

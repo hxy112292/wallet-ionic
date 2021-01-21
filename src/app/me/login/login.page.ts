@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../constant.service';
+import {ConstantService} from '../../service/constant.service';
 import {Router} from '@angular/router';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../../service/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
               private fcm: FCM,
               private localNotifications: LocalNotifications,
               private router: Router,
-              private storage: Storage) { }
+              private storage: StorageService) { }
 
   ngOnInit() {
   }

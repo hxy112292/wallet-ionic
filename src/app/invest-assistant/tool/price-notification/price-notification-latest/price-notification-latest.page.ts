@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MonitorPrice} from '../../../../entity/monitor-price';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../../constant.service';
+import {ConstantService} from '../../../../service/constant.service';
 import {ModalController} from '@ionic/angular';
 import {AddMonitorPricePage} from './add-monitor-price/add-monitor-price.page';
 import {UpdateMonitorPricePage} from './update-monitor-price/update-monitor-price.page';

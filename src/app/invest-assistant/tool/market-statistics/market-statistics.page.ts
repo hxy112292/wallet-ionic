@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalInfo} from '../../../entity/global-info';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {Router} from '@angular/router';
 import {Chart} from 'chart.js';
 import {ExchangeTotal} from '../../../entity/exchange-total';

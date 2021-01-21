@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../constant.service';
+import {ConstantService} from '../service/constant.service';
 import {PrivateKey} from '../entity/private-key';
-import {Storage} from '@ionic/storage';
+import {StorageService} from '../service/storage.service';
 import {number} from 'bitcoinjs-lib/types/script';
 
 @Component({
@@ -17,7 +17,7 @@ export class WalletPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private storage: Storage) { }
+              private storage: StorageService) { }
 
   ngOnInit() {
   }

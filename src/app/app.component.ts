@@ -5,9 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from './constant.service';
+import {ConstantService} from './service/constant.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
-import {Storage} from '@ionic/storage';
+import {StorageService} from './service/storage.service';
 import {AppUpdate} from '@ionic-native/app-update/ngx';
 
 @Component({
@@ -25,7 +25,7 @@ export class AppComponent {
     private constant: ConstantService,
     private fcm: FCM,
     private localNotifications: LocalNotifications,
-    private storage: Storage,
+    private storage: StorageService,
     private appUpdate: AppUpdate
   ) {
     this.initializeApp();

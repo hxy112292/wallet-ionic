@@ -4,7 +4,7 @@ import {MonitorPrice} from '../../../../../entity/monitor-price';
 import {ActivatedRoute} from '@angular/router';
 import {ModalController, NavParams} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../../../constant.service';
+import {ConstantService} from '../../../../../service/constant.service';
 
 @Component({
   selector: 'app-update-monitor-price',

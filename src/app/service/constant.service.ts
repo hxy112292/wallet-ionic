@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {User} from './entity/user';
+import {User} from '../entity/user';
 import {AlertController} from '@ionic/angular';
-import {PrivateKey} from './entity/private-key';
+import {PrivateKey} from '../entity/private-key';
 import { LoadingController } from '@ionic/angular';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 

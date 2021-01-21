@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route} from '@angular/router';
 import {DeepNews} from '../../../entity/deep-news';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../constant.service';
+import {ConstantService} from '../../../service/constant.service';
 
 @Component({
   selector: 'app-deep-news-detail',

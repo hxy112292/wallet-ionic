@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ConstantService} from '../../constant.service';
-import {Storage} from '@ionic/storage';
+import {ConstantService} from '../../service/constant.service';
+import {StorageService} from '../../service/storage.service';
 import {WalletContact} from '../../entity/wallet-contact';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {WalletContactAddPage} from './wallet-contact-add/wallet-contact-add.page';
@@ -22,7 +22,7 @@ export class WalletContactPage implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
-              private storage: Storage,
+              private storage: StorageService,
               private clipboard: Clipboard,
               private toastController: ToastController,
               private modalController: ModalController) {
