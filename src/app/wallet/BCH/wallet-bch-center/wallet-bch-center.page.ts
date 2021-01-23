@@ -54,7 +54,7 @@ export class WalletBchCenterPage implements OnInit {
   }
 
   getPrice() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'bchusdt'
       }
@@ -65,10 +65,10 @@ export class WalletBchCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/BCHTEST/address/' + this.privateKey.bchAddress).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/address/' + this.privateKey.bchAddress).subscribe(res => {
       this.cryptoBchAddress = (res as any).payload;
     });
-    this.http.get(this.constant.baseUrl + '/BCHTEST/address/' + this.privateKey.bchAddress + '/transaction').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/address/' + this.privateKey.bchAddress + '/transaction').subscribe( res => {
           this.cryptoBchTxList = res as any;
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < this.cryptoBchTxList.length; i++) {

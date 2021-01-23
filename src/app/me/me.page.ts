@@ -46,7 +46,7 @@ export class MePage implements OnInit {
   }
 
   checkVersion() {
-    const updateUrl = this.constant.baseUrl + '/update/xml';
+    const updateUrl = this.constant.walletToolBackendUrl + '/update/xml';
     this.appUpdate.checkAppUpdate(updateUrl).then(
         res => {
           console.log(res);

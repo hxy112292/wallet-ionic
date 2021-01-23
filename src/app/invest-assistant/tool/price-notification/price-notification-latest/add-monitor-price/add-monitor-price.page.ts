@@ -52,7 +52,7 @@ export class AddMonitorPricePage implements OnInit {
   }
 
   getMonitorCoin() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice/coin').subscribe(res => {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coin').subscribe(res => {
       this.monitorCoinList = (res as any).result;
     });
   }
@@ -126,7 +126,7 @@ export class AddMonitorPricePage implements OnInit {
   }
 
   insertHttpRequest(monitorPrice: MonitorPrice) {
-    this.http.post(this.constant.baseUrl + '/monitorPrice', monitorPrice).subscribe(res => {
+    this.http.post(this.constant.walletToolBackendUrl + '/monitorPrice', monitorPrice).subscribe(res => {
       this.monitorCoinList = (res as any).result;
     });
   }

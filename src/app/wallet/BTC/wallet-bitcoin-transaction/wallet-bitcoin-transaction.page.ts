@@ -45,7 +45,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
 
   getTransactionInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/BTCTEST/tx/' + this.hash).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/BTCTEST/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
       this.constant.hideLoader();
     });

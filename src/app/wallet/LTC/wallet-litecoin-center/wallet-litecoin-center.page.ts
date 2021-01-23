@@ -52,7 +52,7 @@ export class WalletLitecoinCenterPage implements OnInit {
   }
 
   getPrice() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'ltcusdt'
       }
@@ -63,7 +63,7 @@ export class WalletLitecoinCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/LTCTEST/address/' + this.privateKey.ltcAddress).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/LTCTEST/address/' + this.privateKey.ltcAddress).subscribe(res => {
       this.sochainLtcAddress = (res as any).data;
       this.constant.hideLoader();
     });

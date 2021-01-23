@@ -84,7 +84,7 @@ export class UserInfoPage implements OnInit {
     this.constant.getUser().password = this.user.password;
     this.constant.getUser().username = this.user.username;
     this.constant.getUser().role = 'USER';
-    this.http.put(this.constant.baseUrl + '/user/update', this.constant.getUser()).subscribe(res => {
+    this.http.put(this.constant.walletToolBackendUrl + '/user/update', this.constant.getUser()).subscribe(res => {
       if ((res as any).code !== 0) {
         this.constant.alert((res as any).message);
         return;
@@ -101,7 +101,7 @@ export class UserInfoPage implements OnInit {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
       if (this.constant.getUser() != null && this.constant.getUser().id != null && this.constant.getUser().id !== '') {
-        this.http.post(this.constant.baseUrl + '/fcm/register', {
+        this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
           userId: this.constant.getUser().id,
           fcmToken: token
         }).subscribe( res => {});

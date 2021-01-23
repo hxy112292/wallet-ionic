@@ -40,7 +40,7 @@ export class WalletBchTransactionPage implements OnInit {
 
   getTransactionInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/BCHTEST/txid/' + this.hash).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/txid/' + this.hash).subscribe(res => {
       this.transaction = (res as any).payload;
       let inValue = 0;
       let allInValue = 0;

@@ -99,12 +99,12 @@ export class MarketStatisticsPage implements OnInit {
 
   getExchangeInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/exchange/currency/total').subscribe( res => {
+    this.http.get(this.constant.walletToolBackendUrl + '/exchange/currency/total').subscribe( res => {
       this.exchangeTotal = (res as any).result;
       this.exchangeTotal.exchangeCoinUsdTotal = this.exchangeTotal.exchangeUsdTotal - this.exchangeTotal.exchangeUsdt;
       this.exchangeTotal.marketCoinUsdTotal = this.exchangeTotal.marketUsdTotal - this.exchangeTotal.marketUsdt;
       this.exchangeTotal.percentageForCoin = this.exchangeTotal.exchangeCoinUsdTotal / this.exchangeTotal.marketUsdTotal;
-      this.http.get(this.constant.baseUrl + '/listingLatest/globalInfo').subscribe( res2 => {
+      this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/globalInfo').subscribe( res2 => {
         this.globalInfo = (res2 as any).data;
         this.createAssetPie();
         this.createExchangePie();

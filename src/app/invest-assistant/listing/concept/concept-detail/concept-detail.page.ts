@@ -27,7 +27,7 @@ export class ConceptDetailPage implements OnInit {
 
   getConceptDetailList() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/concept/detail/', {
+    this.http.get(this.constant.walletToolBackendUrl + '/concept/detail/', {
       params: {
         id: this.concept.id
       }

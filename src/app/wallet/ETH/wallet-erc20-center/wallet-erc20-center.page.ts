@@ -62,7 +62,7 @@ export class WalletErc20CenterPage implements OnInit {
   }
 
   getETHAddressInfo() {
-    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
       this.ethBalance = Number((res as any).result) / 1000000000000000000;
     });
   }
@@ -97,7 +97,7 @@ export class WalletErc20CenterPage implements OnInit {
       this.erc20Balance = (balance as any) / 1000000000000000000;
     });
 
-    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/tokentx', {
+    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/tokentx', {
       params: {
         contractAddress: this.erc20Token.address
       }

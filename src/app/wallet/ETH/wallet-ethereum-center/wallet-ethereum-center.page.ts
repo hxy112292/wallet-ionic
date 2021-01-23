@@ -56,7 +56,7 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   getPrice() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'ethusdt'
       }
@@ -67,10 +67,10 @@ export class WalletEthereumCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
         this.etherscanBalance = res as any;
     });
-    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/transaction').subscribe( res2 => {
+    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/transaction').subscribe( res2 => {
       this.etherscanBalance.txList = (res2 as any).result;
       this.getTmpHash();
       this.constant.hideLoader();

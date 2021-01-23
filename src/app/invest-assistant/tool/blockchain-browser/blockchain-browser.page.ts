@@ -21,7 +21,7 @@ export class BlockchainBrowserPage implements OnInit {
   }
 
   getBrowserList() {
-    this.http.get(this.constant.baseUrl + '/blockchainBrowser').subscribe(res => {
+    this.http.get(this.constant.walletToolBackendUrl + '/blockchainBrowser').subscribe(res => {
       this.browserList = (res as any).result;
     });
   }

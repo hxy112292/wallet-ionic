@@ -22,7 +22,7 @@ export class MonitorBlockchainPage implements OnInit {
   }
 
   getTxHistory() {
-    this.http.get(this.constant.baseUrl + '/txHistory', {
+    this.http.get(this.constant.walletToolBackendUrl + '/txHistory', {
       params: {
         symbol: 'BTC'
       }

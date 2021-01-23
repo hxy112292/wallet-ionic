@@ -60,7 +60,7 @@ export class WalletEthereumErc20CenterPage implements OnInit {
 
   getETHAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
       this.etherscanBalance = res as any;
       this.constant.hideLoader();
     });

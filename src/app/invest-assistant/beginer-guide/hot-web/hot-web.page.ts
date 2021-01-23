@@ -22,7 +22,7 @@ export class HotWebPage implements OnInit {
   }
 
   getHotWeb() {
-    this.http.get(this.constant.baseUrl + '/hotWeb').subscribe(res => {
+    this.http.get(this.constant.walletToolBackendUrl + '/hotWeb').subscribe(res => {
       this.hotWebList = (res as any).result;
     });
   }

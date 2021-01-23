@@ -38,7 +38,7 @@ export class WalletLitecoinTransactionPage implements OnInit {
 
   getTransactionInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/LTCTEST/tx/' + this.hash).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/LTCTEST/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
       this.constant.hideLoader();
     });

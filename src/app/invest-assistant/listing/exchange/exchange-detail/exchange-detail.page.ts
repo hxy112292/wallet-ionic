@@ -52,7 +52,7 @@ export class ExchangeDetailPage implements OnInit {
 
   getExchangeDetail() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/exchange/detail/', {
+    this.http.get(this.constant.walletToolBackendUrl + '/exchange/detail/', {
       params: {
         code: this.exchangeCode
       }

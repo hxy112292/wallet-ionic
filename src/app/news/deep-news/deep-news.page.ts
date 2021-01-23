@@ -25,7 +25,7 @@ export class DeepNewsPage implements OnInit {
 
   getDeepNews() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/liveNews/deep').subscribe(res => {
+    this.http.get(this.constant.walletToolBackendUrl + '/liveNews/deep').subscribe(res => {
       this.deepNewsList = (res as any).list;
       this.constant.hideLoader();
     });
@@ -45,7 +45,7 @@ export class DeepNewsPage implements OnInit {
   }
 
   getMoreDeepNews(bottomId) {
-    this.http.get(this.constant.baseUrl + '/liveNews/deep', {
+    this.http.get(this.constant.walletToolBackendUrl + '/liveNews/deep', {
       params: {
         id: bottomId
       }

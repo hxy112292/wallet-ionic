@@ -68,7 +68,7 @@ export class WalletBitcoinSendPage implements OnInit {
   }
 
   sendByTypical() {
-    this.http.get(this.constant.baseUrl + '/BTCTEST/unspent/' + this.privateKey.btcAddress).subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/BTCTEST/unspent/' + this.privateKey.btcAddress).subscribe( res => {
       this.utxoList = (res as any).data.txs;
       try {
         // 创建钱包
@@ -113,7 +113,7 @@ export class WalletBitcoinSendPage implements OnInit {
   }
 
   broadcast(rawHex) {
-    this.http.post(this.constant.baseUrl + '/BTCTEST/send_tx', {
+    this.http.post(this.constant.walletBackendUrl + '/BTCTEST/send_tx', {
       tx_hex: rawHex
     }).subscribe( res => {
       // 跳转回btc钱包页
@@ -122,7 +122,7 @@ export class WalletBitcoinSendPage implements OnInit {
   }
 
   getRecommendFee() {
-    this.http.get(this.constant.baseUrl + '/BTCTEST/tx/fee').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/BTCTEST/tx/fee').subscribe( res => {
       const fee1 = (res as any).payload.average;
       const fee2 = (res as any).payload.recommended;
       this.recommendFee = fee1 > fee2 ? fee1 : fee2;

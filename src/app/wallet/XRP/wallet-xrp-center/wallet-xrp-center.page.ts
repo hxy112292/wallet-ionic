@@ -56,7 +56,7 @@ export class WalletXrpCenterPage implements OnInit {
   }
 
   getPrice() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'xrpusdt'
       }

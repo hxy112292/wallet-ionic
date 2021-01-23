@@ -23,7 +23,7 @@ export class HotCoinPage implements OnInit {
 
   getHotCoinInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/hotcoin').subscribe(res => {
+    this.http.get(this.constant.walletToolBackendUrl + '/hotcoin').subscribe(res => {
       this.hotCoinList = (res as any).data;
       this.constant.hideLoader();
     });

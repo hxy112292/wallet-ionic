@@ -52,7 +52,7 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   getPrice() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'btcusdt'
       }
@@ -63,7 +63,7 @@ export class WalletBitcoinCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.baseUrl + '/BTCTEST/address/' + this.privateKey.btcAddress).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/BTCTEST/address/' + this.privateKey.btcAddress).subscribe(res => {
       this.sochainBtcAddress = (res as any).data;
       this.constant.hideLoader();
     });

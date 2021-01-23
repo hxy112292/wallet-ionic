@@ -20,7 +20,7 @@ export class PriceNotificationHistoryPage implements OnInit {
   }
 
   getPriceOffNotification() {
-    this.http.get(this.constant.baseUrl + '/monitorPrice', {
+    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice', {
       params: {
         userId: this.constant.getUser().id,
         notification: 'off'
