@@ -5,6 +5,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {SochainLtcTransaction} from '../../../entity/sochain-ltc-transaction';
+import {PrivateKey} from '../../../entity/private-key';
 
 @Component({
   selector: 'app-wallet-litecoin-transaction',
@@ -15,6 +16,7 @@ export class WalletLitecoinTransactionPage implements OnInit {
 
   hash: string;
   transaction: SochainLtcTransaction;
+  privateKey: PrivateKey;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -31,14 +33,20 @@ export class WalletLitecoinTransactionPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.hash = this.route.snapshot.paramMap.get('transaction');
     this.getTransactionInfo();
   }
 
   getTransactionInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.walletBackendUrl + '/LTCTEST/tx/' + this.hash).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'LTCTEST';
+    } else {
+      network = 'LTC';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
       this.constant.hideLoader();
     });
@@ -54,12 +62,20 @@ export class WalletLitecoinTransactionPage implements OnInit {
   }
 
   openHash(url: string) {
-    url = 'https://sochain.com/tx/LTCTEST/' + url;
+    if (this.privateKey.network === 'testNet') {
+      url = 'https://sochain.com/tx/LTCTEST/' + url;
+    } else {
+      url = 'https://sochain.com/tx/LTC/' + url;
+    }
     this.constant.openBrowser(url);
   }
 
   openAddress(url: string) {
-    url = 'https://sochain.com/address/LTCTEST/' + url;
+    if (this.privateKey.network === 'testNet') {
+      url = 'https://sochain.com/address/LTCTEST/' + url;
+    } else {
+      url = 'https://sochain.com/address/LTC/' + url;
+    }
     this.constant.openBrowser(url);
   }
 

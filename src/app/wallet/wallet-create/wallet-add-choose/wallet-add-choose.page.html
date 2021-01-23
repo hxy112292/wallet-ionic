@@ -10,11 +10,32 @@
 <ion-content>
 
   <div style="text-align: center">
+    <ion-item>
+      <ion-icon name="globe" color="warning"></ion-icon>
+      <ion-label>　请选择一个网络</ion-label>
+      <ion-select [(ngModel)]="network" interface="action-sheet">
+        <ion-select-option value="mainNet">主网</ion-select-option>
+        <ion-select-option value="testNet">测试网（仅供开发人员使用）</ion-select-option>
+      </ion-select>
+    </ion-item>
     <br>
+    <ion-item lines="none">
+      <ion-icon name="hd-wallet"></ion-icon>
+      <ion-text style="color: black">　HD-Wallet 钱包</ion-text>
+    </ion-item>
     <br>
-    <ion-button size="default" (click)="toImportWallet()">导入已有钱包</ion-button>
+    <ion-button size="default" (click)="toImportWallet()">我有助记词</ion-button>
     <br>
     <br>
     <ion-button size="default" color="tertiary" (click)="toGenerateWallet()">生成新的钱包</ion-button>
+    <br>
+    <ion-item-divider></ion-item-divider>
+    <ion-item lines="none">
+      <ion-text style="color: black;">非 HD-WALLET 钱包</ion-text>
+    </ion-item>
+    <br>
+    <ion-button size="default" (click)="toImportPrivateKey()">导入私钥</ion-button>
+    <br>
+    <br>
   </div>
 </ion-content>

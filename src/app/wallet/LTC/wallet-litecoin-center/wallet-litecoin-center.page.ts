@@ -23,19 +23,7 @@ export class WalletLitecoinCenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.sochainLtcAddress = {
       value_usd: 0,
@@ -63,7 +51,13 @@ export class WalletLitecoinCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.walletBackendUrl + '/LTCTEST/address/' + this.privateKey.ltcAddress).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'LTCTEST';
+    } else {
+      network = 'LTC';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.ltcAddress).subscribe(res => {
       this.sochainLtcAddress = (res as any).data;
       this.constant.hideLoader();
     });
@@ -79,7 +73,7 @@ export class WalletLitecoinCenterPage implements OnInit {
   }
 
   toWalletLitecoinTransaction(hash: string) {
-    this.router.navigate(['wallet-litecoin-transaction', {transaction: hash}]);
+    this.router.navigate(['wallet-litecoin-transaction', {transaction: hash, privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   toWalletLitecoinReceive(privateKey: PrivateKey) {

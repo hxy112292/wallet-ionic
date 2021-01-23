@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>选择私钥类型</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-card style="background-color: #FF9E02;width: 100%" (click)="toBTCImport()">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/bitcoin_200_200.webp?v=20" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　BTC-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: #0892C1;width: 100%" (click)="toETHImport()">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ethereum_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　ETH-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: grey;width: 100%" (click)="toLTCImport()">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/litecoin_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　LTC-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: limegreen;width: 100%" (click)="toBCHImport()">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://menu.cdn.bitcoindotcom.net/uni/dist/assets/crypto/bch.png" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　BCH-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-card style="background-color: blueviolet;width: 100%" (click)="toXRPImport()">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
+                 style="max-width: 20px;max-height: 20px">
+            <ion-text style="font-size: medium;color: white;font-weight: bolder">　XRP-WALLET</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

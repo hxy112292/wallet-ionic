@@ -72,7 +72,13 @@ export class WalletBchSendPage implements OnInit {
   }
 
   getRecommendFee() {
-    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/tx/fee').subscribe( res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'BCHTEST';
+    } else {
+      network = 'BCH';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/tx/fee').subscribe( res => {
       const fee1 = (res as any).payload.average;
       const fee2 = (res as any).payload.recommended;
       this.recommendFee = fee1 > fee2 ? fee1 : fee2;
@@ -117,7 +123,13 @@ export class WalletBchSendPage implements OnInit {
   }
 
   broadcast(rawHex) {
-    this.http.post(this.constant.walletBackendUrl + '/BCHTEST/send_tx', {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'BCHTEST';
+    } else {
+      network = 'BCH';
+    }
+    this.http.post(this.constant.walletBackendUrl + '/' + network + '/send_tx', {
       hex: rawHex
     }).subscribe( res => {
       if ((res as any).code === 1) {

@@ -9,6 +9,7 @@ import {AlertController, ModalController} from '@ionic/angular';
 import {StorageService} from '../../../service/storage.service';
 import * as ripple from 'ripple-lib';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
+import {RippleAPI} from 'ripple-lib';
 
 @Component({
   selector: 'app-wallet-xrp-send',
@@ -68,10 +69,16 @@ export class WalletXrpSendPage implements OnInit {
   }
 
   sendByTypical() {
-    const RippleAPI = ripple.RippleAPI;
-    const api = new RippleAPI({
-      server: 'wss://s.altnet.rippletest.net:51233'
-    });
+    let api;
+    if (this.privateKey.network === 'testNet') {
+      api = new RippleAPI({
+        server: 'wss://s.altnet.rippletest.net:51233'
+      });
+    } else {
+      api = new RippleAPI({
+        server: 'wss://xrpl.ws/'
+      });
+    }
 
     api.connect().then(() => {
       // Connected

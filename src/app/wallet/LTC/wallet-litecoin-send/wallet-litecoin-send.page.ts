@@ -68,7 +68,13 @@ export class WalletLitecoinSendPage implements OnInit {
   }
 
   getRecommendFee() {
-    this.http.get(this.constant.walletBackendUrl + '/LTCTEST/tx/fee').subscribe( res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'LTCTEST';
+    } else {
+      network = 'LTC';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/tx/fee').subscribe( res => {
       const fee1 = (res as any).payload.average;
       const fee2 = (res as any).payload.recommended;
       this.recommendFee = fee1 > fee2 ? fee1 : fee2;
@@ -94,13 +100,25 @@ export class WalletLitecoinSendPage implements OnInit {
   }
 
   getUtxoList() {
-    this.http.get(this.constant.litecoreTestnetUrl + '/api/addrs/' + this.privateKey.ltcAddress + '/utxo').subscribe( res => {
+    let url;
+    if (this.privateKey.network === 'testNet') {
+      url = this.constant.litecoreTestnetUrl;
+    } else {
+      url = this.constant.litecoreUrl;
+    }
+    this.http.get(url + '/api/addrs/' + this.privateKey.ltcAddress + '/utxo').subscribe( res => {
       this.utxoList = (res as any);
     });
   }
 
   broadcast(rawHex) {
-    this.http.post(this.constant.walletBackendUrl + '/LTCTEST/send_tx', {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'LTCTEST';
+    } else {
+      network = 'LTC';
+    }
+    this.http.post(this.constant.walletBackendUrl + '/' + network + '/send_tx', {
       tx_hex: rawHex
     }).subscribe( res => {
       if ((res as any).code === 1) {

@@ -31,19 +31,7 @@ export class WalletErc20CenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.erc20Token = {
       address: '', name: '', symbol: ''
@@ -62,7 +50,13 @@ export class WalletErc20CenterPage implements OnInit {
   }
 
   getETHAddressInfo() {
-    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'ETHTEST';
+    } else {
+      network = 'ETH';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.ethAddress).subscribe(res => {
       this.ethBalance = Number((res as any).result) / 1000000000000000000;
     });
   }
@@ -90,14 +84,25 @@ export class WalletErc20CenterPage implements OnInit {
       }
     ];
 
-    const provider = ethers.getDefaultProvider('ropsten');
+    let provider;
+    if (this.privateKey.network === 'testNet') {
+      provider = ethers.getDefaultProvider('ropsten');
+    } else {
+      provider = ethers.getDefaultProvider();
+    }
 
     const contract = new Contract(this.erc20Token.address, contractAbiFragment, provider);
     contract.balanceOf(this.privateKey.ethAddress).then( balance => {
       this.erc20Balance = (balance as any) / 1000000000000000000;
     });
 
-    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/tokentx', {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'ETHTEST';
+    } else {
+      network = 'ETH';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.ethAddress + '/tokentx', {
       params: {
         contractAddress: this.erc20Token.address
       }
@@ -144,7 +149,7 @@ export class WalletErc20CenterPage implements OnInit {
 
   toWalletErc20Transaction(transaction: EtherscanTx, erc20Token: Erc20Token) {
     this.router.navigate(['wallet-erc20-transaction', {transactionInfo: JSON.stringify(transaction)
-      , erc20TokenInfo: JSON.stringify(erc20Token)}]);
+      , erc20TokenInfo: JSON.stringify(erc20Token), privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   toWalletErc20Receive(privateKey: PrivateKey, erc20Token: Erc20Token) {

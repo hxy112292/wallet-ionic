@@ -28,32 +28,27 @@ export class WalletAddPage implements OnInit {
               private router: Router,
               private constant: ConstantService,
               private storage: StorageService) {
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethAddress: '',
-      ethPrivateKey: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
   }
 
   ngOnInit() {
     this.privateKey.mnemonic = this.route.snapshot.paramMap.get('mnemonicInfo');
-    this.generateBTCWallet();
+    this.privateKey.network = this.route.snapshot.paramMap.get('network');
+    this.privateKey.isHDWallet = true;
+    if (this.privateKey.network === 'testNet') {
+      this.generateBTCWallet(bitcoin.networks.testnet);
+      this.generateLTCWallet(litecore.Networks.testnet);
+      this.generateBCHWallet(bitcash.Networks.testnet);
+    } else {
+      this.generateBTCWallet(bitcoin.networks.bitcoin);
+      this.generateLTCWallet(litecore.Networks.mainnet);
+      this.generateBCHWallet(null);
+    }
     this.generateETHWallet();
-    this.generateLTCWallet();
-    this.generateBCHWallet();
     this.generateXRPWallet();
   }
 
-  generateBTCWallet() {
-    const network = bitcoin.networks.testnet;
+  generateBTCWallet(network) {
     const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
     // @ts-ignore
     const root = bip32.fromSeed(seed, network);
@@ -75,27 +70,40 @@ export class WalletAddPage implements OnInit {
     this.privateKey.ethPrivateKey = privateKey;
   }
 
-  generateLTCWallet() {
+  generateLTCWallet(network) {
+    if (this.privateKey.network === 'testNet') {
+      const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
+      // @ts-ignore
+      const root = bip32.fromSeed(seed, bitcoin.networks.testnet);
+      const path = 'm/44\'/2\'/0\'/0/0';
+      const keyPair = root.derivePath(path);
+      const wif = keyPair.toWIF();
 
-    const network = litecore.Networks.testnet;
-    const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
-    // @ts-ignore
-    const root = bip32.fromSeed(seed, bitcoin.networks.testnet);
-    const path = 'm/44\'/2\'/0\'/0/0';
-    const keyPair = root.derivePath(path);
-    const wif = keyPair.toWIF();
-
-    const privateKey = new litecore.PrivateKey(wif, network);
-    const address = privateKey.toAddress(network);
-    this.privateKey.ltcAddress = address.toString();
-    this.privateKey.ltcPrivateKey = privateKey.toString();
+      const privateKey = new litecore.PrivateKey(wif, network);
+      const address = privateKey.toAddress(network);
+      this.privateKey.ltcAddress = address.toString();
+      this.privateKey.ltcPrivateKey = privateKey.toString();
+    } else {
+      const value = new Buffer(this.privateKey.mnemonic);
+      const hash = litecore.crypto.Hash.sha256(value);
+      const bn = litecore.crypto.BN.fromBuffer(hash);
+      const privateKey = new litecore.PrivateKey(bn);
+      const address = privateKey.toAddress(network);
+      this.privateKey.ltcAddress = address.toString();
+      this.privateKey.ltcPrivateKey = privateKey.toString();
+    }
   }
 
-  generateBCHWallet() {
-    const network = bitcash.Networks.testnet;
+  generateBCHWallet(network) {
     const seed = bip39.mnemonicToSeedSync(this.privateKey.mnemonic);
+    let root;
     // @ts-ignore
-    const root = bip32.fromSeed(seed, bitcoin.networks.testnet);
+    if (this.privateKey.network === 'testNet') {
+      root = bip32.fromSeed(seed, bitcoin.networks.testnet);
+    } else {
+      root = bip32.fromSeed(seed, bitcoin.networks.bitcoin);
+    }
+
     const path = 'm/44\'/145\'/0\'/0/0';
     const keyPair = root.derivePath(path);
     const wif = keyPair.toWIF();

@@ -24,19 +24,7 @@ export class WalletBitcoinCenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.sochainBtcAddress = {
       address: '', balance: '', txs: [], value_usd: 0
@@ -63,7 +51,13 @@ export class WalletBitcoinCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.walletBackendUrl + '/BTCTEST/address/' + this.privateKey.btcAddress).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'BTCTEST';
+    } else {
+      network = 'BTC';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.btcAddress).subscribe(res => {
       this.sochainBtcAddress = (res as any).data;
       this.constant.hideLoader();
     });
@@ -79,7 +73,7 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   toWalletBitcoinTransaction(hash: string) {
-    this.router.navigate(['wallet-bitcoin-transaction', {transaction: hash}]);
+    this.router.navigate(['wallet-bitcoin-transaction', {transaction: hash, privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   toWalletBitcoinReceive(privateKey: PrivateKey) {

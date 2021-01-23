@@ -309,7 +309,38 @@ const routes: Routes = [
   {
     path: 'website',
     loadChildren: () => import('./me/website/website.module').then(m => m.WebsitePageModule)
+  },
+  {
+    path: 'wallet-private-key-import',
+    loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-private-key-import.module').then(m => m.WalletPrivateKeyImportPageModule)
+  },
+  {
+    path: 'wallet-btc-import',
+    loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-btc-import/wallet-btc-import.module').then(m => m.WalletBtcImportPageModule)
+  },
+  {
+    path: 'wallet-eth-import',
+    loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-eth-import/wallet-eth-import.module').then(m => m.WalletEthImportPageModule)
+  },
+  {
+    path: 'wallet-ltc-import',
+    loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-ltc-import/wallet-ltc-import.module').then(m => m.WalletLtcImportPageModule)
+  },
+  {
+    path: 'wallet-bch-import',
+    loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-bch-import/wallet-bch-import.module').then(m => m.WalletBchImportPageModule)
+  },
+  {
+    path: 'wallet-xrp-import',
+    loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-xrp-import/wallet-xrp-import.module').then(m => m.WalletXrpImportPageModule)
   }
+
+
+
+
+
+
+
 
 
 

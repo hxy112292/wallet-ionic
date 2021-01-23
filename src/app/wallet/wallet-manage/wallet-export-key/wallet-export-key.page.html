@@ -10,7 +10,7 @@
     <ion-item style="text-align: center">
       <ion-text color="danger">（请务必妥善保存您的私钥！建议将私钥手抄到纸质文件上，并小心保管。）</ion-text>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="privateKey.btcAddress != null">
       <ion-card style="background-color: #FF9E02">
         <ion-card-header>
           <ion-card-subtitle>
@@ -38,7 +38,7 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="privateKey.ethAddress != null">
       <ion-card style="background-color: #0892C1">
         <ion-card-header>
           <ion-card-subtitle>
@@ -66,7 +66,7 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="privateKey.ltcAddress != null">
       <ion-card style="background-color: grey">
         <ion-card-header>
           <ion-card-subtitle>
@@ -94,7 +94,7 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="privateKey.bchAddress != null">
       <ion-card style="background-color: limegreen">
         <ion-card-header>
           <ion-card-subtitle>
@@ -122,7 +122,7 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="privateKey.xrpAddress != null">
       <ion-card style="background-color: blueviolet">
         <ion-card-header>
           <ion-card-subtitle>
@@ -138,6 +138,14 @@
           <br>
           <ion-text style="color: white">
             {{privateKey.xrpAddress}}
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            公钥：
+          </ion-text>
+          <br>
+          <ion-text style="color: white">
+            {{privateKey.xrpKeyPair.publicKey}}
           </ion-text>
           <br>
           <ion-text style="color: white">

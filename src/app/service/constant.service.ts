@@ -15,6 +15,7 @@ export class ConstantService {
   readonly webUrl: string = 'https://www.hd-wallet.com';
   readonly githubUrl: string = 'https://github.com/hxy112292/wallet-ionic';
   readonly litecoreTestnetUrl: string = 'https://testnet.litecore.io';
+  readonly litecoreUrl: string = 'https://insight.litecore.io';
   user: User;
   privateKeyList: PrivateKey[];
   privateKeyListLength: number;

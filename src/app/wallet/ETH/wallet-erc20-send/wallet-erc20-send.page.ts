@@ -126,7 +126,12 @@ export class WalletErc20SendPage implements OnInit {
     const numberOfTokens = utils.parseUnits(this.amount, 18);
 
     // 选择区块链网络
-    const provider = ethers.getDefaultProvider('ropsten');
+    let provider;
+    if (this.privateKey.network === 'testNet') {
+      provider = ethers.getDefaultProvider('ropsten');
+    } else {
+      provider = ethers.getDefaultProvider();
+    }
     // 生成钱包
     const wallet = new ethers.Wallet(this.privateKey.ethPrivateKey, provider);
 

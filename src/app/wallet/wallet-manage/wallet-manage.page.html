@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list lines="full">
-    <ion-item (click)="exportMnemonic()">
+    <ion-item *ngIf="privateKey.isHDWallet === true" (click)="exportMnemonic()">
       <ion-icon name="text"></ion-icon>
       <ion-text>　导出助记词</ion-text>
     </ion-item>

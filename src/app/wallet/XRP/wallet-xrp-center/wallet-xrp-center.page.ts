@@ -26,19 +26,7 @@ export class WalletXrpCenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.xrpAddress = {
       ownerCount: '', previousAffectingTransactionID: '', previousAffectingTransactionLedgerVersion: '', sequence: '', xrpBalance: ''
@@ -67,9 +55,16 @@ export class WalletXrpCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    const api = new RippleAPI({
-      server: 'wss://s.altnet.rippletest.net:51233'
-    });
+    let api;
+    if (this.privateKey.network === 'testNet') {
+      api = new RippleAPI({
+        server: 'wss://s.altnet.rippletest.net:51233'
+      });
+    } else {
+      api = new RippleAPI({
+        server: 'wss://xrpl.ws/'
+      });
+    }
     api.connect().then(() => {
       /* begin custom code ------------------------------------ */
       const myAddress = this.privateKey.xrpAddress;
@@ -103,7 +98,7 @@ export class WalletXrpCenterPage implements OnInit {
   }
 
   toWalletXRPTransaction(hash: string) {
-    this.router.navigate(['wallet-xrp-transaction', {transaction: hash}]);
+    this.router.navigate(['wallet-xrp-transaction', {transaction: hash, privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   toWalletXRPReceive(privateKey: PrivateKey) {

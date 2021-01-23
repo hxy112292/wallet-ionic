@@ -6,6 +6,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {Erc20Token} from '../../../entity/erc20-token';
+import {PrivateKey} from '../../../entity/private-key';
 
 @Component({
   selector: 'app-wallet-erc20-transaction',
@@ -17,6 +18,7 @@ export class WalletErc20TransactionPage implements OnInit {
   hash: string;
   transaction: EtherscanTx;
   erc20Token: Erc20Token;
+  privateKey: PrivateKey;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -48,7 +50,7 @@ export class WalletErc20TransactionPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.transaction = JSON.parse(this.route.snapshot.paramMap.get('transactionInfo'));
     this.erc20Token = JSON.parse(this.route.snapshot.paramMap.get('erc20TokenInfo'));
   }
@@ -63,12 +65,20 @@ export class WalletErc20TransactionPage implements OnInit {
   }
 
   openHash(url: string) {
-    url = 'https://ropsten.etherscan.io/tx/' + url;
+    if (this.privateKey.network === 'testNet') {
+      url = 'https://ropsten.etherscan.io/tx/' + url;
+    } else {
+      url = 'https://etherscan.io/tx/' + url;
+    }
     this.constant.openBrowser(url);
   }
 
   openAddress(url: string) {
-    url = 'https://ropsten.etherscan.io/address/' + url;
+    if (this.privateKey.network === 'testNet') {
+      url = 'https://ropsten.etherscan.io/address/' + url;
+    } else {
+      url = 'https://etherscan.io/address/' + url;
+    }
     this.constant.openBrowser(url);
   }
 

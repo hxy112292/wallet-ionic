@@ -8,17 +8,25 @@ import {Router} from '@angular/router';
 })
 export class WalletAddChoosePage implements OnInit {
 
-  constructor(private router: Router) { }
+  network: string;
+
+  constructor(private router: Router) {
+    this.network = 'mainNet';
+  }
 
   ngOnInit() {
   }
 
   toImportWallet() {
-    this.router.navigate(['wallet-mnemonic-import']);
+    this.router.navigate(['wallet-mnemonic-import', {network: this.network}]);
   }
 
   toGenerateWallet() {
-    this.router.navigate(['wallet-mnemonic-generate']);
+    this.router.navigate(['wallet-mnemonic-generate', {network: this.network}]);
+  }
+
+  toImportPrivateKey() {
+    this.router.navigate(['wallet-private-key-import', {network: this.network}]);
   }
 
 }

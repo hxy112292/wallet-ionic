@@ -26,19 +26,7 @@ export class WalletEthereumErc20CenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.etherscanBalance = {
       status: '',

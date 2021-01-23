@@ -1,7 +1,10 @@
 import {Erc20Token} from './erc20-token';
+import {XrpKeyPair} from './xrp-key-pair';
 
 export class PrivateKey {
 
+    isHDWallet: boolean;
+    network: string;
     mnemonic: string;
     btcPrivateKey: string;
     btcAddress: string;
@@ -13,7 +16,7 @@ export class PrivateKey {
     bchAddress: string;
     xrpPrivateKey: string;
     xrpAddress: string;
-    xrpKeyPair: string;
+    xrpKeyPair: XrpKeyPair;
     erc20TokenList: Erc20Token[];
     password: string;
 }

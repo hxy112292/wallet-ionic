@@ -25,19 +25,7 @@ export class WalletBchCenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.cryptoBchAddress = {
       address: '', balance: '', legacy: ''
@@ -65,10 +53,16 @@ export class WalletBchCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/address/' + this.privateKey.bchAddress).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'BCHTEST';
+    } else {
+      network = 'BCH';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.bchAddress).subscribe(res => {
       this.cryptoBchAddress = (res as any).payload;
     });
-    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/address/' + this.privateKey.bchAddress + '/transaction').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.bchAddress + '/transaction').subscribe( res => {
           this.cryptoBchTxList = res as any;
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < this.cryptoBchTxList.length; i++) {

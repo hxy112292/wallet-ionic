@@ -25,19 +25,7 @@ export class WalletEthereumCenterPage implements OnInit {
               private constant: ConstantService,
               private storage: StorageService) {
 
-    this.privateKey = {
-      erc20TokenList: [],
-      xrpKeyPair: '',
-      xrpAddress: '', xrpPrivateKey: '',
-      bchAddress: '', bchPrivateKey: '',
-      ltcAddress: '', ltcPrivateKey: '',
-      mnemonic: '',
-      btcAddress: '',
-      btcPrivateKey: '',
-      ethPrivateKey: '',
-      ethAddress: '',
-      password: ''
-    };
+    this.privateKey = new PrivateKey();
 
     this.etherscanBalance = {
       status: '',
@@ -67,10 +55,17 @@ export class WalletEthereumCenterPage implements OnInit {
 
   getAddressInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'ETHTEST';
+    } else {
+      network = 'ETH';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.ethAddress).subscribe(res => {
         this.etherscanBalance = res as any;
     });
-    this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress + '/transaction').subscribe( res2 => {
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.ethAddress + '/transaction')
+        .subscribe( res2 => {
       this.etherscanBalance.txList = (res2 as any).result;
       this.getTmpHash();
       this.constant.hideLoader();
@@ -111,7 +106,7 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   toWalletEthereumTransaction(transaction: EtherscanTx) {
-    this.router.navigate(['wallet-ethereum-transaction', {transactionInfo: JSON.stringify(transaction)}]);
+    this.router.navigate(['wallet-ethereum-transaction', {transactionInfo: JSON.stringify(transaction), privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   toWalletEthereumReceive(privateKey: PrivateKey) {

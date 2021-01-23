@@ -5,6 +5,7 @@ import {ConstantService} from '../service/constant.service';
 import {PrivateKey} from '../entity/private-key';
 import {StorageService} from '../service/storage.service';
 import {number} from 'bitcoinjs-lib/types/script';
+import {it} from 'ethers/wordlists';
 
 @Component({
   selector: 'app-wallet',
@@ -13,13 +14,29 @@ import {number} from 'bitcoinjs-lib/types/script';
 })
 export class WalletPage implements OnInit {
 
+  hdWalletPrivateKeyList: PrivateKey[];
+  notHdWalletPrivateKeyList: PrivateKey [];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
-              private storage: StorageService) { }
+              private storage: StorageService) {
+    this.hdWalletPrivateKeyList = [];
+    this.notHdWalletPrivateKeyList = [];
+  }
 
   ngOnInit() {
+    this.hdWalletPrivateKeyList = this.constant.privateKeyList.filter((item) => {
+      if (item.isHDWallet === true) {
+        return item;
+      }
+    });
+    this.notHdWalletPrivateKeyList = this.constant.privateKeyList.filter((item) => {
+      if (item.isHDWallet !== true) {
+        return item;
+      }
+    });
   }
 
   toAddWallet() {

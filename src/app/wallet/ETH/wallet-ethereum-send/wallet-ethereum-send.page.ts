@@ -100,7 +100,12 @@ export class WalletEthereumSendPage implements OnInit {
 
     try {
       // 选择区块链网络
-      const provider = new ethers.providers.EtherscanProvider('ropsten');
+      let provider;
+      if (this.privateKey.network === 'testNet') {
+        provider = new ethers.providers.EtherscanProvider('ropsten');
+      } else {
+        provider = new ethers.providers.EtherscanProvider();
+      }
       // 生成钱包
       const wallet = new ethers.Wallet(this.privateKey.ethPrivateKey, provider);
 

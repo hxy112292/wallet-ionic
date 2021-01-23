@@ -40,7 +40,13 @@ export class WalletBchTransactionPage implements OnInit {
 
   getTransactionInfo() {
     this.constant.showLoader();
-    this.http.get(this.constant.walletBackendUrl + '/BCHTEST/txid/' + this.hash).subscribe(res => {
+    let network;
+    if (this.privateKey.network === 'testNet') {
+      network = 'BCHTEST';
+    } else {
+      network = 'BCH';
+    }
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/txid/' + this.hash).subscribe(res => {
       this.transaction = (res as any).payload;
       let inValue = 0;
       let allInValue = 0;
@@ -76,12 +82,20 @@ export class WalletBchTransactionPage implements OnInit {
   }
 
   openHash(url: string) {
-    url = 'https://blockexplorer.one/bch/testnet/tx/' + url;
+    if (this.privateKey.network === 'testNet') {
+      url = 'https://blockexplorer.one/bch/testnet/tx/' + url;
+    } else {
+      url = 'https://blockexplorer.one/bch/mainnet/tx/' + url;
+    }
     this.constant.openBrowser(url);
   }
 
   openAddress(url: string) {
-    url = 'https://blockexplorer.one/bch/testnet/address/' + url;
+    if (this.privateKey.network === 'testNet') {
+      url = 'https://blockexplorer.one/bch/testnet/address/' + url;
+    } else {
+      url = 'https://blockexplorer.one/bch/mainnet/address/' + url;
+    }
     this.constant.openBrowser(url);
   }
 
