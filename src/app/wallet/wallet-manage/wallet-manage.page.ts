@@ -185,6 +185,10 @@ export class WalletManagePage implements OnInit {
   }
 
   forgetPassword() {
-    this.router.navigate(['wallet-mnemonic-password', {index: this.index, privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    if (this.privateKey.isHDWallet === true) {
+      this.router.navigate(['wallet-mnemonic-password', {index: this.index, privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    } else {
+      this.router.navigate(['wallet-private-key-password', {index: this.index, privateKeyInfo: JSON.stringify(this.privateKey)}]);
+    }
   }
 }

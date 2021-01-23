@@ -333,7 +333,12 @@ const routes: Routes = [
   {
     path: 'wallet-xrp-import',
     loadChildren: () => import('./wallet/wallet-create/wallet-private-key-import/wallet-xrp-import/wallet-xrp-import.module').then(m => m.WalletXrpImportPageModule)
+  },
+  {
+    path: 'wallet-private-key-password',
+    loadChildren: () => import('./wallet/wallet-manage/wallet-private-key-password/wallet-private-key-password.module').then(m => m.WalletPrivateKeyPasswordPageModule)
   }
+
 
 
 
