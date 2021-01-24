@@ -7,13 +7,13 @@
 <ion-content>
   <ion-list lines="full">
     <div *ngIf="constant.getUser() == null || constant.getUser().id==null ||
-      constant.getUser().id=='' || constant.getUser().role=='GUEST'">
+      constant.getUser().id==''">
       <ion-item (click)="login()">
         <ion-icon name="person" color="primary"></ion-icon>
         <ion-label>　登录/注册</ion-label>
       </ion-item>
     </div>
-    <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!='' && constant.getUser().role=='USER'">
+    <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!=''">
       <ion-item (click)="userInfo()">
         <ion-icon name="person" color="primary"></ion-icon>
         <ion-label>　{{constant.getUser().username}} 的个人信息</ion-label>
@@ -37,7 +37,7 @@
     </ion-item>
   </ion-list>
   <br/><br/>
-  <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!='' && constant.getUser().role=='USER'"
+  <div *ngIf="constant.getUser() != null && constant.getUser().id!=null && constant.getUser().id!=''"
        (click)="logout()" style="text-align: center">
     <ion-button>退  出</ion-button>
   </div>

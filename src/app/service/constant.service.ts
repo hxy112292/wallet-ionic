@@ -30,7 +30,8 @@ export class ConstantService {
       password: '',
       email: '',
       phone: '',
-      role: ''
+      role: [],
+      token: '',
     };
 
     this.options = {
@@ -60,7 +61,8 @@ export class ConstantService {
         password: '',
         email: '',
         phone: '',
-        role: ''
+        role: [],
+        token: ''
       };
     } else {
       this.user = user;

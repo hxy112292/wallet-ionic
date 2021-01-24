@@ -39,7 +39,8 @@ export class RegisterPage implements OnInit {
       password: '',
       email: '',
       phone: '',
-      role: 'USER'
+      role: [],
+      token: ''
     };
 
     this.alertTitle = '';
@@ -90,35 +91,16 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    if (this.constant.getUser() == null || this.constant.getUser().role == null || this.constant.getUser().role === '') {
-      this.http.post(this.constant.walletToolBackendUrl + '/user/register', this.user).subscribe(res => {
-        if ((res as any).code !== 0) {
-          this.constant.alert((res as any).message);
-          return;
-        }
-        this.constant.setUser((res as any).result);
-        this.storage.set('uid', this.constant.getUser().id);
-        this.getToken();
-        this.router.navigate(['/tabs/me']);
-      });
-    } else if (this.constant.getUser().id != null && this.constant. getUser().id !== '' &&
-        this.constant.getUser() != null && this.constant.getUser().role === 'GUEST') {
-      this.constant.getUser().phone = this.user.phone;
-      this.constant.getUser().email = this.user.email;
-      this.constant.getUser().password = this.user.password;
-      this.constant.getUser().username = this.user.username;
-      this.constant.getUser().role = 'USER';
-      this.http.put(this.constant.walletToolBackendUrl + '/user/update', this.constant.getUser()).subscribe(res => {
-        if ((res as any).code !== 0) {
-          this.constant.alert((res as any).message);
-          return;
-        }
-        this.constant.setUser((res as any).result);
-        this.storage.set('uid', this.constant.getUser().id);
-        this.getToken();
-        this.router.navigate(['/tabs/me']);
-      });
-    }
+    this.http.post(this.constant.walletToolBackendUrl + '/auth/register', this.user).subscribe(res => {
+      if ((res as any).code !== 0) {
+        this.constant.alert((res as any).message);
+        return;
+      }
+      this.constant.setUser((res as any).result);
+      this.storage.set('uid', this.constant.getUser().id);
+      this.getToken();
+      this.router.navigate(['/tabs/me']);
+    });
   }
 
   getToken() {

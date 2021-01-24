@@ -34,7 +34,8 @@ export class UserInfoPage implements OnInit {
       password: '',
       email: '',
       phone: '',
-      role: 'USER'
+      role: [],
+      token: ''
     };
 
     this.alertTitle = '';
@@ -83,7 +84,6 @@ export class UserInfoPage implements OnInit {
     this.constant.getUser().email = this.user.email;
     this.constant.getUser().password = this.user.password;
     this.constant.getUser().username = this.user.username;
-    this.constant.getUser().role = 'USER';
     this.http.put(this.constant.walletToolBackendUrl + '/user/update', this.constant.getUser()).subscribe(res => {
       if ((res as any).code !== 0) {
         this.constant.alert((res as any).message);

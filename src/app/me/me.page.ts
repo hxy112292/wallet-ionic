@@ -4,6 +4,7 @@ import {ConstantService} from '../service/constant.service';
 import {AppUpdate} from '@ionic-native/app-update/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import {StorageService} from '../service/storage.service';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-me',
@@ -18,7 +19,8 @@ export class MePage implements OnInit {
               private constant: ConstantService,
               private appUpdate: AppUpdate,
               private appVersion: AppVersion,
-              private storage: StorageService) { }
+              private storage: StorageService,
+              private toastController: ToastController) { }
 
   ngOnInit() {
     this.getVersion();
@@ -32,9 +34,14 @@ export class MePage implements OnInit {
     this.router.navigate(['user-info']);
   }
 
-  logout() {
+  async logout() {
     this.constant.setUser(null);
     this.storage.remove('uid');
+    const toast = await this.toastController.create({
+      message: '已退出',
+      duration: 2000
+    });
+    await toast.present();
   }
 
   getVersion() {

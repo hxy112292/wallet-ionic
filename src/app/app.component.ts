@@ -46,18 +46,21 @@ export class AppComponent {
   }
 
   getUserInfo() {
-    this.storage.get('uid').then( value => {
-      if ( value != null) {
-        this.http.get(this.constant.walletToolBackendUrl + '/user/info', {
-          params: {
-            userId: value as any
-          }
-        }).subscribe(res => {
-          this.constant.setUser((res as any).result);
-          console.log(this.constant.getUser());
-          this.getToken();
-        });
-      }
+    this.storage.get('token').then( token => {
+      this.constant.user.token = token;
+      this.storage.get('uid').then( value => {
+        if ( value != null) {
+          this.http.get(this.constant.walletToolBackendUrl + '/user/info', {
+            params: {
+              userId: value as any
+            }
+          }).subscribe(res => {
+            this.constant.setUser((res as any).result);
+            console.log(this.constant.getUser());
+            this.getToken();
+          });
+        }
+      });
     });
   }
 
