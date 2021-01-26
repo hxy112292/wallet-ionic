@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from '../entity/user';
+import {ConstantService} from './constant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,27 +8,29 @@ import {User} from '../entity/user';
 export class UserService {
 
   user: User;
-  constructor() {
+  constructor(private constant: ConstantService) {
     this.user = {
+      vipTime: '',
       id: '',
       username: '',
       password: '',
       email: '',
       phone: '',
-      role: [],
-      token: '',
+      role: [constant.ROLE_USER],
+      token: ''
     };
   }
 
   setUser(user: User) {
     if (user == null) {
       this.user = {
+        vipTime: '',
         id: '',
         username: '',
         password: '',
         email: '',
         phone: '',
-        role: [],
+        role: [this.constant.ROLE_USER],
         token: ''
       };
     } else {

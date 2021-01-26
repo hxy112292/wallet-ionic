@@ -15,10 +15,31 @@
     </div>
     <div *ngIf="userService.user != null && userService.user.id!=null && userService.user.id!=''">
       <ion-item (click)="userInfo()">
-        <ion-icon name="person" color="primary"></ion-icon>
-        <ion-label>　{{userService.user.username}} 的个人信息</ion-label>
+        <ion-card style="width: 100%">
+          <div style="width: 100%; text-align: center; color: black; font-size: x-large;">
+            <p>{{userService.user.username}}</p>
+          </div>
+        </ion-card>
       </ion-item>
+<!--      <ion-item (click)="userInfo()">-->
+<!--        <ion-icon name="person" color="primary"></ion-icon>-->
+<!--        <ion-label>　{{userService.user.username}} 的个人信息</ion-label>-->
+<!--      </ion-item>-->
     </div>
+    <ion-item>
+      <ion-icon name="card-outline" color="warning"></ion-icon>
+      <ion-label>　会员中心</ion-label>
+      <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
+        <ion-chip outline color="danger">
+          <ion-label>VIP</ion-label>
+        </ion-chip>
+      </div>
+      <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) === -1">
+        <ion-chip outline color="medium">
+          <ion-label>VIP</ion-label>
+        </ion-chip>
+      </div>
+    </ion-item>
     <ion-item (click)="walletContactManage()">
       <ion-icon name="wallet" color="tertiary"></ion-icon>
       <ion-label>　地址簿</ion-label>

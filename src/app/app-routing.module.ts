@@ -337,6 +337,10 @@ const routes: Routes = [
   {
     path: 'wallet-private-key-password',
     loadChildren: () => import('./wallet/wallet-manage/wallet-private-key-password/wallet-private-key-password.module').then(m => m.WalletPrivateKeyPasswordPageModule)
+  },
+  {
+    path: 'vip',
+    loadChildren: () => import('./me/vip/vip.module').then(m => m.VipPageModule)
   }
 
 

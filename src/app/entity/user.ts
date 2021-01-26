@@ -5,6 +5,7 @@ export class User {
     password: string;
     email: string;
     phone: string;
-    role: [];
+    role: string[];
     token: string;
+    vipTime: string;
 }
