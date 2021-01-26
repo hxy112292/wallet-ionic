@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../service/constant.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../service/alert.service';
 
 @Component({
   selector: 'app-login-forget-password',
@@ -15,6 +16,7 @@ export class LoginForgetPasswordPage implements OnInit {
 
   constructor(private http: HttpClient,
               private router: Router,
+              private alertService: AlertService,
               private constant: ConstantService) { }
 
   ngOnInit() {
@@ -26,9 +28,9 @@ export class LoginForgetPasswordPage implements OnInit {
       email: this.email
     }).subscribe( res => {
       if ((res as any).code !== 0) {
-        this.constant.alert((res as any).message);
+        this.alertService.alert((res as any).message);
       } else {
-        this.constant.alert('密码已重置，新密码已发送到您的邮箱');
+        this.alertService.alert('密码已重置，新密码已发送到您的邮箱');
         this.router.navigate(['login']);
       }
     });

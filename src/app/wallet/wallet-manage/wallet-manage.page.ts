@@ -6,6 +6,8 @@ import {AlertController, ModalController} from '@ionic/angular';
 import {StorageService} from '../../service/storage.service';
 import {WalletExportKeyPage} from './wallet-export-key/wallet-export-key.page';
 import {WalletExportMnemonicPage} from './wallet-export-mnemonic/wallet-export-mnemonic.page';
+import {PrivateKeyService} from '../../service/private-key.service';
+import {AlertService} from '../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-manage',
@@ -20,7 +22,8 @@ export class WalletManagePage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private constant: ConstantService,
+              private alertService: AlertService,
+              private privateKeyService: PrivateKeyService,
               private alertController: AlertController,
               private storage: StorageService,
               private modalController: ModalController) {
@@ -54,7 +57,7 @@ export class WalletManagePage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.toExportTextKey();
             }
@@ -86,7 +89,7 @@ export class WalletManagePage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.toExportTextMnemonic();
             }
@@ -118,12 +121,12 @@ export class WalletManagePage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
-              this.constant.privateKeyList.splice(this.index, 1);
-              this.constant.privateKeyListLength = this.constant.privateKeyListLength - 1;
-              this.storage.set('privateKeyList', this.constant.privateKeyList);
-              this.storage.set('privateKeyListLength', this.constant.privateKeyListLength);
+              this.privateKeyService.privateKeyList.splice(this.index, 1);
+              this.privateKeyService.privateKeyListLength = this.privateKeyService.privateKeyListLength - 1;
+              this.storage.set('privateKeyList', this.privateKeyService.privateKeyList);
+              this.storage.set('privateKeyListLength', this.privateKeyService.privateKeyListLength);
               this.router.navigate(['tabs/wallet']);
             }
           }

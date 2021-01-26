@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../service/constant.service';
 import {CoinSearchResult} from '../../entity/coin-search-result';
+import {LoaderService} from '../../service/loader.service';
 
 @Component({
   selector: 'app-coin-search',
@@ -17,6 +18,7 @@ export class CoinSearchPage implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private http: HttpClient,
+              private loaderService: LoaderService,
               private constant: ConstantService) { }
 
 
@@ -24,14 +26,14 @@ export class CoinSearchPage implements OnInit {
   }
 
   getSearchResult() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/search/', {
       params: {
         coin: this.searchValue
       }
     }).subscribe(res => {
       this.coinSearchList = (res as any).coinlist;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

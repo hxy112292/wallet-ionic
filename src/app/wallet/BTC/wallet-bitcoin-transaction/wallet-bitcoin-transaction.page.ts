@@ -7,6 +7,8 @@ import {ToastController} from '@ionic/angular';
 import {SochainBtcTransaction} from '../../../entity/sochain-btc-transaction';
 import {PrivateKey} from '../../../entity/private-key';
 import * as net from 'net';
+import {BrowserService} from '../../../service/browser.service';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-bitcoin-transaction',
@@ -23,6 +25,8 @@ export class WalletBitcoinTransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
+              private loaderService: LoaderService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -49,7 +53,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let network;
     if (this.privateKey.network === 'testNet') {
       network = 'BTCTEST';
@@ -58,7 +62,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
     }
     this.http.get(this.constant.walletBackendUrl + '/' + network + '/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 
@@ -77,7 +81,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
     } else {
       url = 'https://www.blockchain.com/btc/tx/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   openAddress(url: string) {
@@ -86,7 +90,7 @@ export class WalletBitcoinTransactionPage implements OnInit {
     } else {
       url = 'https://www.blockchain.com/btc/address/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyTxHash() {

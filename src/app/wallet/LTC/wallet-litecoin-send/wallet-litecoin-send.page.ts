@@ -9,6 +9,7 @@ import {StorageService} from '../../../service/storage.service';
 import {PrivateKey} from '../../../entity/private-key';
 import * as litecore from 'litecore-lib';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-litecoin-send',
@@ -33,6 +34,7 @@ export class WalletLitecoinSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
+              private alertService: AlertService,
               private storage: StorageService,
               private modalController: ModalController) {
 
@@ -95,7 +97,7 @@ export class WalletLitecoinSendPage implements OnInit {
       this.broadcast(transaction.toString());
       this.router.navigate(['wallet-litecoin-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
     } catch (e) {
-      this.constant.alert(e.toString());
+      this.alertService.alert(e.toString());
     }
   }
 
@@ -122,7 +124,7 @@ export class WalletLitecoinSendPage implements OnInit {
       tx_hex: rawHex
     }).subscribe( res => {
       if ((res as any).code === 1) {
-        this.constant.alert('交易失败：请先等待上一笔交易打包完毕');
+        this.alertService.alert('交易失败：请先等待上一笔交易打包完毕');
       }
     });
   }
@@ -130,16 +132,16 @@ export class WalletLitecoinSendPage implements OnInit {
   async sendConfirm() {
 
     if (this.recipientAddr == null || this.recipientAddr === '') {
-      this.constant.alert('接收方地址不能为空');
+      this.alertService.alert('接收方地址不能为空');
       return;
     }
     if (this.amount == null) {
-      this.constant.alert('金额不能为空');
+      this.alertService.alert('金额不能为空');
       return;
     }
 
     if (this.fee == null) {
-      this.constant.alert('手续费不能为空');
+      this.alertService.alert('手续费不能为空');
       return;
     }
 
@@ -189,7 +191,7 @@ export class WalletLitecoinSendPage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.sendByTypical();
             }

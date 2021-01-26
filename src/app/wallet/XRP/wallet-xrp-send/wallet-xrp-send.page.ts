@@ -10,6 +10,7 @@ import {StorageService} from '../../../service/storage.service';
 import * as ripple from 'ripple-lib';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 import {RippleAPI} from 'ripple-lib';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-xrp-send',
@@ -33,6 +34,7 @@ export class WalletXrpSendPage implements OnInit {
               private http: HttpClient,
               private clipboard: Clipboard,
               private constant: ConstantService,
+              private alertService: AlertService,
               private alertController: AlertController,
               private storage: StorageService,
               private modalController: ModalController) {
@@ -115,23 +117,23 @@ export class WalletXrpSendPage implements OnInit {
         });
       });
     }).catch( error => {
-      this.constant.alert(error);
+      this.alertService.alert(error);
     });
   }
 
   async sendConfirm() {
 
     if (this.recipientAddr == null || this.recipientAddr === '') {
-      this.constant.alert('接收方地址不能为空');
+      this.alertService.alert('接收方地址不能为空');
       return;
     }
     if (this.amount == null) {
-      this.constant.alert('金额不能为空');
+      this.alertService.alert('金额不能为空');
       return;
     }
 
     if (this.fee == null) {
-      this.constant.alert('手续费不能为空');
+      this.alertService.alert('手续费不能为空');
       return;
     }
 
@@ -181,7 +183,7 @@ export class WalletXrpSendPage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.sendByTypical();
             }

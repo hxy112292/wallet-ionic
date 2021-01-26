@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../service/constant.service';
 import {BlockchainBrowser} from '../../../entity/blockchain-browser';
+import {BrowserService} from '../../../service/browser.service';
 
 @Component({
   selector: 'app-blockchain-browser',
@@ -13,6 +14,7 @@ export class BlockchainBrowserPage implements OnInit {
   browserList: BlockchainBrowser[];
 
   constructor(private http: HttpClient,
+              private browserService: BrowserService,
               private constant: ConstantService) {
   }
 
@@ -37,7 +39,7 @@ export class BlockchainBrowserPage implements OnInit {
 
   openWeb(url: string) {
     const target = '_self';
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
 }

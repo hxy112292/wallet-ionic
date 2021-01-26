@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Hotcoin} from '../../../entity/hotcoin';
 import {ConstantService} from '../../../service/constant.service';
 import {Router} from '@angular/router';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-hot-coin',
@@ -15,6 +16,7 @@ export class HotCoinPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) { }
 
   ngOnInit() {
@@ -22,10 +24,10 @@ export class HotCoinPage implements OnInit {
   }
 
   getHotCoinInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/hotcoin').subscribe(res => {
       this.hotCoinList = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

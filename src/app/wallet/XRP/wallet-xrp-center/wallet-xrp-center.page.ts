@@ -7,6 +7,8 @@ import {PrivateKey} from '../../../entity/private-key';
 import {RippleAPI} from 'ripple-lib';
 import {RippleAddress} from '../../../entity/ripple-address';
 import {RippleTxAccount} from '../../../entity/ripple-tx-account';
+import {AlertService} from '../../../service/alert.service';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-xrp-center',
@@ -24,6 +26,8 @@ export class WalletXrpCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private alertService: AlertService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -54,7 +58,7 @@ export class WalletXrpCenterPage implements OnInit {
   }
 
   getAddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let api;
     if (this.privateKey.network === 'testNet') {
       api = new RippleAPI({
@@ -80,11 +84,11 @@ export class WalletXrpCenterPage implements OnInit {
         }).then( transactions => {
           this.xrpTransactionList = (transactions as any).transactions;
           api.disconnect();
-          this.constant.hideLoader();
+          this.loaderService.hideLoader();
         });
       });
     }).catch( e => {
-      this.constant.alert(e.toString());
+      this.alertService.alert(e.toString());
     });
   }
 

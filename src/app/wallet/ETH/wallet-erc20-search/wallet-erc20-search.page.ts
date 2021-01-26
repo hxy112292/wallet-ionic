@@ -4,6 +4,7 @@ import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Contract, ethers} from 'ethers';
 import {ConstantService} from '../../../service/constant.service';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-erc20-search',
@@ -19,7 +20,7 @@ export class WalletErc20SearchPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private constant: ConstantService) {
+              private alertService: AlertService) {
     this.contractAddress = '';
     this.erc20Token = {
       address: '', name: '', symbol: ''
@@ -80,11 +81,11 @@ export class WalletErc20SearchPage implements OnInit {
         this.router.navigate(['wallet-erc20-add', {privateKeyInfo: JSON.stringify(this.privateKey)
           , erc20Token: JSON.stringify(this.erc20Token), index: this.index}]);
       }).catch( error => {
-        this.constant.alert(error);
+        this.alertService.alert(error);
         return;
       });
     }).catch( error => {
-      this.constant.alert(error);
+      this.alertService.alert(error);
       return;
     });
   }

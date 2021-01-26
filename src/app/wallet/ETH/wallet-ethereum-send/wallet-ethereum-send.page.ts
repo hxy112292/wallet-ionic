@@ -10,6 +10,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {StorageService} from '../../../service/storage.service';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-ethereum-send',
@@ -37,6 +38,7 @@ export class WalletEthereumSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
+              private alertService: AlertService,
               private storage: StorageService,
               private modalController: ModalController) {
     this.barcodeScannerOptions = {
@@ -139,13 +141,13 @@ export class WalletEthereumSendPage implements OnInit {
           this.saveTmpEthTx();
           this.router.navigate(['wallet-ethereum-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
         }).catch( e => {
-          this.constant.alert(e.toString());
+          this.alertService.alert(e.toString());
         });
       }).catch( e => {
-        this.constant.alert(e.toString());
+        this.alertService.alert(e.toString());
       });
     } catch (e) {
-      this.constant.alert(e.toString());
+      this.alertService.alert(e.toString());
     }
   }
 
@@ -159,11 +161,11 @@ export class WalletEthereumSendPage implements OnInit {
   async sendConfirm() {
 
     if (this.recipientAddr == null || this.recipientAddr === '') {
-      this.constant.alert('接收方地址不能为空');
+      this.alertService.alert('接收方地址不能为空');
       return;
     }
     if (this.amount == null || this.amount === '') {
-      this.constant.alert('金额不能为空');
+      this.alertService.alert('金额不能为空');
       return;
     }
     if (this.note == null || this.note === '') {
@@ -171,12 +173,12 @@ export class WalletEthereumSendPage implements OnInit {
     }
 
     if (this.note.substr(0, 2) !== '0x' ) {
-      this.constant.alert('备注的前缀必须是0x');
+      this.alertService.alert('备注的前缀必须是0x');
       return;
     }
     const re = /^[0-9a-fA-FxX]*$/g;
     if (!re.test(this.note)) {
-      this.constant.alert('备注必须是十六进制数');
+      this.alertService.alert('备注必须是十六进制数');
       return;
     }
 
@@ -226,7 +228,7 @@ export class WalletEthereumSendPage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.sendByTypical();
             }

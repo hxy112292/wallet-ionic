@@ -6,6 +6,8 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {TxHistory} from '../../../../entity/tx-history';
 import {SochainBtcTransaction} from '../../../../entity/sochain-btc-transaction';
+import {BrowserService} from '../../../../service/browser.service';
+import {LoaderService} from '../../../../service/loader.service';
 
 @Component({
   selector: 'app-tx-detail',
@@ -22,6 +24,8 @@ export class TxDetailPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
+              private loaderService: LoaderService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -47,10 +51,10 @@ export class TxDetailPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/BTC/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 
@@ -65,12 +69,12 @@ export class TxDetailPage implements OnInit {
 
   openHash(url: string) {
     url = 'https://www.blockchain.com/btc/tx/' + url;
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   openAddress(url: string) {
     url = 'https://www.blockchain.com/btc/address/' + url;
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyTxHash() {

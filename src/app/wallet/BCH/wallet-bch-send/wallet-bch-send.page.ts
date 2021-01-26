@@ -11,6 +11,7 @@ import * as bitcash from 'bitcore-lib-cash';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 import {CryptoBchTx} from '../../../entity/crypto-bch-tx';
 import {BitcoreBchUtxo} from '../../../entity/bitcore-bch-utxo';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-bch-send',
@@ -36,6 +37,7 @@ export class WalletBchSendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
+              private alertService: AlertService,
               private storage: StorageService,
               private modalController: ModalController) {
 
@@ -134,7 +136,7 @@ export class WalletBchSendPage implements OnInit {
     }).subscribe( res => {
       if ((res as any).code === 1) {
         console.log(res);
-        this.constant.alert('交易失败：' + (res as any).message);
+        this.alertService.alert('交易失败：' + (res as any).message);
       }
     });
   }
@@ -142,16 +144,16 @@ export class WalletBchSendPage implements OnInit {
   async sendConfirm() {
 
     if (this.recipientAddr == null || this.recipientAddr === '') {
-      this.constant.alert('接收方地址不能为空');
+      this.alertService.alert('接收方地址不能为空');
       return;
     }
     if (this.amount == null) {
-      this.constant.alert('金额不能为空');
+      this.alertService.alert('金额不能为空');
       return;
     }
 
     if (this.fee == null) {
-      this.constant.alert('手续费不能为空');
+      this.alertService.alert('手续费不能为空');
       return;
     }
 
@@ -201,7 +203,7 @@ export class WalletBchSendPage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.sendByTypical();
             }

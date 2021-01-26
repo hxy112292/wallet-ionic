@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantService} from '../../../service/constant.service';
 import {PrivateKey} from '../../../entity/private-key';
 import {AlertController} from '@ionic/angular';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-mnemonic-password',
@@ -17,8 +18,7 @@ export class WalletMnemonicPasswordPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private alertController: AlertController,
-              private constant: ConstantService) {
+              private alertService: AlertService) {
     this.mnemonicInput = '';
   }
 
@@ -29,7 +29,7 @@ export class WalletMnemonicPasswordPage implements OnInit {
 
   checkMnemonic() {
     if (this.mnemonicInput !== this.privateKey.mnemonic) {
-      this.constant.alert('助记词错误！');
+      this.alertService.alert('助记词错误！');
     } else {
       this.router.navigate(['wallet-reset-password', {index: this.index}]);
     }

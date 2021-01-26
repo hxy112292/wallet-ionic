@@ -8,6 +8,8 @@ import * as bitcoin from 'bitcoinjs-lib';
 import * as bip39 from 'bip39';
 import * as bip32 from 'bip32';
 import * as bitcash from 'bitcore-lib-cash';
+import {PrivateKeyService} from '../../../../service/private-key.service';
+import {AlertService} from '../../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-bch-import',
@@ -23,6 +25,8 @@ export class WalletBchImportPage implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
+              private alertService: AlertService,
+              private privateKeyService: PrivateKeyService,
               private storage: StorageService) {
     this.privateKey = new PrivateKey();
   }
@@ -50,22 +54,22 @@ export class WalletBchImportPage implements OnInit {
     try {
       this.generateBCHWallet(network);
     } catch (error) {
-      this.constant.alert('私钥添加失败' + error.toString());
+      this.alertService.alert('私钥添加失败' + error.toString());
       return;
     }
     if (this.privateKey.password == null || this.privateKey.password === '') {
-      this.constant.alert('钱包密码不能为空!');
+      this.alertService.alert('钱包密码不能为空!');
       return;
     }
     if (this.privateKey.password !== this.repeatPassword) {
-      this.constant.alert('两次输入的钱包密码不匹配!');
+      this.alertService.alert('两次输入的钱包密码不匹配!');
       return;
     }
 
-    this.constant.privateKeyList[this.constant.privateKeyListLength] = this.privateKey;
-    this.storage.set('privateKeyList', this.constant.privateKeyList);
-    this.constant.privateKeyListLength = this.constant.privateKeyListLength + 1;
-    this.storage.set('privateKeyListLength', this.constant.privateKeyListLength);
+    this.privateKeyService.privateKeyList[this.privateKeyService.privateKeyListLength] = this.privateKey;
+    this.storage.set('privateKeyList', this.privateKeyService.privateKeyList);
+    this.privateKeyService.privateKeyListLength = this.privateKeyService.privateKeyListLength + 1;
+    this.storage.set('privateKeyListLength', this.privateKeyService.privateKeyListLength);
     this.router.navigate(['tabs/wallet']);
   }
 

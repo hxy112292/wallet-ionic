@@ -5,6 +5,8 @@ import {AppUpdate} from '@ionic-native/app-update/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import {StorageService} from '../service/storage.service';
 import {ToastController} from '@ionic/angular';
+import {UserService} from '../service/user.service';
+import {AlertService} from '../service/alert.service';
 
 @Component({
   selector: 'app-me',
@@ -20,6 +22,8 @@ export class MePage implements OnInit {
               private appUpdate: AppUpdate,
               private appVersion: AppVersion,
               private storage: StorageService,
+              private userService: UserService,
+              private alertService: AlertService,
               private toastController: ToastController) { }
 
   ngOnInit() {
@@ -35,7 +39,7 @@ export class MePage implements OnInit {
   }
 
   async logout() {
-    this.constant.setUser(null);
+    this.userService.setUser(null);
     this.storage.remove('uid');
     const toast = await this.toastController.create({
       message: '已退出',
@@ -58,7 +62,7 @@ export class MePage implements OnInit {
         res => {
           console.log(res);
           if (res.code === 202) {
-            this.constant.alert('恭喜你！这个版本是最新的版本!');
+            this.alertService.alert('恭喜你！这个版本是最新的版本!');
           }
         }).catch(
         err => {

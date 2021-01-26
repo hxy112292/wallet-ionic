@@ -4,6 +4,7 @@ import {PrivateKey} from '../../../entity/private-key';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StorageService} from '../../../service/storage.service';
 import {ConstantService} from '../../../service/constant.service';
+import {PrivateKeyService} from '../../../service/private-key.service';
 
 @Component({
   selector: 'app-wallet-erc20-add',
@@ -21,6 +22,7 @@ export class WalletErc20AddPage implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private storage: StorageService,
+              private privateKeyService: PrivateKeyService,
               private constant: ConstantService) {
     this.contractAddress = '';
     this.privateKeyList = [];
@@ -35,13 +37,13 @@ export class WalletErc20AddPage implements OnInit {
 
   addToken() {
     if (this.privateKey.erc20TokenList != null && this.privateKey.erc20TokenList.length !== 0) {
-      this.constant.privateKeyList[this.index].erc20TokenList[this.privateKey.erc20TokenList.length] = this.erc20Token;
+      this.privateKeyService.privateKeyList[this.index].erc20TokenList[this.privateKey.erc20TokenList.length] = this.erc20Token;
     } else {
-      this.constant.privateKeyList[this.index].erc20TokenList = [];
-      this.constant.privateKeyList[this.index].erc20TokenList[0] = this.erc20Token;
+      this.privateKeyService.privateKeyList[this.index].erc20TokenList = [];
+      this.privateKeyService.privateKeyList[this.index].erc20TokenList[0] = this.erc20Token;
     }
-    this.storage.set('privateKeyList', this.constant.privateKeyList);
+    this.storage.set('privateKeyList', this.privateKeyService.privateKeyList);
     this.router.navigate(['wallet-ethereum-erc20-center'
-      , {privateKeyInfo: JSON.stringify(this.constant.privateKeyList[this.index])}]);
+      , {privateKeyInfo: JSON.stringify(this.privateKeyService.privateKeyList[this.index])}]);
   }
 }

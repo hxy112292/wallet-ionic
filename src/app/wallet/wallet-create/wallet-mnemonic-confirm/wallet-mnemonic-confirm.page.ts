@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AlertController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantService} from '../../../service/constant.service';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-mnemonic-confirm',
@@ -15,7 +16,7 @@ export class WalletMnemonicConfirmPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private constant: ConstantService) {
+              private alertService: AlertService) {
 
     this.mnemonicInput = '';
   }
@@ -26,7 +27,7 @@ export class WalletMnemonicConfirmPage implements OnInit {
 
   checkMnemonic() {
     if (this.mnemonicInput !== this.mnemonic) {
-      this.constant.alert('助记词错误！');
+      this.alertService.alert('助记词错误！');
     } else {
       this.router.navigate(['wallet-add', {mnemonicInfo: this.mnemonic, network: this.route.snapshot.paramMap.get('network')}]);
     }

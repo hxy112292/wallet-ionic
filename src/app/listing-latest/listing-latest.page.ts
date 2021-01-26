@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../service/constant.service';
 import {ListingLatest} from '../entity/listing-latest';
 import {Router} from '@angular/router';
+import {LoaderService} from '../service/loader.service';
 
 @Component({
   selector: 'app-listing-latest',
@@ -15,6 +16,7 @@ export class ListingLatestPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) { }
 
   ngOnInit() {
@@ -22,10 +24,10 @@ export class ListingLatestPage implements OnInit {
   }
 
   getListing() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/listingLatest').subscribe(res => {
       this.listingLatestList = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

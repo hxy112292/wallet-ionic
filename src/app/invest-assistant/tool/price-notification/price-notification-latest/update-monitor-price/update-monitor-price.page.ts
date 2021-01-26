@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ModalController, NavParams} from '@ionic/angular';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../../../service/constant.service';
+import {UserService} from '../../../../../service/user.service';
+import {AlertService} from '../../../../../service/alert.service';
 
 @Component({
   selector: 'app-update-monitor-price',
@@ -21,11 +23,13 @@ export class UpdateMonitorPricePage implements OnInit {
               private modalController: ModalController,
               private navParams: NavParams,
               private http: HttpClient,
+              private alertService: AlertService,
+              private userService: UserService,
               private constant: ConstantService) {
     this.monitorPrice = {
       id: '',
       code: '',
-      userId: this.constant.getUser().id,
+      userId: this.userService.user.id,
       upPrice: null,
       downPrice: null,
       upChangePercent: null,
@@ -41,7 +45,7 @@ export class UpdateMonitorPricePage implements OnInit {
 
   ngOnInit() {
     this.monitorPrice = this.navParams.get('monitorPriceInfo');
-    this.monitorPrice.userId = this.constant.getUser().id;
+    this.monitorPrice.userId = this.userService.user.id;
     this.getMonitorCoin();
   }
 
@@ -54,31 +58,31 @@ export class UpdateMonitorPricePage implements OnInit {
   updateMonitorPrice() {
 
     if (this.monitorPrice.code == null || this.monitorPrice.code === '') {
-      this.constant.alert('请选择一个币种');
+      this.alertService.alert('请选择一个币种');
       return;
     }
     if (this.monitorPrice.upPrice == null && this.monitorPrice.downPrice == null && this.monitorPrice.upChangePercent == null
         && this.monitorPrice.downChangePercent == null) {
-      this.constant.alert('请至少输入一个提醒参数');
+      this.alertService.alert('请至少输入一个提醒参数');
       return;
     }
 
     const re = /^-?[0-9]+.?[0-9]*/;
 
     if (this.monitorPrice.upPrice != null && !re.test(String(this.monitorPrice.upPrice))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
     if (this.monitorPrice.downPrice != null && !re.test(String(this.monitorPrice.downPrice))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
     if (this.monitorPrice.upChangePercent != null && !re.test(String(this.monitorPrice.upChangePercent))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
     if (this.monitorPrice.downChangePercent != null && !re.test(String(this.monitorPrice.downChangePercent))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
 

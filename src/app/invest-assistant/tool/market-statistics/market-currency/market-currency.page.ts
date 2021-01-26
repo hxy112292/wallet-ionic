@@ -3,6 +3,7 @@ import {ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
 import {ExchangeCurrency} from '../../../../entity/exchange-currency';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../../service/constant.service';
+import {LoaderService} from '../../../../service/loader.service';
 
 @Component({
   selector: 'app-market-currency',
@@ -14,6 +15,7 @@ export class MarketCurrencyPage implements OnInit {
   marketCurrencyList: ExchangeCurrency[];
 
   constructor(private http: HttpClient,
+              private loaderService: LoaderService,
               private constant: ConstantService) {
     this.marketCurrencyList = [];
   }
@@ -23,10 +25,10 @@ export class MarketCurrencyPage implements OnInit {
   }
 
   getExchangeCurrency() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/exchange/currency/rank').subscribe( res => {
       this.marketCurrencyList = (res as any).data.reserves_list;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

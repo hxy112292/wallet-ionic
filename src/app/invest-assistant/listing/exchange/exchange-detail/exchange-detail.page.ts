@@ -6,6 +6,8 @@ import {ExchangeDetail} from '../../../../entity/exchange-detail';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ModalController, ToastController} from '@ionic/angular';
 import {ExchangeDescPage} from './exchange-desc/exchange-desc.page';
+import {BrowserService} from '../../../../service/browser.service';
+import {LoaderService} from '../../../../service/loader.service';
 
 @Component({
   selector: 'app-exchange-detail',
@@ -21,6 +23,8 @@ export class ExchangeDetailPage implements OnInit {
               private http: HttpClient,
               private clipboard: Clipboard,
               private constant: ConstantService,
+              private browserService: BrowserService,
+              private loaderService: LoaderService,
               private toastController: ToastController,
               private modalController: ModalController) {
     this.exchangeDetail = {
@@ -51,7 +55,7 @@ export class ExchangeDetailPage implements OnInit {
   }
 
   getExchangeDetail() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/exchange/detail/', {
       params: {
         code: this.exchangeCode
@@ -59,7 +63,7 @@ export class ExchangeDetailPage implements OnInit {
     }).subscribe(res => {
       this.exchangeDetail = (res as any).data;
       this.exchangeDetail.desc = this.exchangeDetail.desc.replace(/<[^>]*>/g, '');
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 
@@ -73,7 +77,7 @@ export class ExchangeDetailPage implements OnInit {
   }
 
   openUrl(url: string) {
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyText(url) {

@@ -9,6 +9,8 @@ import {ConstantService} from './service/constant.service';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {StorageService} from './service/storage.service';
 import {AppUpdate} from '@ionic-native/app-update/ngx';
+import {PrivateKeyService} from './service/private-key.service';
+import {UserService} from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private http: HttpClient,
     private constant: ConstantService,
+    private userService: UserService,
+    private privateKeyService: PrivateKeyService,
     private fcm: FCM,
     private localNotifications: LocalNotifications,
     private storage: StorageService,
@@ -47,7 +51,7 @@ export class AppComponent {
 
   getUserInfo() {
     this.storage.get('token').then( token => {
-      this.constant.user.token = token;
+      this.userService.user.token = token;
       this.storage.get('uid').then( value => {
         if ( value != null) {
           this.http.get(this.constant.walletToolBackendUrl + '/user/info', {
@@ -55,8 +59,8 @@ export class AppComponent {
               userId: value as any
             }
           }).subscribe(res => {
-            this.constant.setUser((res as any).result);
-            console.log(this.constant.getUser());
+            this.userService.setUser((res as any).result);
+            console.log(this.userService.user);
             this.getToken();
           });
         }
@@ -68,20 +72,20 @@ export class AppComponent {
 
     this.storage.get('privateKeyList').then( res => {
       if (res == null) {
-        this.constant.privateKeyList = [];
+        this.privateKeyService.privateKeyList = [];
       } else {
-        this.constant.privateKeyList = res as any;
+        this.privateKeyService.privateKeyList = res as any;
       }
-      console.log(JSON.stringify(this.constant.privateKeyList));
+      console.log(JSON.stringify(this.privateKeyService.privateKeyList));
     });
 
     this.storage.get('privateKeyListLength').then( res => {
       if (res == null) {
-        this.constant.privateKeyListLength = 0;
+        this.privateKeyService.privateKeyListLength = 0;
       } else {
-        this.constant.privateKeyListLength = res as any;
+        this.privateKeyService.privateKeyListLength = res as any;
       }
-      console.log(this.constant.privateKeyListLength);
+      console.log(this.privateKeyService.privateKeyListLength);
     });
   }
 
@@ -115,9 +119,9 @@ export class AppComponent {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
       console.log(token);
-      if (this.constant.getUser() != null && this.constant.getUser().id != null && this.constant.getUser().id !== '') {
+      if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
         this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
-          userId: this.constant.getUser().id,
+          userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});
       }

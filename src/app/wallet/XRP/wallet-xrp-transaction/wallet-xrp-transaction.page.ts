@@ -7,6 +7,8 @@ import {ToastController} from '@ionic/angular';
 import {RippleTransaction} from '../../../entity/ripple-transaction';
 import {RippleAPI} from 'ripple-lib';
 import {PrivateKey} from '../../../entity/private-key';
+import {BrowserService} from '../../../service/browser.service';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-xrp-transaction',
@@ -23,6 +25,8 @@ export class WalletXrpTransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
+              private loaderService: LoaderService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -50,7 +54,7 @@ export class WalletXrpTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let api;
     if (this.privateKey.network === 'testNet') {
       api = new RippleAPI({
@@ -65,7 +69,7 @@ export class WalletXrpTransactionPage implements OnInit {
       api.getTransaction(this.hash).then( transaction => {
         this.transaction = transaction as any;
         api.disconnect();
-        this.constant.hideLoader();
+        this.loaderService.hideLoader();
       });
     }).catch(console.error);
   }
@@ -85,7 +89,7 @@ export class WalletXrpTransactionPage implements OnInit {
     } else {
       url = 'https://bithomp.com/explorer/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   openAddress(url: string) {
@@ -94,7 +98,7 @@ export class WalletXrpTransactionPage implements OnInit {
     } else {
       url = 'https://bithomp.com/explorer/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyTxHash() {

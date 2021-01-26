@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantService} from '../service/constant.service';
+import {UserService} from '../service/user.service';
+import {BrowserService} from '../service/browser.service';
+import {AlertService} from '../service/alert.service';
 
 @Component({
   selector: 'app-invest-assistant',
@@ -11,6 +14,9 @@ export class InvestAssistantPage implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private userService: UserService,
+              private browserService: BrowserService,
+              private alertService: AlertService,
               private constant: ConstantService) {
   }
 
@@ -34,8 +40,8 @@ export class InvestAssistantPage implements OnInit {
   }
 
   toMonitor() {
-    if (this.constant.getUser() == null || this.constant.getUser().id == null || this.constant.getUser().id === '') {
-      this.constant.alert('请先登录，才能使用该功能');
+    if (this.userService.user == null || this.userService.user.id == null || this.userService.user.id === '') {
+      this.alertService.alert('请先登录，才能使用该功能');
       this.router.navigate(['tabs/me']);
       return;
     }
@@ -59,8 +65,8 @@ export class InvestAssistantPage implements OnInit {
   }
 
   toPriceNotification() {
-    if (this.constant.getUser() == null || this.constant.getUser().id == null || this.constant.getUser().id === '') {
-      this.constant.alert('请先登录，才能使用该功能');
+    if (this.userService.user == null || this.userService.user.id == null || this.userService.user.id === '') {
+      this.alertService.alert('请先登录，才能使用该功能');
       this.router.navigate(['tabs/me']);
       return;
     }
@@ -69,7 +75,7 @@ export class InvestAssistantPage implements OnInit {
 
   openAccelerator() {
     const url = 'https://www.viabtc.com/tools/txaccelerator/';
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   toExchange() {

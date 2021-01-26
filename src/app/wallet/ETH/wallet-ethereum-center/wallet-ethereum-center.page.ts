@@ -6,6 +6,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {EtherscanBalance} from '../../../entity/etherscan-balance';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {StorageService} from '../../../service/storage.service';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-ethereum-center',
@@ -23,6 +24,7 @@ export class WalletEthereumCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -54,7 +56,7 @@ export class WalletEthereumCenterPage implements OnInit {
   }
 
   getAddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let network;
     if (this.privateKey.network === 'testNet') {
       network = 'ETHTEST';
@@ -68,7 +70,7 @@ export class WalletEthereumCenterPage implements OnInit {
         .subscribe( res2 => {
       this.etherscanBalance.txList = (res2 as any).result;
       this.getTmpHash();
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

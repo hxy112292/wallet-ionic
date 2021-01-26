@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../service/constant.service';
 import {LiveNews} from '../../entity/live-news';
+import {LoaderService} from '../../service/loader.service';
 
 @Component({
   selector: 'app-live-news',
@@ -13,6 +14,7 @@ export class LiveNewsPage implements OnInit {
   liveNewsList: LiveNews[];
 
   constructor(private http: HttpClient,
+              private loaderService: LoaderService,
               private constant: ConstantService) { }
 
   ngOnInit() {
@@ -20,10 +22,10 @@ export class LiveNewsPage implements OnInit {
   }
 
   getLiveNews() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/liveNews').subscribe(res => {
       this.liveNewsList = (res as any).list[0].lives;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

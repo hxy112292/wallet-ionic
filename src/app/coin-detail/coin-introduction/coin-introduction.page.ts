@@ -6,6 +6,8 @@ import {ConstantService} from '../../service/constant.service';
 import {ModalController, ToastController} from '@ionic/angular';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {CoinDescPage} from './coin-desc/coin-desc.page';
+import {BrowserService} from '../../service/browser.service';
+import {LoaderService} from '../../service/loader.service';
 
 @Component({
   selector: 'app-coin-introduction',
@@ -21,7 +23,9 @@ export class CoinIntroductionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
               private modalController: ModalController,
+              private loaderService: LoaderService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -65,7 +69,7 @@ export class CoinIntroductionPage implements OnInit {
   }
 
   getCoinDetail() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/coinInfo', {
       params: {
         code: this.code
@@ -76,12 +80,12 @@ export class CoinIntroductionPage implements OnInit {
       this.coinDetail.explorer = this.coinDetail.explorer.split('\n')[0];
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace(/<[^>]*>/g, '');
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace('*以上内容由非小号官方整理，如若转载，请注明出处。', '');
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 
   openUrl(url: string) {
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async toCoinDesc() {

@@ -5,6 +5,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {Router} from '@angular/router';
 import {Chart} from 'chart.js';
 import {ExchangeTotal} from '../../../entity/exchange-total';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-market-statistics',
@@ -26,6 +27,7 @@ export class MarketStatisticsPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) {
 
     this.exchangeTotal = {
@@ -98,7 +100,7 @@ export class MarketStatisticsPage implements OnInit {
   }
 
   getExchangeInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/exchange/currency/total').subscribe( res => {
       this.exchangeTotal = (res as any).result;
       this.exchangeTotal.exchangeCoinUsdTotal = this.exchangeTotal.exchangeUsdTotal - this.exchangeTotal.exchangeUsdt;
@@ -108,7 +110,7 @@ export class MarketStatisticsPage implements OnInit {
         this.globalInfo = (res2 as any).data;
         this.createAssetPie();
         this.createExchangePie();
-        this.constant.hideLoader();
+        this.loaderService.hideLoader();
       });
     });
   }

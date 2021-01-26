@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../service/constant.service';
 import {StorageService} from '../../../service/storage.service';
 import {SochainLtcAddress} from '../../../entity/sochain-ltc-address';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-litecoin-center',
@@ -21,6 +22,7 @@ export class WalletLitecoinCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -50,7 +52,7 @@ export class WalletLitecoinCenterPage implements OnInit {
   }
 
   getAddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let network;
     if (this.privateKey.network === 'testNet') {
       network = 'LTCTEST';
@@ -59,7 +61,7 @@ export class WalletLitecoinCenterPage implements OnInit {
     }
     this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.ltcAddress).subscribe(res => {
       this.sochainLtcAddress = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

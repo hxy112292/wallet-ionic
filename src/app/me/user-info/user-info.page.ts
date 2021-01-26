@@ -5,6 +5,8 @@ import {ConstantService} from '../../service/constant.service';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
+import {UserService} from '../../service/user.service';
+import {AlertService} from '../../service/alert.service';
 
 @Component({
   selector: 'app-user-info',
@@ -25,7 +27,9 @@ export class UserInfoPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private userService: UserService,
               private fcm: FCM,
+              private alertService: AlertService,
               private localNotifications: LocalNotifications,
               private router: Router) {
     this.user = {
@@ -48,7 +52,7 @@ export class UserInfoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.constant.getUser();
+    this.user = this.userService.user;
   }
 
   update() {
@@ -75,22 +79,22 @@ export class UserInfoPage implements OnInit {
       this.alertMessage += this.alertPhoneMessage;
     }
     if (this.alertMessage !== '' && this.alertMessage != null) {
-      this.constant.alert(this.alertMessage);
+      this.alertService.alert(this.alertMessage);
       this.initAllAlert();
       return;
     }
 
-    this.constant.getUser().phone = this.user.phone;
-    this.constant.getUser().email = this.user.email;
-    this.constant.getUser().password = this.user.password;
-    this.constant.getUser().username = this.user.username;
-    this.http.put(this.constant.walletToolBackendUrl + '/user/update', this.constant.getUser()).subscribe(res => {
+    this.userService.user.phone = this.user.phone;
+    this.userService.user.email = this.user.email;
+    this.userService.user.password = this.user.password;
+    this.userService.user.username = this.user.username;
+    this.http.put(this.constant.walletToolBackendUrl + '/user/update', this.userService.user).subscribe(res => {
       if ((res as any).code !== 0) {
-        this.constant.alert((res as any).message);
+        this.alertService.alert((res as any).message);
         return;
       }
-      this.constant.setUser((res as any).result);
-      localStorage.setItem('uid', this.constant.getUser().id);
+      this.userService.setUser((res as any).result);
+      localStorage.setItem('uid', this.userService.user.id);
       this.getToken();
       this.router.navigate(['/tabs/me']);
     });
@@ -100,9 +104,9 @@ export class UserInfoPage implements OnInit {
     this.fcm.getToken().then(token => {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
-      if (this.constant.getUser() != null && this.constant.getUser().id != null && this.constant.getUser().id !== '') {
+      if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
         this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
-          userId: this.constant.getUser().id,
+          userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});
       }

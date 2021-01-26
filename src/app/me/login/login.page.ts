@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {StorageService} from '../../service/storage.service';
+import {UserService} from '../../service/user.service';
+import {AlertService} from '../../service/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,8 @@ export class LoginPage implements OnInit {
               private constant: ConstantService,
               private fcm: FCM,
               private localNotifications: LocalNotifications,
+              private userService: UserService,
+              private alertService: AlertService,
               private router: Router,
               private storage: StorageService) { }
 
@@ -28,11 +32,11 @@ export class LoginPage implements OnInit {
 
   login() {
     if (this.username == null || this.username === '') {
-      this.constant.alert('用户名为空');
+      this.alertService.alert('用户名为空');
       return;
     }
     if (this.password == null || this.password === '') {
-      this.constant.alert('密码为空');
+      this.alertService.alert('密码为空');
       return;
     }
     this.http.post(this.constant.walletToolBackendUrl + '/auth/login', {
@@ -40,12 +44,12 @@ export class LoginPage implements OnInit {
       password: this.password,
     }).subscribe(res => {
       if ((res as any).code !== 0) {
-        this.constant.alert((res as any).message);
+        this.alertService.alert((res as any).message);
         return;
       }
-      this.constant.setUser((res as any).result);
-      this.storage.set('uid', this.constant.getUser().id);
-      this.storage.set('token', this.constant.getUser().token);
+      this.userService.setUser((res as any).result);
+      this.storage.set('uid', this.userService.user.id);
+      this.storage.set('token', this.userService.user.token);
       this.getToken();
       this.router.navigate(['/tabs/me']);
     });
@@ -61,9 +65,9 @@ export class LoginPage implements OnInit {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
       console.log(token);
-      if (this.constant.getUser() != null && this.constant.getUser().id != null && this.constant.getUser().id !== '') {
+      if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
         this.http.post(this.constant.walletToolBackendUrl + '/fcm', {
-          userId: this.constant.getUser().id,
+          userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});
       }

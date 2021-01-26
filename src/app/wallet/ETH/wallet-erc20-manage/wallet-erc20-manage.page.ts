@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {StorageService} from '../../../service/storage.service';
 import {ConstantService} from '../../../service/constant.service';
 import {AlertController} from '@ionic/angular';
+import {PrivateKeyService} from '../../../service/private-key.service';
 
 @Component({
   selector: 'app-wallet-erc20-manage',
@@ -18,6 +19,7 @@ export class WalletErc20ManagePage implements OnInit {
               private router: Router,
               private storage: StorageService,
               private constant: ConstantService,
+              private privateKeyService: PrivateKeyService,
               private alertController: AlertController) {
   }
 
@@ -40,10 +42,10 @@ export class WalletErc20ManagePage implements OnInit {
         }, {
           text: '确定',
           handler: () => {
-            this.constant.privateKeyList[this.indexEth].erc20TokenList.splice(this.indexErc20, 1);
-            this.storage.set('privateKeyList', this.constant.privateKeyList);
+            this.privateKeyService.privateKeyList[this.indexEth].erc20TokenList.splice(this.indexErc20, 1);
+            this.storage.set('privateKeyList', this.privateKeyService.privateKeyList);
             this.router.navigate(['wallet-ethereum-erc20-center'
-              , {privateKeyInfo : JSON.stringify(this.constant.privateKeyList[this.indexEth]), index: this.indexEth}]);
+              , {privateKeyInfo : JSON.stringify(this.privateKeyService.privateKeyList[this.indexEth]), index: this.indexEth}]);
           }
         }
       ]

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../service/constant.service';
 import {Turnover} from '../../../entity/turnover';
 import {Router} from '@angular/router';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-turnover',
@@ -15,6 +16,7 @@ export class TurnoverPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) { }
 
   ngOnInit() {
@@ -22,10 +24,10 @@ export class TurnoverPage implements OnInit {
   }
 
   getTurnOver() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/turnover').subscribe(res => {
       this.turnoverList = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {Exchange} from '../../../entity/exchange';
 import {CoinDetail} from '../../../entity/coin-detail';
 import {GlobalInfo} from '../../../entity/global-info';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-exchange',
@@ -17,6 +18,7 @@ export class ExchangePage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) {
   }
 
@@ -26,10 +28,10 @@ export class ExchangePage implements OnInit {
   }
 
   getExchangeInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/exchange').subscribe(res => {
       this.exchangeList = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

@@ -6,6 +6,7 @@ import {PrivateKey} from '../../../entity/private-key';
 import {StorageService} from '../../../service/storage.service';
 import {SochainBtcAddress} from '../../../entity/sochain-btc-address';
 import {SochainBtcTransaction} from '../../../entity/sochain-btc-transaction';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-bitcoin-center',
@@ -22,6 +23,7 @@ export class WalletBitcoinCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -50,7 +52,7 @@ export class WalletBitcoinCenterPage implements OnInit {
   }
 
   getAddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let network;
     if (this.privateKey.network === 'testNet') {
       network = 'BTCTEST';
@@ -59,7 +61,7 @@ export class WalletBitcoinCenterPage implements OnInit {
     }
     this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.btcAddress).subscribe(res => {
       this.sochainBtcAddress = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

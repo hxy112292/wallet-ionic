@@ -6,6 +6,8 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
 import {User} from '../../entity/user';
 import {StorageService} from '../../service/storage.service';
+import {UserService} from '../../service/user.service';
+import {AlertService} from '../../service/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -32,6 +34,8 @@ export class RegisterPage implements OnInit {
               private fcm: FCM,
               private localNotifications: LocalNotifications,
               private router: Router,
+              private userService: UserService,
+              private alertService: AlertService,
               private storage: StorageService) {
     this.user = {
       id: '',
@@ -86,18 +90,18 @@ export class RegisterPage implements OnInit {
       this.alertMessage += this.alertPrivacyMessage;
     }
     if (this.alertMessage !== '' && this.alertMessage != null) {
-      this.constant.alert(this.alertMessage);
+      this.alertService.alert(this.alertMessage);
       this.initAllAlert();
       return;
     }
 
     this.http.post(this.constant.walletToolBackendUrl + '/auth/register', this.user).subscribe(res => {
       if ((res as any).code !== 0) {
-        this.constant.alert((res as any).message);
+        this.alertService.alert((res as any).message);
         return;
       }
-      this.constant.setUser((res as any).result);
-      this.storage.set('uid', this.constant.getUser().id);
+      this.userService.setUser((res as any).result);
+      this.storage.set('uid', this.userService.user.id);
       this.getToken();
       this.router.navigate(['/tabs/me']);
     });
@@ -107,9 +111,9 @@ export class RegisterPage implements OnInit {
     this.fcm.getToken().then(token => {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
-      if (this.constant.getUser() != null && this.constant.getUser().id != null && this.constant.getUser().id !== '') {
+      if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
         this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
-          userId: this.constant.getUser().id,
+          userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});
       }

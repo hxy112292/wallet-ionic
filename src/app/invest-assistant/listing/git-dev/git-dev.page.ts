@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../service/constant.service';
 import {GitDev} from '../../../entity/git-dev';
 import {Router} from '@angular/router';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-git-dev',
@@ -15,6 +16,7 @@ export class GitDevPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) { }
 
   ngOnInit() {
@@ -22,10 +24,10 @@ export class GitDevPage implements OnInit {
   }
 
   getGitDevInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/github').subscribe(res => {
       this.gitDevList = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

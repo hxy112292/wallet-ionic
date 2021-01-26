@@ -4,6 +4,8 @@ import {AlertController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantService} from '../../../service/constant.service';
 import {StorageService} from '../../../service/storage.service';
+import {PrivateKeyService} from '../../../service/private-key.service';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-reset-password',
@@ -20,6 +22,8 @@ export class WalletResetPasswordPage implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private constant: ConstantService,
+              private privateKeyService: PrivateKeyService,
+              private alertService: AlertService,
               private storage: StorageService) {
   }
 
@@ -30,17 +34,17 @@ export class WalletResetPasswordPage implements OnInit {
   toWallet() {
 
     if (this.password == null || this.password === '') {
-      this.constant.alert('钱包密码不能为空!');
+      this.alertService.alert('钱包密码不能为空!');
       return;
     }
     if (this.password !== this.repeatPassword) {
-      this.constant.alert('两次输入的钱包密码不匹配!');
+      this.alertService.alert('两次输入的钱包密码不匹配!');
       return;
     }
 
-    this.constant.privateKeyList[this.index].password = this.password;
-    this.storage.set('privateKeyList', this.constant.privateKeyList);
-    this.constant.alert('密码重置成功');
+    this.privateKeyService.privateKeyList[this.index].password = this.password;
+    this.storage.set('privateKeyList', this.privateKeyService.privateKeyList);
+    this.alertService.alert('密码重置成功');
     this.router.navigate(['tabs/wallet']);
   }
 

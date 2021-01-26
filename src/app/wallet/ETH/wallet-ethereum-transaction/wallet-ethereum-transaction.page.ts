@@ -6,6 +6,7 @@ import {EtherscanTx} from '../../../entity/etherscan-tx';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {PrivateKey} from '../../../entity/private-key';
+import {BrowserService} from '../../../service/browser.service';
 
 @Component({
   selector: 'app-wallet-ethereum-transaction',
@@ -22,6 +23,7 @@ export class WalletEthereumTransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
     this.transaction = {
@@ -82,7 +84,7 @@ export class WalletEthereumTransactionPage implements OnInit {
     } else {
       url = 'https://etherscan.io/tx/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   openAddress(url: string) {
@@ -91,7 +93,7 @@ export class WalletEthereumTransactionPage implements OnInit {
     } else {
       url = 'https://etherscan.io/address/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyTxHash() {

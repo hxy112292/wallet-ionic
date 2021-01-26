@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../../service/constant.service';
 import {Concept} from '../../../../entity/concept';
 import {ConceptDetail} from '../../../../entity/concept-detail';
+import {LoaderService} from '../../../../service/loader.service';
 
 @Component({
   selector: 'app-concept-detail',
@@ -18,6 +19,7 @@ export class ConceptDetailPage implements OnInit {
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) { }
 
   ngOnInit() {
@@ -26,14 +28,14 @@ export class ConceptDetailPage implements OnInit {
   }
 
   getConceptDetailList() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/concept/detail/', {
       params: {
         id: this.concept.id
       }
     }).subscribe(res => {
       this.conceptDetailList = (res as any).data;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

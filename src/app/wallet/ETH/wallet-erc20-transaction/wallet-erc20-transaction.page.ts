@@ -7,6 +7,7 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {Erc20Token} from '../../../entity/erc20-token';
 import {PrivateKey} from '../../../entity/private-key';
+import {BrowserService} from '../../../service/browser.service';
 
 @Component({
   selector: 'app-wallet-erc20-transaction',
@@ -24,6 +25,7 @@ export class WalletErc20TransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -70,7 +72,7 @@ export class WalletErc20TransactionPage implements OnInit {
     } else {
       url = 'https://etherscan.io/tx/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   openAddress(url: string) {
@@ -79,7 +81,7 @@ export class WalletErc20TransactionPage implements OnInit {
     } else {
       url = 'https://etherscan.io/address/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyTxHash() {

@@ -6,6 +6,7 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ModalController, NavParams, ToastController} from '@ionic/angular';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {WalletContact} from '../../../entity/wallet-contact';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-contact-add',
@@ -19,7 +20,7 @@ export class WalletContactAddPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private constant: ConstantService,
+              private alertService: AlertService,
               private storage: StorageService,
               private clipboard: Clipboard,
               private modalController: ModalController,
@@ -60,19 +61,19 @@ export class WalletContactAddPage implements OnInit {
   addWalletContact() {
 
     if (this.walletContact.symbol == null || this.walletContact.symbol === '') {
-      this.constant.alert('请选择一个币种！');
+      this.alertService.alert('请选择一个币种！');
       return;
     }
     if (this.walletContact.address == null || this.walletContact.address === '') {
-      this.constant.alert('地址不能为空');
+      this.alertService.alert('地址不能为空');
       return;
     }
     if (this.walletContact.note  == null || this.walletContact.note === '') {
-      this.constant.alert('备注不能为空');
+      this.alertService.alert('备注不能为空');
       return;
     }
     if (this.walletContact.note.length > 25) {
-      this.constant.alert('备注不能超过25个字');
+      this.alertService.alert('备注不能超过25个字');
       return;
     }
 

@@ -5,6 +5,7 @@ import {ConstantService} from '../../../../service/constant.service';
 import {ModalController} from '@ionic/angular';
 import {AddMonitorPricePage} from './add-monitor-price/add-monitor-price.page';
 import {UpdateMonitorPricePage} from './update-monitor-price/update-monitor-price.page';
+import {UserService} from '../../../../service/user.service';
 
 @Component({
   selector: 'app-price-notification-latest',
@@ -17,6 +18,7 @@ export class PriceNotificationLatestPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private userService: UserService,
               private modalController: ModalController) { }
 
   ngOnInit() {
@@ -27,7 +29,7 @@ export class PriceNotificationLatestPage implements OnInit {
   getPriceOnNotification() {
     this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice', {
       params: {
-        userId: this.constant.getUser().id,
+        userId: this.userService.user.id,
         notification: 'on'
       }
     }).subscribe(res => {

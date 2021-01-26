@@ -6,6 +6,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {StorageService} from '../../../service/storage.service';
 import {CryptoBchAddress} from '../../../entity/crypto-bch-address';
 import {CryptoBchTx} from '../../../entity/crypto-bch-tx';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-bch-center',
@@ -23,6 +24,7 @@ export class WalletBchCenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -52,7 +54,7 @@ export class WalletBchCenterPage implements OnInit {
   }
 
   getAddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let network;
     if (this.privateKey.network === 'testNet') {
       network = 'BCHTEST';
@@ -62,6 +64,7 @@ export class WalletBchCenterPage implements OnInit {
     this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.bchAddress).subscribe(res => {
       this.cryptoBchAddress = (res as any).payload;
     });
+    // tslint:disable-next-line:max-line-length
     this.http.get(this.constant.walletBackendUrl + '/' + network + '/address/' + this.privateKey.bchAddress + '/transaction').subscribe( res => {
           this.cryptoBchTxList = res as any;
           // tslint:disable-next-line:prefer-for-of
@@ -82,7 +85,7 @@ export class WalletBchCenterPage implements OnInit {
             }
             this.cryptoBchTxList[i].value = outValue - inValue;
           }
-          this.constant.hideLoader();
+          this.loaderService.hideLoader();
     });
   }
 

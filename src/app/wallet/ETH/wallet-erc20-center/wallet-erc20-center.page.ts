@@ -7,6 +7,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {StorageService} from '../../../service/storage.service';
 import {Erc20Token} from '../../../entity/erc20-token';
 import {Contract, ethers} from 'ethers';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-erc20-center',
@@ -29,6 +30,7 @@ export class WalletErc20CenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -62,7 +64,7 @@ export class WalletErc20CenterPage implements OnInit {
   }
 
   getErc20AddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     const contractAbiFragment = [
       {
         name: 'balanceOf',
@@ -109,7 +111,7 @@ export class WalletErc20CenterPage implements OnInit {
     }).subscribe( res => {
       this.erc20TxList = (res as any).result;
       this.getTmpHash();
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

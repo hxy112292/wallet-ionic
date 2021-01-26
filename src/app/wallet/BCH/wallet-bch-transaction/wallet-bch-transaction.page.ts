@@ -6,6 +6,8 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
 import {CryptoBchTx} from '../../../entity/crypto-bch-tx';
 import {PrivateKey} from '../../../entity/private-key';
+import {BrowserService} from '../../../service/browser.service';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-bch-transaction',
@@ -22,6 +24,8 @@ export class WalletBchTransactionPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private browserService: BrowserService,
+              private loaderService: LoaderService,
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
@@ -39,7 +43,7 @@ export class WalletBchTransactionPage implements OnInit {
   }
 
   getTransactionInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     let network;
     if (this.privateKey.network === 'testNet') {
       network = 'BCHTEST';
@@ -68,7 +72,7 @@ export class WalletBchTransactionPage implements OnInit {
       }
       this.transaction.fee = allInValue - allOutValue;
       this.transaction.value = Math.abs(outValue - inValue) - this.transaction.fee;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 
@@ -87,7 +91,7 @@ export class WalletBchTransactionPage implements OnInit {
     } else {
       url = 'https://blockexplorer.one/bch/mainnet/tx/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   openAddress(url: string) {
@@ -96,7 +100,7 @@ export class WalletBchTransactionPage implements OnInit {
     } else {
       url = 'https://blockexplorer.one/bch/mainnet/address/' + url;
     }
-    this.constant.openBrowser(url);
+    this.browserService.openBrowser(url);
   }
 
   async copyTxHash() {

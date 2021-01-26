@@ -7,6 +7,7 @@ import {ConstantService} from '../../../service/constant.service';
 import {StorageService} from '../../../service/storage.service';
 import {Contract, ethers} from 'ethers';
 import {Erc20Token} from '../../../entity/erc20-token';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-wallet-ethereum-erc20-center',
@@ -24,6 +25,7 @@ export class WalletEthereumErc20CenterPage implements OnInit {
               private router: Router,
               private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -47,10 +49,10 @@ export class WalletEthereumErc20CenterPage implements OnInit {
   }
 
   getETHAddressInfo() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletBackendUrl + '/ETHTEST/address/' + this.privateKey.ethAddress).subscribe(res => {
       this.etherscanBalance = res as any;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

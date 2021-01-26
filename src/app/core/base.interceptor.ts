@@ -4,26 +4,30 @@ import {ConstantService} from '../service/constant.service';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {StorageService} from '../service/storage.service';
+import {UserService} from '../service/user.service';
+import {AlertService} from '../service/alert.service';
 
 @Injectable()
 export class BaseInterceptor implements HttpInterceptor {
 
-  constructor(private constant: ConstantService) {
+  constructor(
+      private alertService: AlertService,
+      private userService: UserService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (req.url.startsWith('https')) {
+    if (req.url.startsWith('http')) {
       req = req.clone({
         url: req.url,
-        setHeaders: {Authorization: this.constant.user.token ? 'Bearer ' + this.constant.user.token : ''}
+        setHeaders: {Authorization: this.userService.user.token ? 'Bearer ' + this.userService.user.token : ''}
       });
     }
     return next.handle(req).pipe(
         tap(evt => {
           if (evt instanceof HttpResponse) {
             if (!evt.ok) {
-              this.constant.alert(evt.body);
+              this.alertService.alert(evt.body);
             }
           }
         })

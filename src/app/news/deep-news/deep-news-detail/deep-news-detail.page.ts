@@ -3,6 +3,7 @@ import {ActivatedRoute, Route} from '@angular/router';
 import {DeepNews} from '../../../entity/deep-news';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../service/constant.service';
+import {LoaderService} from '../../../service/loader.service';
 
 @Component({
   selector: 'app-deep-news-detail',
@@ -15,6 +16,7 @@ export class DeepNewsDetailPage implements OnInit {
   deepNewsDetail: string;
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
+              private loaderService: LoaderService,
               private constant: ConstantService) {
     this.deepNews = {
       extra: undefined, id: '', short_title: '', title: ''
@@ -29,14 +31,14 @@ export class DeepNewsDetailPage implements OnInit {
   }
 
   getDeepNewsDetail() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/liveNews/deep/detail', {
       params: {
         url: this.deepNews.extra.topic_url
       }
     }).subscribe(res => {
       this.deepNewsDetail = (res as any).result;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 

@@ -5,6 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../../../../service/constant.service';
 import {MonitorCoin} from '../../../../../entity/monitor-coin';
 import {MonitorPrice} from '../../../../../entity/monitor-price';
+import {UserService} from '../../../../../service/user.service';
+import {AlertService} from '../../../../../service/alert.service';
 
 @Component({
   selector: 'app-add-monitor-price',
@@ -23,13 +25,15 @@ export class AddMonitorPricePage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private modalController: ModalController,
+              private userService: UserService,
               private navParams: NavParams,
               private http: HttpClient,
+              private alertService: AlertService,
               private constant: ConstantService) {
     this.monitorPrice = {
       id: '',
       code: '',
-      userId: this.constant.getUser().id,
+      userId: this.userService.user.id,
       upPrice: null,
       downPrice: null,
       upChangePercent: null,
@@ -60,31 +64,31 @@ export class AddMonitorPricePage implements OnInit {
   insertMonitorPrice() {
 
     if (this.monitorPrice.code == null || this.monitorPrice.code === '') {
-      this.constant.alert('请选择一个币种');
+      this.alertService.alert('请选择一个币种');
       return;
     }
     if (this.upPriceMonitor == null && this.downPriceMonitor == null && this.upChangeMonitor == null
         && this.downChangeMonitor == null) {
-      this.constant.alert('请至少输入一个提醒参数');
+      this.alertService.alert('请至少输入一个提醒参数');
       return;
     }
 
     const re = /^-?[0-9]+.?[0-9]*/;
 
     if (this.upPriceMonitor != null && !re.test(String(this.upPriceMonitor))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
     if (this.downPriceMonitor != null && !re.test(String(this.downPriceMonitor))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
     if (this.upChangeMonitor != null && !re.test(String(this.upChangeMonitor))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
     if (this.downChangeMonitor != null && !re.test(String(this.downChangeMonitor))) {
-      this.constant.alert('请输入数字');
+      this.alertService.alert('请输入数字');
       return;
     }
 

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AlertController} from '@ionic/angular';
 import {ConstantService} from '../../../service/constant.service';
 import {PrivateKey} from '../../../entity/private-key';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-private-key-password',
@@ -17,8 +18,7 @@ export class WalletPrivateKeyPasswordPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private alertController: AlertController,
-              private constant: ConstantService) {
+              private alertService: AlertService) {
     this.privateKeyInput = '';
     this.privateKeyCorrect = '';
   }
@@ -41,7 +41,7 @@ export class WalletPrivateKeyPasswordPage implements OnInit {
       this.privateKeyCorrect = this.privateKey.xrpPrivateKey;
     }
     if (this.privateKeyInput !== this.privateKeyCorrect) {
-      this.constant.alert('私钥错误！');
+      this.alertService.alert('私钥错误！');
     } else {
       this.router.navigate(['wallet-reset-password', {index: this.index}]);
     }

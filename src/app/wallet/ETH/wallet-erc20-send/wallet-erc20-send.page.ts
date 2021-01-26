@@ -11,6 +11,7 @@ import {Contract, ethers, utils} from 'ethers';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 import {Erc20Token} from '../../../entity/erc20-token';
 import {EtherscanTx} from '../../../entity/etherscan-tx';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-wallet-erc20-send',
@@ -39,6 +40,7 @@ export class WalletErc20SendPage implements OnInit {
               private clipboard: Clipboard,
               private constant: ConstantService,
               private alertController: AlertController,
+              private alertService: AlertService,
               private storage: StorageService,
               private modalController: ModalController) {
     this.barcodeScannerOptions = {
@@ -137,7 +139,7 @@ export class WalletErc20SendPage implements OnInit {
 
     const contract = new Contract(this.erc20Token.address, contractAbiFragment, wallet);
     const result = await contract.transfer(this.recipientAddr, numberOfTokens).catch( error => {
-      this.constant.alert('发送失败：' + error);
+      this.alertService.alert('发送失败：' + error);
       return;
     });
     this.tmpHash.hash = (result as any).hash;
@@ -180,21 +182,21 @@ export class WalletErc20SendPage implements OnInit {
   async sendConfirm() {
 
     if (this.recipientAddr == null || this.recipientAddr === '') {
-      this.constant.alert('接收方地址不能为空');
+      this.alertService.alert('接收方地址不能为空');
       return;
     }
     if (this.amount == null || this.amount === '') {
-      this.constant.alert('金额不能为空');
+      this.alertService.alert('金额不能为空');
       return;
     }
 
     if (this.fee > this.ethBalance) {
-      this.constant.alert('ETH余额不足，无法支付矿工费');
+      this.alertService.alert('ETH余额不足，无法支付矿工费');
       return;
     }
 
     if (Number(this.amount) > this.erc20Balance) {
-      this.constant.alert('大于可用余额');
+      this.alertService.alert('大于可用余额');
       return;
     }
 
@@ -244,7 +246,7 @@ export class WalletErc20SendPage implements OnInit {
           text: '确定',
           handler: (alertData) => {
             if (alertData.password !== this.privateKey.password) {
-              this.constant.alert('密码错误！');
+              this.alertService.alert('密码错误！');
             } else {
               this.sendByTypical();
             }

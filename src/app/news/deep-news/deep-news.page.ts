@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../service/constant.service';
 import {DeepNews} from '../../entity/deep-news';
 import {Router} from '@angular/router';
+import {LoaderService} from '../../service/loader.service';
 
 @Component({
   selector: 'app-deep-news',
@@ -15,6 +16,7 @@ export class DeepNewsPage implements OnInit {
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private loaderService: LoaderService,
               private router: Router) {
     this.deepNewsList = [];
   }
@@ -24,10 +26,10 @@ export class DeepNewsPage implements OnInit {
   }
 
   getDeepNews() {
-    this.constant.showLoader();
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletToolBackendUrl + '/liveNews/deep').subscribe(res => {
       this.deepNewsList = (res as any).list;
-      this.constant.hideLoader();
+      this.loaderService.hideLoader();
     });
   }
 
