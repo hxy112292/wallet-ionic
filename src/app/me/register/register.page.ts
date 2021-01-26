@@ -38,6 +38,7 @@ export class RegisterPage implements OnInit {
               private alertService: AlertService,
               private storage: StorageService) {
     this.user = {
+      vipTime: '',
       id: '',
       username: '',
       password: '',

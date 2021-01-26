@@ -82,4 +82,8 @@ export class MePage implements OnInit {
   webUrl() {
     this.router.navigate(['website']);
   }
+
+  toVIP() {
+    this.router.navigate(['vip']);
+  }
 }

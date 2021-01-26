@@ -32,15 +32,7 @@ export class UserInfoPage implements OnInit {
               private alertService: AlertService,
               private localNotifications: LocalNotifications,
               private router: Router) {
-    this.user = {
-      id: '',
-      username: '',
-      password: '',
-      email: '',
-      phone: '',
-      role: [],
-      token: ''
-    };
+    this.user = new User();
 
     this.alertTitle = '';
     this.alertMessage = '';

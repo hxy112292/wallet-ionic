@@ -26,15 +26,17 @@
 <!--        <ion-label>　{{userService.user.username}} 的个人信息</ion-label>-->
 <!--      </ion-item>-->
     </div>
-    <ion-item>
+    <ion-item (click)="toVIP()">
       <ion-icon name="card-outline" color="warning"></ion-icon>
       <ion-label>　会员中心</ion-label>
       <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
+        <ion-text color="danger">{{userService.user.vipTime | date}}</ion-text>
         <ion-chip outline color="danger">
           <ion-label>VIP</ion-label>
         </ion-chip>
       </div>
       <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) === -1">
+        <ion-text style="color: grey">（您不是会员）</ion-text>
         <ion-chip outline color="medium">
           <ion-label>VIP</ion-label>
         </ion-chip>
