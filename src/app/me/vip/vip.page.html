@@ -8,5 +8,55 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-header>
+      <img src="assets/vip.jpg"/>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
+        <ion-text color="danger">{{userService.user.vipTime | date}} 到期</ion-text>
+        <ion-chip outline color="danger">
+          <ion-label>VIP</ion-label>
+        </ion-chip>
+      </div>
+      <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) === -1">
+        <ion-text style="color: grey">（您不是会员）</ion-text>
+        <ion-chip outline color="medium">
+          <ion-label>VIP</ion-label>
+        </ion-chip>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <div style="padding: 5%">
+    <b style="font-size: large">会员特权：</b>
+    <p style="white-space: pre-wrap">{{product.description}}</p>
+    <ion-list lines="full">
+      <ion-radio-group allow-empty-selection value="{{sku.id}}">
+        <ion-list-header>
+          <ion-label style="font-size: large">请选择一个会员服务</ion-label>
+        </ion-list-header>
+        <div *ngFor="let item of product.skuList">
+          <ion-item>
+            <ion-label>{{item.sku}}</ion-label>
+            <ion-text slot="end">{{item.price}}ETH</ion-text>
+            <ion-radio slot="end" color="tertiary" value="{{item.id}}"></ion-radio>
+          </ion-item>
+        </div>
+      </ion-radio-group>
+    </ion-list>
+    <div style="text-align: center">
+      <ion-button (click)="createOrder()">
+        <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
+          续 费
+        </div>
+        <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) === -1">
+          下 单
+        </div>
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

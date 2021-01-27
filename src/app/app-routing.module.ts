@@ -92,7 +92,7 @@ const routes: Routes = [
   },
   {
     path: 'login-forget-password',
-    loadChildren: () => import('./me/login-forget-password/login-forget-password.module')
+    loadChildren: () => import('./me/login/login-forget-password/login-forget-password.module')
         .then(m => m.LoginForgetPasswordPageModule)
   },
   {
@@ -101,7 +101,7 @@ const routes: Routes = [
   },
   {
     path: 'register-privacy',
-    loadChildren: () => import('./me/register-privacy/register-privacy.module').then(m => m.RegisterPrivacyPageModule)
+    loadChildren: () => import('./me/register/register-privacy/register-privacy.module').then(m => m.RegisterPrivacyPageModule)
   },
   {
     path: 'user-info',
@@ -341,7 +341,22 @@ const routes: Routes = [
   {
     path: 'vip',
     loadChildren: () => import('./me/vip/vip.module').then(m => m.VipPageModule)
+  },
+  {
+    path: 'order-pay',
+    loadChildren: () => import('./me/order/order-pay/order-pay.module').then(m => m.OrderPayPageModule)
+  },
+  {
+    path: 'order',
+    loadChildren: () => import('./me/order/order.module').then(m => m.OrderPageModule)
+  },
+  {
+    path: 'order-detail',
+    loadChildren: () => import('./me/order/order-detail/order-detail.module').then(m => m.OrderDetailPageModule)
   }
+
+
+
 
 
 

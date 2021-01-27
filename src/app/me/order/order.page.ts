@@ -1,68 +1,72 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../service/constant.service';
-import {TxHistory} from '../../../entity/tx-history';
+import {ConstantService} from '../../service/constant.service';
+import {UserService} from '../../service/user.service';
+import {AlertService} from '../../service/alert.service';
 import {Router} from '@angular/router';
+import {Order} from '../../entity/order';
 
 @Component({
-  selector: 'app-monitor-blockchain',
-  templateUrl: './monitor-blockchain.page.html',
-  styleUrls: ['./monitor-blockchain.page.scss'],
+  selector: 'app-order',
+  templateUrl: './order.page.html',
+  styleUrls: ['./order.page.scss'],
 })
-export class MonitorBlockchainPage implements OnInit {
+export class OrderPage implements OnInit {
 
-  txHistoryList: TxHistory[];
+  orderList: Order[];
+  status: number;
   pageNum: 1;
   pageSize: 10;
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
+              private userService: UserService,
+              private alertService: AlertService,
               private router: Router) { }
 
   ngOnInit() {
-    this.txHistoryList = [];
-    this.getTxHistory();
+    this.getOrderList();
   }
 
-  getTxHistory() {
-    const param = JSON.stringify({symbol: 'BTC'});
+  getOrderList() {
+    const param = JSON.stringify({status: this.status});
     if (this.pageNum == null) {
       this.pageNum = 1;
     }
     if (this.pageSize == null) {
       this.pageSize = 10;
     }
-    this.http.get(this.constant.walletToolBackendUrl + '/monitorAddress/history', {
+    this.http.get(this.constant.walletToolBackendUrl + '/order/list', {
       params: {
         pageNum: this.pageNum + '',
         pageSize: this.pageSize + '',
         param
       }
-    }).subscribe(res => {
-      this.txHistoryList = this.txHistoryList.concat((res as any).result);
+    }).subscribe( res => {
+      this.orderList = (res as any).result;
     });
   }
 
   doRefresh(event) {
     console.log('Begin async operation');
+    this.orderList = [];
     this.pageNum = 1;
     this.pageSize = 10;
-    this.txHistoryList = [];
-    this.getTxHistory();
+    this.getOrderList();
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
 
-  toTxDetail(txHistory: TxHistory) {
-    this.router.navigate(['tx-detail', {txHistoryInfo: JSON.stringify(txHistory)}]);
+  toOrderDetail(id) {
+    this.router.navigate(['order-detail', {orderId: id}]);
   }
 
   loadMore(event) {
     console.log('Begin async operation');
     this.pageNum += 1;
-    this.getTxHistory();
+    this.getOrderList();
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();

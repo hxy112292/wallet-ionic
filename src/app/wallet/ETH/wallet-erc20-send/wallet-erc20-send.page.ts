@@ -185,8 +185,12 @@ export class WalletErc20SendPage implements OnInit {
       this.alertService.alert('接收方地址不能为空');
       return;
     }
-    if (this.amount == null || this.amount === '') {
-      this.alertService.alert('金额不能为空');
+    if (this.amount == null || this.amount === '' || !this.amount.match(/^[0-9][0-9]*[.]?[0-9]*/)) {
+      this.alertService.alert('金额非法');
+      return;
+    }
+    if (Number(this.amount) > this.erc20Balance) {
+      this.alertService.alert('金额大过余额');
       return;
     }
 

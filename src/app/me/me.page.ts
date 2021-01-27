@@ -86,4 +86,8 @@ export class MePage implements OnInit {
   toVIP() {
     this.router.navigate(['vip']);
   }
+
+  toOrder() {
+    this.router.navigate(['order']);
+  }
 }

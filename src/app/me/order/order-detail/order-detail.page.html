@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>订单详情</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-icon name="calendar" color="danger"></ion-icon>
+        <ion-text>　交易日期：{{order.createTime | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="document" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              订单ID：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            {{order.id}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="basket-outline" color="danger"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              状态：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <div *ngIf="order.status === 0">
+              未付款
+            </div>
+            <div *ngIf="order.status === 1">
+              已付款
+            </div>
+            <div *ngIf="order.status === 4">
+              交易成功
+            </div>
+            <div *ngIf="order.status === 5">
+              交易取消
+            </div>
+            <div *ngIf="order.status === 6">
+              交易失败
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              产品：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <div *ngFor="let product of order.productList">
+              <ion-text>{{product.name}}</ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="pricetag" color="tertiary"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              金额：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              {{order.totalFee}} ETH
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="code-working" color="success"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <ion-text>
+              Hash值：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">
+              {{order.payNo}}
+            </ion-text>
+            <ion-icon name="copy-outline" (click)="copyTxHash()"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: center">
+            <ion-text color="primary" (click)="openHash(order.payNo)" style="text-decoration: underline">前往 etherscan.com 查看更多细节 >></ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            发送方：
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <ion-text>
+                  地址：
+                </ion-text>
+                <ion-text color="dark">
+                  {{order.fromAddr}}
+                </ion-text>
+                <ion-icon name="copy-outline" (click)="copyAddress(order.fromAddr)"></ion-icon>
+                <br>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="6">
+            接收方：
+          </ion-col>
+          <ion-col>
+            <ion-text style="white-space: pre-line">
+              <ion-list>
+                <ion-text>
+                  地址：
+                </ion-text>
+                <ion-text color="dark">
+                  {{order.toAddr}}
+                </ion-text>
+                <ion-icon name="copy-outline" (click)="copyAddress(order.toAddr)"></ion-icon>
+                <br>
+              </ion-list>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

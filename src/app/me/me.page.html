@@ -30,7 +30,7 @@
       <ion-icon name="card-outline" color="warning"></ion-icon>
       <ion-label>　会员中心</ion-label>
       <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
-        <ion-text color="danger">{{userService.user.vipTime | date}}</ion-text>
+        <ion-text color="danger">{{userService.user.vipTime | date}} （到期）</ion-text>
         <ion-chip outline color="danger">
           <ion-label>VIP</ion-label>
         </ion-chip>
@@ -41,6 +41,10 @@
           <ion-label>VIP</ion-label>
         </ion-chip>
       </div>
+    </ion-item>
+    <ion-item (click)="toOrder()">
+        <ion-icon name="file-tray-full-outline" color="dark"></ion-icon>
+      <ion-label>　我的订单</ion-label>
     </ion-item>
     <ion-item (click)="walletContactManage()">
       <ion-icon name="wallet" color="tertiary"></ion-icon>

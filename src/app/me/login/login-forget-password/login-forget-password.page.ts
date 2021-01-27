@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../service/constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {Router} from '@angular/router';
-import {AlertService} from '../../service/alert.service';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-login-forget-password',
