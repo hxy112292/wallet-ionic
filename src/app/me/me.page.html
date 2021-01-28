@@ -5,6 +5,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list lines="full">
     <div *ngIf="userService.user == null || userService.user.id==null ||
       userService.user.id==''">

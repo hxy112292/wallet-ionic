@@ -7,6 +7,7 @@ import {StorageService} from '../service/storage.service';
 import {ToastController} from '@ionic/angular';
 import {UserService} from '../service/user.service';
 import {AlertService} from '../service/alert.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-me',
@@ -19,6 +20,7 @@ export class MePage implements OnInit {
 
   constructor(private router: Router,
               private constant: ConstantService,
+              private http: HttpClient,
               private appUpdate: AppUpdate,
               private appVersion: AppVersion,
               private storage: StorageService,
@@ -28,6 +30,7 @@ export class MePage implements OnInit {
 
   ngOnInit() {
     this.getVersion();
+    this.getUserInfo();
   }
 
   login() {
@@ -46,6 +49,24 @@ export class MePage implements OnInit {
       duration: 2000
     });
     await toast.present();
+  }
+
+  getUserInfo() {
+    this.storage.get('token').then( token => {
+      this.userService.user.token = token;
+      this.storage.get('uid').then( value => {
+        if ( value != null) {
+          this.http.get(this.constant.walletToolBackendUrl + '/user/info', {
+            params: {
+              userId: value as any
+            }
+          }).subscribe(res => {
+            this.userService.setUser((res as any).result);
+            console.log(this.userService.user);
+          });
+        }
+      });
+    });
   }
 
   getVersion() {
@@ -89,5 +110,15 @@ export class MePage implements OnInit {
 
   toOrder() {
     this.router.navigate(['order']);
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getVersion();
+    this.getUserInfo();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 }
