@@ -86,6 +86,8 @@ export class VipPage implements OnInit {
     this.order.totalFee = cartProduct.sku.price;
     this.http.post(this.constant.walletToolBackendUrl + '/order', this.order).subscribe( res => {
       this.order = (res as any).result;
+      console.log(this.order);
+      this.router.navigate(['/order-pay', {order: JSON.stringify(this.order)}]);
     });
   }
 }
