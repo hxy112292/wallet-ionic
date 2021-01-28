@@ -21,8 +21,8 @@
           <ion-icon name="caret-down" size="small" (click)="showGroup(i)" id="{{i}}caret-down"></ion-icon>
           <ion-icon name="caret-forward" size="small" (click)="showGroup(i)" id="{{i}}caret-forward" style="display: none"></ion-icon>
           <ion-icon name="wallet" color="warning" (click)="showGroup(i)" style="margin-left: 3%"></ion-icon>
-          <ion-text *ngIf="privateKey.network === 'testNet'" (click)="showGroup(i)">　#{{i+1}} 钱包（测试网络）</ion-text>
-          <ion-text *ngIf="privateKey.network === 'mainNet'" (click)="showGroup(i)">　#{{i+1}} 钱包（主网）</ion-text>
+          <ion-text *ngIf="privateKey.network === 'testNet'" (click)="showGroup(i)">　钱包（测试网络）</ion-text>
+          <ion-text *ngIf="privateKey.network === 'mainNet'" (click)="showGroup(i)">　钱包（主网）</ion-text>
           <ion-icon slot="end" md="ellipsis-horizontal" (click)="toWalletManagement(privateKey, i)"></ion-icon>
         </ion-item>
         <ion-item lines="none" id="{{i}}BTC">
@@ -115,8 +115,8 @@
     <div *ngIf="privateKey.isHDWallet !== true">
       <ion-list lines="full">
         <ion-item lines="none">
-          <ion-text *ngIf="privateKey.network === 'testNet'">　#{{i+1}} 钱包（测试网络）</ion-text>
-          <ion-text *ngIf="privateKey.network === 'mainNet'">　#{{i+1}} 钱包（主网）</ion-text>
+          <ion-text *ngIf="privateKey.network === 'testNet'">　钱包（测试网络）</ion-text>
+          <ion-text *ngIf="privateKey.network === 'mainNet'">　钱包（主网）</ion-text>
           <ion-icon slot="end" md="ellipsis-horizontal" (click)="toWalletManagement(privateKey, i)"></ion-icon>
         </ion-item>
         <ion-item lines="none" *ngIf="privateKey.btcAddress != null">

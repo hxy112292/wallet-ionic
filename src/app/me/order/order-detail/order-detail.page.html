@@ -72,7 +72,7 @@
           </ion-col>
           <ion-col>
             <div *ngFor="let product of order.productList">
-              <ion-text>{{product.name}}</ion-text>
+              <ion-text>{{product.name}} {{product.sku.sku}}</ion-text>
             </div>
           </ion-col>
         </ion-row>
@@ -159,4 +159,23 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
+  <div *ngIf="this.order.status == constant.ORDER_STATUS_NOT_PAY" style="text-align: center">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div style="text-align: center">
+            <ion-button color="danger" (click)="canCelOrder()">取 消</ion-button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div style="text-align: center">
+            <ion-button (click)="toOrderPay()">钱包付款</ion-button>
+            <br>
+            <br>
+            <ion-text color="danger" style="text-decoration: underline" (click)="toGenerateWallet()">还没有钱包？</ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

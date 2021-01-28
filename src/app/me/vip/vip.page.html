@@ -49,14 +49,10 @@
       </ion-radio-group>
     </ion-list>
     <div style="text-align: center">
-      <ion-button (click)="createOrder()">
-        <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
-          续 费
-        </div>
-        <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) === -1">
-          下 单
-        </div>
-      </ion-button>
+      <ion-button (click)="createOrder()">钱包付款</ion-button>
+      <br>
+      <br>
+      <ion-text color="danger" style="text-decoration: underline" (click)="toGenerateWallet()">还没有钱包？</ion-text>
     </div>
   </div>
 </ion-content>

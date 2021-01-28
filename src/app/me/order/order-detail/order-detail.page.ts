@@ -27,10 +27,7 @@ export class OrderDetailPage implements OnInit {
               private router: Router,
               private clipboard: Clipboard,
               private toastController: ToastController) {
-    this.order = {
-      fromAddr: '',
-      toAddr: '',
-      createTime: '', id: '', payNo: '', paymentTime: '', productList: [], status: 0, totalFee: 0, updateTime: '', userId: 0};
+    this.order = new Order();
   }
 
   ngOnInit() {
@@ -81,5 +78,20 @@ export class OrderDetailPage implements OnInit {
     });
     await toast.present();
     await this.clipboard.copy(address);
+  }
+
+  toOrderPay() {
+    this.router.navigate(['/wallet-eth-pay', {order: JSON.stringify(this.order)}]);
+  }
+
+  canCelOrder() {
+    this.order.status = this.constant.ORDER_STATUS_CLOSED;
+    this.http.put(this.constant.walletToolBackendUrl + '/order', this.order).subscribe( res => {
+      this.router.navigate(['/order']);
+    });
+  }
+
+  toGenerateWallet() {
+    this.router.navigate(['wallet-add-choose']);
   }
 }

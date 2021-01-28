@@ -25,6 +25,7 @@ export class OrderPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.orderList = [];
     this.getOrderList();
   }
 
@@ -43,7 +44,7 @@ export class OrderPage implements OnInit {
         param
       }
     }).subscribe( res => {
-      this.orderList = (res as any).result;
+      this.orderList = this.orderList.concat((res as any).result);
     });
   }
 

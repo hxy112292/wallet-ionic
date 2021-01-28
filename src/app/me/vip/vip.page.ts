@@ -71,6 +71,10 @@ export class VipPage implements OnInit {
     }, 2000);
   }
 
+  toGenerateWallet() {
+    this.router.navigate(['wallet-add-choose']);
+  }
+
   createOrder() {
     const cartProduct = new CartProduct();
     cartProduct.productId = this.product.id;
@@ -86,8 +90,7 @@ export class VipPage implements OnInit {
     this.order.totalFee = cartProduct.sku.price;
     this.http.post(this.constant.walletToolBackendUrl + '/order', this.order).subscribe( res => {
       this.order = (res as any).result;
-      console.log(this.order);
-      this.router.navigate(['/order-pay', {order: JSON.stringify(this.order)}]);
+      this.router.navigate(['/wallet-eth-pay', {order: JSON.stringify(this.order)}]);
     });
   }
 }

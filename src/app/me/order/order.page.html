@@ -6,11 +6,11 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="status" value="0" (ionChange)="getOrderList()">
+    <ion-segment [(ngModel)]="status" value="" (ionChange)="getOrderList()">
       <ion-segment-button value="">全部</ion-segment-button>
-      <ion-segment-button value="0">未付款</ion-segment-button>
-      <ion-segment-button value="1">已付款</ion-segment-button>
-      <ion-segment-button value="4">已完成</ion-segment-button>
+      <ion-segment-button value="{{constant.ORDER_STATUS_NOT_PAY}}">未付款</ion-segment-button>
+      <ion-segment-button value="{{constant.ORDER_STATUS_PAID}}">已付款</ion-segment-button>
+      <ion-segment-button value="{{constant.ORDER_STATUS_SUCCESS}}">已完成</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -20,100 +20,83 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list lines="none">
-    <div *ngFor="let order of orderList">
-      <ion-item>
-        <ion-card style="width: 100%" (click)="toOrderDetail(order.id)">
-          <ion-card-header>
-            <ion-card-subtitle>
-              <ion-icon name="calendar" color="danger"></ion-icon>
-              <ion-text>　交易日期：{{order.createTime | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
-            </ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="1">
-                  <ion-icon name="document" color="primary"></ion-icon>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-text>
-                    订单ID：
-                  </ion-text>
-                </ion-col>
-                <ion-col>
-                  {{order.id}}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="1">
-                  <ion-icon name="basket-outline" color="danger"></ion-icon>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-text>
-                    状态：
-                  </ion-text>
-                </ion-col>
-                <ion-col>
-                  <div *ngIf="order.status === 0">
-                    未付款
+  <div *ngFor="let order of orderList">
+    <ion-item lines="none">
+      <ion-card style="width: 100%" (click)="toOrderDetail(order.id)">
+        <ion-card-header>
+          <ion-card-subtitle style="font-weight: bold">
+            <div *ngIf="order.status === constant.ORDER_STATUS_NOT_PAY" style="color: #ff4961">
+              <ion-text>未付款</ion-text>
+            </div>
+            <div *ngIf="order.status === constant.ORDER_STATUS_PAID" style="color: black">
+              <ion-text>已付款</ion-text>
+            </div>
+            <div *ngIf="order.status === constant.ORDER_STATUS_SUCCESS" style="color: green">
+              <ion-text>交易成功</ion-text>
+            </div>
+            <div *ngIf="order.status === constant.ORDER_STATUS_CLOSED" style="color: grey">
+              <ion-text>交易取消</ion-text>
+            </div>
+            <div *ngIf="order.status === constant.ORDER_STATUS_FAIL" style="color: orangered">
+              <ion-text>交易失败</ion-text>
+            </div>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="calendar" color="danger"></ion-icon>
+              </ion-col>
+              <ion-col size="3">
+                <ion-text>
+                  日期：
+                </ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text>{{order.createTime | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+              </ion-col>
+              <ion-col size="3">
+                <ion-text>
+                  产品：
+                </ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text>
+                  <div *ngIf="order.productList.length === 1">
+                    {{order.productList[0].name}} {{order.productList[0].sku.sku}}
                   </div>
-                  <div *ngIf="order.status === 1">
-                    已付款
+                  <div *ngIf="order.productList.length !== 1">
+                    {{order.productList[0].name}} {{order.productList[0].sku.sku}} ...
                   </div>
-                  <div *ngIf="order.status === 4">
-                    交易成功
-                  </div>
-                  <div *ngIf="order.status === 5">
-                    交易取消
-                  </div>
-                  <div *ngIf="order.status === 6">
-                    交易失败
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="1">
-                  <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-text>
-                    产品：
-                  </ion-text>
-                </ion-col>
-                <ion-col>
-                  <ion-text>
-                    <div *ngIf="order.productList.length === 1">
-                      {{order.productList[0].name}}
-                    </div>
-                    <div *ngIf="order.productList.length !== 1">
-                      <p>{{order.productList[0].name}}</p>
-                      ...
-                    </div>
-                  </ion-text>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="1">
-                  <ion-icon name="pricetag" color="tertiary"></ion-icon>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-text>
-                    金额：
-                  </ion-text>
-                </ion-col>
-                <ion-col>
-                  <ion-text>
-                    {{order.totalFee}} ETH
-                  </ion-text>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
-    </div>
-  </ion-list>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="pricetag" color="tertiary"></ion-icon>
+              </ion-col>
+              <ion-col size="3">
+                <ion-text>
+                  金额：
+                </ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text>
+                  {{order.totalFee}} ETH
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </div>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content
             loadingSpinner="bubbles"

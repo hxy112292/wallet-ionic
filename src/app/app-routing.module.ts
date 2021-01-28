@@ -343,29 +343,21 @@ const routes: Routes = [
     loadChildren: () => import('./me/vip/vip.module').then(m => m.VipPageModule)
   },
   {
-    path: 'order-pay',
-    loadChildren: () => import('./me/order/order-pay/order-pay.module').then(m => m.OrderPayPageModule)
-  },
-  {
     path: 'order',
     loadChildren: () => import('./me/order/order.module').then(m => m.OrderPageModule)
   },
   {
     path: 'order-detail',
     loadChildren: () => import('./me/order/order-detail/order-detail.module').then(m => m.OrderDetailPageModule)
+  },
+  {
+    path: 'wallet-pay-choose',
+    loadChildren: () => import('./wallet/wallet-pay/wallet-pay-choose/wallet-pay-choose.module').then(m => m.WalletPayChoosePageModule)
+  },
+  {
+    path: 'wallet-eth-pay',
+    loadChildren: () => import('./wallet/wallet-pay/wallet-eth-pay/wallet-eth-pay.module').then(m => m.WalletEthPayPageModule)
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ];

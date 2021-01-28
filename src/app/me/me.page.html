@@ -30,7 +30,7 @@
       <ion-icon name="card-outline" color="warning"></ion-icon>
       <ion-label>　会员中心</ion-label>
       <div *ngIf="userService.user.role.indexOf(constant.ROLE_VIP) !== -1">
-        <ion-text color="danger">{{userService.user.vipTime | date}} （到期）</ion-text>
+        <ion-text color="danger">{{userService.user.vipTime | date: 'yyyy/MM/dd/'}} （到期）</ion-text>
         <ion-chip outline color="danger">
           <ion-label>VIP</ion-label>
         </ion-chip>
