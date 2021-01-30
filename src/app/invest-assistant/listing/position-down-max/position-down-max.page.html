@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>大户减仓</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2.5" style="color: grey;font-size: 15px">
+            周持仓
+          </ion-col>
+          <ion-col size="2.5" style="color: grey;font-size: 15px">
+            1日持仓
+          </ion-col>
+          <ion-col size="2.5" style="color: grey;font-size: 15px">
+            30日持仓
+          </ion-col>
+          <ion-col style="color: grey;font-size: 15px">
+            集中度
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let coin of coinList; let i = index">
+      <ion-item (click)="toCoinDetail(coin.code)">
+        <ion-grid>
+          <ion-row style="font-size: small; color: grey">
+            <ion-col size="1.5">
+              #{{i+1}}
+            </ion-col>
+            <ion-col size="1">
+              <img src="{{coin.logo}}" referrerpolicy="no-referrer" style="max-height: 20px; max-width: 20px">
+            </ion-col>
+            <ion-col>
+              {{coin.code}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="2.5">
+              <ion-row>
+                <ion-text>{{coin.change_week | number : '1.2-2'}}%</ion-text>
+              </ion-row>
+            </ion-col>
+            <ion-col size="2.5">
+              <ion-row>
+                <div *ngIf="coin.change >= 0">
+                  <ion-text>+{{coin.change | number: '1.2-2'}}%</ion-text>
+                </div>
+                <div *ngIf="coin.change < 0">
+                  <ion-text>{{coin.change | number: '1.2-2'}}%</ion-text>
+                </div>
+              </ion-row>
+            </ion-col>
+            <ion-col size="2.5">
+              <ion-row>
+                <div *ngIf="coin.change_month >= 0">
+                  <ion-text>+{{coin.change_month | number: '1.2-2'}}%</ion-text>
+                </div>
+                <div *ngIf="coin.change_month < 0">
+                  <ion-text>{{coin.change_month | number: '1.2-2'}}%</ion-text>
+                </div>
+              </ion-row>
+            </ion-col>
+            <ion-col>
+              <ion-row>
+                <ion-text>{{coin.chip_concentration}}</ion-text>
+              </ion-row>
+              <ion-row>
+                <ion-text style="font-size: small;color: grey">Top10：{{coin.top10rate | number :'1.2-2'}}%</ion-text>
+                <ion-text style="font-size: small;color: grey">Top100：{{coin.top100rate | number :'1.2-2'}}%</ion-text>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

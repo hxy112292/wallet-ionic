@@ -45,6 +45,11 @@ export class InvestAssistantPage implements OnInit {
       this.router.navigate(['tabs/me']);
       return;
     }
+    if (this.userService.user != null && this.userService.user.role.indexOf(this.constant.ROLE_VIP) === -1) {
+      this.alertService.alert('请先成为会员，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
     this.router.navigate(['monitor-blockchain']);
   }
 
@@ -70,6 +75,11 @@ export class InvestAssistantPage implements OnInit {
       this.router.navigate(['tabs/me']);
       return;
     }
+    if (this.userService.user != null && this.userService.user.role.indexOf(this.constant.ROLE_VIP) === -1) {
+      this.alertService.alert('请先成为会员，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
     this.router.navigate(['price-notification']);
   }
 
@@ -83,6 +93,40 @@ export class InvestAssistantPage implements OnInit {
   }
 
   openMarketStatistics() {
+    if (this.userService.user == null || this.userService.user.id == null || this.userService.user.id === '') {
+      this.alertService.alert('请先登录，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
+    if (this.userService.user != null && this.userService.user.role.indexOf(this.constant.ROLE_VIP) === -1) {
+      this.alertService.alert('请先成为会员，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
     this.router.navigate(['market-statistics']);
+  }
+
+  toChangeUpMax() {
+    this.router.navigate(['change-up-max']);
+  }
+
+  toChangeDownMax() {
+    this.router.navigate(['change-down-max']);
+  }
+
+  toChangeVol() {
+    this.router.navigate(['change-vol']);
+  }
+
+  toPositionUpMax() {
+    this.router.navigate(['position-up-max']);
+  }
+
+  toPositionDownMax() {
+    this.router.navigate(['position-down-max']);
+  }
+
+  toAddressRank() {
+    this.router.navigate(['address-up-max']);
   }
 }

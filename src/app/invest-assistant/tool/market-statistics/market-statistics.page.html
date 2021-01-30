@@ -14,7 +14,15 @@
   </ion-refresher>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>资产分布（BTC, ETH, USDT）</ion-card-subtitle>
+      <ion-card-subtitle>
+        资产分布（BTC, ETH, USDT）
+        <span *ngIf="exchangeTotal.percentageForCoin < 0.3" style="color: green">
+          看多
+        </span>
+        <span *ngIf="exchangeTotal.percentageForCoin >= 0.3" style="color: red">
+          看空
+        </span>
+      </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-list lines="full">
@@ -105,7 +113,15 @@
   </ion-card>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>涨跌情况</ion-card-subtitle>
+      <ion-card-subtitle>
+        涨跌情况
+        <span *ngIf="globalInfo.fallnum <= globalInfo.risenum" style="color: green">
+          看多
+        </span>
+        <span *ngIf="globalInfo.fallnum > globalInfo.risenum" style="color: red">
+          看空
+        </span>
+      </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-list lines="full">

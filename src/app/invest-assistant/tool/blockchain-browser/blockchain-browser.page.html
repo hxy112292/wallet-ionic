@@ -13,7 +13,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <div *ngFor="let browser of browserList; let i = index">
-    <ion-card>
+    <ion-card (click)="openWeb(browser.url)">
       <ion-card-header>
         <ion-card-subtitle>
           <ion-row>
@@ -26,9 +26,6 @@
         <ion-grid>
           <ion-row>
             <ion-text>{{browser.introduction}}</ion-text>
-          </ion-row>
-          <ion-row>
-            <ion-text color="primary" (click)="openWeb(browser.url)">{{browser.url}}</ion-text>
           </ion-row>
         </ion-grid>
       </ion-card-content>

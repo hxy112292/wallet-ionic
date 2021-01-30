@@ -12,6 +12,7 @@ export class ConstantService {
   readonly githubUrl: string = 'https://github.com/hxy112292/wallet-ionic';
   readonly litecoreTestnetUrl: string = 'https://testnet.litecore.io';
   readonly litecoreUrl: string = 'https://insight.litecore.io';
+  readonly feixiaoMobileUrl: string = 'https://m.feixiaohao.com';
   readonly ROLE_VIP: string = 'ROLE_VIP';
   readonly ROLE_USER: string = 'ROLE_USER';
   readonly ORDER_STATUS_NOT_PAY: number = 0;
@@ -23,7 +24,9 @@ export class ConstantService {
   readonly ORDER_STATUS_FAIL: number = 6;
   readonly ORDER_STATUS_REFUNDING: number = 7;
   readonly ORDER_STATUS_REFUNDED: number = 8;
-
+  readonly ONE_DAY: string = '1';
+  readonly SEVEN_DAY: string = '7';
+  readonly THIRTY_DAY: string = '30';
   constructor() {
   }
 }

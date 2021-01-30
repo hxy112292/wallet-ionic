@@ -142,7 +142,7 @@ export class WalletEthPayPage implements OnInit {
           this.order.toAddr = this.recipientAddr;
           this.order.payNo = (tx as any).hash;
           this.http.post(this.constant.walletToolBackendUrl + '/order/pay', this.order).subscribe( res => {
-            this.router.navigate(['/order']);
+            this.router.navigate(['/tabs/me']);
           });
         }).catch( e => {
           this.alertService.alert(e.toString());

@@ -8,9 +8,13 @@
 </ion-header>
 
 <ion-toolbar>
-  <ion-segment [(ngModel)]="coinPage" value="coinIntroduction">
+  <ion-segment [(ngModel)]="coinPage" value="coinIntroduction" scrollable="true">
     <ion-segment-button value="coinIntroduction">简况</ion-segment-button>
     <ion-segment-button value="coinMarket">交易所</ion-segment-button>
+    <ion-segment-button value="coinFlow">大额流动</ion-segment-button>
+    <ion-segment-button value="coinHolder">大户排行</ion-segment-button>
+    <ion-segment-button value="coinHotSocial">热度</ion-segment-button>
+    <ion-segment-button value="coinNews">资讯</ion-segment-button>
   </ion-segment>
 </ion-toolbar>
 
@@ -22,5 +26,17 @@
   </div>
   <div *ngIf="coinPage == 'coinMarket'">
     <app-coin-market></app-coin-market>
+  </div>
+  <div *ngIf="coinPage == 'coinFlow'">
+    <app-coin-flow></app-coin-flow>
+  </div>
+  <div *ngIf="coinPage == 'coinHolder'">
+    <app-coin-holder></app-coin-holder>
+  </div>
+  <div *ngIf="coinPage == 'coinHotSocial'">
+    <app-coin-hot-social></app-coin-hot-social>
+  </div>
+  <div *ngIf="coinPage == 'coinNews'">
+    <app-coin-news></app-coin-news>
   </div>
 </ion-content>

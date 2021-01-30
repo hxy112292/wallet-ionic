@@ -20,39 +20,71 @@
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col size="4" (click)="toHotCoin()">
+              <ion-col size="3" (click)="toHotCoin()">
                 <ion-icon name="flame" size="large" color="danger"></ion-icon>
                 <br>
                 <ion-text>热门搜索</ion-text>
               </ion-col>
-              <ion-col size="4" (click)="toConcept()">
+              <ion-col size="3" (click)="toConcept()">
                 <ion-icon name="keypad" size="large" color="success"></ion-icon>
                 <br>
                 <ion-text>板块涨幅</ion-text>
               </ion-col>
-              <ion-col size="4" (click)="toGitDev()">
+              <ion-col size="3" (click)="toGitDev()">
                 <ion-icon name="logo-github" size="large" color="dark"></ion-icon>
                 <br>
-                <ion-text>开发活跃度</ion-text>
+                <ion-text>Git活跃度</ion-text>
               </ion-col>
-            </ion-row>
-            <br>
-            <br>
-            <ion-row>
-              <ion-col size="4" (click)="toTurnOver()">
+              <ion-col size="3" (click)="toTurnOver()">
                 <ion-icon name="hand-right" size="large" color="primary"></ion-icon>
                 <br>
                 <ion-text>换手率</ion-text>
               </ion-col>
-              <ion-col size="4"(click)="toExchange()">
+            </ion-row>
+            <br>
+            <ion-row>
+              <ion-col size="3"(click)="toExchange()">
                 <ion-icon name="business" size="large" color="tertiary"></ion-icon>
                 <br>
                 <ion-text>交易所</ion-text>
               </ion-col>
-              <ion-col size="4" (click)="toListingLatest()">
+              <ion-col size="3" (click)="toListingLatest()">
                 <ion-icon name="logo-bitcoin" size="large" color="warning"></ion-icon>
                 <br>
                 <ion-text>市值排名</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toChangeUpMax()">
+                <ion-icon name="trending-up" size="large" color="success"></ion-icon>
+                <br>
+                <ion-text>涨幅榜</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toChangeDownMax()">
+                <ion-icon name="trending-down" size="large" color="danger"></ion-icon>
+                <br>
+                <ion-text>跌幅榜</ion-text>
+              </ion-col>
+            </ion-row>
+            <br>
+            <ion-row>
+              <ion-col size="3" (click)="toChangeVol()">
+                <ion-icon name="bar-chart-outline" size="large" color="lighting"></ion-icon>
+                <br>
+                <ion-text>成交量</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toPositionUpMax()">
+                <ion-icon name="people-outline" size="large" color="success"></ion-icon>
+                <br>
+                <ion-text>大户增仓</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toPositionDownMax()">
+                <ion-icon name="people" size="large" color="danger"></ion-icon>
+                <br>
+                <ion-text>大户减仓</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toAddressRank()">
+                <ion-icon name="wallet-outline" size="large" color="tertiary"></ion-icon>
+                <br>
+                <ion-text>地址增长</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -69,32 +101,31 @@
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col size="4" (click)="toMonitor()">
+              <ion-col size="3" (click)="toMonitor()">
                 <ion-icon name="eye" size="large" color="medium"></ion-icon>
                 <br>
                 <ion-text>链上监控</ion-text>
               </ion-col>
-              <ion-col size="4" (click)="toPriceNotification()">
+              <ion-col size="3" (click)="toPriceNotification()">
                 <ion-icon name="cash" size="large" color="warning"></ion-icon>
                 <br>
                 <ion-text>价格提醒</ion-text>
               </ion-col>
-              <ion-col size="4" (click)="toBlockchainBrowser()">
+              <ion-col size="3" (click)="toBlockchainBrowser()">
                 <ion-icon name="planet" size="large" color="primary"></ion-icon>
                 <br>
                 <ion-text>区块链浏览器</ion-text>
               </ion-col>
-            </ion-row>
-            <br>
-            <br>
-            <ion-row>
-              <ion-col size="4" (click)="openAccelerator()">
+              <ion-col size="3" (click)="openAccelerator()">
                 <ion-icon name="rocket" size="large" color="danger"></ion-icon>
                 <br>
                 <ion-text>交易加速</ion-text>
               </ion-col>
-              <ion-col size="4" (click)="openMarketStatistics()">
-                <ion-icon name="bar-chart" size="large" color="success"></ion-icon>
+            </ion-row>
+            <br>
+            <ion-row>
+              <ion-col size="3" (click)="openMarketStatistics()">
+                <ion-icon name="analytics-outline" size="large" color="success"></ion-icon>
                 <br>
                 <ion-text>行情分析</ion-text>
               </ion-col>
@@ -113,12 +144,12 @@
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col size="4" (click)="toHotWeb()">
+              <ion-col size="3" (click)="toHotWeb()">
                 <ion-icon name="globe" size="large" color="danger"></ion-icon>
                 <br>
                 <ion-text>区块链导航</ion-text>
               </ion-col>
-              <ion-col size="4"(click)="toLiveNews()">
+              <ion-col size="3" (click)="toLiveNews()">
                 <ion-icon name="newspaper" size="large" color="dark"></ion-icon>
                 <br>
                 <ion-text>资讯浏览</ion-text>

@@ -14,6 +14,7 @@ import {LoaderService} from '../../../service/loader.service';
 export class ConceptPage implements OnInit {
 
   conceptList: Concept[];
+  sort: string;
 
   constructor(private http: HttpClient,
               private constant: ConstantService,
@@ -21,13 +22,18 @@ export class ConceptPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.sort = 'change';
     this.getConceptList();
   }
 
   getConceptList() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/concept').subscribe(res => {
-      this.conceptList = (res as any).data;
+    this.http.get(this.constant.walletToolBackendUrl + '/concept', {
+      params: {
+        sort: this.sort
+      }
+    }).subscribe(res => {
+      this.conceptList = (res as any).data.list;
       this.loaderService.hideLoader();
     });
   }

@@ -1,0 +1,40 @@
+<ion-list lines="full">
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="5" style="color: grey;font-size: 15px">持仓</ion-col>
+        <ion-col size="3" style="color: grey;font-size: 15px">持仓占比</ion-col>
+        <ion-col size="4" style="color: grey;font-size: 15px">7日变化</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div *ngFor="let coin of coinFlowList; let i=index">
+    <ion-item>
+      <ion-grid>
+        <ion-row style="color: grey;font-size: small">
+          #{{i+1}} {{coin.address}}
+          <span *ngIf="coin.platform != null && coin.platform !== ''" style="color: blue">
+            ({{coin.platform}})
+          </span>
+          <ion-icon name="copy-outline" (click)="copyText(coin.address)"></ion-icon>
+        </ion-row>
+        <ion-row>
+          <ion-col size="5">
+            {{coin.quantity}}
+          </ion-col>
+          <ion-col size="3">
+            {{coin.percentage}}%
+          </ion-col>
+          <ion-col size="4">
+            <div *ngIf="coin.change >= 0" style="color: green">
+              +{{coin.change}}
+            </div>
+            <div *ngIf="coin.change < 0" style="color: red">
+              {{coin.change}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+</ion-list>

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>成交排行</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="sort" value="vol" (ionChange)="getChangeMax()">
+      <ion-segment-button value="vol">24小时</ion-segment-button>
+      <ion-segment-button value="vol_w">7天</ion-segment-button>
+      <ion-segment-button value="vol_m">30天</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="5" style="color: grey;font-size: 15px">
+            TOP30 币种
+          </ion-col>
+          <ion-col size="4" style="color: grey;font-size: 15px">
+            成交量
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            价格
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let coin of coinList; let i = index">
+      <ion-item (click)="toCoinDetail(coin.code)">
+        <ion-grid>
+          <ion-row style="font-size: small; color: grey">
+            #{{i+1}} {{coin.code}}
+          </ion-row>
+          <ion-row>
+            <ion-col size="1">
+              <img src="{{coin.logo}}" referrerpolicy="no-referrer" style="max-height: 20px; max-width: 20px">
+            </ion-col>
+            <ion-col size="4">
+              <ion-row>
+                {{coin.symbol}}
+              </ion-row>
+              <ion-row>
+                <ion-text style="font-size: small;color: grey">换手：${{coin.turnover | number :'1.2-2'}}%</ion-text>
+              </ion-row>
+            </ion-col>
+            <ion-col size="4">
+              <ion-row>
+                <ion-text>${{coin.volume/100000000 | number :'1.3-3'}}亿</ion-text>
+              </ion-row>
+              <ion-row>
+                <ion-text style="font-size: small;color: grey">{{coin.change_percent | number : '1.2-2'}}%</ion-text>
+              </ion-row>
+            </ion-col>
+            <ion-col size="3">
+              <ion-row>
+                ${{coin.price | number : '1.2-6'}}
+              </ion-row>
+              <ion-row style="font-size: small">
+                <ion-text color="success">最高：{{coin.high | number: '1.2-6'}}</ion-text>
+                <ion-text color="danger">最低：{{coin.low | number: '1.2-6'}}</ion-text>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

@@ -357,7 +357,63 @@ const routes: Routes = [
   {
     path: 'wallet-eth-pay',
     loadChildren: () => import('./wallet/wallet-pay/wallet-eth-pay/wallet-eth-pay.module').then(m => m.WalletEthPayPageModule)
+  },
+  {
+    path: 'change-up-max',
+    loadChildren: () => import('./invest-assistant/listing/change-up-max/change-up-max.module').then(m => m.ChangeUpMaxPageModule)
+  },
+  {
+    path: 'change-down-max',
+    loadChildren: () => import('./invest-assistant/listing/change-down-max/change-down-max.module').then(m => m.ChangeDownMaxPageModule)
+  },
+  {
+    path: 'change-vol',
+    loadChildren: () => import('./invest-assistant/listing/change-vol/change-vol.module').then(m => m.ChangeVolPageModule)
+  },
+  {
+    path: 'position-up-max',
+    loadChildren: () => import('./invest-assistant/listing/position-up-max/position-up-max.module').then(m => m.PositionUpMaxPageModule)
+  },
+  {
+    path: 'position-down-max',
+    loadChildren: () => import('./invest-assistant/listing/position-down-max/position-down-max.module').then(m => m.PositionDownMaxPageModule)
+  },
+  {
+    path: 'address-up-max',
+    loadChildren: () => import('./invest-assistant/listing/address-up-max/address-up-max.module').then(m => m.AddressUpMaxPageModule)
+  },
+  {
+    path: 'coin-flow',
+    loadChildren: () => import('./coin-detail/coin-flow/coin-flow.module').then(m => m.CoinFlowPageModule)
+  },
+  {
+    path: 'coin-holder',
+    loadChildren: () => import('./coin-detail/coin-holder/coin-holder.module').then(m => m.CoinHolderPageModule)
+  },
+  {
+    path: 'coin-hot-social',
+    loadChildren: () => import('./coin-detail/coin-hot-social/coin-hot-social.module').then(m => m.CoinHotSocialPageModule)
+  },
+  {
+    path: 'coin-news',
+    loadChildren: () => import('./coin-detail/coin-news/coin-news.module').then(m => m.CoinNewsPageModule)
+  },
+  {
+    path: 'coin-news-detail',
+    loadChildren: () => import('./coin-detail/coin-news/coin-news-detail/coin-news-detail.module').then(m => m.CoinNewsDetailPageModule)
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ];

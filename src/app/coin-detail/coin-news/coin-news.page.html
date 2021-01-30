@@ -1,0 +1,29 @@
+<ion-list lines="full">
+  <div *ngFor="let coinNews of coinNewsList; let i = index">
+    <ion-item>
+      <ion-card style="width: 100%" (click)="toCoinNewsDetail(coinNews)">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <ion-text>#{{i+1}} {{coinNews.author}}， {{coinNews.created_at}}</ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-row>
+            <ion-col size="5">
+              <img src="{{coinNews.thumbnail}}" referrerpolicy="no-referrer" style="max-width: 100px">
+            </ion-col>
+            <ion-col size="7">
+              <ion-text style="color: black;font-size: large">{{coinNews.title}}</ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </div>
+</ion-list>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
