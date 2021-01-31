@@ -4,20 +4,20 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CoinHotSocialPageRoutingModule } from './coin-hot-social-routing.module';
+import { CoinReduceHalfPageRoutingModule } from './coin-reduce-half-routing.module';
 
-import { CoinHotSocialPage } from './coin-hot-social.page';
+import { CoinReduceHalfPage } from './coin-reduce-half.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CoinHotSocialPageRoutingModule
+    CoinReduceHalfPageRoutingModule
   ],
   exports: [
-    CoinHotSocialPage
+    CoinReduceHalfPage
   ],
-  declarations: [CoinHotSocialPage]
+  declarations: [CoinReduceHalfPage]
 })
-export class CoinHotSocialPageModule {}
+export class CoinReduceHalfPageModule {}

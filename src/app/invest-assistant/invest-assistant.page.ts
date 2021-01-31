@@ -129,4 +129,32 @@ export class InvestAssistantPage implements OnInit {
   toAddressRank() {
     this.router.navigate(['address-up-max']);
   }
+
+  toCoinSocialHotAnalysis() {
+    if (this.userService.user == null || this.userService.user.id == null || this.userService.user.id === '') {
+      this.alertService.alert('请先登录，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
+    if (this.userService.user != null && this.userService.user.role.indexOf(this.constant.ROLE_VIP) === -1) {
+      this.alertService.alert('请先成为会员，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
+    this.router.navigate(['coin-social-hot-analysis']);
+  }
+
+  toCoinHolderAnalysis() {
+    if (this.userService.user == null || this.userService.user.id == null || this.userService.user.id === '') {
+      this.alertService.alert('请先登录，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
+    if (this.userService.user != null && this.userService.user.role.indexOf(this.constant.ROLE_VIP) === -1) {
+      this.alertService.alert('请先成为会员，才能使用该功能');
+      this.router.navigate(['tabs/me']);
+      return;
+    }
+    this.router.navigate(['coin-holder-analysis']);
+  }
 }

@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>币种热度分析</ion-title>
+    <ion-buttons slot="start" style="font-size: x-large;padding-left: 2%">
+      <ion-icon name="arrow-back-outline" (click)="toInvestAssistant()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar showCancelButton="focus" placeholder="搜索" (click)="toCoinSearch()"></ion-searchbar>
+  <ion-item lines="none">
+    <ion-text>{{code}} 币种的分析信息：</ion-text>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>基本信息</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Github更新时间
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.updatedate}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Github提交总次数
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.commits}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Star次数
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.star}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Fork次数
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.fork}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            贡献者数
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.contributors}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Twitter粉丝
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.twittercount}}(+{{coinHotSocial.twittercountup}})
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Reddit粉丝
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.redditcount}}(+{{coinHotSocial.redditcountup}})
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            Facebook粉丝
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.facebookcount}}(+{{coinHotSocial.facebookcountup}})
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            GitHub粉丝
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{coinHotSocial.watch}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <div style="padding: 5%;text-align: center">
+    <canvas #commitChart></canvas>
+    <canvas #twitterChart></canvas>
+    <canvas #redditChart></canvas>
+    <canvas #githubChart></canvas>
+    <canvas #facebookChart></canvas>
+  </div>
+</ion-content>

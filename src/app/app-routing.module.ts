@@ -384,15 +384,11 @@ const routes: Routes = [
   },
   {
     path: 'coin-flow',
-    loadChildren: () => import('./coin-detail/coin-flow/coin-flow.module').then(m => m.CoinFlowPageModule)
+    loadChildren: () => import('./invest-assistant/tool/coin-holder-analysis/coin-flow/coin-flow.module').then(m => m.CoinFlowPageModule)
   },
   {
     path: 'coin-holder',
-    loadChildren: () => import('./coin-detail/coin-holder/coin-holder.module').then(m => m.CoinHolderPageModule)
-  },
-  {
-    path: 'coin-hot-social',
-    loadChildren: () => import('./coin-detail/coin-hot-social/coin-hot-social.module').then(m => m.CoinHotSocialPageModule)
+    loadChildren: () => import('./invest-assistant/tool/coin-holder-analysis/coin-holder/coin-holder.module').then(m => m.CoinHolderPageModule)
   },
   {
     path: 'coin-news',
@@ -401,7 +397,34 @@ const routes: Routes = [
   {
     path: 'coin-news-detail',
     loadChildren: () => import('./coin-detail/coin-news/coin-news-detail/coin-news-detail.module').then(m => m.CoinNewsDetailPageModule)
+  },
+  {
+    path: 'coin-social-hot-analysis',
+    loadChildren: () => import('./invest-assistant/tool/coin-social-hot-analysis/coin-social-hot-analysis.module').then(m => m.CoinSocialHotAnalysisPageModule)
+  },
+  {
+    path: 'coin-holder-analysis',
+    loadChildren: () => import('./invest-assistant/tool/coin-holder-analysis/coin-holder-analysis.module').then(m => m.CoinHolderAnalysisPageModule)
+  },
+  {
+    path: 'coin-holder-search',
+    loadChildren: () => import('./invest-assistant/tool/coin-holder-analysis/coin-holder-search/coin-holder-search.module').then(m => m.CoinHolderSearchPageModule)
+  },
+  {
+    path: 'coin-social-hot-search',
+    loadChildren: () => import('./invest-assistant/tool/coin-social-hot-analysis/coin-social-hot-search/coin-social-hot-search.module').then(m => m.CoinSocialHotSearchPageModule)
+  },
+  {
+    path: 'coin-reduce-half',
+    loadChildren: () => import('./coin-detail/coin-reduce-half/coin-reduce-half.module').then(m => m.CoinReduceHalfPageModule)
   }
+
+
+
+
+
+
+
 
 
 

@@ -10,10 +10,8 @@ import { CoinDetailPage } from './coin-detail.page';
 import {CoinDescPageModule} from './coin-introduction/coin-desc/coin-desc.module';
 import {CoinIntroductionPageModule} from './coin-introduction/coin-introduction.module';
 import {CoinMarketPageModule} from './coin-market/coin-market.module';
-import {CoinFlowPageModule} from './coin-flow/coin-flow.module';
-import {CoinHolderPageModule} from './coin-holder/coin-holder.module';
-import {CoinHotSocialPageModule} from './coin-hot-social/coin-hot-social.module';
 import {CoinNewsPageModule} from './coin-news/coin-news.module';
+import {CoinReduceHalfPageModule} from './coin-reduce-half/coin-reduce-half.module';
 
 @NgModule({
     imports: [
@@ -24,10 +22,8 @@ import {CoinNewsPageModule} from './coin-news/coin-news.module';
         CoinDescPageModule,
         CoinIntroductionPageModule,
         CoinMarketPageModule,
-        CoinFlowPageModule,
-        CoinHolderPageModule,
-        CoinHotSocialPageModule,
-        CoinNewsPageModule
+        CoinNewsPageModule,
+        CoinReduceHalfPageModule
     ],
   declarations: [CoinDetailPage]
 })

@@ -72,12 +72,12 @@
                 <ion-text>成交量</ion-text>
               </ion-col>
               <ion-col size="3" (click)="toPositionUpMax()">
-                <ion-icon name="people-outline" size="large" color="success"></ion-icon>
+                <ion-icon name="person-add-outline" size="large" color="success"></ion-icon>
                 <br>
                 <ion-text>大户增仓</ion-text>
               </ion-col>
               <ion-col size="3" (click)="toPositionDownMax()">
-                <ion-icon name="people" size="large" color="danger"></ion-icon>
+                <ion-icon name="person-remove-outline" size="large" color="danger"></ion-icon>
                 <br>
                 <ion-text>大户减仓</ion-text>
               </ion-col>
@@ -128,6 +128,16 @@
                 <ion-icon name="analytics-outline" size="large" color="success"></ion-icon>
                 <br>
                 <ion-text>行情分析</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toCoinHolderAnalysis()">
+                <ion-icon name="people" size="large" color="tertiary"></ion-icon>
+                <br>
+                <ion-text>币种持仓分析</ion-text>
+              </ion-col>
+              <ion-col size="3" (click)="toCoinSocialHotAnalysis()">
+                <ion-icon name="bonfire-outline" size="large" color="danger"></ion-icon>
+                <br>
+                <ion-text>币种热度分析</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>

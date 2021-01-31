@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class ConstantService {
 
   readonly walletBackendUrl: string = 'https://www.hd-wallet.com:7070';
-  // readonly walletToolBackendUrl: string = 'https://www.hd-wallet.com:7071';
-  readonly walletToolBackendUrl: string = 'http://localhost:7071';
+  readonly walletToolBackendUrl: string = 'https://www.hd-wallet.com:7071';
+  // readonly walletToolBackendUrl: string = 'http://localhost:7071';
   readonly webUrl: string = 'https://www.hd-wallet.com';
   readonly githubUrl: string = 'https://github.com/hxy112292/wallet-ionic';
   readonly litecoreTestnetUrl: string = 'https://testnet.litecore.io';
@@ -27,6 +27,10 @@ export class ConstantService {
   readonly ONE_DAY: string = '1';
   readonly SEVEN_DAY: string = '7';
   readonly THIRTY_DAY: string = '30';
+  readonly REDDIT_TYPE: number = 1;
+  readonly TWITTER_TYPE: number = 2;
+  readonly FACEBOOK_TYPE: number = 3;
+  readonly GITHUB_TYPE: number = 4;
   constructor() {
   }
 }

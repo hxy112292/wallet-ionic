@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CoinHotSocialPage } from './coin-hot-social.page';
+import { CoinReduceHalfPage } from './coin-reduce-half.page';
 
-describe('CoinHotSocialPage', () => {
-  let component: CoinHotSocialPage;
-  let fixture: ComponentFixture<CoinHotSocialPage>;
+describe('CoinReduceHalfPage', () => {
+  let component: CoinReduceHalfPage;
+  let fixture: ComponentFixture<CoinReduceHalfPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoinHotSocialPage ],
+      declarations: [ CoinReduceHalfPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CoinHotSocialPage);
+    fixture = TestBed.createComponent(CoinReduceHalfPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

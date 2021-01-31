@@ -1,0 +1,95 @@
+<script src="coin-holder-analysis.page.ts"></script>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>用户持仓分析</ion-title>
+    <ion-buttons slot="start" style="font-size: x-large;padding-left: 2%">
+      <ion-icon name="arrow-back-outline" (click)="toInvestAssistant()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar showCancelButton="focus" placeholder="搜索" (click)="toCoinSearch()"></ion-searchbar>
+  <ion-item lines="none">
+    <ion-text>{{code}} 币种的分析信息：</ion-text>
+  </ion-item>
+  <ion-segment [(ngModel)]="coinPage" value="coinHolderChart" scrollable="true">
+    <ion-segment-button value="coinHolderChart">图表数据</ion-segment-button>
+    <ion-segment-button value="coinFlow">大额流动</ion-segment-button>
+    <ion-segment-button value="coinHolder">大户排行</ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="coinPage == 'coinHolderChart'" style="padding: 5%;text-align: center;width: 100%">
+    <ion-card style="width: 100%">
+      <ion-card-header>
+        <ion-card-subtitle>当前大户持仓信息</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col style="text-align: left">
+              前10持仓占比
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{currentTop.top10rate}}%
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              前20持仓占比
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{currentTop.top20rate}}%
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              前50持仓占比
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{currentTop.top50rate}}%
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              前100持仓占比
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{currentTop.top100rate}}%
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              地址数量
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{currentTop.addrcount}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              更新时间
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{currentTop.updatedate}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <canvas #addrCountChart></canvas>
+    <canvas #top10RateChart></canvas>
+    <canvas #top20RateChart></canvas>
+    <canvas #top50RateChart></canvas>
+    <canvas #top100RateChart></canvas>
+  </div>
+  <div *ngIf="coinPage == 'coinFlow'">
+    <app-coin-flow [coinFlowList]="coinFlowList"></app-coin-flow>
+  </div>
+  <div *ngIf="coinPage == 'coinHolder'">
+    <app-coin-holder [coinHolderList]="coinHolderList"></app-coin-holder>
+  </div>
+</ion-content>

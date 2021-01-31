@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>搜索</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-searchbar [(ngModel)]="searchValue" showCancelButton="focus" placeholder="搜索" (search)="getSearchResult()" autofocus></ion-searchbar>
+      <ion-button (click)="getSearchResult()" color="primary" size="default">搜索</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-header>
+
+<ion-content>
+
+  <ion-list lines="full">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" style="color: grey;font-size: 15px">
+            币种
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            价格($)
+          </ion-col>
+          <ion-col size="3" style="color: grey;font-size: 15px">
+            24h涨跌幅
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <div *ngFor="let coinSearchResult of coinSearchList">
+      <ion-item (click)="toSocialHotAnalysis(coinSearchResult.coincode)">
+        <ion-grid>
+          <ion-row style="font-size: small;color: grey">
+            市值#{{coinSearchResult.rank_no}} ${{coinSearchResult.market_value/100000000 | number: '1.2-2'}}亿，{{coinSearchResult.coincode}}
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-row>
+                <img src="{{coinSearchResult.coinlogo}}" style="max-height: 20px;max-height: 20px">
+                <ion-text>　{{coinSearchResult.symbol}}</ion-text>
+              </ion-row>
+            </ion-col>
+            <ion-col size="3">
+              ${{coinSearchResult.price | number: '1.2-4'}}
+            </ion-col>
+            <ion-col size="3" style="text-align: right">
+              <div *ngIf="coinSearchResult.change_percent>=0" style="background-color: #2dd36f;text-align: center;padding: 3px;border-radius: 5px">
+                <ion-text style="color: white">+{{coinSearchResult.change_percent | number: '1.2-2'}}%</ion-text>
+              </div>
+              <div *ngIf="coinSearchResult.change_percent<0" style="background-color: red;text-align: center;padding: 3px;border-radius: 5px">
+                <ion-text style="color: white">{{coinSearchResult.change_percent | number: '1.2-2'}}%</ion-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+
+</ion-content>

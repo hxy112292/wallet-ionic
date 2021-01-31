@@ -1,0 +1,186 @@
+<ion-list lines="none">
+    <ion-item>
+        <ion-card style="width: 100%">
+            <ion-card-header>
+                <ion-card-subtitle>
+                    网络状态
+                </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            全网算力
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.computing_power / 1000000000000000000 | number: '1.2-2'}}EH/S
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            全网难度
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.difficulty / 1000000000000 | number: '1.2-2'}}T
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            预测下次难度
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.nextdifficultyestimated/ 1000000000000 | number: '1.2-2'}}T
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            下次难度调整时间
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.nextdifficultydate*1000 | date:'yyyy-MM-dd'}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            算力收益(1T*24H)
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.computing_power_income}}BTC
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            创世区块挖出时间
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.genesisblocktime*1000 | date: 'yyyy-MM-dd'}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            当前区块奖励数量
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.block_profit/100000000 | number: '1.2-2'}}BTC
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            未确认交易数
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.unconfirmed_txns24hcount}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            总交易数
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.txnscount}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            24H交易速率
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.txrate24h}}交易/S
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            近2周区块体积中位数
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.volume_median}}Bytes
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            当前最佳手续费
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.besttransactionfees}}BTC
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </ion-item>
+    <ion-item>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-subtitle>最新区块</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            区块高度
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.blocks_count}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            区块高度
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.blocks_count}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            大小
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.block_size}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            确认数
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.new_confirmed_txns24hcount}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            交易笔数
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.new_txns24hcount}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            播报方
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.new_announcer}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            时间
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.new_broadcast_time * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col style="text-align: left">
+                            哈希地址
+                        </ion-col>
+                        <ion-col style="text-align: right">
+                            {{coinReduceHalf.new_broadcast_hashaddr}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </ion-item>
+</ion-list>
