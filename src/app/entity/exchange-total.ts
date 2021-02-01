@@ -13,4 +13,7 @@ export class ExchangeTotal {
     exchangeCoinUsdTotal: number;
     marketCoinUsdTotal: number;
     percentageForCoin: number;
+
+    createTime: string;
+    updateTime: string;
 }

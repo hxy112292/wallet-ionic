@@ -26,9 +26,12 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list lines="full">
-        <ion-item lines="none">
+        <ion-row>
           <canvas #assetChart></canvas>
-        </ion-item>
+        </ion-row>
+        <ion-row>
+          <canvas #exchangeRateChart></canvas>
+        </ion-row>
         <ion-item (click)="toMarketCurrency()">
           <ion-text slot="start" size="medium" color="black">场内资产占比：{{exchangeTotal.percentageForCoin * 100 | number:'1.2-2'}}%</ion-text>
           <ion-text slot="end" size="medium" color="primary">查看详情>></ion-text>
@@ -114,6 +117,42 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>
+        贪婪指数
+        <span *ngIf="fomoGroup.value <= 90" style="color: green">
+          看多
+        </span>
+        <span *ngIf="fomoGroup.value > 90" style="color: red">
+          看空
+        </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <canvas #fomoChart></canvas>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">今日数据：</ion-col>
+          <ion-col style="text-align:right">{{fomoGroup.value}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">昨日数据：</ion-col>
+          <ion-col style="text-align:right">{{fomoGroup.day_value}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">上周数据：</ion-col>
+          <ion-col style="text-align:right">{{fomoGroup.week_value}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">上月数据：</ion-col>
+          <ion-col style="text-align:right">{{fomoGroup.month_value}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
         涨跌情况
         <span *ngIf="globalInfo.fallnum <= globalInfo.risenum" style="color: green">
           看多
@@ -124,26 +163,32 @@
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-list lines="full">
-        <ion-item lines="none">
+      <ion-grid>
+        <ion-row>
           <canvas #exchangeChart></canvas>
-        </ion-item>
-        <ion-item>
-          <ion-text slot="start">交易对数：</ion-text>
-          <ion-text slot="end">{{globalInfo.fallnum + globalInfo.risenum}}</ion-text>
-        </ion-item>
-        <ion-item>
-          <ion-text slot="start">上涨数：</ion-text>
-          <ion-text slot="end">{{globalInfo.risenum}}</ion-text>
-        </ion-item>
-        <ion-item>
-          <ion-text slot="start">下跌数：</ion-text>
-          <ion-text slot="end">{{globalInfo.fallnum}}</ion-text>
-        </ion-item>
-        <ion-item>
-          <ion-text slot="start">24h交易金额：</ion-text>
-          <ion-text slot="end">$ {{globalInfo.vol24h/100000000 | number: '1.2-2'}}亿</ion-text>
-        </ion-item>
+        </ion-row>
+        <ion-row>
+          <canvas #marketTrendChart></canvas>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">交易对数：</ion-col>
+          <ion-col style="text-align:right">{{globalInfo.fallnum + globalInfo.risenum}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">上涨数：</ion-col>
+          <ion-col style="text-align:right">{{globalInfo.risenum}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">下跌数：</ion-col>
+          <ion-col style="text-align:right">{{globalInfo.fallnum}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align:left">24h交易金额：</ion-col>
+          <ion-col style="text-align:right">$ {{globalInfo.vol24h/100000000 | number: '1.2-2'}}亿</ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-list lines="full">
+
       </ion-list>
     </ion-card-content>
   </ion-card>
