@@ -417,6 +417,10 @@ const routes: Routes = [
   {
     path: 'coin-reduce-half',
     loadChildren: () => import('./coin-detail/coin-reduce-half/coin-reduce-half.module').then(m => m.CoinReduceHalfPageModule)
+  },
+  {
+    path: 'gray-scale',
+    loadChildren: () => import('./invest-assistant/tool/gray-scale/gray-scale.module').then(m => m.GrayScalePageModule)
   }
 
 

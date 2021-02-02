@@ -157,4 +157,8 @@ export class InvestAssistantPage implements OnInit {
     }
     this.router.navigate(['coin-holder-analysis']);
   }
+
+  toGrayScale() {
+    this.router.navigate(['gray-scale']);
+  }
 }

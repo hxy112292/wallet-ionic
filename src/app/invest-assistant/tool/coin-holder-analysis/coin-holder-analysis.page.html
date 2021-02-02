@@ -8,7 +8,12 @@
   </ion-toolbar>
   <ion-searchbar showCancelButton="focus" placeholder="搜索" (click)="toCoinSearch()"></ion-searchbar>
   <ion-item lines="none">
-    <ion-text>{{code}} 币种的分析信息：</ion-text>
+    <ion-text>
+      {{code}} 币种的分析信息:
+      <span style="white-space: pre-wrap">
+        {{coinAnalysisText}}
+      </span>
+    </ion-text>
   </ion-item>
   <ion-segment [(ngModel)]="coinPage" value="coinHolderChart" scrollable="true">
     <ion-segment-button value="coinHolderChart">图表数据</ion-segment-button>

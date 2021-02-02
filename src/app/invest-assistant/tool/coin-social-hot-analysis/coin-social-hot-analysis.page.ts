@@ -20,6 +20,7 @@ export class CoinSocialHotAnalysisPage implements OnInit {
   coinHotSocial: CoinHotSocial;
   commitList: CoinHotSocial[];
   coinSocialStarList: CoinSocialStar[];
+  coinAnalysisText: string;
 
   // @ts-ignore
   @ViewChild('commitChart') commitChart;
@@ -49,6 +50,7 @@ export class CoinSocialHotAnalysisPage implements OnInit {
               private toastController: ToastController,
               private clipboard: Clipboard) {
     this.code = '';
+    this.coinAnalysisText = '';
     this.coinHotSocial = new CoinHotSocial();
   }
 
@@ -75,6 +77,7 @@ export class CoinSocialHotAnalysisPage implements OnInit {
       this.createRedditChart();
       this.createGithubChart();
       this.createFacebookChart();
+      this.coinAnalysis();
       this.loaderService.hideLoader();
     });
   }
@@ -180,5 +183,26 @@ export class CoinSocialHotAnalysisPage implements OnInit {
         }]
       }
     });
+  }
+
+  coinAnalysis() {
+    const facebookRate = this.coinHotSocial.facebookcountup / this.coinHotSocial.facebookcount;
+    const twitterRate = this.coinHotSocial.twittercountup / this.coinHotSocial.twittercount;
+    const redditRate = this.coinHotSocial.redditcountup / this.coinHotSocial.redditcount;
+    if ( facebookRate >= 0.3 || twitterRate >= 0.3 || redditRate >= 0.3) {
+      this.coinAnalysisText = '社区活跃度高涨，热度十足；';
+    } else if ( facebookRate >= 0.1 || twitterRate >= 0.1 || redditRate >= 0.1) {
+      this.coinAnalysisText = '社区活跃度较高，可持续关注；';
+    } else {
+      this.coinAnalysisText = '社区活跃度一般；';
+    }
+    const githubRate = this.commitList[this.commitList.length - 1].commits - this.commitList[0].commits;
+    if ( githubRate > 30) {
+      this.coinAnalysisText += '项目代码更新速率频繁';
+    } else if ( githubRate > 0 ) {
+      this.coinAnalysisText += '项目代码更新速率一般';
+    } else {
+      this.coinAnalysisText += '项目代码暂无更新';
+    }
   }
 }

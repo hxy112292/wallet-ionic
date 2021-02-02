@@ -1,15 +1,15 @@
 export class CoinHotSocial {
 
-    commits: string;
+    commits: number;
     contributors: string;
-    facebookcount: string;
-    facebookcountup: string;
+    facebookcount: number;
+    facebookcountup: number;
     fork: string;
-    redditcount: string;
-    redditcountup: string;
+    redditcount: number;
+    redditcountup: number;
     star: string;
-    twittercount: string;
-    twittercountup: string;
+    twittercount: number;
+    twittercountup: number;
     updatedate: string;
     watch: string;
 }

@@ -21,6 +21,7 @@ export class CoinHolderAnalysisPage implements OnInit {
   coinFlowList: CoinFlow[];
   coinHolderChart: CoinHolder[];
   currentTop: CoinHolder;
+  coinAnalysisText: string;
 
   // @ts-ignore
   @ViewChild('top10RateChart') top10RateChart;
@@ -53,6 +54,7 @@ export class CoinHolderAnalysisPage implements OnInit {
     this.coinFlowList = [];
     this.coinHolderChart = [];
     this.currentTop = new CoinHolder();
+    this.coinAnalysisText = '';
   }
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class CoinHolderAnalysisPage implements OnInit {
       this.createTop20RateChart();
       this.createTop50RateChart();
       this.createTop100RateChart();
+      this.coinAnalysis();
       this.loaderService.hideLoader();
     });
   }
@@ -164,6 +167,49 @@ export class CoinHolderAnalysisPage implements OnInit {
         }]
       }
     });
+  }
+
+  coinAnalysis() {
+    const addrChangeRate = (this.coinHolderChart[29].addrcount - this.coinHolderChart[0].addrcount) / this.coinHolderChart[0].addrcount;
+    this.coinAnalysisText = '\n地址增加情况：';
+    if (addrChangeRate >= 0.03) {
+      this.coinAnalysisText += '地址增加速率较高\n';
+    } else if (addrChangeRate >= 0.015 && addrChangeRate < 0.03) {
+      this.coinAnalysisText += '地址增加速率正常\n';
+    } else if (addrChangeRate < 0.015) {
+      this.coinAnalysisText += '地址增加速率较低\n';
+    }
+    const topChangeRate = (this.coinHolderChart[29].top100rate - this.coinHolderChart[0].top100rate) / this.coinHolderChart[0].top100rate;
+    this.coinAnalysisText += '链上流动情况：';
+    if (topChangeRate >= 0.01) {
+      this.coinAnalysisText += '大户持仓持续增加\n';
+    } else if (topChangeRate >= 0 && topChangeRate < 0.01) {
+      this.coinAnalysisText += '大户持仓增加缓慢\n';
+    } else if (topChangeRate < 0) {
+      this.coinAnalysisText += '大户持仓正在减少\n';
+    }
+    const topRate = this.coinHolderChart[29].top100rate;
+    this.coinAnalysisText += '筹码集中情况：';
+    if (topRate >= 80) {
+      this.coinAnalysisText += '筹码高度集中\n';
+    } else if (topRate >= 70 && topRate < 80) {
+      this.coinAnalysisText += '筹码比较集中\n';
+    } else if (topRate < 70) {
+      this.coinAnalysisText += '筹码比较均衡\n';
+    }
+
+    this.coinAnalysisText += '总结分析：';
+    if (topRate >= 80 && topChangeRate >= 0) {
+      this.coinAnalysisText += '主力高度控盘，若币价处于低位，可继续持有或逢低建仓；若币价处于高位，可考虑逢高减仓。';
+    } else if (topRate < 80 && topChangeRate >= 0) {
+      this.coinAnalysisText += '筹码分布较为均衡，大户持仓正在增加。可考虑做高抛低吸，来回震荡操作。';
+    } else if (addrChangeRate >= 0.015 && this.coinFlowList.length >= 10) {
+      this.coinAnalysisText += '地址正在快速增加，链上流动整体较为活跃，大额流动频繁，可保持关注';
+    } else if (addrChangeRate >= 0.015 && this.coinFlowList.length < 10) {
+      this.coinAnalysisText += '地址正在快速增加，链上流动整体较为活跃，小额流动频繁，可保持关注';
+    } else if (topChangeRate < -0.1) {
+      this.coinAnalysisText += '主力有出逃嫌疑，可考虑逢高减仓，规避风险。';
+    }
   }
 
   doRefresh(event) {
