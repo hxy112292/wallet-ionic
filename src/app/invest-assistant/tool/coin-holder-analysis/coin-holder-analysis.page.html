@@ -10,9 +10,6 @@
   <ion-item lines="none">
     <ion-text>
       {{code}} 币种的分析信息:
-      <span style="white-space: pre-wrap">
-        {{coinAnalysisText}}
-      </span>
     </ion-text>
   </ion-item>
   <ion-segment [(ngModel)]="coinPage" value="coinHolderChart" scrollable="true">
@@ -27,7 +24,49 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <div *ngIf="coinPage == 'coinHolderChart'" style="padding: 5%;text-align: center;width: 100%">
+  <div *ngIf="coinPage == 'coinHolderChart'" style="width: 100%; padding: 5%;position: relative; ">
+    <ion-card style="width: 100%">
+      <ion-card-header>
+        <ion-card-subtitle>
+          分析信息
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col style="text-align: left">
+              地址变化情况
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{coinAnalysisAddrText}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              链上流动情况
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{coinAnalysisTopChangeText}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              筹码集中情况
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{coinAnalysisTopRateText}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              总结分析：
+              <br>
+              {{coinAnalysisText}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
     <ion-card style="width: 100%">
       <ion-card-header>
         <ion-card-subtitle>当前大户持仓信息</ion-card-subtitle>

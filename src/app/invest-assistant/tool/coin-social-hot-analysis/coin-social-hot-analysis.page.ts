@@ -205,4 +205,14 @@ export class CoinSocialHotAnalysisPage implements OnInit {
       this.coinAnalysisText += '项目代码暂无更新';
     }
   }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getHotSocial();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
 }

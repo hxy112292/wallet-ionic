@@ -1,0 +1,130 @@
+<ion-list lines="none">
+  <div *ngFor="let grayScaleCoin of grayScaleCoinList">
+    <ion-item>
+      <ion-card style="width: 100%">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <ion-grid>
+              <ion-row style="text-align: left">
+                <ion-col size="1">
+                  <img src="https://s3.feixiaoquan.com/p/v1.3.18/static/images/graycoin/{{grayScaleCoin.coinsymbol.toLocaleLowerCase()}}.png?v=8452f85" style="max-width: 20px"/>
+                </ion-col>
+                <ion-col size="2">
+                  {{grayScaleCoin.coinsymbol}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col style="text-align: left">
+                持币数量
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.contractamount}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                持仓价值($)
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.contractvalue | number: '1.2-2'}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                预估成本($)
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.lastcost | number: '1.2-2'}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                持币数量
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.contractamount}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                灰度价格/每股($)
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.price}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                二级市场/每股($)
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.secprice}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                溢价率
+              </ion-col>
+              <ion-col style="text-align: right">
+                {{grayScaleCoin.rate}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                1天持仓变化
+              </ion-col>
+              <ion-col style="text-align: right">
+                <div *ngIf="grayScaleCoin.change_24h > 0" style="color: green">
+                  +{{grayScaleCoin.change_24h}}
+                </div>
+                <div *ngIf="grayScaleCoin.change_24h == 0" style="color: black">
+                  {{grayScaleCoin.change_24h}}
+                </div>
+                <div *ngIf="grayScaleCoin.change_24h < 0" style="color: red">
+                  {{grayScaleCoin.change_24h}}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                7天持仓变化
+              </ion-col>
+              <ion-col style="text-align: right">
+                <div *ngIf="grayScaleCoin.change_week > 0" style="color: green">
+                  +{{grayScaleCoin.change_week}}
+                </div>
+                <div *ngIf="grayScaleCoin.change_week == 0" style="color: black">
+                  {{grayScaleCoin.change_week}}
+                </div>
+                <div *ngIf="grayScaleCoin.change_week < 0" style="color: red">
+                  {{grayScaleCoin.change_week}}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: left">
+                30天持仓变化
+              </ion-col>
+              <ion-col style="text-align: right">
+                <div *ngIf="grayScaleCoin.change_30day > 0" style="color: green">
+                  +{{grayScaleCoin.change_30day}}
+                </div>
+                <div *ngIf="grayScaleCoin.change_30day == 0" style="color: black">
+                  {{grayScaleCoin.change_30day}}
+                </div>
+                <div *ngIf="grayScaleCoin.change_30day < 0" style="color: red">
+                  {{grayScaleCoin.change_30day}}
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>`
+    </ion-item>
+  </div>
+</ion-list>

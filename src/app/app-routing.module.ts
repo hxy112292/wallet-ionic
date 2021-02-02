@@ -421,7 +421,18 @@ const routes: Routes = [
   {
     path: 'gray-scale',
     loadChildren: () => import('./invest-assistant/tool/gray-scale/gray-scale.module').then(m => m.GrayScalePageModule)
+  },
+  {
+    path: 'gray-scale-coin-list',
+    loadChildren: () => import('./invest-assistant/tool/gray-scale/gray-scale-coin-list/gray-scale-coin-list.module').then(m => m.GrayScaleCoinListPageModule)
+  },
+  {
+    path: 'gray-scale-organization',
+    loadChildren: () => import('./invest-assistant/tool/gray-scale/gray-scale-organization/gray-scale-organization.module').then(m => m.GrayScaleOrganizationPageModule)
   }
+
+
+
 
 
 

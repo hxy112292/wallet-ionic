@@ -9,14 +9,29 @@
   <ion-item lines="none">
     <ion-text>
       {{code}} 币种的分析信息：
-      <span style="white-space: pre-wrap">
-        {{coinAnalysisText}}
-      </span>
     </ion-text>
   </ion-item>
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        分析信息
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col style="text-align: left">
+          {{coinAnalysisText}}
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>基本信息</ion-card-subtitle>

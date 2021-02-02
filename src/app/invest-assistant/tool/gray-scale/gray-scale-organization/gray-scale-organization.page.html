@@ -1,0 +1,44 @@
+<ion-list lines="full">
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="5" style="color: grey;font-size: 15px">
+          机构
+        </ion-col>
+        <ion-col size="3" style="color: grey;font-size: 15px">
+          GBTC持仓份额
+        </ion-col>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          GBTC持仓价值($)
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div *ngFor="let organization of grayScaleOrganizationList">
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="5">
+            {{organization.name}}
+          </ion-col>
+          <ion-col size="3">
+            <ion-row>
+              {{organization.amount}}
+            </ion-row>
+            <ion-row style="font-size: small">
+              <div *ngIf="organization.amountchange >= 0" style="color: green">
+                (+{{organization.amountchange}})
+              </div>
+              <div *ngIf="organization.amountchange < 0" style="color: red">
+                ({{organization.amountchange}})
+              </div>
+            </ion-row>
+          </ion-col>
+          <ion-col size="4">
+            {{organization.value}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+</ion-list>

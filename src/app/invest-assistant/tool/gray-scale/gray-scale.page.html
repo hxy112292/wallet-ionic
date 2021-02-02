@@ -5,8 +5,87 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-segment [(ngModel)]="coinPage" value="openTrend" scrollable="true">
+    <ion-segment-button value="openTrend">预估成本</ion-segment-button>
+    <ion-segment-button value="coinList">持仓列表</ion-segment-button>
+    <ion-segment-button value="organization">投资机构</ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="coinPage === 'openTrend'" style="width: 100%; padding: 5%;position: relative; height: 50vh">
+    <canvas #openTrendChart></canvas>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          基本信息
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col style="text-align: left">
+              灰度当前持仓价值($)
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{grayScaleOpenTrend[grayScaleOpenTrend.length - 1][2] | number: '1.2-2'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              灰度当前持仓成本($)
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{grayScaleOpenTrend[grayScaleOpenTrend.length - 1][3] | number: '1.2-2'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              灰度当前持仓均价($)
+            </ion-col>
+            <ion-col style="text-align: right;color: black;font-weight: bold">
+              {{grayScaleOpenTrend[grayScaleOpenTrend.length - 1][4] | number: '1.2-2'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              BTC当前市场价($)
+            </ion-col>
+            <ion-col style="text-align: right;color: black;font-weight: bold">
+              {{btcPrice | number: '1.2-2'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              灰度当前持仓份数($)
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{grayScaleOpenTrend[grayScaleOpenTrend.length - 1][1] | number: '1.2-2'}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              说明:
+              <br>
+              持仓价值=灰度基金持有该币种的总持仓量*币种现价
+              <br>
+              预估持仓成本的计算规则：灰度当日增持的币种数量*增持当日的币种价格=当日持仓成本，累加所有增持日期的持仓成本，即为历史总持仓成本。该数据为预估数据，仅供参考。
+              <br>
+              预估持仓均价=该币种的预估持仓成本/该币种的持仓量
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="coinPage === 'coinList'">
+    <app-gray-scale-coin-list [grayScaleCoinList]="grayScaleCoinList"></app-gray-scale-coin-list>
+  </div>
+  <div *ngIf="coinPage === 'organization'">
+    <app-gray-scale-organization [grayScaleOrganizationList]="grayScaleOrganizationList"></app-gray-scale-organization>
+  </div>
 </ion-content>
