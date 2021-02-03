@@ -2,8 +2,7 @@
 HD-wallet, ionic framework, bitcoin, eth, erc20, litecoin, bitcoin-cash, ripple
 
 # wallet-springboot
-The backend use springtboot, you can see it in: https://github.com/hxy112292/wallet-backend, https://github.com/hxy112292/wallet-tool-backend
-
+The backend use springtboot, you can see it in: https://github.com/hxy112292/wallet-backend
 ## This is my personal wallet
 
 I am a student. Now I am studying blockchain wallet.
