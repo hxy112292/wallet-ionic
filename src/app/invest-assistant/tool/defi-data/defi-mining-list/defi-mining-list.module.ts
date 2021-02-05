@@ -4,20 +4,20 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DefiLockUpListPageRoutingModule } from './defi-lock-up-list-routing.module';
+import { DefiMiningListPageRoutingModule } from './defi-mining-list-routing.module';
 
-import { DefiLockUpListPage } from './defi-lock-up-list.page';
+import { DefiMiningListPage } from './defi-mining-list.page';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        DefiLockUpListPageRoutingModule
+        DefiMiningListPageRoutingModule
     ],
     exports: [
-        DefiLockUpListPage
+        DefiMiningListPage
     ],
-    declarations: [DefiLockUpListPage]
+    declarations: [DefiMiningListPage]
 })
-export class DefiLockUpListPageModule {}
+export class DefiMiningListPageModule {}

@@ -4,20 +4,20 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DefiLockUpListPageRoutingModule } from './defi-lock-up-list-routing.module';
+import { DefiRatePageRoutingModule } from './defi-rate-routing.module';
 
-import { DefiLockUpListPage } from './defi-lock-up-list.page';
+import { DefiRatePage } from './defi-rate.page';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        DefiLockUpListPageRoutingModule
+        DefiRatePageRoutingModule
     ],
     exports: [
-        DefiLockUpListPage
+        DefiRatePage
     ],
-    declarations: [DefiLockUpListPage]
+    declarations: [DefiRatePage]
 })
-export class DefiLockUpListPageModule {}
+export class DefiRatePageModule {}

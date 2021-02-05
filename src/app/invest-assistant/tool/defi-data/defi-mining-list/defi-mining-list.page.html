@@ -1,0 +1,48 @@
+<ion-list lines="full">
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          币种
+        </ion-col>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          主网
+        </ion-col>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          价格
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div *ngFor="let coin of miningPoolList; let i = index">
+    <ion-item (click)="toCoinDetail(coin.code)">
+      <ion-grid>
+        <ion-row style="font-size: small; color: grey">
+          #{{i+1}} {{coin.code}}
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <img src="{{coin.logo}}" referrerpolicy="no-referrer" style="max-height: 20px; max-width: 20px">
+          </ion-col>
+          <ion-col size="3">
+            {{coin.symbol}}
+          </ion-col>
+          <ion-col size="4">
+            {{coin.token_platform}}
+          </ion-col>
+          <ion-col size="4">
+            ${{coin.price}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="font-size: smaller; color: grey">
+            <div *ngIf="coin.caddress !== null && coin.caddress !== ''">
+              {{coin.caddress}}
+              <ion-icon name="copy-outline" (click)="copyText(coin.caddress)"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+</ion-list>

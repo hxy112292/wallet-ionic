@@ -437,29 +437,15 @@ const routes: Routes = [
   {
     path: 'defi-lock-up-list',
     loadChildren: () => import('./invest-assistant/tool/defi-data/defi-lock-up-list/defi-lock-up-list.module').then(m => m.DefiLockUpListPageModule)
+  },
+  {
+    path: 'defi-rate',
+    loadChildren: () => import('./invest-assistant/tool/defi-data/defi-rate/defi-rate.module').then(m => m.DefiRatePageModule)
+  },
+  {
+    path: 'defi-mining-list',
+    loadChildren: () => import('./invest-assistant/tool/defi-data/defi-mining-list/defi-mining-list.module').then(m => m.DefiMiningListPageModule)
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ];

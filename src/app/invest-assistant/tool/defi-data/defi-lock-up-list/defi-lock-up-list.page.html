@@ -1,9 +1,73 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>DefiLockUpList</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ion-list lines="full">
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4.5" style="color: grey;font-size: 15px">
+          币种
+        </ion-col>
+        <ion-col size="3" style="color: grey;font-size: 15px">
+          金额($)
+        </ion-col>
+        <ion-col size="2.5" style="color: grey;font-size: 15px">
+          分类
+        </ion-col>
+        <ion-col size="2" style="color: grey;font-size: 15px">
+          占比
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div *ngFor="let coin of lockUpList; let i = index">
+    <ion-item (click)="coin.typename === '资产'? toCoinDetail(coin.code): toExchangeDetail(coin.code)">
+      <ion-grid>
+        <ion-row style="font-size: small; color: grey">
+          #{{i+1}} {{coin.code}}
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <img src="{{coin.logo}}" referrerpolicy="no-referrer" style="max-height: 20px; max-width: 20px">
+          </ion-col>
+          <ion-col size="3.5">
+            <ion-row>
+              {{coin.name}}
+            </ion-row>
+          </ion-col>
+          <ion-col size="3">
+            <ion-row>
+              <div *ngIf="coin.volume >= 10000000">
+                {{coin.volume/100000000 | number:'1.0-2'}}亿
+              </div>
+              <div *ngIf="coin.volume < 10000000 && coin.volume >= 1000000">
+                {{coin.volume/10000 | number:'1.0-0'}}万
+              </div>
+              <div *ngIf="coin.volume < 1000000 && coin.volume >= 10000">
+                {{coin.volume/10000 | number:'1.0-1'}}万
+              </div>
+              <div *ngIf="coin.volume < 10000">
+                {{coin.volume | number:'1.0-0'}}
+              </div>
+            </ion-row>
+            <ion-row>
+              <div *ngIf="coin.changerate >= 0">
+                <ion-text style="font-size: small;color: green">+{{coin.changerate | number : '1.2-2'}}%</ion-text>
+              </div>
+              <div *ngIf="coin.changerate < 0">
+                <ion-text style="font-size: small;color: red">{{coin.changerate | number : '1.2-2'}}%</ion-text>
+              </div>
+            </ion-row>
+          </ion-col>
+          <ion-col size="2.5">
+            <ion-row>
+              {{coin.typename}}
+            </ion-row>
+          </ion-col>
+          <ion-col size="2">
+            <ion-row>
+              {{coin.percentage | number : '1.2-2'}}%
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+</ion-list>

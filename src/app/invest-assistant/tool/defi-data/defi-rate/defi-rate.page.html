@@ -1,0 +1,50 @@
+<ion-list lines="full">
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          币种
+        </ion-col>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          借贷利率
+        </ion-col>
+        <ion-col size="4" style="color: grey;font-size: 15px">
+          存储利率
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div *ngFor="let rate of rateList; let i = index">
+    <ion-item (click)="toCoinDetail(rate.code)">
+      <ion-grid>
+        <ion-row style="font-size: small; color: grey">
+          #{{i+1}} {{rate.code}}
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <img src="{{rate.logo}}" referrerpolicy="no-referrer" style="max-height: 20px; max-width: 20px">
+          </ion-col>
+          <ion-col size="3">
+            {{rate.symbol}}
+          </ion-col>
+          <ion-col size="4">
+            <div *ngIf="rate.debitRate == null || rate.debitRate === ''">
+              --
+            </div>
+            <div *ngIf="rate.debitRate != null && rate.debitRate !== ''">
+              {{rate.debitRate}}%
+            </div>
+          </ion-col>
+          <ion-col size="4">
+            <div *ngIf="rate.depositRate == null || rate.depositRate === ''">
+              --
+            </div>
+            <div *ngIf="rate.depositRate != null && rate.depositRate !== ''">
+              {{rate.depositRate}}%
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+</ion-list>

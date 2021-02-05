@@ -5,13 +5,11 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-segment [(ngModel)]="coinPage" value="coinHolderChart" scrollable="true">
+  <ion-segment [(ngModel)]="coinPage" value="trend" scrollable="true">
     <ion-segment-button value="trend">持仓趋势</ion-segment-button>
-    <ion-segment-button value="lockUpList">锁仓排行</ion-segment-button>
-    <ion-segment-button value="debitRate">借贷利率</ion-segment-button>
-    <ion-segment-button value="depositRate">存款利率</ion-segment-button>
+    <ion-segment-button value="lockUp">锁仓排行</ion-segment-button>
     <ion-segment-button value="miningPool">流动性挖矿</ion-segment-button>
-    <ion-segment-button value="worthPool">借贷平台</ion-segment-button>
+    <ion-segment-button value="defiRate">借贷利率</ion-segment-button>
   </ion-segment>
 </ion-header>
 
@@ -58,7 +56,13 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <div *ngIf="coinPage === 'lockUpList'">
-
+  <div *ngIf="coinPage === 'lockUp'">
+    <app-defi-lock-up-list [lockUpList]="lockUpList"></app-defi-lock-up-list>
+  </div>
+  <div *ngIf="coinPage === 'miningPool'">
+    <app-defi-mining-list [miningPoolList]="miningPoolList"></app-defi-mining-list>
+  </div>
+  <div *ngIf="coinPage === 'defiRate'">
+    <app-defi-rate [rateList]="rateList"></app-defi-rate>
   </div>
 </ion-content>

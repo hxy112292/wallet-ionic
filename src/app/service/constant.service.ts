@@ -31,6 +31,8 @@ export class ConstantService {
   readonly TWITTER_TYPE: number = 2;
   readonly FACEBOOK_TYPE: number = 3;
   readonly GITHUB_TYPE: number = 4;
+  readonly DEFI_RATE_DEBIT: string = '1';
+  readonly DEFI_RATE_DEPOSIT: string = '0';
   constructor() {
   }
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {DefiLockUp} from '../../../../entity/defi-lock-up';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-defi-lock-up-list',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DefiLockUpListPage implements OnInit {
 
-  constructor() { }
+  @Input() lockUpList: DefiLockUp[];
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  toCoinDetail(code) {
+    this.router.navigate(['coin-detail', {codeInfo: code}] );
+  }
+
+  toExchangeDetail(code) {
+    this.router.navigate(['exchange-detail', {codeInfo: code}] );
   }
 
 }
