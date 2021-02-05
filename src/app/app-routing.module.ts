@@ -445,7 +445,12 @@ const routes: Routes = [
   {
     path: 'defi-mining-list',
     loadChildren: () => import('./invest-assistant/tool/defi-data/defi-mining-list/defi-mining-list.module').then(m => m.DefiMiningListPageModule)
+  },
+  {
+    path: 'defi-eth-data',
+    loadChildren: () => import('./invest-assistant/tool/defi-eth-data/defi-eth-data.module').then(m => m.DefiEthDataPageModule)
   }
+
 
 
 ];

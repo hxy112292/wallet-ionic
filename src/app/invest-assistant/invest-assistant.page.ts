@@ -165,4 +165,8 @@ export class InvestAssistantPage implements OnInit {
   toDefiData() {
     this.router.navigate(['defi-data']);
   }
+
+  toEthData() {
+    this.router.navigate(['defi-eth-data']);
+  }
 }

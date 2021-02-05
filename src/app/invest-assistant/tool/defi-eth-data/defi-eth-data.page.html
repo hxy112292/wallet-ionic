@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ETH2.0</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div style="width: 100%; padding: 5%;position: relative; height: 50vh">
+    <canvas #lockUpChart></canvas>
+  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        基本信息
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="text-align: left">
+            ETH 2.0 Pos年利率
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{data[1]/100 | number: '1.2-2'}}%
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            ETH 2.0 锁仓量
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{data[2]}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            ETH DeFi借贷平均年利率
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{data[3] | number: '1.2-2'}}%
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            ETH DeFi借贷锁仓量
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{data[4]}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            预估ETH2.0节点数
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{data[2]/32 | number:'1.0-0'}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            ETH日矿工费
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{klineMiner[klineMiner.length-1][1] | number: '1.2-2'}}ETH
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            ETH当前GAS
+          </ion-col>
+          <ion-col style="text-align: right">
+            {{klineGas[klineGas.length-1][2] | number: '1.2-6'}}ETH
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: left">
+            说明：
+            <br>
+            以太坊挖矿质押最低32ETH且平均分配奖励，与质押量无关，预估节点数=当前锁仓量/32
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <div style="width: 100%; padding: 5%;position: relative; height: 35vh">
+    <canvas #gasChart></canvas>
+  </div>
+  <div style="width: 100%; padding: 5%;position: relative; height: 25vh">
+    <canvas #baleChart></canvas>
+  </div>
+  <div style="width: 100%; padding: 5%;position: relative; height: 30vh">
+    <canvas #minerChart></canvas>
+  </div>
+</ion-content>
