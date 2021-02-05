@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>DEFI数据</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment [(ngModel)]="coinPage" value="coinHolderChart" scrollable="true">
+    <ion-segment-button value="trend">持仓趋势</ion-segment-button>
+    <ion-segment-button value="lockUpList">锁仓排行</ion-segment-button>
+    <ion-segment-button value="debitRate">借贷利率</ion-segment-button>
+    <ion-segment-button value="depositRate">存款利率</ion-segment-button>
+    <ion-segment-button value="miningPool">流动性挖矿</ion-segment-button>
+    <ion-segment-button value="worthPool">借贷平台</ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="coinPage === 'trend'" style="width: 100%; padding: 5%;position: relative; height: 50vh">
+    <canvas #trendChart></canvas>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          基本信息
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col style="text-align: left">
+              抵押金额($)
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{worthInfo[1]}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              占全球比例
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{worthInfo[3]}}%
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              更新时间
+            </ion-col>
+            <ion-col style="text-align: right">
+              {{worthInfo[0] * 1000 | date: 'yyyy-MM-dd'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="coinPage === 'lockUpList'">
+
+  </div>
+</ion-content>

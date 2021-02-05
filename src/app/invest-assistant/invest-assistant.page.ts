@@ -161,4 +161,8 @@ export class InvestAssistantPage implements OnInit {
   toGrayScale() {
     this.router.navigate(['gray-scale']);
   }
+
+  toDefiData() {
+    this.router.navigate(['defi-data']);
+  }
 }

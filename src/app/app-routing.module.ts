@@ -429,6 +429,14 @@ const routes: Routes = [
   {
     path: 'gray-scale-organization',
     loadChildren: () => import('./invest-assistant/tool/gray-scale/gray-scale-organization/gray-scale-organization.module').then(m => m.GrayScaleOrganizationPageModule)
+  },
+  {
+    path: 'defi-data',
+    loadChildren: () => import('./invest-assistant/tool/defi-data/defi-data.module').then(m => m.DefiDataPageModule)
+  },
+  {
+    path: 'defi-lock-up-list',
+    loadChildren: () => import('./invest-assistant/tool/defi-data/defi-lock-up-list/defi-lock-up-list.module').then(m => m.DefiLockUpListPageModule)
   }
 
 
