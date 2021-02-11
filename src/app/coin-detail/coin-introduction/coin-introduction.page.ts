@@ -70,7 +70,7 @@ export class CoinIntroductionPage implements OnInit {
 
   getCoinDetail() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/coinInfo', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/coinInfo', {
       params: {
         code: this.code
       }

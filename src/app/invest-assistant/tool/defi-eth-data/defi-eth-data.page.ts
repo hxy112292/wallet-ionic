@@ -45,7 +45,7 @@ export class DefiEthDataPage implements OnInit {
   }
 
   getEthData() {
-    this.http.get(this.constant.walletToolBackendUrl + '/defi/ethData').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/defi/ethData').subscribe( res => {
       this.data = (res as any).data.data;
       this.kline = (res as any).data.kline;
       this.klineBale = (res as any).data.kline_bale;

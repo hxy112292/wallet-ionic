@@ -25,7 +25,7 @@ export class AddressUpMaxPage implements OnInit {
 
   getChangeMax() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/largePosition/address', {
+    this.http.get(this.constant.walletBackendUrl + '/largePosition/address', {
       params: {
         sort: '1'
       }

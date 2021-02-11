@@ -25,7 +25,7 @@ export class GitDevPage implements OnInit {
 
   getGitDevInfo() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/github').subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/github').subscribe(res => {
       this.gitDevList = (res as any).data;
       this.loaderService.hideLoader();
     });

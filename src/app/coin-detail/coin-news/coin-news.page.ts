@@ -38,7 +38,7 @@ export class CoinNewsPage implements OnInit {
 
   getNews() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/news', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/news', {
       params: {
         code: this.code,
         page: this.page + ''

@@ -27,7 +27,7 @@ export class PriceNotificationLatestPage implements OnInit {
   }
 
   getPriceOnNotification() {
-    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice', {
+    this.http.get(this.constant.walletBackendUrl + '/monitorPrice', {
       params: {
         userId: this.userService.user.id,
         notification: 'on'
@@ -80,7 +80,7 @@ export class PriceNotificationLatestPage implements OnInit {
     monitorPrice.email = 'false';
     monitorPrice.voice = 'false';
     monitorPrice.sms = 'false';
-    this.http.put(this.constant.walletToolBackendUrl + '/monitorPrice', monitorPrice).subscribe(res => {
+    this.http.put(this.constant.walletBackendUrl + '/monitorPrice', monitorPrice).subscribe(res => {
       this.doRefresh(null);
     });
   }

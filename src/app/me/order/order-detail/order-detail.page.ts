@@ -36,7 +36,7 @@ export class OrderDetailPage implements OnInit {
   }
 
   getOrderDetail() {
-    this.http.get(this.constant.walletToolBackendUrl + '/order', {
+    this.http.get(this.constant.walletBackendUrl + '/order', {
       params: {
         id: this.order.id
       }
@@ -86,7 +86,7 @@ export class OrderDetailPage implements OnInit {
 
   canCelOrder() {
     this.order.status = this.constant.ORDER_STATUS_CLOSED;
-    this.http.put(this.constant.walletToolBackendUrl + '/order', this.order).subscribe( res => {
+    this.http.put(this.constant.walletBackendUrl + '/order', this.order).subscribe( res => {
       this.router.navigate(['/order']);
     });
   }

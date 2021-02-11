@@ -96,7 +96,7 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    this.http.post(this.constant.walletToolBackendUrl + '/auth/register', this.user).subscribe(res => {
+    this.http.post(this.constant.walletBackendUrl + '/auth/register', this.user).subscribe(res => {
       if ((res as any).code !== 0) {
         this.alertService.alert((res as any).message);
         return;
@@ -113,7 +113,7 @@ export class RegisterPage implements OnInit {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
       if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
-        this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
+        this.http.post(this.constant.walletBackendUrl + '/fcm/register', {
           userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});

@@ -28,7 +28,7 @@ export class ConceptPage implements OnInit {
 
   getConceptList() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/concept', {
+    this.http.get(this.constant.walletBackendUrl + '/concept', {
       params: {
         sort: this.sort
       }

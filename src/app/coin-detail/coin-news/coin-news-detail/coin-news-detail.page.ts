@@ -30,7 +30,7 @@ export class CoinNewsDetailPage implements OnInit {
 
   getCoinNewsDetail() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/liveNews/deep/detail', {
+    this.http.get(this.constant.walletBackendUrl + '/liveNews/deep/detail', {
       params: {
         url: this.coinNews.url
       }

@@ -32,7 +32,7 @@ export class DeepNewsDetailPage implements OnInit {
 
   getDeepNewsDetail() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/liveNews/deep/detail', {
+    this.http.get(this.constant.walletBackendUrl + '/liveNews/deep/detail', {
       params: {
         url: this.deepNews.extra.topic_url
       }

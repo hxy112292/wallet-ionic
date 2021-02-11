@@ -54,7 +54,7 @@ export class AppComponent {
       this.userService.user.token = token;
       this.storage.get('uid').then( value => {
         if ( value != null) {
-          this.http.get(this.constant.walletToolBackendUrl + '/user/info', {
+          this.http.get(this.constant.walletBackendUrl + '/user/info', {
             params: {
               userId: value as any
             }
@@ -120,7 +120,7 @@ export class AppComponent {
       // backend.registerToken(token);
       console.log(token);
       if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
-        this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
+        this.http.post(this.constant.walletBackendUrl + '/fcm/register', {
           userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});
@@ -132,7 +132,7 @@ export class AppComponent {
   }
 
   checkVersion() {
-    const updateUrl = this.constant.walletToolBackendUrl + '/update/xml';
+    const updateUrl = this.constant.walletBackendUrl + '/update/xml';
     this.appUpdate.checkAppUpdate(updateUrl).then(
         res => {
           console.log(res);

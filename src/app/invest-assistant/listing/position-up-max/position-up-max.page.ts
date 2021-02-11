@@ -25,7 +25,7 @@ export class PositionUpMaxPage implements OnInit {
 
   getChangeMax() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/largePosition', {
+    this.http.get(this.constant.walletBackendUrl + '/largePosition', {
       params: {
         sort: '1'
       }

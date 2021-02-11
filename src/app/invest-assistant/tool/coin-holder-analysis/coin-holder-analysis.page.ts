@@ -73,7 +73,7 @@ export class CoinHolderAnalysisPage implements OnInit {
 
   getHolders() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/holders', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/holders', {
       params: {
         code: this.code
       }

@@ -29,7 +29,7 @@ export class ExchangePage implements OnInit {
 
   getExchangeInfo() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/exchange').subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/exchange').subscribe(res => {
       this.exchangeList = (res as any).data;
       this.loaderService.hideLoader();
     });

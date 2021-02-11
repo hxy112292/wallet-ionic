@@ -52,7 +52,7 @@ export class TxDetailPage implements OnInit {
 
   getTransactionInfo() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/BTC/tx/' + this.hash).subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/BTC/tx/' + this.hash).subscribe(res => {
       this.transaction = (res as any).data;
       this.loaderService.hideLoader();
     });

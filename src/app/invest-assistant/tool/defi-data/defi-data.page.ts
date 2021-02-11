@@ -50,7 +50,7 @@ export class DefiDataPage implements OnInit {
   }
 
   getWorthTrend() {
-    this.http.get(this.constant.walletToolBackendUrl + '/defi/worthTrend').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/defi/worthTrend').subscribe( res => {
       this.trendList = (res as any).data;
       this.worthInfo = this.trendList[this.trendList.length - 1];
       this.createTrendChart();
@@ -58,13 +58,13 @@ export class DefiDataPage implements OnInit {
   }
 
   getLockUpList() {
-    this.http.get(this.constant.walletToolBackendUrl + '/defi/lockUpList').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/defi/lockUpList').subscribe( res => {
       this.lockUpList = (res as any).data.list[0].lockupitem;
     });
   }
 
   getDebitRateList() {
-    this.http.get(this.constant.walletToolBackendUrl + '/defi/rateList', {
+    this.http.get(this.constant.walletBackendUrl + '/defi/rateList', {
       params: {
         type: this.constant.DEFI_RATE_DEBIT
       }
@@ -75,7 +75,7 @@ export class DefiDataPage implements OnInit {
   }
 
   getDepositRateList() {
-    this.http.get(this.constant.walletToolBackendUrl + '/defi/rateList', {
+    this.http.get(this.constant.walletBackendUrl + '/defi/rateList', {
       params: {
         type: this.constant.DEFI_RATE_DEPOSIT
       }
@@ -125,7 +125,7 @@ export class DefiDataPage implements OnInit {
   }
 
   getMiningPoolList() {
-    this.http.get(this.constant.walletToolBackendUrl + '/defi/miningList').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/defi/miningList').subscribe( res => {
       this.miningPoolList = (res as any).data.list;
     });
   }

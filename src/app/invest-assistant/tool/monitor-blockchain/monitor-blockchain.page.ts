@@ -32,7 +32,7 @@ export class MonitorBlockchainPage implements OnInit {
     if (this.pageSize == null) {
       this.pageSize = 10;
     }
-    this.http.get(this.constant.walletToolBackendUrl + '/monitorAddress/history', {
+    this.http.get(this.constant.walletBackendUrl + '/monitorAddress/history', {
       params: {
         pageNum: this.pageNum + '',
         pageSize: this.pageSize + '',

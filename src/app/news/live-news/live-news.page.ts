@@ -23,7 +23,7 @@ export class LiveNewsPage implements OnInit {
 
   getLiveNews() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/liveNews').subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/liveNews').subscribe(res => {
       this.liveNewsList = (res as any).list[0].lives;
       this.loaderService.hideLoader();
     });
@@ -53,7 +53,7 @@ export class LiveNewsPage implements OnInit {
   }
 
   getMoreLiveNews(bottomId) {
-    this.http.get(this.constant.walletToolBackendUrl + '/liveNews', {
+    this.http.get(this.constant.walletBackendUrl + '/liveNews', {
       params: {
         id: bottomId
       }

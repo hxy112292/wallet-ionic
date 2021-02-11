@@ -31,7 +31,7 @@ export class CoinReduceHalfPage implements OnInit {
 
   getReduceHalf() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/reduceHalf', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/reduceHalf', {
       params: {
         code: this.code
       }

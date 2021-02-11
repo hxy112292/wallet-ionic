@@ -27,7 +27,7 @@ export class ChangeUpMaxPage implements OnInit {
 
   getChangeMax() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/change/max', {
+    this.http.get(this.constant.walletBackendUrl + '/change/max', {
       params: {
         sort: this.sort,
         isUp: '1'

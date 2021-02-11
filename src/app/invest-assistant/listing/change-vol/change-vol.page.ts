@@ -27,7 +27,7 @@ export class ChangeVolPage implements OnInit {
 
   getChangeMax() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/change/vol', {
+    this.http.get(this.constant.walletBackendUrl + '/change/vol', {
       params: {
         sort: this.sort
       }

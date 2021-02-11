@@ -37,7 +37,7 @@ export class OrderPage implements OnInit {
     if (this.pageSize == null) {
       this.pageSize = 10;
     }
-    this.http.get(this.constant.walletToolBackendUrl + '/order/list', {
+    this.http.get(this.constant.walletBackendUrl + '/order/list', {
       params: {
         pageNum: this.pageNum + '',
         pageSize: this.pageSize + '',

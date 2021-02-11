@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
       this.alertService.alert('密码为空');
       return;
     }
-    this.http.post(this.constant.walletToolBackendUrl + '/auth/login', {
+    this.http.post(this.constant.walletBackendUrl + '/auth/login', {
       username: this.username,
       password: this.password,
     }).subscribe(res => {
@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
       // backend.registerToken(token);
       console.log(token);
       if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
-        this.http.post(this.constant.walletToolBackendUrl + '/fcm', {
+        this.http.post(this.constant.walletBackendUrl + '/fcm', {
           userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});

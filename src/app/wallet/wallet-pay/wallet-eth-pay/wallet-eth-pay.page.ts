@@ -141,7 +141,7 @@ export class WalletEthPayPage implements OnInit {
           this.order.fromAddr = this.privateKey.ethAddress;
           this.order.toAddr = this.recipientAddr;
           this.order.payNo = (tx as any).hash;
-          this.http.post(this.constant.walletToolBackendUrl + '/order/pay', this.order).subscribe( res => {
+          this.http.post(this.constant.walletBackendUrl + '/order/pay', this.order).subscribe( res => {
             this.router.navigate(['/tabs/me']);
           });
         }).catch( e => {
@@ -270,7 +270,7 @@ export class WalletEthPayPage implements OnInit {
   }
 
   getReceiverAddr() {
-    this.http.get(this.constant.walletToolBackendUrl + '/order/receiverAddr').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/order/receiverAddr').subscribe( res => {
       this.recipientAddr = (res as any).result.receiveAddr;
     });
   }

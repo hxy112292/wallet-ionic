@@ -26,7 +26,7 @@ export class MarketCurrencyPage implements OnInit {
 
   getExchangeCurrency() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/exchange/currency/rank').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/exchange/currency/rank').subscribe( res => {
       this.marketCurrencyList = (res as any).data.reserves_list;
       this.loaderService.hideLoader();
     });

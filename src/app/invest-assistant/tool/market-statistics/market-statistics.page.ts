@@ -137,7 +137,7 @@ export class MarketStatisticsPage implements OnInit {
 
   getExchangeInfo() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/exchange/currency/list', {
+    this.http.get(this.constant.walletBackendUrl + '/exchange/currency/list', {
       params: {
         pageNum: '1',
         pageSize: '60'
@@ -148,7 +148,7 @@ export class MarketStatisticsPage implements OnInit {
       this.exchangeTotal.exchangeCoinUsdTotal = this.exchangeTotal.exchangeUsdTotal - this.exchangeTotal.exchangeUsdt;
       this.exchangeTotal.marketCoinUsdTotal = this.exchangeTotal.marketUsdTotal - this.exchangeTotal.marketUsdt;
       this.exchangeTotal.percentageForCoin = this.exchangeTotal.exchangeCoinUsdTotal / this.exchangeTotal.marketUsdTotal;
-      this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/globalInfo').subscribe( res2 => {
+      this.http.get(this.constant.walletBackendUrl + '/listingLatest/globalInfo').subscribe( res2 => {
         this.globalInfo = (res2 as any).data;
         this.createAssetPie();
         this.createExchangePie();
@@ -159,7 +159,7 @@ export class MarketStatisticsPage implements OnInit {
   }
 
   getMarketTrend() {
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/marketTrend').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/marketTrend').subscribe( res => {
       this.marketTrendList = (res as any).data.fallrise.data;
       this.createMarketTrendChart();
     });
@@ -180,7 +180,7 @@ export class MarketStatisticsPage implements OnInit {
   }
 
   getFomoGroup() {
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/fomo').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/fomo').subscribe( res => {
       this.fomoGroup = (res as any).data.fgi[0];
       this.createFomoPie();
     });

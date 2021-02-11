@@ -51,7 +51,7 @@ export class VipPage implements OnInit {
 
   getVipProduct() {
     const param = JSON.stringify({type: 'vip'});
-    this.http.get(this.constant.walletToolBackendUrl + '/product/list', {
+    this.http.get(this.constant.walletBackendUrl + '/product/list', {
       params: {
         pageNum: '1',
         pageSize: '10',
@@ -88,7 +88,7 @@ export class VipPage implements OnInit {
     cartProduct.sku = this.product.skuList.find((item) => {if (item.id === this.sku.id) { return item; }});
     this.order.productList = [cartProduct];
     this.order.totalFee = cartProduct.sku.price;
-    this.http.post(this.constant.walletToolBackendUrl + '/order', this.order).subscribe( res => {
+    this.http.post(this.constant.walletBackendUrl + '/order', this.order).subscribe( res => {
       this.order = (res as any).result;
       this.router.navigate(['/wallet-eth-pay', {order: JSON.stringify(this.order)}]);
     });

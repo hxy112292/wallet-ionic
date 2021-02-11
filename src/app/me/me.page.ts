@@ -56,7 +56,7 @@ export class MePage implements OnInit {
       this.userService.user.token = token;
       this.storage.get('uid').then( value => {
         if ( value != null) {
-          this.http.get(this.constant.walletToolBackendUrl + '/user/info', {
+          this.http.get(this.constant.walletBackendUrl + '/user/info', {
             params: {
               userId: value as any
             }
@@ -78,7 +78,7 @@ export class MePage implements OnInit {
   }
 
   checkVersion() {
-    const updateUrl = this.constant.walletToolBackendUrl + '/update/xml';
+    const updateUrl = this.constant.walletBackendUrl + '/update/xml';
     this.appUpdate.checkAppUpdate(updateUrl).then(
         res => {
           console.log(res);

@@ -80,7 +80,7 @@ export class UserInfoPage implements OnInit {
     this.userService.user.email = this.user.email;
     this.userService.user.password = this.user.password;
     this.userService.user.username = this.user.username;
-    this.http.put(this.constant.walletToolBackendUrl + '/user/update', this.userService.user).subscribe(res => {
+    this.http.put(this.constant.walletBackendUrl + '/user/update', this.userService.user).subscribe(res => {
       if ((res as any).code !== 0) {
         this.alertService.alert((res as any).message);
         return;
@@ -97,7 +97,7 @@ export class UserInfoPage implements OnInit {
       // Register your new token in your back-end if you want
       // backend.registerToken(token);
       if (this.userService.user != null && this.userService.user.id != null && this.userService.user.id !== '') {
-        this.http.post(this.constant.walletToolBackendUrl + '/fcm/register', {
+        this.http.post(this.constant.walletBackendUrl + '/fcm/register', {
           userId: this.userService.user.id,
           fcmToken: token
         }).subscribe( res => {});

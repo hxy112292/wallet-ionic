@@ -31,7 +31,7 @@ export class CoinMarketPage implements OnInit {
 
   getCoinMarket() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/coinMarket', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/coinMarket', {
       params: {
         code: this.code
       }

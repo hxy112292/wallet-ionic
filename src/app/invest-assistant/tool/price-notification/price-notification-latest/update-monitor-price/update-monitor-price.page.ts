@@ -50,7 +50,7 @@ export class UpdateMonitorPricePage implements OnInit {
   }
 
   getMonitorCoin() {
-    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coin').subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/monitorPrice/coin').subscribe(res => {
       this.monitorCoinList = (res as any).result;
     });
   }
@@ -90,7 +90,7 @@ export class UpdateMonitorPricePage implements OnInit {
       this.monitorPrice.downChangePercent = 0 - this.monitorPrice.downChangePercent;
     }
 
-    this.http.put(this.constant.walletToolBackendUrl + '/monitorPrice', this.monitorPrice).subscribe(res => {
+    this.http.put(this.constant.walletBackendUrl + '/monitorPrice', this.monitorPrice).subscribe(res => {
       this.monitorCoinList = (res as any).result;
     });
     this.dismiss(null);

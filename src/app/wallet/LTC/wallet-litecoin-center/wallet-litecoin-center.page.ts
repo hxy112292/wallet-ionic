@@ -42,7 +42,7 @@ export class WalletLitecoinCenterPage implements OnInit {
   }
 
   getPrice() {
-    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'ltcusdt'
       }

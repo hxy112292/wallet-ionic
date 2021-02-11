@@ -56,7 +56,7 @@ export class ExchangeDetailPage implements OnInit {
 
   getExchangeDetail() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/exchange/detail/', {
+    this.http.get(this.constant.walletBackendUrl + '/exchange/detail/', {
       params: {
         code: this.exchangeCode
       }

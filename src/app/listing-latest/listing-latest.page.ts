@@ -25,7 +25,7 @@ export class ListingLatestPage implements OnInit {
 
   getListing() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest').subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest').subscribe(res => {
       this.listingLatestList = (res as any).data;
       this.loaderService.hideLoader();
     });

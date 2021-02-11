@@ -25,7 +25,7 @@ export class TurnoverPage implements OnInit {
 
   getTurnOver() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/turnover').subscribe(res => {
+    this.http.get(this.constant.walletBackendUrl + '/turnover').subscribe(res => {
       this.turnoverList = (res as any).data;
       this.loaderService.hideLoader();
     });

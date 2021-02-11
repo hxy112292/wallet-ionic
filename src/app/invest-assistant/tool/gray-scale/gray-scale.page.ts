@@ -42,7 +42,7 @@ export class GrayScalePage implements OnInit {
   }
 
   getBitcoinPrice() {
-    this.http.get(this.constant.walletToolBackendUrl + '/monitorPrice/coinPrice', {
+    this.http.get(this.constant.walletBackendUrl + '/monitorPrice/coinPrice', {
       params: {
         symbol: 'btcusdt'
       }
@@ -52,19 +52,19 @@ export class GrayScalePage implements OnInit {
   }
 
   getCoinList() {
-    this.http.get(this.constant.walletToolBackendUrl + '/grayscale/coinList').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/grayscale/coinList').subscribe( res => {
       this.grayScaleCoinList = (res as any).data.list;
     });
   }
 
   getOrganizationList() {
-    this.http.get(this.constant.walletToolBackendUrl + '/grayscale/organization').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/grayscale/organization').subscribe( res => {
       this.grayScaleOrganizationList = (res as any).data.list;
     });
   }
 
   getOpenTrend() {
-    this.http.get(this.constant.walletToolBackendUrl + '/grayscale/openTrend').subscribe( res => {
+    this.http.get(this.constant.walletBackendUrl + '/grayscale/openTrend').subscribe( res => {
       this.grayScaleOpenTrend = (res as any).data.interest;
       this.createOpenTrendChart();
     });

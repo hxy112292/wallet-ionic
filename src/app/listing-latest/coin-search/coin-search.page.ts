@@ -27,7 +27,7 @@ export class CoinSearchPage implements OnInit {
 
   getSearchResult() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/search/', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/search/', {
       params: {
         coin: this.searchValue
       }

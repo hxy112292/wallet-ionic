@@ -64,7 +64,7 @@ export class CoinSocialHotAnalysisPage implements OnInit {
 
   getHotSocial() {
     this.loaderService.showLoader();
-    this.http.get(this.constant.walletToolBackendUrl + '/listingLatest/hotSocial', {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/hotSocial', {
       params: {
         code: this.code
       }
