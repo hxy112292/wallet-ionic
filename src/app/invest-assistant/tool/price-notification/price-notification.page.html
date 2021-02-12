@@ -15,10 +15,6 @@
 </ion-toolbar>
 
 <ion-content>
-  <div *ngIf="priceNotificationPage == 'priceNotificationLatest'">
-    <app-price-notification-latest></app-price-notification-latest>
-  </div>
-  <div *ngIf="priceNotificationPage == 'priceNotificationHistory'">
-    <app-price-notification-history></app-price-notification-history>
-  </div>
+  <app-price-notification-latest *ngIf="priceNotificationPage == 'priceNotificationLatest'"></app-price-notification-latest>
+  <app-price-notification-history *ngIf="priceNotificationPage == 'priceNotificationHistory'"></app-price-notification-history>
 </ion-content>

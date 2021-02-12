@@ -1,0 +1,79 @@
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content>
+  </ion-refresher-content>
+</ion-refresher>
+<div style="text-align: center;padding: 5%">
+  <ion-button color="primary" (click)="toAddrManage()">管理地址</ion-button>
+</div>
+<div *ngFor="let txHistory of userTxHistoryList">
+  <ion-card (click)="toTxDetail(txHistory)">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <ion-icon name="document" color="danger"></ion-icon>
+        <ion-text>　交易时间：{{txHistory.tradeTime | date: 'MM/dd/yyyy HH:mm:ss'}}</ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="logo-bitcoin" color="warning"></ion-icon>
+          </ion-col>
+          <ion-col size="2">
+            <ion-text>
+              币种：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text>
+              比特币
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="pricetag" color="tertiary"></ion-icon>
+          </ion-col>
+          <ion-col size="2">
+            <ion-text>
+              金额：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <div *ngIf="txHistory.inOrOut == 'in'">
+              <ion-text>
+                +{{txHistory.amount}} BTC
+              </ion-text>
+            </div>
+            <div *ngIf="txHistory.inOrOut == 'out'">
+              <ion-text>
+                -{{txHistory.amount}} BTC
+              </ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="card" color="medium"></ion-icon>
+          </ion-col>
+          <ion-col size="4">
+            <ion-text>
+              监控地址：
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="dark">
+              {{txHistory.address}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

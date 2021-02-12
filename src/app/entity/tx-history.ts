@@ -9,4 +9,5 @@ export class TxHistory {
     inOrOut: string;
     createTime: string;
     updateTime: string;
+    tradeTime: string;
 }

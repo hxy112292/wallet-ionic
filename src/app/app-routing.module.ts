@@ -449,7 +449,28 @@ const routes: Routes = [
   {
     path: 'defi-eth-data',
     loadChildren: () => import('./invest-assistant/tool/defi-eth-data/defi-eth-data.module').then(m => m.DefiEthDataPageModule)
+  },
+  {
+    path: 'monitor-blockchain-system',
+    loadChildren: () => import('./invest-assistant/tool/monitor-blockchain/monitor-blockchain-system/monitor-blockchain-system.module').then(m => m.MonitorBlockchainSystemPageModule)
+  },
+  {
+    path: 'monitor-blockchain-user',
+    loadChildren: () => import('./invest-assistant/tool/monitor-blockchain/monitor-blockchain-user/monitor-blockchain-user.module').then(m => m.MonitorBlockchainUserPageModule)
+  },
+  {
+    path: 'monitor-blockchain-user-addr',
+    loadChildren: () => import('./invest-assistant/tool/monitor-blockchain/monitor-blockchain-user/monitor-blockchain-user-addr/monitor-blockchain-user-addr.module').then(m => m.MonitorBlockchainUserAddrPageModule)
+  },
+  {
+    path: 'monitor-blockchain-user-addr-add',
+    loadChildren: () => import('./invest-assistant/tool/monitor-blockchain/monitor-blockchain-user/monitor-blockchain-user-addr/monitor-blockchain-user-addr-add/monitor-blockchain-user-addr-add.module').then(m => m.MonitorBlockchainUserAddrAddPageModule)
+  },
+  {
+    path: 'monitor-blockchain-user-addr-update',
+    loadChildren: () => import('./invest-assistant/tool/monitor-blockchain/monitor-blockchain-user/monitor-blockchain-user-addr/monitor-blockchain-user-addr-update/monitor-blockchain-user-addr-update.module').then(m => m.MonitorBlockchainUserAddrUpdatePageModule)
   }
+
 
 
 
