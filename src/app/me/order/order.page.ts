@@ -14,7 +14,7 @@ import {Order} from '../../entity/order';
 export class OrderPage implements OnInit {
 
   orderList: Order[];
-  status: number;
+  status: string;
   pageNum: 1;
   pageSize: 10;
 
@@ -27,6 +27,28 @@ export class OrderPage implements OnInit {
   ngOnInit() {
     this.orderList = [];
     this.getOrderList();
+  }
+
+  changeStatus() {
+    let param;
+    if (this.status !== '') {
+      param = JSON.stringify({status: this.status});
+    }
+    if (this.pageNum == null) {
+      this.pageNum = 1;
+    }
+    if (this.pageSize == null) {
+      this.pageSize = 10;
+    }
+    this.http.get(this.constant.walletBackendUrl + '/order/list', {
+      params: {
+        pageNum: this.pageNum + '',
+        pageSize: this.pageSize + '',
+        param
+      }
+    }).subscribe( res => {
+      this.orderList = (res as any).result;
+    });
   }
 
   getOrderList() {
@@ -53,6 +75,7 @@ export class OrderPage implements OnInit {
     this.orderList = [];
     this.pageNum = 1;
     this.pageSize = 10;
+    this.status = null;
     this.getOrderList();
     setTimeout(() => {
       console.log('Async operation has ended');

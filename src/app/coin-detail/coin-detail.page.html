@@ -12,7 +12,7 @@
     <ion-segment-button value="coinIntroduction">简况</ion-segment-button>
     <ion-segment-button value="coinMarket">交易所</ion-segment-button>
     <ion-segment-button value="coinNews">资讯</ion-segment-button>
-    <ion-segment-button value="coinReduceHalf">网络状态</ion-segment-button>
+    <ion-segment-button value="coinReduceHalf" *ngIf="code === 'bitcoin'">网络状态</ion-segment-button>
   </ion-segment>
 </ion-toolbar>
 
@@ -28,7 +28,7 @@
   <div *ngIf="coinPage == 'coinNews'">
     <app-coin-news></app-coin-news>
   </div>
-  <div *ngIf="coinPage == 'coinReduceHalf'">
+  <div *ngIf="coinPage == 'coinReduceHalf' && code == 'bitcoin'">
     <app-coin-reduce-half></app-coin-reduce-half>
   </div>
 </ion-content>

@@ -6,7 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="status" value="" (ionChange)="getOrderList()">
+    <ion-segment [(ngModel)]="status" value="" (ionChange)="changeStatus()">
       <ion-segment-button value="">全部</ion-segment-button>
       <ion-segment-button value="{{constant.ORDER_STATUS_NOT_PAY}}">未付款</ion-segment-button>
       <ion-segment-button value="{{constant.ORDER_STATUS_PAID}}">已付款</ion-segment-button>
