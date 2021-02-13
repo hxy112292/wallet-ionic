@@ -50,7 +50,7 @@ export class UserInfoPage implements OnInit {
   update() {
 
     this.UsernameCheck();
-    this.PasswordCheck();
+    // this.PasswordCheck();
     this.EmailCheck();
     this.PhoneCheck();
 
@@ -58,10 +58,10 @@ export class UserInfoPage implements OnInit {
       this.alertMessage += '<br>USERNAME ERROR:<br>';
       this.alertMessage += this.alertNameMessage;
     }
-    if (this.alertPassMessage !== '' && this.alertPassMessage != null) {
-      this.alertMessage += '<br>PASSWORD ERROR:<br>';
-      this.alertMessage += this.alertPassMessage;
-    }
+    // if (this.alertPassMessage !== '' && this.alertPassMessage != null) {
+    //   this.alertMessage += '<br>PASSWORD ERROR:<br>';
+    //   this.alertMessage += this.alertPassMessage;
+    // }
     if (this.alertEmailMessage !== '' && this.alertEmailMessage != null) {
       this.alertMessage += '<br>EMAIL ERROR:<br>';
       this.alertMessage += this.alertEmailMessage;
@@ -75,12 +75,7 @@ export class UserInfoPage implements OnInit {
       this.initAllAlert();
       return;
     }
-
-    this.userService.user.phone = this.user.phone;
-    this.userService.user.email = this.user.email;
-    this.userService.user.password = this.user.password;
-    this.userService.user.username = this.user.username;
-    this.http.put(this.constant.walletBackendUrl + '/user/update', this.userService.user).subscribe(res => {
+    this.http.put(this.constant.walletBackendUrl + '/user/update', this.user).subscribe(res => {
       if ((res as any).code !== 0) {
         this.alertService.alert((res as any).message);
         return;

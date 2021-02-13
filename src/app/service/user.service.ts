@@ -10,6 +10,7 @@ export class UserService {
   user: User;
   constructor(private constant: ConstantService) {
     this.user = {
+      birthday: '', description: '', sex: '',
       vipTime: '',
       id: '',
       username: '',
@@ -24,6 +25,7 @@ export class UserService {
   setUser(user: User) {
     if (user == null) {
       this.user = {
+        birthday: '', description: '', sex: '',
         vipTime: '',
         id: '',
         username: '',

@@ -57,6 +57,23 @@
       <ion-icon name="call" color="tertiary" slot="start"></ion-icon>
       <ion-input [(ngModel)]="user.phone" placeholder="电话"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-icon name="male-female-outline" color="warning" slot="start"></ion-icon>
+      <ion-label>性别</ion-label>
+      <ion-select [(ngModel)]="user.sex">
+        <ion-select-option value="male">男</ion-select-option>
+        <ion-select-option value="female">女</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="calendar-outline" color="danger" slot="start"></ion-icon>
+      <ion-label>生日</ion-label>
+      <ion-datetime value="1990-02-19" placeholder="Select Date" [(ngModel)]="user.birthday"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="bookmark-outline" color="dark" slot="start"></ion-icon>
+      <ion-textarea rows="8" placeholder="个人介绍" [(ngModel)]="user.description"></ion-textarea>
+    </ion-item>
   </ion-list>
   <div class="ion-text-center">
     <ion-button (click)="update()">修改</ion-button>
