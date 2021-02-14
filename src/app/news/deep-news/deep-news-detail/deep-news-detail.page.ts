@@ -48,6 +48,7 @@ export class DeepNewsDetailPage implements OnInit {
   ngOnInit() {
     this.deepNews = JSON.parse(this.route.snapshot.paramMap.get('deepNewsInfo'));
     this.getDeepNewsDetail();
+    this.getDeepNewsComment();
   }
 
   getDeepNewsDetail() {
