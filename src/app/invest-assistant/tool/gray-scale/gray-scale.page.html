@@ -47,7 +47,7 @@
             <ion-col style="text-align: left">
               灰度当前持仓均价($)
             </ion-col>
-            <ion-col style="text-align: right;color: black;font-weight: bold">
+            <ion-col style="text-align: right;color: red;font-weight: bold">
               {{grayScaleOpenTrend[grayScaleOpenTrend.length - 1][4] | number: '1.2-2'}}
             </ion-col>
           </ion-row>
@@ -55,13 +55,21 @@
             <ion-col style="text-align: left">
               BTC当前市场价($)
             </ion-col>
-            <ion-col style="text-align: right;color: black;font-weight: bold">
+            <ion-col style="text-align: right;color: red;font-weight: bold">
               {{btcPrice | number: '1.2-2'}}
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align: left">
-              灰度当前持仓份数($)
+              灰度获利
+            </ion-col>
+            <ion-col style="text-align: right;color: red;font-weight: bold">
+              {{(btcPrice-grayScaleOpenTrend[grayScaleOpenTrend.length - 1][4])/grayScaleOpenTrend[grayScaleOpenTrend.length - 1][4] * 100 | number: '1.2-2'}}%
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: left">
+              灰度当前持仓份数
             </ion-col>
             <ion-col style="text-align: right">
               {{grayScaleOpenTrend[grayScaleOpenTrend.length - 1][1] | number: '1.2-2'}}
