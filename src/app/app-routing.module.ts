@@ -469,7 +469,17 @@ const routes: Routes = [
   {
     path: 'monitor-blockchain-user-addr-update',
     loadChildren: () => import('./invest-assistant/tool/monitor-blockchain/monitor-blockchain-user/monitor-blockchain-user-addr/monitor-blockchain-user-addr-update/monitor-blockchain-user-addr-update.module').then(m => m.MonitorBlockchainUserAddrUpdatePageModule)
+  },
+  {
+    path: 'live-news-detail',
+    loadChildren: () => import('./news/live-news/live-news-detail/live-news-detail.module').then(m => m.LiveNewsDetailPageModule)
+  },
+  {
+    path: 'user-open-detail',
+    loadChildren: () => import('./me/user-open-detail/user-open-detail.module').then(m => m.UserOpenDetailPageModule)
   }
+
+
 
 
 

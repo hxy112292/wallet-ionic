@@ -3,7 +3,7 @@
     </ion-refresher-content>
 </ion-refresher>
 <div *ngFor="let liveNews of liveNewsList">
-  <ion-card>
+  <ion-card (click)="toLiveNewsDetail(liveNews)">
     <ion-card-header>
       <ion-card-subtitle>
         <ion-row>
@@ -12,7 +12,7 @@
         </ion-row>
       </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content (click)="displayFullContent(liveNews.id)">
+    <ion-card-content>
       <ion-grid>
         <ion-row style="max-height: 95px;overflow: hidden;text-overflow: ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;" id="{{liveNews.id  + 'content'}}">
           {{liveNews.content}}

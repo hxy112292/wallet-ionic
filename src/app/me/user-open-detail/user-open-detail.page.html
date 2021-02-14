@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{user.username}} 的个人简介</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item lines="none">
+      <ion-card style="width: 100%">
+        <div style="width: 100%; text-align: center; color: black; font-size: x-large;">
+          <p>{{user.username}}</p>
+        </div>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="male-female-outline" color="warning" slot="start"></ion-icon>
+      <ion-label>性别</ion-label>
+      <ion-text slot="end" *ngIf="user.sex === 'male'">男</ion-text>
+      <ion-text slot="end" *ngIf="user.sex === 'female'">女</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="calendar-outline" color="danger" slot="start"></ion-icon>
+      <ion-label>生日</ion-label>
+      <ion-text slot="end">{{user.birthday | date: 'yyyy-MM-dd'}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="bookmark-outline" color="dark" slot="start"></ion-icon>
+      <ion-label>简介</ion-label>
+      <ion-text slot="end">{{user.description}}</ion-text>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

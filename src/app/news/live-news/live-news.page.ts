@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from '../../service/constant.service';
 import {LiveNews} from '../../entity/live-news';
 import {LoaderService} from '../../service/loader.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-live-news',
@@ -14,6 +15,8 @@ export class LiveNewsPage implements OnInit {
   liveNewsList: LiveNews[];
 
   constructor(private http: HttpClient,
+              private router: Router,
+              private route: ActivatedRoute,
               private loaderService: LoaderService,
               private constant: ConstantService) { }
 
@@ -71,5 +74,9 @@ export class LiveNewsPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  toLiveNewsDetail(liveNews) {
+    this.router.navigate(['live-news-detail', {liveNewsId: JSON.stringify(liveNews.id)}]);
   }
 }
