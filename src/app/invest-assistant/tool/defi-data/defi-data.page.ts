@@ -126,7 +126,7 @@ export class DefiDataPage implements OnInit {
 
   getMiningPoolList() {
     this.http.get(this.constant.walletBackendUrl + '/defi/miningList').subscribe( res => {
-      this.miningPoolList = (res as any).data.list;
+      this.miningPoolList = (res as any).data.list.filter((item) => item.price !== 0);
     });
   }
 
@@ -161,6 +161,7 @@ export class DefiDataPage implements OnInit {
     this.getWorthTrend();
     this.getLockUpList();
     this.getDebitRateList();
+    this.getMiningPoolList();
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
