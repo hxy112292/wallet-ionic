@@ -215,4 +215,8 @@ export class CoinSocialHotAnalysisPage implements OnInit {
     }, 2000);
   }
 
+  toCoinDetail(code: string) {
+    this.router.navigate(['coin-detail', {codeInfo: code}])
+  }
+
 }

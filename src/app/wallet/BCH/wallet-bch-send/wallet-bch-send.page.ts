@@ -12,6 +12,7 @@ import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choos
 import {CryptoBchTx} from '../../../entity/crypto-bch-tx';
 import {BitcoreBchUtxo} from '../../../entity/bitcore-bch-utxo';
 import {AlertService} from '../../../service/alert.service';
+import {MathService} from '../../../service/math.service';
 
 @Component({
   selector: 'app-wallet-bch-send',
@@ -39,6 +40,7 @@ export class WalletBchSendPage implements OnInit {
               private alertController: AlertController,
               private alertService: AlertService,
               private storage: StorageService,
+              private mathService: MathService,
               private modalController: ModalController) {
 
     this.barcodeScannerOptions = {
@@ -94,31 +96,33 @@ export class WalletBchSendPage implements OnInit {
 
     const transaction = new bitcash.Transaction()
         .from(this.utxoList)
-        .to(this.recipientAddr, Math.round(this.amount * 100000000))
-        .fee(Math.round(this.fee * 100000000))
+        .to(this.recipientAddr, this.mathService.accMul(this.amount, 100000000))
+        .fee(this.mathService.accMul(this.fee, 100000000))
         .change(this.privateKey.bchAddress)
         .sign(this.privateKey.bchPrivateKey);
 
-    const rawHex = transaction.toString();
+    const pKey = bitcash.PrivateKey.fromWIF(this.privateKey.bchPrivateKey);
+    transaction.sign(pKey);
+
+    const rawHex = transaction.toBuffer().toString('hex');
 
     this.broadcast(rawHex);
     this.router.navigate(['wallet-bch-center', {privateKeyInfo: JSON.stringify(this.privateKey)}]);
   }
 
   getUtxoList() {
-    let k = 0;
     // tslint:disable-next-line:prefer-for-of
     for ( let i = 0; i < this.txList.length; i++) {
-      const utxo = new BitcoreBchUtxo();
       // tslint:disable-next-line:prefer-for-of
       for ( let j = 0; j < this.txList[i].txouts.length; j++) {
         if (this.txList[i].txouts[j].addresses[0] === this.privateKey.bchAddress && this.txList[i].txouts[j].spent === false) {
+          const utxo = new BitcoreBchUtxo();
           utxo.address = this.privateKey.bchAddress;
           utxo.txid = this.txList[i].txid;
           utxo.vout = j;
           utxo.scriptPubKey = this.txList[i].txouts[j].script.hex;
-          utxo.satoshis = Math.round(Number(this.txList[i].txouts[j].amount) * 100000000);
-          this.utxoList[k++] = utxo;
+          utxo.satoshis = this.mathService.accMul(this.txList[i].txouts[j].amount, 100000000);
+          this.utxoList.push(utxo);
         }
       }
     }

@@ -8,6 +8,7 @@ import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {CoinDescPage} from './coin-desc/coin-desc.page';
 import {BrowserService} from '../../service/browser.service';
 import {LoaderService} from '../../service/loader.service';
+import {Concept} from '../../entity/concept';
 
 @Component({
   selector: 'app-coin-introduction',
@@ -30,6 +31,8 @@ export class CoinIntroductionPage implements OnInit {
               private toastController: ToastController) {
 
     this.coinDetail = {
+      plate: [],
+      vol: '',
       marketcap: '',
       price_cny: '',
       code: '',
@@ -122,4 +125,10 @@ export class CoinIntroductionPage implements OnInit {
     }, 2000);
   }
 
+  toConcept(data) {
+    const concept = new Concept();
+    concept.id = data.concert_id;
+    concept.name = data.concert_name;
+    this.router.navigate(['concept-detail', {conceptInfo: JSON.stringify(concept)}]);
+  }
 }

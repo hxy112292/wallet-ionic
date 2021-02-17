@@ -1,3 +1,5 @@
+import {CoinDetailPlate} from './coin-detail-plate';
+
 export class CoinDetail {
 
     code: string;
@@ -31,4 +33,6 @@ export class CoinDetail {
     coindesc: string;
     // tslint:disable-next-line:variable-name
     price_cny: string;
+    vol: string;
+    plate: CoinDetailPlate[];
 }

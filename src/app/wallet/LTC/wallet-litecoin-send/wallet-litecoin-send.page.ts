@@ -10,6 +10,9 @@ import {PrivateKey} from '../../../entity/private-key';
 import * as litecore from 'litecore-lib';
 import {WalletContactChoosePage} from '../../wallet-contact/wallet-contact-choose/wallet-contact-choose.page';
 import {AlertService} from '../../../service/alert.service';
+import {LitecoreUtxo} from '../../../entity/litecore-utxo';
+import {SochainLtcUtxo} from '../../../entity/sochain-ltc-utxo';
+import {MathService} from '../../../service/math.service';
 
 @Component({
   selector: 'app-wallet-litecoin-send',
@@ -25,7 +28,8 @@ export class WalletLitecoinSendPage implements OnInit {
   balance: number;
   recommendFee: number;
   fee: number;
-  utxoList: [];
+  sochainUtxoList: SochainLtcUtxo[];
+  utxoList: LitecoreUtxo[];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -35,8 +39,12 @@ export class WalletLitecoinSendPage implements OnInit {
               private constant: ConstantService,
               private alertController: AlertController,
               private alertService: AlertService,
+              private mathService: MathService,
               private storage: StorageService,
               private modalController: ModalController) {
+
+    this.sochainUtxoList = [];
+    this.utxoList = [];
 
     this.barcodeScannerOptions = {
       showTorchButton: true,
@@ -102,14 +110,23 @@ export class WalletLitecoinSendPage implements OnInit {
   }
 
   getUtxoList() {
-    let url;
+    let network;
     if (this.privateKey.network === 'testNet') {
-      url = this.constant.litecoreTestnetUrl;
+      network = 'LTCTEST';
     } else {
-      url = this.constant.litecoreUrl;
+      network = 'LTC';
     }
-    this.http.get(url + '/api/addrs/' + this.privateKey.ltcAddress + '/utxo').subscribe( res => {
-      this.utxoList = (res as any);
+    this.http.get(this.constant.walletBackendUrl + '/' + network + '/unspent/' + this.privateKey.ltcAddress).subscribe( res => {
+      this.sochainUtxoList = (res as any).data.txs;
+      for (const sochainUtxo of this.sochainUtxoList) {
+        const litecoreUtxo = new LitecoreUtxo();
+        litecoreUtxo.address = this.privateKey.ltcAddress;
+        litecoreUtxo.satoshis = this.mathService.accMul(sochainUtxo.value, 100000000);
+        litecoreUtxo.scriptPubKey = sochainUtxo.script_hex;
+        litecoreUtxo.txid = sochainUtxo.txid;
+        litecoreUtxo.vout = sochainUtxo.output_no;
+        this.utxoList.push(litecoreUtxo);
+      }
     });
   }
 

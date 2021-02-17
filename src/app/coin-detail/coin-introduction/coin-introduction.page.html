@@ -19,6 +19,20 @@
     </ion-grid>
   </ion-item>
   <ion-item>
+    <ion-text style="color: grey" slot="start">板块</ion-text>
+    <ion-grid>
+      <ion-row>
+        <ion-col offset="1" style="text-align: right">
+          <span *ngFor="let concept of coinDetail.plate">
+            <ion-chip outline color="primary" (click)="toConcept(concept)">
+              <ion-text>{{concept.concert_name}}</ion-text>
+            </ion-chip>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item>
     <ion-text style="color: grey">价格</ion-text>
     <div *ngIf="coinDetail.change_percent >= 0" slot="end">
       <ion-text>${{coinDetail.price}}</ion-text>
@@ -33,11 +47,15 @@
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">市值</ion-text>
-    <ion-text slot="end">${{coinDetail.marketcap_total_usd/100000000 | number: '.2-2'}} 亿</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd >= 10000000">${{coinDetail.marketcap_total_usd/100000000/7 | number:'1.0-2'}}亿</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 10000000 && coinDetail.marketcap_total_usd >= 1000000">${{coinDetail.marketcap_total_usd/10000/7 | number:'1.0-0'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 1000000 && coinDetail.marketcap_total_usd >= 10000">${{coinDetail.marketcap_total_usd/10000/7 | number:'1.0-1'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 10000">${{coinDetail.marketcap_total_usd/7 | number:'1.0-0'}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">排名</ion-text>
-    <ion-text slot="end">{{coinDetail.rank}}</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.rank < 10000">{{coinDetail.rank}}</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.rank > 10000">{{coinDetail.rank%1000000}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">官网</ion-text>
@@ -63,7 +81,14 @@
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">换手率</ion-text>
-    <ion-text slot="end">{{coinDetail.rank}}%</ion-text>
+    <ion-text slot="end">{{coinDetail.turn_over}}%</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-text style="color: grey">24h交易金额</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol >= 10000000">${{coinDetail.vol/100000000/7 | number:'1.0-2'}}亿</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol < 10000000 && coinDetail.vol >= 1000000">${{coinDetail.vol/10000/7 | number:'1.0-0'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol < 1000000 && coinDetail.vol >= 10000">${{coinDetail.vol/10000/7 | number:'1.0-1'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol < 10000">${{coinDetail.vol/7 | number:'1.0-0'}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">核心算法</ion-text>

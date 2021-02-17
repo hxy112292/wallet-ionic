@@ -221,4 +221,8 @@ export class CoinHolderAnalysisPage implements OnInit {
       event.target.complete();
     }, 2000);
   }
+
+  toCoinDetail(code: string) {
+      this.router.navigate(['coin-detail', {codeInfo: code}])
+  }
 }
