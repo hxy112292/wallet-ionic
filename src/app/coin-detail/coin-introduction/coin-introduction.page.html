@@ -47,10 +47,10 @@
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">市值</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd >= 10000000">${{coinDetail.marketcap_total_usd/100000000/7 | number:'1.0-2'}}亿</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 10000000 && coinDetail.marketcap_total_usd >= 1000000">${{coinDetail.marketcap_total_usd/10000/7 | number:'1.0-0'}}万</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 1000000 && coinDetail.marketcap_total_usd >= 10000">${{coinDetail.marketcap_total_usd/10000/7 | number:'1.0-1'}}万</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 10000">${{coinDetail.marketcap_total_usd/7 | number:'1.0-0'}}</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd >= 10000000">${{coinDetail.marketcap_total_usd/100000000/globalInfo.usdt_price_cny | number:'1.0-2'}}亿</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 10000000 && coinDetail.marketcap_total_usd >= 1000000">${{coinDetail.marketcap_total_usd/10000/globalInfo.usdt_price_cny | number:'1.0-0'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 1000000 && coinDetail.marketcap_total_usd >= 10000">${{coinDetail.marketcap_total_usd/10000/globalInfo.usdt_price_cny | number:'1.0-1'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.marketcap_total_usd < 10000">${{coinDetail.marketcap_total_usd/globalInfo.usdt_price_cny | number:'1.0-0'}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">排名</ion-text>
@@ -85,10 +85,10 @@
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">24h交易金额</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.vol >= 10000000">${{coinDetail.vol/100000000/7 | number:'1.0-2'}}亿</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.vol < 10000000 && coinDetail.vol >= 1000000">${{coinDetail.vol/10000/7 | number:'1.0-0'}}万</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.vol < 1000000 && coinDetail.vol >= 10000">${{coinDetail.vol/10000/7 | number:'1.0-1'}}万</ion-text>
-    <ion-text slot="end" *ngIf="coinDetail.vol < 10000">${{coinDetail.vol/7 | number:'1.0-0'}}</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol >= 10000000">${{coinDetail.vol/100000000/globalInfo.usdt_price_cny | number:'1.0-2'}}亿</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol < 10000000 && coinDetail.vol >= 1000000">${{coinDetail.vol/10000/globalInfo.usdt_price_cny | number:'1.0-0'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol < 1000000 && coinDetail.vol >= 10000">${{coinDetail.vol/10000/globalInfo.usdt_price_cny | number:'1.0-1'}}万</ion-text>
+    <ion-text slot="end" *ngIf="coinDetail.vol < 10000">${{coinDetail.vol/globalInfo.usdt_price_cny | number:'1.0-0'}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-text style="color: grey">核心算法</ion-text>

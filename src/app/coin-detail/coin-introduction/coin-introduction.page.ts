@@ -9,6 +9,7 @@ import {CoinDescPage} from './coin-desc/coin-desc.page';
 import {BrowserService} from '../../service/browser.service';
 import {LoaderService} from '../../service/loader.service';
 import {Concept} from '../../entity/concept';
+import {GlobalInfo} from '../../entity/global-info';
 
 @Component({
   selector: 'app-coin-introduction',
@@ -19,6 +20,7 @@ export class CoinIntroductionPage implements OnInit {
 
   code: string;
   coinDetail: CoinDetail;
+  globalInfo: GlobalInfo;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -30,45 +32,14 @@ export class CoinIntroductionPage implements OnInit {
               private clipboard: Clipboard,
               private toastController: ToastController) {
 
-    this.coinDetail = {
-      plate: [],
-      vol: '',
-      marketcap: '',
-      price_cny: '',
-      code: '',
-      name: '',
-      symbol: '',
-      logo: '',
-      // tslint:disable-next-line:variable-name
-      change_percent: '',
-      price: '',
-      maxsupply: '',
-      supply: '',
-      // tslint:disable-next-line:variable-name
-      marketcap_total_usd: '',
-      rank: '',
-      siteurl: '',
-      // tslint:disable-next-line:variable-name
-      online_time: '',
-      // tslint:disable-next-line:variable-name
-      white_paper: '',
-      twitter: '',
-      explorer: '',
-      facebook: '',
-      // tslint:disable-next-line:variable-name
-      turn_over: '',
-      prooftype: '',
-      algorithm: '',
-      redditlink: '',
-      codelink: '',
-      circulationRate: '',
-      coindesc: ''
-    };
+    this.coinDetail = new CoinDetail();
+    this.globalInfo = new GlobalInfo();
   }
 
   ngOnInit() {
     this.code = this.route.snapshot.paramMap.get('codeInfo');
     this.getCoinDetail();
+    this.getGlobalInfo();
   }
 
   getCoinDetail() {
@@ -84,6 +55,12 @@ export class CoinIntroductionPage implements OnInit {
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace(/<[^>]*>/g, '');
       this.coinDetail.coindesc = this.coinDetail.coindesc.replace('*以上内容由非小号官方整理，如若转载，请注明出处。', '');
       this.loaderService.hideLoader();
+    });
+  }
+
+  getGlobalInfo() {
+    this.http.get(this.constant.walletBackendUrl + '/listingLatest/globalInfo').subscribe( res => {
+      this.globalInfo = (res as any).data;
     });
   }
 
