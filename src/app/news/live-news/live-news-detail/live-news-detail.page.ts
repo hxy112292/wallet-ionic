@@ -75,7 +75,7 @@ export class LiveNewsDetailPage implements OnInit {
         param
       }
     }).subscribe( res => {
-      this.commentList = (res as any).result;
+      this.commentList = this.commentList.concat((res as any).result);
     });
   }
 
@@ -139,5 +139,15 @@ export class LiveNewsDetailPage implements OnInit {
 
   toUserOpenDetail(userId) {
     this.router.navigate(['user-open-detail', {userId}]);
+  }
+
+  loadMore(event) {
+    console.log('Begin async operation');
+    this.pageNum += 1;
+    this.getLiveNewsComment();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 }
