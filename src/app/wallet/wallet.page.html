@@ -89,22 +89,22 @@
             </ion-card-content>
           </ion-card>
         </ion-item>
-        <ion-item id="{{i}}XRP">
-          <ion-card style="background-color: blueviolet" (click)="toWalletXRPCenter(privateKey)">
-            <ion-card-header>
-              <ion-card-subtitle>
-                <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
-                     style="max-width: 20px;max-height: 20px">
-                <ion-text style="font-size: medium;color: white;font-weight: bolder">　XRP-WALLET</ion-text>
-              </ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-text style="color: white">
-                {{privateKey.xrpAddress}}
-              </ion-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-item>
+<!--        <ion-item id="{{i}}XRP">-->
+<!--          <ion-card style="background-color: blueviolet" (click)="toWalletXRPCenter(privateKey)">-->
+<!--            <ion-card-header>-->
+<!--              <ion-card-subtitle>-->
+<!--                <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"-->
+<!--                     style="max-width: 20px;max-height: 20px">-->
+<!--                <ion-text style="font-size: medium;color: white;font-weight: bolder">　XRP-WALLET</ion-text>-->
+<!--              </ion-card-subtitle>-->
+<!--            </ion-card-header>-->
+<!--            <ion-card-content>-->
+<!--              <ion-text style="color: white">-->
+<!--                {{privateKey.xrpAddress}}-->
+<!--              </ion-text>-->
+<!--            </ion-card-content>-->
+<!--          </ion-card>-->
+<!--        </ion-item>-->
       </ion-list>
     </div>
   </div>
@@ -183,22 +183,22 @@
             </ion-card-content>
           </ion-card>
         </ion-item>
-        <ion-item *ngIf="privateKey.xrpAddress != null">
-          <ion-card style="background-color: blueviolet" (click)="toWalletXRPCenter(privateKey)">
-            <ion-card-header>
-              <ion-card-subtitle>
-                <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"
-                     style="max-width: 20px;max-height: 20px">
-                <ion-text style="font-size: medium;color: white;font-weight: bolder">　XRP-WALLET</ion-text>
-              </ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-text style="color: white">
-                {{privateKey.xrpAddress}}
-              </ion-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-item>
+<!--        <ion-item *ngIf="privateKey.xrpAddress != null">-->
+<!--          <ion-card style="background-color: blueviolet" (click)="toWalletXRPCenter(privateKey)">-->
+<!--            <ion-card-header>-->
+<!--              <ion-card-subtitle>-->
+<!--                <img src="https://s2.bqiapp.com/coin/20181030_72_webp/ripple_200_200.webp?v=35" referrerpolicy="no-referrer"-->
+<!--                     style="max-width: 20px;max-height: 20px">-->
+<!--                <ion-text style="font-size: medium;color: white;font-weight: bolder">　XRP-WALLET</ion-text>-->
+<!--              </ion-card-subtitle>-->
+<!--            </ion-card-header>-->
+<!--            <ion-card-content>-->
+<!--              <ion-text style="color: white">-->
+<!--                {{privateKey.xrpAddress}}-->
+<!--              </ion-text>-->
+<!--            </ion-card-content>-->
+<!--          </ion-card>-->
+<!--        </ion-item>-->
       </ion-list>
     </div>
   </div>
