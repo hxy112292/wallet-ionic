@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>行情分析</ion-title>
+    <ion-title>场内资产分析</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -15,7 +15,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>
-        资产分布（BTC, ETH, USDT）
+        资产分布（BTC）
         <span *ngIf="exchangeTotal.percentageForCoin < 0.3" style="color: green">
           看多
         </span>
@@ -27,42 +27,27 @@
     <ion-card-content>
       <ion-list lines="full">
         <ion-row>
-          <canvas #assetChart></canvas>
+          <div style="width: 100%; padding: 5%;position: relative; height: 25vh">
+            <canvas #assetChart></canvas>
+          </div>
         </ion-row>
         <ion-row>
-          <canvas #exchangeRateChart></canvas>
+          <div style="width: 100%; padding: 5%;position: relative; height: 35vh">
+            <canvas #exchangeRateChart></canvas>
+          </div>
         </ion-row>
         <ion-item (click)="toMarketCurrency()">
-          <ion-text slot="start" size="medium" color="black">场内资产占比：{{exchangeTotal.percentageForCoin * 100 | number:'1.2-2'}}%</ion-text>
+          <ion-text slot="start" size="medium" color="black">场内资产占比：{{exchangeTotal.percentage * 100 | number:'1.2-2'}}%</ion-text>
           <ion-text slot="end" size="medium" color="primary">查看详情>></ion-text>
         </ion-item>
         <ion-item>
           <ion-grid>
             <ion-row>
               <ion-col size="4">
-                <ion-text style="color: grey">场内资产</ion-text>
+                <ion-text style="color: grey">场内BTC资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{exchangeTotal.exchangeUsdTotal/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{exchangeTotal.exchangeUsdTotal/100000000*globalInfo.usdt_price_cny | number:'1.2-2'}} 亿)</ion-text>
-              </ion-col>
-            </ion-row>
-            <ion-row style="font-size: small">
-              <ion-col size="4">
-                <ion-text style="color: grey">- 法币资产</ion-text>
-              </ion-col>
-              <ion-col size="8" style="text-align: right">
-                $ {{exchangeTotal.exchangeUsdt/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{exchangeTotal.exchangeUsdt*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
-              </ion-col>
-            </ion-row>
-            <ion-row style="font-size: small">
-              <ion-col size="4">
-                <ion-text style="color: grey">- 数字资产</ion-text>
-              </ion-col>
-              <ion-col size="8" style="text-align: right">
-                $ {{(exchangeTotal.exchangeCoinUsdTotal)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{((exchangeTotal.exchangeCoinUsdTotal)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
+               {{exchangeTotal.marketBtc*exchangeTotal.percentage| number:'1.2-2'}}
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -71,29 +56,10 @@
           <ion-grid>
             <ion-row>
               <ion-col size="4">
-                <ion-text style="color: grey">场外资产</ion-text>
+                <ion-text style="color: grey">场外BTC资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{(exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{(exchangeTotal.marketUsdTotal - exchangeTotal.exchangeUsdTotal)*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
-              </ion-col>
-            </ion-row>
-            <ion-row style="font-size: small">
-              <ion-col size="4">
-                <ion-text style="color: grey">- 法币资产</ion-text>
-              </ion-col>
-              <ion-col size="8" style="text-align: right">
-                $ {{(exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{(exchangeTotal.marketUsdt - exchangeTotal.exchangeUsdt)*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
-              </ion-col>
-            </ion-row>
-            <ion-row style="font-size: small">
-              <ion-col size="4">
-                <ion-text style="color: grey">- 数字资产</ion-text>
-              </ion-col>
-              <ion-col size="8" style="text-align: right">
-                $ {{(exchangeTotal.marketCoinUsdTotal-exchangeTotal.exchangeCoinUsdTotal)/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{((exchangeTotal.marketCoinUsdTotal-exchangeTotal.exchangeCoinUsdTotal)*globalInfo.usdt_price_cny)/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                {{exchangeTotal.marketBtc - exchangeTotal.marketBtc*exchangeTotal.percentage| number:'1.2-2'}}
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -102,11 +68,10 @@
           <ion-grid>
             <ion-row>
               <ion-col size="4">
-                <ion-text style="color: grey">全球资产</ion-text>
+                <ion-text style="color: grey">全球BTC资产</ion-text>
               </ion-col>
               <ion-col size="8" style="text-align: right">
-                $ {{exchangeTotal.marketUsdTotal/100000000 | number:'1.2-2'}} 亿
-                <ion-text style="font-size: small; color: grey">(￥ {{exchangeTotal.marketUsdTotal*globalInfo.usdt_price_cny/100000000 | number:'1.2-2'}} 亿)</ion-text>
+                {{exchangeTotal.marketBtc | number:'1.2-2'}}
               </ion-col>
             </ion-row>
           </ion-grid>
