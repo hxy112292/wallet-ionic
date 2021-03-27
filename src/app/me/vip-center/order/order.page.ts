@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../service/constant.service';
-import {UserService} from '../../service/user.service';
-import {AlertService} from '../../service/alert.service';
+import {ConstantService} from '../../../service/constant.service';
+import {UserService} from '../../../service/user.service';
+import {AlertService} from '../../../service/alert.service';
 import {Router} from '@angular/router';
-import {Order} from '../../entity/order';
+import {Order} from '../../../entity/order';
 
 @Component({
   selector: 'app-order',

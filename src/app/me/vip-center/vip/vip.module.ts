@@ -15,6 +15,9 @@ import { VipPage } from './vip.page';
     IonicModule,
     VipPageRoutingModule
   ],
+  exports: [
+    VipPage
+  ],
   declarations: [VipPage]
 })
 export class VipPageModule {}

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>会员中心</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="vipPage" value="vip">
+      <ion-segment-button value="vip">VIP</ion-segment-button>
+      <ion-segment-button value="order">订单</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="vipPage == 'vip'">
+    <app-vip></app-vip>
+  </div>
+  <div *ngIf="vipPage == 'order'">
+    <app-order></app-order>
+  </div>
+</ion-content>

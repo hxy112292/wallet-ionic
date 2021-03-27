@@ -340,15 +340,15 @@ const routes: Routes = [
   },
   {
     path: 'vip',
-    loadChildren: () => import('./me/vip/vip.module').then(m => m.VipPageModule)
+    loadChildren: () => import('./me/vip-center/vip/vip.module').then(m => m.VipPageModule)
   },
   {
     path: 'order',
-    loadChildren: () => import('./me/order/order.module').then(m => m.OrderPageModule)
+    loadChildren: () => import('./me/vip-center/order/order.module').then(m => m.OrderPageModule)
   },
   {
     path: 'order-detail',
-    loadChildren: () => import('./me/order/order-detail/order-detail.module').then(m => m.OrderDetailPageModule)
+    loadChildren: () => import('./me/vip-center/order/order-detail/order-detail.module').then(m => m.OrderDetailPageModule)
   },
   {
     path: 'wallet-pay-choose',
@@ -477,13 +477,11 @@ const routes: Routes = [
   {
     path: 'user-open-detail',
     loadChildren: () => import('./me/user-open-detail/user-open-detail.module').then(m => m.UserOpenDetailPageModule)
+  },
+  {
+    path: 'vip-center',
+    loadChildren: () => import('./me/vip-center/vip-center.module').then(m => m.VipCenterPageModule)
   }
-
-
-
-
-
-
 ];
 @NgModule({
   imports: [

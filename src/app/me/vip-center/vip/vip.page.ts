@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../service/constant.service';
-import {UserService} from '../../service/user.service';
-import {AlertService} from '../../service/alert.service';
+import {ConstantService} from '../../../service/constant.service';
+import {UserService} from '../../../service/user.service';
+import {AlertService} from '../../../service/alert.service';
 import {Router} from '@angular/router';
-import {Product} from '../../entity/product';
-import {ProductSku} from '../../entity/product-sku';
-import {Order} from '../../entity/order';
-import {CartProduct} from '../../entity/cart-product';
+import {Product} from '../../../entity/product';
+import {ProductSku} from '../../../entity/product-sku';
+import {Order} from '../../../entity/order';
+import {CartProduct} from '../../../entity/cart-product';
 
 @Component({
   selector: 'app-vip',
