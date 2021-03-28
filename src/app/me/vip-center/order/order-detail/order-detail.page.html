@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>订单详情</ion-title>
+    <ion-title>会员充值详情</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -45,7 +45,7 @@
           </ion-col>
           <ion-col>
             <div *ngIf="order.status === 0">
-              未付款
+              待确定
             </div>
             <div *ngIf="order.status === 1">
               已付款

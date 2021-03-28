@@ -1,9 +1,9 @@
 <ion-item>
   <ion-icon name="reorder-four-outline" color="warning"></ion-icon>
-  <ion-label>　选择订单状态</ion-label>
+  <ion-label>　选择状态</ion-label>
   <ion-select [(ngModel)]="status" value="" (ionChange)="changeStatus()">
     <ion-select-option value="">全部</ion-select-option>
-    <ion-select-option value="{{constant.ORDER_STATUS_NOT_PAY}}">未付款</ion-select-option>
+    <ion-select-option value="{{constant.ORDER_STATUS_NOT_PAY}}">待确定</ion-select-option>
     <ion-select-option value="{{constant.ORDER_STATUS_PAID}}">已付款</ion-select-option>
     <ion-select-option value="{{constant.ORDER_STATUS_SUCCESS}}">已完成</ion-select-option>
   </ion-select>
@@ -18,7 +18,7 @@
       <ion-card-header>
         <ion-card-subtitle style="font-weight: bold">
           <div *ngIf="order.status === constant.ORDER_STATUS_NOT_PAY" style="color: #ff4961">
-            <ion-text>未付款</ion-text>
+            <ion-text>待确定</ion-text>
           </div>
           <div *ngIf="order.status === constant.ORDER_STATUS_PAID" style="color: black">
             <ion-text>已付款</ion-text>

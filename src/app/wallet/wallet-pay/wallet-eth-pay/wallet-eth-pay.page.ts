@@ -13,6 +13,9 @@ import {StorageService} from '../../../service/storage.service';
 import {ethers, utils} from 'ethers';
 import {ExchangeDescPage} from '../../../invest-assistant/listing/exchange/exchange-detail/exchange-desc/exchange-desc.page';
 import {WalletPayChoosePage} from '../wallet-pay-choose/wallet-pay-choose.page';
+import {CartProduct} from '../../../entity/cart-product';
+import {Product} from '../../../entity/product';
+import {ProductSku} from '../../../entity/product-sku';
 
 @Component({
   selector: 'app-wallet-eth-pay',
@@ -26,6 +29,8 @@ export class WalletEthPayPage implements OnInit {
   balance: number;
   amount: string;
   order: Order;
+  product: Product;
+  sku: ProductSku;
   fee: number;
   gwei: number;
   gas: number;
@@ -44,6 +49,8 @@ export class WalletEthPayPage implements OnInit {
               private privateKeyService: PrivateKeyService,
               private loaderService: LoaderService,
               private storage: StorageService) {
+    this.product = new Product();
+    this.sku = new ProductSku();
     this.order = new Order();
     this.privateKey = new PrivateKey();
     this.note = '';
@@ -76,8 +83,10 @@ export class WalletEthPayPage implements OnInit {
   }
 
   ngOnInit() {
-    this.order = JSON.parse(this.route.snapshot.paramMap.get('order'));
-    this.amount = this.order.totalFee + '';
+    this.product = JSON.parse(this.route.snapshot.paramMap.get('product'));
+    this.sku = JSON.parse(this.route.snapshot.paramMap.get('sku'));
+    console.log(this.sku);
+    this.amount = this.sku.price + '';
     this.getRecommendFee();
     this.getReceiverAddr();
   }
@@ -138,9 +147,7 @@ export class WalletEthPayPage implements OnInit {
           this.tmpHash.confirmations = '-1';
           this.tmpHash.timeStamp = String(new Date().getTime() / 1000);
           this.saveTmpEthTx();
-          this.order.fromAddr = this.privateKey.ethAddress;
-          this.order.toAddr = this.recipientAddr;
-          this.order.payNo = (tx as any).hash;
+          this.createOrder(tx);
           this.http.post(this.constant.walletBackendUrl + '/order/pay', this.order).subscribe( res => {
             this.router.navigate(['/tabs/me']);
           });
@@ -153,6 +160,27 @@ export class WalletEthPayPage implements OnInit {
     } catch (e) {
       this.alertService.alert(e.toString());
     }
+  }
+
+  createOrder(tx) {
+    const cartProduct = new CartProduct();
+    cartProduct.productId = this.product.id;
+    cartProduct.num = 1;
+    cartProduct.name = this.product.name;
+    cartProduct.description = this.product.description;
+    cartProduct.originalPrice = this.product.originalPrice;
+    cartProduct.price = this.product.price;
+    cartProduct.type = this.product.type;
+    cartProduct.imageUrl = this.product.imageUrl;
+    cartProduct.sku = this.product.skuList.find((item) => {if (item.id === this.sku.id) { return item; }});
+    this.order.productList = [cartProduct];
+    this.order.totalFee = cartProduct.sku.price;
+    this.order.fromAddr = this.privateKey.ethAddress;
+    this.order.toAddr = this.recipientAddr;
+    this.order.payNo = (tx as any).hash;
+    this.http.post(this.constant.walletBackendUrl + '/order', this.order).subscribe( res => {
+      this.order = (res as any).result;
+    });
   }
 
   getRecommendFee() {

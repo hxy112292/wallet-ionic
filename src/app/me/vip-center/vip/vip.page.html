@@ -25,7 +25,7 @@
   <b style="font-size: large">会员特权：</b>
   <p style="white-space: pre-wrap">{{product.description}}</p>
   <ion-list lines="full">
-    <ion-radio-group allow-empty-selection value="{{sku.id}}">
+    <ion-radio-group value="{{sku.id}}" (ionChange)="radioGroupChange($event)">
       <ion-list-header>
         <ion-label style="font-size: large">请选择一个会员服务</ion-label>
       </ion-list-header>
