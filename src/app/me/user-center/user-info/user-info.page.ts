@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../entity/user';
+import {User} from '../../../entity/user';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../service/constant.service';
+import {ConstantService} from '../../../service/constant.service';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
-import {UserService} from '../../service/user.service';
-import {AlertService} from '../../service/alert.service';
+import {UserService} from '../../../service/user.service';
+import {AlertService} from '../../../service/alert.service';
 
 @Component({
   selector: 'app-user-info',
@@ -17,11 +17,9 @@ export class UserInfoPage implements OnInit {
 
   user: User;
   showUsernameRule: boolean;
-  showPasswordRule: boolean;
   alertTitle: string;
   alertMessage: string;
   alertNameMessage: string;
-  alertPassMessage: string;
   alertEmailMessage: string;
   alertPhoneMessage: string;
 
@@ -38,7 +36,6 @@ export class UserInfoPage implements OnInit {
     this.alertMessage = '';
     this.alertEmailMessage = '';
     this.alertNameMessage = '';
-    this.alertPassMessage = '';
     this.alertPhoneMessage = '';
 
   }
@@ -50,7 +47,6 @@ export class UserInfoPage implements OnInit {
   update() {
 
     this.UsernameCheck();
-    // this.PasswordCheck();
     this.EmailCheck();
     this.PhoneCheck();
 
@@ -58,10 +54,6 @@ export class UserInfoPage implements OnInit {
       this.alertMessage += '<br>USERNAME ERROR:<br>';
       this.alertMessage += this.alertNameMessage;
     }
-    // if (this.alertPassMessage !== '' && this.alertPassMessage != null) {
-    //   this.alertMessage += '<br>PASSWORD ERROR:<br>';
-    //   this.alertMessage += this.alertPassMessage;
-    // }
     if (this.alertEmailMessage !== '' && this.alertEmailMessage != null) {
       this.alertMessage += '<br>EMAIL ERROR:<br>';
       this.alertMessage += this.alertEmailMessage;
@@ -83,6 +75,7 @@ export class UserInfoPage implements OnInit {
       this.userService.setUser((res as any).result);
       localStorage.setItem('uid', this.userService.user.id);
       this.getToken();
+      this.alertService.alert('修改成功');
       this.router.navigate(['/tabs/me']);
     });
   }
@@ -105,7 +98,6 @@ export class UserInfoPage implements OnInit {
     this.alertMessage = '';
     this.alertEmailMessage = '';
     this.alertNameMessage = '';
-    this.alertPassMessage = '';
     this.alertPhoneMessage = '';
   }
 
@@ -118,15 +110,6 @@ export class UserInfoPage implements OnInit {
     }
     if (this.user.username.match('[!@#$%^&*()~`,.<>?/:;\'\"{}\[\]|\\]')) {
       this.alertNameMessage += '● 用户名只支持数字和字母<br>';
-    }
-  }
-
-  PasswordCheck() {
-    if (this.user.password == null || this.user.password === '') {
-      this.alertPassMessage += '● 密码为空<br>';
-    }
-    if (this.user.password.length < 6 || this.user.password.length > 20) {
-      this.alertPassMessage += '● 密码长度不是6-20字符<br>';
     }
   }
 
@@ -150,30 +133,10 @@ export class UserInfoPage implements OnInit {
 
   UsernameRuleShow() {
     this.showUsernameRule = true;
-    this.showPasswordRule = false;
-  }
-
-  PasswordRuleShow() {
-    this.showUsernameRule = false;
-    this.showPasswordRule = true;
   }
 
   ruleClose() {
-    this.showPasswordRule = false;
     this.showUsernameRule = false;
-  }
-
-  showPasswordOrNot() {
-    const passwordInput = document.getElementById('password');
-    const passwordEye = document.getElementById('passwordEye');
-
-    if (passwordEye.getAttribute('color') === 'medium') {
-      passwordInput.setAttribute('type', 'text');
-      passwordEye.setAttribute('color', 'primary');
-    } else {
-      passwordInput.setAttribute('type', 'password');
-      passwordEye.setAttribute('color', 'medium');
-    }
   }
 
 }

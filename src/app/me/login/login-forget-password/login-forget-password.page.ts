@@ -23,7 +23,7 @@ export class LoginForgetPasswordPage implements OnInit {
   }
 
   forgetPassword() {
-    this.http.post(this.constant.walletBackendUrl + '/user/forgetPassword', {
+    this.http.post(this.constant.walletBackendUrl + '/auth/forgetPassword', {
       username: this.username,
       email: this.email
     }).subscribe( res => {

@@ -38,7 +38,7 @@ export class MePage implements OnInit {
   }
 
   userInfo() {
-    this.router.navigate(['user-info']);
+    this.router.navigate(['user-center']);
   }
 
   async logout() {

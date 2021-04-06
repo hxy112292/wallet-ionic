@@ -105,7 +105,7 @@ const routes: Routes = [
   },
   {
     path: 'user-info',
-    loadChildren: () => import('./me/user-info/user-info.module').then(m => m.UserInfoPageModule)
+    loadChildren: () => import('./me/user-center/user-info/user-info.module').then(m => m.UserInfoPageModule)
   },
   {
     path: 'wallet-contact',
@@ -481,7 +481,17 @@ const routes: Routes = [
   {
     path: 'vip-center',
     loadChildren: () => import('./me/vip-center/vip-center.module').then(m => m.VipCenterPageModule)
+  },
+  {
+    path: 'user-center',
+    loadChildren: () => import('./me/user-center/user-center.module').then(m => m.UserCenterPageModule)
+  },
+  {
+    path: 'update-password',
+    loadChildren: () => import('./me/user-center/update-password/update-password.module').then(m => m.UpdatePasswordPageModule)
   }
+
+
 ];
 @NgModule({
   imports: [
