@@ -108,7 +108,7 @@ export class WalletBchCenterPage implements OnInit {
 
   toWalletBchSend(privateKey: PrivateKey) {
     this.router.navigate(['wallet-bch-send',
-      {privateKeyInfo: JSON.stringify(privateKey), balance: this.cryptoBchAddress.balance, txList: JSON.stringify(this.cryptoBchTxList)}]);
+      {privateKeyInfo: JSON.stringify(privateKey), balance: this.cryptoBchAddress.balance, txList: JSON.stringify(this.cryptoBchTxList), cashAddress: this.cryptoBchAddress.address}]);
   }
 
   toCoinDetail() {

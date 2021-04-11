@@ -35,6 +35,7 @@
     "bip39": "^3.0.2",
     "bip39-ts": "^1.0.6",
     "bitcoinjs-lib": "^5.1.7",
+    "bitcore-lib": "^8.25.7",
     "bitcore-lib-cash": "^8.20.3",
     "bufferutil": "^4.0.1",
     "chart.js": "^2.9.3",
