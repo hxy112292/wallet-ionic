@@ -5,13 +5,13 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-segment [(ngModel)]="monitorPage" value="monitorBlockchainSystem" scrollable="true">
-    <ion-segment-button value="monitorBlockchainSystem">大额监控</ion-segment-button>
-    <ion-segment-button value="monitorBlockchainUser">用户自定义</ion-segment-button>
-  </ion-segment>
+<!--  <ion-segment [(ngModel)]="monitorPage" value="monitorBlockchainSystem" scrollable="true">-->
+<!--    <ion-segment-button value="monitorBlockchainSystem">大额监控</ion-segment-button>-->
+<!--    <ion-segment-button value="monitorBlockchainUser">用户自定义</ion-segment-button>-->
+<!--  </ion-segment>-->
 </ion-header>
 
 <ion-content>
   <app-monitor-blockchain-system *ngIf="monitorPage === 'monitorBlockchainSystem'"></app-monitor-blockchain-system>
-  <app-monitor-blockchain-user *ngIf="monitorPage === 'monitorBlockchainUser'"></app-monitor-blockchain-user>
+<!--  <app-monitor-blockchain-user *ngIf="monitorPage === 'monitorBlockchainUser'"></app-monitor-blockchain-user>-->
 </ion-content>
