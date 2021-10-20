@@ -47,7 +47,6 @@ export class MarketStatisticsPage implements OnInit {
               private router: Router) {
 
     this.exchangeTotal = {
-      btcPrice: 0, ethPrice: 0,
       createTime: '', updateTime: '',
       exchangeCoinUsdTotal: 0, marketCoinUsdTotal: 0, percentageForCoin: 0,
       exchangeBtc: 0,
@@ -93,7 +92,7 @@ export class MarketStatisticsPage implements OnInit {
         labels: ['场内资产', '场外资产'],
         datasets: [{
           label: '亿美元',
-          data: [this.exchangeTotal.marketBtc * this.exchangeTotal.percentage, this.exchangeTotal.marketBtc - this.exchangeTotal.marketBtc * this.exchangeTotal.percentage],
+          data: [this.exchangeTotal.exchangeUsdTotal, this.exchangeTotal.marketUsdTotal - this.exchangeTotal.exchangeUsdTotal],
           backgroundColor: [
             'rgba(255, 196, 9, 0.8)',
             'rgba(56, 128, 255, 0.8)'
@@ -129,47 +128,19 @@ export class MarketStatisticsPage implements OnInit {
         datasets: [{
           label: '场内资产占比(%)',
           borderColor: '#3e95cd',
-          borderWidth: 2,
-          fill: false,
-          yAxisID: 'A',
           data: exchangeList.map((item) => item.percentage),
-        }, {
-            label: 'BTC价格($)',
-            borderColor: '#3cba9f',
-            borderWidth: 2,
-            fill: false,
-            yAxisID: 'B',
-            data: exchangeList.map((item) => item.btcPrice)
+          fill: false
         }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        elements: {
-          point: {
-            radius: 0
-          }
-        },
-        scales: {
-          yAxes: [{
-            id: 'A',
-            type: 'linear',
-            position: 'left'
-          }, {
-            id: 'B',
-            type: 'linear',
-            position: 'right'
-          }]
-        }
       }
     });
   }
 
   getExchangeInfo() {
+    this.loaderService.showLoader();
     this.http.get(this.constant.walletBackendUrl + '/exchange/currency/list', {
       params: {
         pageNum: '1',
-        pageSize: '120'
+        pageSize: '60'
       }
     }).subscribe( res => {
       this.exchangeTotalList = (res as any).result;
@@ -182,6 +153,7 @@ export class MarketStatisticsPage implements OnInit {
         this.createAssetPie();
         this.createExchangePie();
         this.createRateLine();
+        this.loaderService.hideLoader();
       });
     });
   }

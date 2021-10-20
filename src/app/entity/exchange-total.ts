@@ -16,7 +16,4 @@ export class ExchangeTotal {
 
     createTime: string;
     updateTime: string;
-
-    btcPrice: number;
-    ethPrice: number;
 }
