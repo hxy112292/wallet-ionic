@@ -38,7 +38,7 @@ export class MePage implements OnInit {
   }
 
   userInfo() {
-    this.router.navigate(['user-info']);
+    this.router.navigate(['user-center']);
   }
 
   async logout() {
@@ -105,11 +105,7 @@ export class MePage implements OnInit {
   }
 
   toVIP() {
-    this.router.navigate(['vip']);
-  }
-
-  toOrder() {
-    this.router.navigate(['order']);
+    this.router.navigate(['vip-center']);
   }
 
   doRefresh(event) {

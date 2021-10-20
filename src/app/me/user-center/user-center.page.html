@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>我的信息</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item (click)="userInfo()">
+      <ion-icon name="person" color="tertiary"></ion-icon>
+      <ion-label>　个人信息</ion-label>
+    </ion-item>
+    <ion-item (click)="updatePassword()">
+      <ion-icon name="key" color="warning"></ion-icon>
+      <ion-label>　修改密码</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -7,6 +7,7 @@ import {StorageService} from '../../../service/storage.service';
 import {CryptoBchAddress} from '../../../entity/crypto-bch-address';
 import {CryptoBchTx} from '../../../entity/crypto-bch-tx';
 import {LoaderService} from '../../../service/loader.service';
+import {MathService} from '../../../service/math.service';
 
 @Component({
   selector: 'app-wallet-bch-center',
@@ -25,6 +26,7 @@ export class WalletBchCenterPage implements OnInit {
               private http: HttpClient,
               private constant: ConstantService,
               private loaderService: LoaderService,
+              private mathService: MathService,
               private storage: StorageService) {
 
     this.privateKey = new PrivateKey();
@@ -72,19 +74,20 @@ export class WalletBchCenterPage implements OnInit {
             let inValue = 0;
             // tslint:disable-next-line:prefer-for-of
             for (let j = 0; j < this.cryptoBchTxList[i].txins.length; j++) {
-              if (this.cryptoBchTxList[i].txins[j].addresses[0] === this.privateKey.bchAddress) {
-                inValue = inValue + Number(this.cryptoBchTxList[i].txins[j].amount);
+              if (this.cryptoBchTxList[i].txins[j].addresses[0] === this.cryptoBchAddress.address) {
+                inValue = this.mathService.accAdd(inValue, this.cryptoBchTxList[i].txins[j].amount);
               }
             }
             let outValue = 0;
             // tslint:disable-next-line:prefer-for-of
             for (let k = 0; k < this.cryptoBchTxList[i].txouts.length; k++) {
-              if (this.cryptoBchTxList[i].txouts[k].addresses[0] === this.privateKey.bchAddress) {
-                outValue = outValue + Number(this.cryptoBchTxList[i].txouts[k].amount);
+              if (this.cryptoBchTxList[i].txouts[k].addresses[0] === this.cryptoBchAddress.address) {
+                outValue = this.mathService.accAdd(outValue, Number(this.cryptoBchTxList[i].txouts[k].amount));
               }
             }
-            this.cryptoBchTxList[i].value = outValue - inValue;
+            this.cryptoBchTxList[i].value = Number(this.mathService.accSub(outValue, inValue));
           }
+          console.log(this.cryptoBchTxList);
           this.loaderService.hideLoader();
     });
   }
@@ -108,7 +111,7 @@ export class WalletBchCenterPage implements OnInit {
 
   toWalletBchSend(privateKey: PrivateKey) {
     this.router.navigate(['wallet-bch-send',
-      {privateKeyInfo: JSON.stringify(privateKey), balance: this.cryptoBchAddress.balance, txList: JSON.stringify(this.cryptoBchTxList)}]);
+      {privateKeyInfo: JSON.stringify(privateKey), balance: this.cryptoBchAddress.balance, txList: JSON.stringify(this.cryptoBchTxList), cashAddress: this.cryptoBchAddress.address}]);
   }
 
   toCoinDetail() {

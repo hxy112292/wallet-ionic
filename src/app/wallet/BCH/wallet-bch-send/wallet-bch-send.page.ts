@@ -30,6 +30,7 @@ export class WalletBchSendPage implements OnInit {
   recommendFee: number;
   fee: number;
   utxoList: BitcoreBchUtxo[];
+  cashAddress: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -55,6 +56,7 @@ export class WalletBchSendPage implements OnInit {
     this.privateKey = JSON.parse(this.route.snapshot.paramMap.get('privateKeyInfo'));
     this.balance = Number(this.route.snapshot.paramMap.get('balance'));
     this.txList = JSON.parse(this.route.snapshot.paramMap.get('txList'));
+    this.cashAddress = this.route.snapshot.paramMap.get('cashAddress');
     this.getRecommendFee();
   }
 
@@ -98,11 +100,11 @@ export class WalletBchSendPage implements OnInit {
         .from(this.utxoList)
         .to(this.recipientAddr, this.mathService.accMul(this.amount, 100000000))
         .fee(this.mathService.accMul(this.fee, 100000000))
-        .change(this.privateKey.bchAddress)
+        .change(this.cashAddress)
         .sign(this.privateKey.bchPrivateKey);
 
-    const pKey = bitcash.PrivateKey.fromWIF(this.privateKey.bchPrivateKey);
-    transaction.sign(pKey);
+    // const pKey = bitcash.PrivateKey.fromWIF(this.privateKey.bchPrivateKey);
+    // transaction.sign(pKey);
 
     const rawHex = transaction.toBuffer().toString('hex');
 
@@ -115,9 +117,9 @@ export class WalletBchSendPage implements OnInit {
     for ( let i = 0; i < this.txList.length; i++) {
       // tslint:disable-next-line:prefer-for-of
       for ( let j = 0; j < this.txList[i].txouts.length; j++) {
-        if (this.txList[i].txouts[j].addresses[0] === this.privateKey.bchAddress && this.txList[i].txouts[j].spent === false) {
+        if (this.txList[i].txouts[j].addresses[0] === this.cashAddress && this.txList[i].txouts[j].spent === false) {
           const utxo = new BitcoreBchUtxo();
-          utxo.address = this.privateKey.bchAddress;
+          utxo.address = this.cashAddress;
           utxo.txid = this.txList[i].txid;
           utxo.vout = j;
           utxo.scriptPubKey = this.txList[i].txouts[j].script.hex;

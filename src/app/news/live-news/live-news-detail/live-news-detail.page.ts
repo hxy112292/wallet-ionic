@@ -46,6 +46,8 @@ export class LiveNewsDetailPage implements OnInit {
 
   doRefresh(event) {
     console.log('Begin async operation');
+    this.pageNum = 1;
+    this.commentList = [];
     this.getLiveNewsDetail();
     this.getLiveNewsComment();
     setTimeout(() => {
@@ -95,6 +97,8 @@ export class LiveNewsDetailPage implements OnInit {
     this.myComment.newsId = this.liveNews.id;
     this.myComment.username = this.userService.user.username;
     this.http.post(this.constant.walletBackendUrl + '/liveNews/detail/comment', this.myComment).subscribe( res => {
+      this.commentList = [];
+      this.pageNum = 1;
       this.getLiveNewsComment();
     });
   }
@@ -105,6 +109,8 @@ export class LiveNewsDetailPage implements OnInit {
         id: comment.id
       }
     }).subscribe( res => {
+      this.commentList = [];
+      this.pageNum = 1;
       this.getLiveNewsComment();
     });
   }
@@ -123,6 +129,8 @@ export class LiveNewsDetailPage implements OnInit {
     }).subscribe( res => {
       if (!(res as any).result) {
         this.http.post(this.constant.walletBackendUrl + '/liveNews/detail/comment/like', like).subscribe( res1 => {
+          this.commentList = [];
+          this.pageNum = 1;
           this.getLiveNewsComment();
         });
       } else {
@@ -131,6 +139,8 @@ export class LiveNewsDetailPage implements OnInit {
             commentId
           }
         }).subscribe( res1 => {
+          this.commentList = [];
+          this.pageNum = 1;
           this.getLiveNewsComment();
         });
       }

@@ -5,14 +5,14 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="sort" value="4" (ionChange)="getChangeMax()">
-      <ion-segment-button value="4">今天</ion-segment-button>
-      <ion-segment-button value="2">24小时</ion-segment-button>
-      <ion-segment-button value="3">7天</ion-segment-button>
-      <ion-segment-button value="1">1小时</ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+<!--  <ion-toolbar>-->
+<!--    <ion-segment [(ngModel)]="sort" value="4" (ionChange)="getChangeMax()">-->
+<!--      <ion-segment-button value="4">今天</ion-segment-button>-->
+<!--      <ion-segment-button value="2">24小时</ion-segment-button>-->
+<!--      <ion-segment-button value="3">7天</ion-segment-button>-->
+<!--      <ion-segment-button value="1">1小时</ion-segment-button>-->
+<!--    </ion-segment>-->
+<!--  </ion-toolbar>-->
 </ion-header>
 
 <ion-content>
@@ -28,10 +28,10 @@
             TOP30 币种
           </ion-col>
           <ion-col size="4" style="color: grey;font-size: 15px">
-            涨幅
+            价格
           </ion-col>
           <ion-col size="3" style="color: grey;font-size: 15px">
-            价格
+            涨幅
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -56,20 +56,23 @@
             </ion-col>
             <ion-col size="4">
               <ion-row>
-                <ion-text>+{{coin.change_percent | number : '1.2-2'}}%</ion-text>
+                ${{coin.price | number : '1.2-6'}}
               </ion-row>
               <ion-row>
                 <ion-text style="font-size: small;color: grey">Vol：${{coin.volume/100000000 | number :'1.3-3'}}亿</ion-text>
               </ion-row>
             </ion-col>
             <ion-col size="3">
-              <ion-row>
-                ${{coin.price | number : '1.2-6'}}
-              </ion-row>
-              <ion-row style="font-size: small">
-                <ion-text color="success">最高：{{coin.high | number: '1.2-6'}}</ion-text>
-                <ion-text color="danger">最低：{{coin.low | number: '1.2-6'}}</ion-text>
-              </ion-row>
+              <div *ngIf="coin.change_percent > 0" style="background-color: #2dd36f;text-align: center;padding: 3px;border-radius: 5px">
+                <ion-text style="color: white">+{{coin.change_percent | number : '.2-2'}}%</ion-text>
+              </div>
+              <div *ngIf="coin.change_percent <= 0" style="background-color: red;text-align: center;padding: 3px;border-radius: 5px">
+                <ion-text style="color: white">{{coin.change_percent | number : '.2-2'}}%</ion-text>
+              </div>
+              <!--              <ion-row style="font-size: small">-->
+              <!--                <ion-text color="success">最高：{{coin.high | number: '1.2-6'}}</ion-text>-->
+              <!--                <ion-text color="danger">最低：{{coin.low | number: '1.2-6'}}</ion-text>-->
+              <!--              </ion-row>-->
             </ion-col>
           </ion-row>
         </ion-grid>

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VipPageRoutingModule } from './vip-routing.module';
+import { UpdatePasswordPageRoutingModule } from './update-password-routing.module';
 
-import { VipPage } from './vip.page';
+import { UpdatePasswordPage } from './update-password.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VipPageRoutingModule
+    UpdatePasswordPageRoutingModule
   ],
-  declarations: [VipPage]
+  declarations: [UpdatePasswordPage]
 })
-export class VipPageModule {}
+export class UpdatePasswordPageModule {}

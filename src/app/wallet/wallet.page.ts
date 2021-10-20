@@ -84,7 +84,7 @@ export class WalletPage implements OnInit {
       ethWallet.style.display = 'none';
       bchWallet.style.display = 'none';
       ltcWallet.style.display = 'none';
-      xrpWallet.style.display = 'none';
+      // xrpWallet.style.display = 'none';
       caretDown.style.display = 'none';
       caretForward.style.display = 'inline';
     } else {
@@ -92,7 +92,7 @@ export class WalletPage implements OnInit {
       ethWallet.style.display = 'inline';
       bchWallet.style.display = 'inline';
       ltcWallet.style.display = 'inline';
-      xrpWallet.style.display = 'inline';
+      // xrpWallet.style.display = 'inline';
       caretDown.style.display = 'inline';
       caretForward.style.display = 'none';
     }

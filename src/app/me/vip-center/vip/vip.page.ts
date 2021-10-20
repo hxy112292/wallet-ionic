@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../service/constant.service';
-import {UserService} from '../../service/user.service';
-import {AlertService} from '../../service/alert.service';
+import {ConstantService} from '../../../service/constant.service';
+import {UserService} from '../../../service/user.service';
+import {AlertService} from '../../../service/alert.service';
 import {Router} from '@angular/router';
-import {Product} from '../../entity/product';
-import {ProductSku} from '../../entity/product-sku';
-import {Order} from '../../entity/order';
-import {CartProduct} from '../../entity/cart-product';
+import {Product} from '../../../entity/product';
+import {ProductSku} from '../../../entity/product-sku';
+import {Order} from '../../../entity/order';
+import {CartProduct} from '../../../entity/cart-product';
 
 @Component({
   selector: 'app-vip',
@@ -38,7 +38,7 @@ export class VipPage implements OnInit {
       type: '',
       updateTime: ''
     };
-    this.sku = {id: 1, price: 0, sku: ''};
+    this.sku = {id: 1, price: 2, sku: ''};
     this.order = {
       fromAddr: '',
       toAddr: '',
@@ -59,6 +59,7 @@ export class VipPage implements OnInit {
       }
     }).subscribe(res => {
       this.product = (res as any).result[0];
+      this.sku = this.product.skuList[0];
     });
   }
 
@@ -76,21 +77,11 @@ export class VipPage implements OnInit {
   }
 
   createOrder() {
-    const cartProduct = new CartProduct();
-    cartProduct.productId = this.product.id;
-    cartProduct.num = 1;
-    cartProduct.name = this.product.name;
-    cartProduct.description = this.product.description;
-    cartProduct.originalPrice = this.product.originalPrice;
-    cartProduct.price = this.product.price;
-    cartProduct.type = this.product.type;
-    cartProduct.imageUrl = this.product.imageUrl;
-    cartProduct.sku = this.product.skuList.find((item) => {if (item.id === this.sku.id) { return item; }});
-    this.order.productList = [cartProduct];
-    this.order.totalFee = cartProduct.sku.price;
-    this.http.post(this.constant.walletBackendUrl + '/order', this.order).subscribe( res => {
-      this.order = (res as any).result;
-      this.router.navigate(['/wallet-eth-pay', {order: JSON.stringify(this.order)}]);
-    });
+    this.router.navigate(['/wallet-eth-pay', {product: JSON.stringify(this.product), sku: JSON.stringify(this.sku)}]);
+  }
+
+  radioGroupChange(event: any) {
+    const skuId = Number(event.detail.value);
+    this.sku = this.product.skuList.filter(item => item.id === skuId)[0];
   }
 }

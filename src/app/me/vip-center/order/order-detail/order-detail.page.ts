@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../service/constant.service';
-import {UserService} from '../../../service/user.service';
-import {AlertService} from '../../../service/alert.service';
+import {ConstantService} from '../../../../service/constant.service';
+import {UserService} from '../../../../service/user.service';
+import {AlertService} from '../../../../service/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Order} from '../../../entity/order';
+import {Order} from '../../../../entity/order';
 import {Clipboard} from '@ionic-native/clipboard/ngx';
 import {ToastController} from '@ionic/angular';
-import {BrowserService} from '../../../service/browser.service';
+import {BrowserService} from '../../../../service/browser.service';
 
 @Component({
   selector: 'app-order-detail',
