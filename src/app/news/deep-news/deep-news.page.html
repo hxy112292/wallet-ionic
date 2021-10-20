@@ -14,7 +14,7 @@
 <!--            <ion-text style="color: black;font-size: large">{{deepNews.title}}</ion-text>-->
 <!--        </ion-card-content>-->
 <!--    </ion-card>-->
-    <ion-card style="width: 100%" (click)="toDeepNewsDetail(deepNews)">
+    <ion-card (click)="toDeepNewsDetail(deepNews)">
         <ion-card-header>
             <ion-card-subtitle>
                 <ion-text>#{{i+1}} {{deepNews.extra.author}}， {{deepNews.extra.published_at*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</ion-text>
